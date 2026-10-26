@@ -1,0 +1,1161 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Seren 7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,0..100,0..1;1,9..144,300..600,0..100,0..1&family=Onest:wght@400;500;600&display=swap">
+<style>
+/* Layout: one conversation column (720px) beside a quiet sidebar; the living orb is the single bold element and docks into the header once you talk. */
+:root {
+  --ink: #0B0B11;
+  --ink-2: #101018;
+  --veil: rgba(255,255,255,.045);
+  --veil-2: rgba(255,255,255,.075);
+  --line: rgba(236,234,255,.09);
+  --line-2: rgba(236,234,255,.17);
+  --text: #ECEAF3;
+  --text-2: #A7A4B6;
+  --text-3: #6E6B82;
+  --pearl: #F2EFEA;
+  --pearl-ink: #0B0B11;
+  --iris-a: #FFB59C;
+  --iris-b: #FF8DBA;
+  --iris-c: #A99BFF;
+  --iris-d: #7FE0D2;
+  --halo: rgba(169,155,255,.22);
+  --halo-2: rgba(255,141,186,.12);
+  --live: #7FE0B0;
+  --scrim: rgba(5,5,10,.62);
+  --glass: rgba(16,16,24,.74);
+  --code: rgba(255,255,255,.05);
+  --shadow: 0 24px 60px -24px rgba(0,0,0,.7), 0 2px 10px rgba(0,0,0,.35);
+  --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-ui: "Onest", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --orb: 148px;
+  --side: 288px;
+  --ease: cubic-bezier(.2,.8,.2,1);
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --ink: #F3F2F6; --ink-2: #EBEAF1; --veil: rgba(255,255,255,.78); --veil-2: rgba(24,20,44,.05);
+    --line: rgba(24,20,44,.09); --line-2: rgba(24,20,44,.17); --text: #16141D; --text-2: #575366; --text-3: #8A8699;
+    --pearl: #16141D; --pearl-ink: #F3F2F6; --iris-a: #E2704F; --iris-b: #D04E8A; --iris-c: #6A57EC; --iris-d: #14998A;
+    --halo: rgba(106,87,236,.16); --halo-2: rgba(208,78,138,.10); --live: #14996A; --scrim: rgba(22,20,34,.32);
+    --glass: rgba(243,242,246,.8); --code: rgba(24,20,44,.045);
+    --shadow: 0 24px 50px -26px rgba(44,32,96,.28), 0 2px 8px rgba(44,32,96,.07);
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --ink: #F3F2F6; --ink-2: #EBEAF1; --veil: rgba(255,255,255,.78); --veil-2: rgba(24,20,44,.05);
+  --line: rgba(24,20,44,.09); --line-2: rgba(24,20,44,.17); --text: #16141D; --text-2: #575366; --text-3: #8A8699;
+  --pearl: #16141D; --pearl-ink: #F3F2F6; --iris-a: #E2704F; --iris-b: #D04E8A; --iris-c: #6A57EC; --iris-d: #14998A;
+  --halo: rgba(106,87,236,.16); --halo-2: rgba(208,78,138,.10); --live: #14996A; --scrim: rgba(22,20,34,.32);
+  --glass: rgba(243,242,246,.8); --code: rgba(24,20,44,.045);
+  --shadow: 0 24px 50px -26px rgba(44,32,96,.28), 0 2px 8px rgba(44,32,96,.07);
+  color-scheme: light;
+}
+@media (min-width: 900px) { :root { --orb: 188px; } }
+
+html, body { height: 100%; }
+body { background: var(--ink); color: var(--text); font-family: var(--font-ui); font-size: 15px; line-height: 1.5; overflow: hidden; -webkit-font-smoothing: antialiased; }
+* { box-sizing: border-box; }
+button, input, textarea { font: inherit; color: inherit; }
+button { background: none; border: 0; padding: 0; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--iris-c); outline-offset: 2px; border-radius: 10px; }
+svg { display: block; }
+.grain { position: fixed; inset: 0; pointer-events: none; z-index: 70; opacity: .05; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* ---------- shell ---------- */
+.app { display: flex; height: 100%; position: relative; isolation: isolate; }
+.aura { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.aura::before, .aura::after { content: ""; position: absolute; border-radius: 50%; filter: blur(60px); transition: opacity 1.2s var(--ease), transform 1.6s var(--ease); }
+.aura::before { width: 70vmax; height: 50vmax; left: 50%; top: 18%; transform: translate(-30%, -40%); background: radial-gradient(closest-side, var(--halo), transparent); }
+.aura::after { width: 50vmax; height: 40vmax; left: 50%; top: 30%; transform: translate(-80%, -30%); background: radial-gradient(closest-side, var(--halo-2), transparent); }
+.app[data-state="chat"] .aura::before, .app[data-state="chat"] .aura::after { opacity: .35; }
+
+/* ---------- sidebar ---------- */
+.sidebar { width: var(--side); flex: none; display: flex; flex-direction: column; background: var(--ink-2); border-right: 1px solid var(--line); transition: margin-left .45s var(--ease), transform .45s var(--ease); min-height: 0; }
+.side-top { display: flex; align-items: center; justify-content: space-between; padding: 14px 12px 8px 18px; }
+.wordmark { display: flex; align-items: center; gap: 9px; font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: 26px; letter-spacing: -.01em; font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 72; }
+.dot { width: 14px; height: 14px; border-radius: 50%; flex: none; background: conic-gradient(from 210deg, var(--iris-a), var(--iris-b), var(--iris-c), var(--iris-d), var(--iris-a)); box-shadow: 0 0 12px var(--halo); animation: spin 9s linear infinite; }
+.side-actions { display: grid; gap: 8px; padding: 6px 12px 10px; }
+.btn-new { display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--veil); font-weight: 500; transition: border-color .2s, background .2s; }
+.btn-new:hover { border-color: var(--line-2); background: var(--veil-2); }
+.btn-new kbd { margin-left: auto; font-family: var(--font-mono); font-size: 11px; color: var(--text-3); }
+.search { display: flex; align-items: center; gap: 8px; height: 38px; padding: 0 12px; border-radius: 12px; background: var(--veil-2); color: var(--text-3); }
+.search input { flex: 1; min-width: 0; border: 0; background: transparent; outline: none; font-size: 14px; color: var(--text); }
+.search input::placeholder { color: var(--text-3); }
+.side-scroll { flex: 1; min-height: 0; overflow-y: auto; padding: 4px 8px 16px; }
+.label { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--text-3); padding: 14px 10px 6px; display: flex; align-items: center; gap: 8px; }
+.label .count { margin-left: auto; letter-spacing: .04em; }
+.agent { width: 100%; text-align: left; display: grid; grid-template-columns: 28px 1fr; gap: 2px 10px; padding: 8px 10px; border-radius: 12px; transition: background .2s; }
+.agent:hover, .thread-link:hover { background: var(--veil-2); }
+.ring { grid-row: span 2; width: 28px; height: 28px; position: relative; display: grid; place-items: center; }
+.ring svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+.ring .track { stroke: var(--line-2); }
+.ring .bar { stroke: url(#irisStroke); stroke-linecap: round; transition: stroke-dashoffset 1s var(--ease); }
+.ring .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--live); box-shadow: 0 0 0 0 var(--live); animation: ping 2.4s ease-out infinite; }
+.ring .tick { color: var(--live); }
+.agent-title { font-size: 13.5px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.agent-meta { font-size: 12px; color: var(--text-3); font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.ring svg.tick { position: static; transform: none; }
+.agent-steps { margin: 0 10px 10px 48px; padding: 0; list-style: none; display: grid; gap: 4px; font-size: 12px; color: var(--text-2); }
+.agent-steps li { display: flex; gap: 8px; }
+.agent-steps li::before { content: ""; width: 5px; height: 5px; margin-top: 7px; border-radius: 50%; background: var(--text-3); flex: none; }
+.agent-steps li.done::before { background: var(--live); }
+.thread-link { width: 100%; text-align: left; display: block; padding: 8px 10px; border-radius: 10px; font-size: 14px; color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: background .2s, color .2s; }
+.thread-link.active { background: var(--veil-2); color: var(--text); }
+.empty-search { padding: 8px 10px; font-size: 13px; color: var(--text-3); }
+.side-foot { border-top: 1px solid var(--line); padding: 12px 12px 14px 14px; display: flex; align-items: center; gap: 10px; }
+.avatar { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-weight: 600; font-size: 13px; color: var(--pearl-ink); background: linear-gradient(135deg, var(--iris-a), var(--iris-c)); flex: none; }
+.who { min-width: 0; flex: 1; }
+.who b { display: block; font-weight: 500; font-size: 14px; }
+.who span { font-size: 12px; color: var(--text-3); }
+.theme-switch { display: flex; padding: 3px; gap: 2px; border-radius: 999px; background: var(--veil-2); }
+.theme-switch button { width: 28px; height: 26px; border-radius: 999px; display: grid; place-items: center; color: var(--text-3); transition: background .2s, color .2s; }
+.theme-switch button[aria-pressed="true"] { background: var(--veil); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,.15); }
+.scrim { display: none; }
+
+/* ---------- main ---------- */
+.main { flex: 1; min-width: 0; display: flex; flex-direction: column; position: relative; }
+.topbar { height: 58px; flex: none; display: flex; align-items: center; gap: 6px; padding: 0 max(12px, env(safe-area-inset-right, 0px)) 0 max(12px, env(safe-area-inset-left, 0px)); position: relative; z-index: 40; }
+.icon-btn { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; color: var(--text-2); transition: background .2s, color .2s; flex: none; }
+.icon-btn:hover { background: var(--veil-2); color: var(--text); }
+.model-btn { display: flex; align-items: center; gap: 9px; height: 40px; padding: 0 12px 0 10px; border-radius: 14px; transition: background .2s; min-width: 0; }
+.model-btn:hover, .model-btn[aria-expanded="true"] { background: var(--veil-2); }
+.model-name { font-family: var(--font-display); font-size: 19px; font-weight: 400; letter-spacing: -.005em; white-space: nowrap; font-variation-settings: "SOFT" 60, "opsz" 36; }
+.model-name i { font-style: italic; color: var(--text-2); }
+.orb-slot { width: 22px; height: 22px; flex: none; position: relative; }
+.orb-slot .dot { position: absolute; inset: 3px; width: auto; height: auto; transition: opacity .5s; }
+.app[data-state="chat"] .orb-slot .dot { opacity: 0; }
+.chev { color: var(--text-3); }
+.top-spacer { flex: 1; }
+.agents-pill { display: none; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line); font-size: 12.5px; color: var(--text-2); }
+.agents-pill i { width: 6px; height: 6px; border-radius: 50%; background: var(--live); animation: ping 2.4s ease-out infinite; }
+.menu { position: absolute; top: 54px; left: 16px; width: min(330px, calc(100vw - 32px)); padding: 6px; border-radius: 18px; background: var(--glass); border: 1px solid var(--line); box-shadow: var(--shadow); backdrop-filter: blur(24px) saturate(1.4); -webkit-backdrop-filter: blur(24px) saturate(1.4); z-index: 60; transform-origin: top center; animation: pop .22s var(--ease); }
+.menu-item { width: 100%; text-align: left; display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 10px 12px; border-radius: 12px; transition: background .15s; }
+.menu-item:hover { background: var(--veil-2); }
+.menu-item b { font-weight: 500; font-size: 14.5px; }
+.menu-item span { grid-column: 1; font-size: 12.5px; color: var(--text-3); }
+.menu-item svg { grid-row: span 2; align-self: center; color: var(--iris-c); opacity: 0; }
+.menu-item[aria-checked="true"] svg { opacity: 1; }
+.menu-note { font-size: 11.5px; color: var(--text-3); padding: 8px 12px 6px; border-top: 1px solid var(--line); margin-top: 4px; }
+</style>
+<style>
+/* ---------- stage ---------- */
+.stage { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.scroller { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; scroll-behavior: smooth;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 18px, #000 calc(100% - 28px), transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 18px, #000 calc(100% - 28px), transparent 100%); }
+.app[data-state="empty"] .thread { display: none; }
+.app[data-state="chat"] .hero { display: none; }
+.hero { min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 18px; padding: 8px 16px 24px; transition: opacity .3s, transform .4s var(--ease); }
+.hero.leaving { opacity: 0; transform: translateY(-10px); }
+.orb-anchor { width: var(--orb); height: var(--orb); flex: none; margin-bottom: 6px; }
+.kicker { font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--text-3); display: flex; align-items: center; gap: 10px; font-variant-numeric: tabular-nums; margin: 0; }
+.kicker i { width: 6px; height: 6px; border-radius: 50%; background: var(--live); box-shadow: 0 0 10px var(--live); }
+.headline { margin: 0; font-family: var(--font-display); font-weight: 300; font-size: clamp(36px, 9.6vw, 62px); line-height: 1.02; letter-spacing: -.025em; text-wrap: balance; max-width: 14ch; font-variation-settings: "SOFT" 50, "opsz" 144; }
+.headline em { display: block; font-style: italic; font-weight: 300; font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 144; padding: 0 .06em .08em;
+  background: linear-gradient(100deg, var(--iris-a), var(--iris-b) 30%, var(--iris-c) 60%, var(--iris-d) 85%, var(--iris-a));
+  background-size: 260% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: drift 14s linear infinite; }
+
+/* ---------- orb ---------- */
+.orb { position: fixed; left: 0; top: 0; width: var(--orb); height: var(--orb); z-index: 30; pointer-events: none; transform-origin: 0 0; will-change: transform; }
+.orb.animate { transition: transform 1s var(--ease), opacity .6s; }
+.orb.hidden { opacity: 0; }
+.orb-inner { position: absolute; inset: 0; animation: breathe 7s ease-in-out infinite; }
+.orb-glow { position: absolute; inset: -26%; border-radius: 50%; background: conic-gradient(from 0deg, var(--iris-a), var(--iris-b), var(--iris-c), var(--iris-d), var(--iris-a)); filter: blur(34px); opacity: .32; animation: spin 18s linear infinite; transition: opacity .6s, inset .6s var(--ease); }
+.app[data-state="chat"] .orb .orb-glow { opacity: .55; inset: -10%; filter: blur(30px); }
+.orb[data-energy="high"] .orb-glow { opacity: .62; }
+.orb canvas, .orb .orb-fallback { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 50%; }
+.orb-fallback { background: radial-gradient(circle at 34% 28%, rgba(255,255,255,.85), transparent 18%), conic-gradient(from 120deg, var(--iris-a), var(--iris-b), var(--iris-c), var(--iris-d), var(--iris-a)); animation: spin 12s linear infinite; box-shadow: inset -10px -14px 30px rgba(0,0,0,.25); }
+
+/* ---------- dock & composer ---------- */
+.dock { flex: none; display: flex; flex-direction: column; gap: 12px; padding: 4px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.dock > * { width: 100%; max-width: 760px; margin-inline: auto; }
+.suggestions { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 2px 2px 4px; scrollbar-width: none; }
+.suggestions::-webkit-scrollbar { display: none; }
+.app[data-state="chat"] .suggestions { display: none; }
+.sugg { flex: 0 0 auto; width: 214px; scroll-snap-align: start; text-align: left; display: grid; grid-template-columns: 30px 1fr; gap: 1px 10px; align-items: center; padding: 11px 14px 11px 11px; border-radius: 16px; border: 1px solid var(--line); background: var(--veil); transition: border-color .2s, transform .2s var(--ease), background .2s; }
+.sugg:hover { border-color: var(--line-2); background: var(--veil-2); transform: translateY(-1px); }
+.sugg .glyph { grid-row: span 2; width: 30px; height: 30px; border-radius: 10px; display: grid; place-items: center; background: var(--veil-2); color: var(--iris-c); font-family: var(--font-display); font-style: italic; font-size: 17px; }
+.sugg b { font-weight: 500; font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.sugg span { font-size: 12px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.composer { position: relative; border-radius: 26px; border: 1px solid var(--line); background: var(--glass); backdrop-filter: blur(24px) saturate(1.3); -webkit-backdrop-filter: blur(24px) saturate(1.3); box-shadow: var(--shadow); padding: 12px 10px 10px 16px; display: grid; gap: 8px; transition: border-color .3s, box-shadow .3s; }
+.composer::before { content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; pointer-events: none; opacity: 0; transition: opacity .4s;
+  background: linear-gradient(120deg, var(--iris-a), var(--iris-b), var(--iris-c), var(--iris-d));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); }
+.composer:focus-within::before { opacity: .7; }
+.composer textarea { width: 100%; min-height: 26px; max-height: 200px; resize: none; border: 0; outline: none; background: transparent; font-size: 16px; line-height: 1.55; padding: 2px 4px 0 2px; }
+.composer textarea::placeholder { color: var(--text-3); }
+.composer-row { display: flex; align-items: center; gap: 8px; }
+.chip { display: inline-flex; align-items: center; gap: 7px; height: 34px; padding: 0 12px 0 10px; border-radius: 999px; border: 1px solid var(--line); font-size: 13px; color: var(--text-2); transition: all .2s; }
+.chip:hover { border-color: var(--line-2); color: var(--text); }
+.chip[aria-pressed="true"] { color: var(--text); border-color: transparent; background: linear-gradient(var(--veil-2), var(--veil-2)) padding-box, linear-gradient(120deg, var(--iris-a), var(--iris-c), var(--iris-d)) border-box; border: 1px solid transparent; }
+.chip[aria-pressed="true"] svg { color: var(--iris-c); }
+.send { margin-left: auto; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: var(--pearl); color: var(--pearl-ink); transition: transform .2s var(--ease), opacity .2s; }
+.send:hover { transform: scale(1.05); }
+.send:disabled { opacity: .28; cursor: default; transform: none; }
+.send .i-stop { display: none; }
+.app.busy .send .i-up { display: none; }
+.app.busy .send .i-stop { display: block; }
+.footnote { margin: 0; text-align: center; font-size: 11.5px; color: var(--text-3); }
+
+/* ---------- conversation ---------- */
+.thread { max-width: 760px; margin: 0 auto; padding: 18px 16px 48px; display: flex; flex-direction: column; gap: 30px; }
+.msg-user { align-self: flex-end; max-width: 84%; padding: 10px 16px; border-radius: 20px 20px 6px 20px; background: var(--veil-2); border: 1px solid var(--line); white-space: pre-wrap; overflow-wrap: anywhere; animation: rise .5s var(--ease); }
+.msg-ai { display: grid; gap: 10px; min-width: 0; animation: rise .5s var(--ease); }
+.msg-meta { display: flex; align-items: center; gap: 9px; min-height: 26px; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .03em; color: var(--text-3); font-variant-numeric: tabular-nums; }
+.m-name { color: var(--text-2); }
+.msg-meta .dot { width: 12px; height: 12px; }
+.thinking { display: inline-flex; align-items: center; gap: 12px; }
+.shimmer { font-family: var(--font-display); font-style: italic; font-size: 17px; letter-spacing: 0; text-transform: none; font-variation-settings: "SOFT" 100, "WONK" 1;
+  background: linear-gradient(90deg, var(--text-3) 0%, var(--text-3) 35%, var(--text) 50%, var(--text-3) 65%, var(--text-3) 100%); background-size: 250% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent; animation: sweep 2.2s linear infinite; }
+.phrase { font-family: var(--font-ui); letter-spacing: 0; text-transform: none; font-size: 12.5px; color: var(--text-3); transition: opacity .35s; }
+.prose { font-size: 16px; line-height: 1.7; min-width: 0; overflow-wrap: break-word; max-width: 68ch; }
+.prose > :first-child { margin-top: 0; }
+.prose > :last-child { margin-bottom: 0; }
+.prose p, .prose ul, .prose ol, .prose blockquote, .prose pre { margin: 0 0 14px; }
+.prose h1, .prose h2, .prose h3 { font-family: var(--font-display); font-weight: 400; letter-spacing: -.01em; line-height: 1.2; margin: 22px 0 8px; font-variation-settings: "SOFT" 60, "opsz" 48; }
+.prose h1 { font-size: 26px; } .prose h2 { font-size: 22px; } .prose h3 { font-size: 18.5px; }
+.prose ul, .prose ol { padding-left: 1.3em; }
+.prose li { margin: 4px 0; padding-left: 2px; }
+.prose li::marker { color: var(--iris-c); }
+.prose strong { font-weight: 600; }
+.prose a { color: var(--iris-c); text-underline-offset: 3px; }
+.prose code { font-family: var(--font-mono); font-size: .88em; padding: .1em .38em; border-radius: 6px; background: var(--code); border: 1px solid var(--line); }
+.prose pre { overflow-x: auto; padding: 14px 16px; border-radius: 14px; background: var(--code); border: 1px solid var(--line); font-size: 13px; line-height: 1.6; }
+.prose pre code { padding: 0; border: 0; background: none; font-size: inherit; }
+.prose blockquote { padding: 2px 0 2px 16px; border-left: 2px solid var(--iris-c); color: var(--text-2); font-family: var(--font-display); font-style: italic; font-size: 17px; }
+.prose hr { border: 0; height: 1px; background: var(--line); margin: 20px 0; }
+.prose .w { animation: ink .7s var(--ease) backwards; }
+.prose .w.lite { animation-name: inkLite; }
+.notice { font-size: 13px; color: var(--text-2); padding: 10px 14px; border-radius: 12px; border: 1px dashed var(--line-2); }
+.actions { display: flex; gap: 2px; margin-left: -8px; opacity: .85; transition: opacity .2s; }
+.actions .icon-btn { width: 32px; height: 32px; border-radius: 10px; color: var(--text-3); }
+.actions .icon-btn[aria-pressed="true"] { color: var(--iris-c); }
+@media (hover: hover) { .msg-ai .actions { opacity: 0; } .msg-ai:hover .actions, .msg-ai:focus-within .actions, .msg-ai.last .actions { opacity: 1; } }
+.toast { position: fixed; left: 50%; bottom: calc(110px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 10px); padding: 9px 16px; border-radius: 999px; background: var(--pearl); color: var(--pearl-ink); font-size: 13px; font-weight: 500; opacity: 0; pointer-events: none; transition: opacity .25s, transform .3s var(--ease); z-index: 80; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 899px) {
+  .sidebar { position: fixed; z-index: 50; inset: 0 auto 0 0; width: min(86vw, 320px); transform: translateX(-104%); padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); box-shadow: var(--shadow); }
+  .app.nav-open .sidebar { transform: none; }
+  .scrim { display: block; position: fixed; inset: 0; z-index: 45; background: var(--scrim); opacity: 0; pointer-events: none; transition: opacity .35s; backdrop-filter: blur(2px); }
+  .app.nav-open .scrim { opacity: 1; pointer-events: auto; }
+  .model-btn { position: absolute; left: 50%; transform: translateX(-50%); }
+  .hide-mobile { display: none; }
+}
+@media (min-width: 900px) {
+  .app.nav-collapsed .sidebar { margin-left: calc(-1 * var(--side)); }
+  .hide-desktop { display: none; }
+  .agents-pill { display: inline-flex; }
+  .topbar { padding-inline: 14px 18px; }
+  .app[data-state="empty"] .stage { justify-content: center; padding-bottom: 6vh; }
+  .app[data-state="empty"] .scroller { flex: 0 0 auto; overflow: visible; -webkit-mask-image: none; mask-image: none; }
+  .app[data-state="empty"] .hero { min-height: 0; padding-bottom: 30px; }
+  .app[data-state="empty"] .suggestions { order: 2; display: grid; grid-template-columns: repeat(2, 1fr); overflow: visible; }
+  .app[data-state="empty"] .footnote { order: 3; }
+  .sugg { width: auto; }
+  .thread { padding-top: 26px; }
+}
+@media (min-width: 1200px) { .app[data-state="empty"] .suggestions { grid-template-columns: repeat(4, 1fr); } .app[data-state="empty"] .dock > .suggestions { max-width: 920px; } }
+
+/* ---------- motion ---------- */
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes drift { to { background-position: 260% 0; } }
+@keyframes sweep { from { background-position: 125% 0; } to { background-position: -125% 0; } }
+@keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.025); } }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--live) 60%, transparent); } 80%, 100% { box-shadow: 0 0 0 7px transparent; } }
+@keyframes pop { from { opacity: 0; transform: translateY(-6px) scale(.97); } }
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } }
+@keyframes ink { from { opacity: 0; filter: blur(5px); } to { opacity: 1; filter: blur(0); } }
+@keyframes inkLite { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="irisStroke" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" style="stop-color: var(--iris-a)"/><stop offset=".5" style="stop-color: var(--iris-b)"/><stop offset="1" style="stop-color: var(--iris-c)"/>
+    </linearGradient>
+  </defs>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 8h16M4 16h11"/></symbol>
+  <symbol id="i-side" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="4"/><path d="M9.5 4.5v15"/></symbol>
+  <symbol id="i-new" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.5H7.5a3 3 0 0 0-3 3v9a3 3 0 0 0 3 3h9a3 3 0 0 0 3-3V13"/><path d="M17.6 3.9a1.8 1.8 0 0 1 2.5 2.5L13 13.5l-3.3.8.8-3.3z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m7 10 5 5 5-5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2.5" fill="currentColor"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="8.5" y="8.5" width="11" height="11" rx="3"/><path d="M15.5 8.5V7a2.5 2.5 0 0 0-2.5-2.5H7A2.5 2.5 0 0 0 4.5 7v6A2.5 2.5 0 0 0 7 15.5h1.5"/></symbol>
+  <symbol id="i-speak" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 9.5v5h3.5l4.5 4v-13l-4.5 4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+  <symbol id="i-redo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M19.5 4.5v4h-4"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14.5V4M8 7.5l4-3.5 4 3.5"/><path d="M8 11H7a2.5 2.5 0 0 0-2.5 2.5v4A2.5 2.5 0 0 0 7 20h10a2.5 2.5 0 0 0 2.5-2.5v-4A2.5 2.5 0 0 0 17 11h-1"/></symbol>
+  <symbol id="i-orbit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(-25 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(35 12 12)" opacity=".55"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="3.6"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z"/></symbol>
+  <symbol id="i-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="7.5"/><path d="M12 4.5a7.5 7.5 0 0 1 0 15z" fill="currentColor" stroke="none"/></symbol>
+</svg>
+
+<div class="grain" aria-hidden="true"></div>
+
+<div class="app" id="app" data-state="empty">
+  <div class="aura" aria-hidden="true"></div>
+
+  <aside class="sidebar" id="sidebar" aria-label="Threads and agents">
+    <div class="side-top">
+      <div class="wordmark"><span class="dot" aria-hidden="true"></span>seren</div>
+      <button class="icon-btn hide-mobile" id="collapseBtn" aria-label="Hide sidebar"><svg width="20" height="20"><use href="#i-side"/></svg></button>
+      <button class="icon-btn hide-desktop" id="closeNavBtn" aria-label="Close menu"><svg width="20" height="20"><use href="#i-close"/></svg></button>
+    </div>
+    <div class="side-actions">
+      <button class="btn-new" id="newBtn"><svg width="18" height="18"><use href="#i-new"/></svg>New thread<kbd class="hide-mobile">⌥ N</kbd></button>
+      <label class="search"><svg width="16" height="16"><use href="#i-search"/></svg><input id="searchInput" type="search" placeholder="Search threads" autocomplete="off"></label>
+    </div>
+    <div class="side-scroll">
+      <div class="label">Working for you <span class="count" id="agentCount">3 running</span></div>
+      <div id="agentList"></div>
+      <div id="threadList"></div>
+    </div>
+    <div class="side-foot">
+      <div class="avatar" aria-hidden="true">You</div>
+      <div class="who"><b>You</b><span>Seren Infinite</span></div>
+      <div class="theme-switch" role="group" aria-label="Theme">
+        <button data-theme-set="system" aria-label="Match system" aria-pressed="true"><svg width="15" height="15"><use href="#i-auto"/></svg></button>
+        <button data-theme-set="light" aria-label="Light" aria-pressed="false"><svg width="15" height="15"><use href="#i-sun"/></svg></button>
+        <button data-theme-set="dark" aria-label="Dark" aria-pressed="false"><svg width="15" height="15"><use href="#i-moon"/></svg></button>
+      </div>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main" id="main">
+    <header class="topbar">
+      <button class="icon-btn hide-desktop" id="openNavBtn" aria-label="Open menu"><svg width="22" height="22"><use href="#i-menu"/></svg></button>
+      <button class="icon-btn hide-mobile" id="expandBtn" aria-label="Show sidebar" hidden><svg width="20" height="20"><use href="#i-side"/></svg></button>
+      <button class="model-btn" id="modelBtn" aria-haspopup="menu" aria-expanded="false">
+        <span class="orb-slot" id="orbSlot"><span class="dot" aria-hidden="true"></span></span>
+        <span class="model-name" id="modelName">Seren 7</span>
+        <svg class="chev" width="16" height="16"><use href="#i-chev"/></svg>
+      </button>
+      <div class="top-spacer"></div>
+      <span class="agents-pill" id="agentsPill"><i></i><span id="agentsPillText">3 agents working</span></span>
+      <button class="icon-btn" id="shareBtn" aria-label="Copy conversation"><svg width="20" height="20"><use href="#i-share"/></svg></button>
+      <button class="icon-btn hide-desktop" id="newBtnTop" aria-label="New thread"><svg width="20" height="20"><use href="#i-new"/></svg></button>
+      <div class="menu" id="modelMenu" role="menu" hidden></div>
+    </header>
+
+    <div class="stage">
+      <div class="scroller" id="scroller">
+        <section class="hero" id="hero">
+          <div class="orb-anchor" id="orbAnchor" aria-hidden="true"></div>
+          <p class="kicker"><i aria-hidden="true"></i><span id="kickerText">Saturday · 2:40 AM</span></p>
+          <h1 class="headline" id="headline">The quiet hours <em>are for wondering.</em></h1>
+        </section>
+        <div class="thread" id="thread" aria-live="polite"></div>
+      </div>
+
+      <div class="dock" id="dock">
+        <div class="suggestions" id="suggestions">
+          <button class="sugg" data-sugg="kyoto"><span class="glyph" aria-hidden="true">k</span><b>Plan a slow weekend in Kyoto</b><span>Two days, nothing rushed</span></button>
+          <button class="sugg" data-sugg="dark"><span class="glyph" aria-hidden="true">d</span><b>Explain dark matter to a poet</b><span>Physics, said beautifully</span></button>
+          <button class="sugg" data-sugg="landlord"><span class="glyph" aria-hidden="true">r</span><b>Reply to my landlord</b><span>Kind, firm, about the heater</span></button>
+          <button class="sugg" data-sugg="bakery"><span class="glyph" aria-hidden="true">b</span><b>Name a bakery by the sea</b><span>Ten names, each with a story</span></button>
+        </div>
+        <form class="composer" id="composer" autocomplete="off">
+          <label for="prompt" class="sr" hidden>Message Seren</label>
+          <textarea id="prompt" rows="1" placeholder="Ask Seren anything…" aria-label="Message Seren"></textarea>
+          <div class="composer-row">
+            <button type="button" class="chip" id="thinkBtn" aria-pressed="false"><svg width="17" height="17"><use href="#i-orbit"/></svg>Think deeper</button>
+            <button type="submit" class="send" id="sendBtn" aria-label="Send" disabled>
+              <svg class="i-up" width="18" height="18"><use href="#i-up"/></svg>
+              <svg class="i-stop" width="18" height="18"><use href="#i-stop"/></svg>
+            </button>
+          </div>
+        </form>
+        <p class="footnote" id="footnote">Seren is a design concept. Replies are written live by Claude.</p>
+      </div>
+    </div>
+  </main>
+
+  <div class="orb" id="orb" aria-hidden="true">
+    <div class="orb-inner">
+      <div class="orb-glow"></div>
+      <canvas id="orbCanvas"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+<script>
+const MODELS = [
+  { id: "seren", name: "Seren 7", html: "Seren 7", desc: "Most capable. Balanced depth and speed.", tier: "default", style: "" },
+  { id: "swift", name: "Seren 7 Swift", html: "Seren 7 <i>Swift</i>", desc: "Instant answers for everyday questions.", tier: "quick", style: "Answer briefly, in a few sentences at most, unless the person asks for more." },
+  { id: "muse", name: "Seren 7 Muse", html: "Seren 7 <i>Muse</i>", desc: "For writing, ideas and play.", tier: "default", style: "Lean into vivid, original language and imaginative ideas while staying genuinely useful." }
+];
+
+const PHRASES = ["Reading your message", "Weighing a few angles", "Gathering what matters", "Choosing the words"];
+
+const AGENTS = [
+  { id: "fare", title: "Fare watch · PHX → Lisbon", kind: "live", meta: () => "Checks every 6 h · 2 alerts set", steps: [["Watching 4 airlines", 1], ["Alert below $780 round trip", 1], ["Next check in 5 h 19 min", 0]] },
+  { id: "lit", title: "Literature review: CRISPR delivery", kind: "progress", read: 138, total: 214, meta: a => `${a.read} of ${a.total} papers read`, steps: [["Collected 214 papers", 1], ["Extracting methods and results", 0], ["Summary draft comes next", 0]] },
+  { id: "memo", title: "Q4 board memo", kind: "done", meta: () => "Draft ready for your review", steps: [["Pulled numbers from finance", 1], ["Wrote a 2-page draft", 1], ["Waiting on your edits", 0]] }
+];
+
+const SUGGESTIONS = {
+  kyoto: { ask: "Plan a slow weekend in Kyoto. Two days, nothing rushed.", reply:
+`Here's a weekend that leaves room to wander.
+
+### Saturday · the east side
+- **7:00** Walk the Philosopher's Path from Ginkaku-ji toward Nanzen-ji before the crowds arrive.
+- **9:30** Step into Hōnen-in, a small moss-and-sand temple most people walk straight past.
+- **Noon** Soba near Nanzen-ji, then the old brick aqueduct behind the temple.
+- **Evening** Drift through Gion's side streets along the Shirakawa canal as the lanterns come on.
+
+### Sunday · into the hills
+- **8:00** Train north to Kurama, then hike over the ridge to Kibune. It takes about two hours, with steady climbing.
+- **Lunch** From May to September, eat on platforms built over the Kibune river (*kawadoko*). Other months, find a riverside inn.
+- **Late afternoon** Back in the city for a long soak at a neighborhood sentō before dinner.
+
+**One rule:** pick one sight per half-day and let the rest be walking. Kyoto rewards the slow lane.` },
+  dark: { ask: "Explain dark matter to me like I'm a poet.", reply:
+`Picture a carousel at night. The horses on the outer rim spin so fast they should fly off into the dark, yet they stay. Something holds them that you cannot see.
+
+Galaxies are like that. Their outer stars orbit far too quickly for the gravity of everything that shines. So astronomers inferred a hidden weight: **dark matter**, a substance that pulls but never glows, never reflects, never touches light at all.
+
+We know it only by its effects:
+- **Rotation.** Stars at a galaxy's edge keep pace when they ought to lag.
+- **Lensing.** Light from distant galaxies bends around invisible mass, like a view through old glass.
+- **Structure.** Without its pull, galaxies could not have gathered as early as they did.
+
+By current estimates, about 85% of the matter in the universe is this unseen kind. Every star, every ocean, every hand belongs to the other 15%: bright embroidery on a dark cloth whose weave we have not yet named.` },
+  landlord: { ask: "Help me write a kind but firm reply to my landlord about the broken heater.", reply:
+`Here's a draft you can send as is or adjust:
+
+**Subject:** Heater repair needed by Friday, Unit 4B
+
+Hi Dana,
+
+I'm following up on the heater in my unit, which stopped working on October 14. I reported it that day and again on the 18th, and it still isn't fixed. Nights are getting cold, and the apartment is sitting around 58°F.
+
+Could you confirm a repair visit by this Friday? I can give access any morning this week.
+
+If a repair can't happen by then, please let me know what temporary heat you can provide in the meantime.
+
+Thanks for sorting this out,
+Alex
+
+---
+
+Swap in your own names, dates and unit number. Keeping it factual and dated gives you a clear record if you need one later.` },
+  bakery: { ask: "Name a tiny bakery by the sea. Ten names, each with a story.", reply:
+`1. **Low Tide Loaves**: baked before the water comes back in.
+2. **Salt & Crumb**: the two things you taste on a sea wind.
+3. **The Gull's Share**: for the crust everyone pretends not to drop.
+4. **Brine & Butter**: focaccia with a harbor view.
+5. **Morning Fog Bakehouse**: open while the coast is still grey.
+6. **Driftwood Oven**: a wood-fired oven, fed with patience.
+7. **Sea Glass Sourdough**: worn smooth by time, like the best starters.
+8. **Little Lighthouse**: the warm window you steer toward at 7 a.m.
+9. **Tidecake**: for a shop known for one perfect cake.
+10. **Harbour Crumb**: plain, local and sure of itself.
+
+**My pick:** Low Tide Loaves. It tells people when you open, and it makes them smile.` }
+};
+
+const THREADS = [
+  { group: "Today", id: "cats", title: "Why do cats knead?", ask: "why do cats knead blankets?", reply:
+`It starts in kittenhood. Kittens knead their mother's belly to get milk flowing, so the motion stays tied to comfort and safety.
+
+Adult cats keep doing it for a few reasons:
+- **Contentment.** Kneading usually comes with purring and half-closed eyes.
+- **Scent marking.** Glands in their paw pads leave a scent that says *mine*, and that includes you.
+- **Making a bed.** Their wild ancestors pressed down grass before lying in it.
+
+If the claws come out, a thick blanket on your lap keeps it cozy for both of you.` },
+  { group: "Today", id: "lisbon", title: "Lisbon in November", ask: "is lisbon nice in november?", reply:
+`Yes, if you like quiet streets and don't mind an umbrella. Daytime highs usually sit around 16–18°C (low 60s °F), nights are cooler, and rain is likely on some days.
+
+Why it's a good month:
+- **Fewer crowds** at Belém and in Alfama, and lower hotel prices.
+- **São Martinho** on November 11, when vendors roast chestnuts on the street and people drink *água-pé* or *jeropiga*.
+- **Soft light** at the viewpoints (*miradouros*) late in the afternoon.
+
+Pack layers and shoes with grip. The stone pavements get slick in the rain.` },
+  { group: "Yesterday", id: "dough", title: "Sourdough hydration math", ask: "how do i count the starter in my hydration?", reply:
+`Split the starter into its flour and water, then add each to your totals.
+
+A 100% hydration starter is half flour and half water by weight:
+
+\`\`\`
+flour      500 g + 50 g from starter = 550 g
+water      350 g + 50 g from starter = 400 g
+hydration  400 ÷ 550 = 72.7%
+\`\`\`
+
+Leave the starter out and you'd call it 70%, which is why the dough can feel wetter than the recipe suggests.` },
+  { group: "Yesterday", id: "wren", title: "A lighthouse bedtime story", ask: "a very short bedtime story about a lighthouse", reply:
+`Once there was a lighthouse named Wren who was afraid of the dark, which is an awkward thing for a lighthouse to be.
+
+Every evening, as the sky turned the color of plums, Wren lit her lamp and swept the beam across the water. *Just checking,* she whispered. *Just checking.*
+
+One night a small boat answered. Its sailor raised a lantern and swung it in three slow circles: *thank you, thank you, thank you.*
+
+Wren understood then. Her light didn't keep the dark away. It helped someone find their way through it.
+
+After that she still checked the water every night, but now she hummed while she did it.
+
+The end. Goodnight.` },
+  { group: "Previous 7 days", id: "pay", title: "Idempotent payment retries", ask: "how do i make payment retries safe?", reply:
+`Give every charge an **idempotency key** that the client creates once and reuses on every retry. The server stores the first outcome under that key and returns it again for repeats, so a retry can never charge twice.
+
+\`\`\`ts
+async function charge(req: ChargeRequest, key: string) {
+  const slot = await store.claim(key);   // atomic; waits if another attempt holds it
+  if (slot.result) return slot.result;   // same key, same answer
+  const result = await psp.charge(req, { idempotencyKey: key });
+  await store.finish(key, result);
+  return result;
+}
+\`\`\`
+
+The claim has to be atomic so two retries arriving together can't both go through. Keep keys longer than your slowest retry window.` },
+  { group: "Previous 7 days", id: "ada", title: "Ada Lovelace's Note G", ask: "what was in ada lovelace's note g?", reply:
+`Note G was the last of the notes Ada Lovelace added to her 1843 English translation of Luigi Menabrea's paper on Charles Babbage's Analytical Engine.
+
+In it she showed, step by step, how the Engine could compute **Bernoulli numbers**, with a table tracing every operation and variable. It's often called the first published computer program, though historians still debate how much of it she worked out alone.
+
+Her larger leap was in the surrounding notes: she argued the Engine could work on anything expressed as symbols, even music, and not only on numbers.` }
+];
+</script>
+<script>
+/* The living orb: one WebGL fragment shader, an iridescent sphere with a slowly folding interior. */
+const Orb = (() => {
+  const canvas = document.getElementById("orbCanvas");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+  const state = { energy: 0, target: 0, kick: 0, time: 8.0, light: 0, lightTarget: 0, running: false, last: 0 };
+  let gl = null, prog = null, uRes, uTime, uEnergy, uLight;
+
+  const VERT = "attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}";
+  const FRAG = `
+precision highp float;
+uniform vec2 uRes; uniform float uTime; uniform float uEnergy; uniform float uLight;
+vec3 mod289(vec3 x){return x-floor(x*(1./289.))*289.;}
+vec4 mod289(vec4 x){return x-floor(x*(1./289.))*289.;}
+vec4 permute(vec4 x){return mod289(((x*34.)+1.)*x);}
+vec4 tis(vec4 r){return 1.79284291400159-.85373472095314*r;}
+float snoise(vec3 v){
+  const vec2 C=vec2(1./6.,1./3.); const vec4 D=vec4(0.,.5,1.,2.);
+  vec3 i=floor(v+dot(v,C.yyy)); vec3 x0=v-i+dot(i,C.xxx);
+  vec3 g=step(x0.yzx,x0.xyz); vec3 l=1.-g; vec3 i1=min(g.xyz,l.zxy); vec3 i2=max(g.xyz,l.zxy);
+  vec3 x1=x0-i1+C.xxx; vec3 x2=x0-i2+C.yyy; vec3 x3=x0-D.yyy;
+  i=mod289(i);
+  vec4 p=permute(permute(permute(i.z+vec4(0.,i1.z,i2.z,1.))+i.y+vec4(0.,i1.y,i2.y,1.))+i.x+vec4(0.,i1.x,i2.x,1.));
+  float n_=.142857142857; vec3 ns=n_*D.wyz-D.xzx;
+  vec4 j=p-49.*floor(p*ns.z*ns.z); vec4 x_=floor(j*ns.z); vec4 y_=floor(j-7.*x_);
+  vec4 x=x_*ns.x+ns.yyyy; vec4 y=y_*ns.x+ns.yyyy; vec4 h=1.-abs(x)-abs(y);
+  vec4 b0=vec4(x.xy,y.xy); vec4 b1=vec4(x.zw,y.zw);
+  vec4 s0=floor(b0)*2.+1.; vec4 s1=floor(b1)*2.+1.; vec4 sh=-step(h,vec4(0.));
+  vec4 a0=b0.xzyw+s0.xzyw*sh.xxyy; vec4 a1=b1.xzyw+s1.xzyw*sh.zzww;
+  vec3 p0=vec3(a0.xy,h.x); vec3 p1=vec3(a0.zw,h.y); vec3 p2=vec3(a1.xy,h.z); vec3 p3=vec3(a1.zw,h.w);
+  vec4 norm=tis(vec4(dot(p0,p0),dot(p1,p1),dot(p2,p2),dot(p3,p3)));
+  p0*=norm.x; p1*=norm.y; p2*=norm.z; p3*=norm.w;
+  vec4 m=max(.6-vec4(dot(x0,x0),dot(x1,x1),dot(x2,x2),dot(x3,x3)),0.); m=m*m;
+  return 42.*dot(m*m,vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3)));
+}
+vec3 pal(float t){return vec3(.70,.62,.80)+vec3(.30,.30,.22)*cos(6.28318*(t+vec3(0.,.18,.42)));}
+void main(){
+  vec2 p=(gl_FragCoord.xy-.5*uRes)/(.5*min(uRes.x,uRes.y));
+  p*=1.015;
+  float r=length(p);
+  float px=2.5/min(uRes.x,uRes.y);
+  float mask=1.-smoothstep(1.-px*1.6,1.,r);
+  if(mask<=0.){gl_FragColor=vec4(0.);return;}
+  float z=sqrt(max(0.,1.-r*r));
+  vec3 n=vec3(p,z);
+  float t=uTime;
+  float a=t*.12; float ca=cos(a), sa=sin(a);
+  vec3 q=vec3(ca*n.x+sa*n.z,n.y,-sa*n.x+ca*n.z);
+  float n1=snoise(q*1.25+vec3(0.,t*.33,t*.2));
+  float n2=snoise(q*2.3+vec3(n1*1.2,-t*.24,t*.3));
+  float n3=snoise(q*4.6+vec3(n2*.9,n1*.9,t*.5));
+  float f=.55*n1+.3*n2+.15*n3;
+  float fres=pow(1.-z,1.8);
+  vec3 col=pal(f*.62+fres*.45+p.y*.18-p.x*.08+t*.03);
+  float vein=smoothstep(0.,.09,abs(sin(f*7.+t*.6)));
+  col=mix(col*1.3,col,vein);
+  vec3 L=normalize(vec3(-.5,.6,.65));
+  float diff=clamp(dot(n,L),0.,1.);
+  col*=.55+.55*diff;
+  col*=1.-.28*smoothstep(.2,1.,dot(p,vec2(.6,-.6)));
+  col+=fres*pal(.3+t*.05+p.x*.3)*.55;
+  vec3 H=normalize(L+vec3(0.,0.,1.));
+  col+=vec3(1.)*pow(clamp(dot(n,H),0.,1.),64.)*.85;
+  col+=vec3(1.)*.12*smoothstep(.45,0.,length(p-vec2(-.35,.42)));
+  col*=1.+.24*uEnergy;
+  float g=dot(col,vec3(.333));
+  col=mix(vec3(g),col,1.+.4*uLight);
+  col*=1.-.07*uLight;
+  col=clamp(col,0.,1.);
+  gl_FragColor=vec4(col*mask,mask);
+}`;
+
+  function compile(type, src) {
+    const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+    return s;
+  }
+  function init() {
+    try {
+      gl = canvas.getContext("webgl", { premultipliedAlpha: true, alpha: true, antialias: false, powerPreference: "low-power" });
+      if (!gl) throw new Error("no webgl");
+      prog = gl.createProgram();
+      gl.attachShader(prog, compile(gl.VERTEX_SHADER, VERT));
+      gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FRAG));
+      gl.linkProgram(prog);
+      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
+      gl.useProgram(prog);
+      const buf = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+      const loc = gl.getAttribLocation(prog, "a");
+      gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+      uRes = gl.getUniformLocation(prog, "uRes"); uTime = gl.getUniformLocation(prog, "uTime");
+      uEnergy = gl.getUniformLocation(prog, "uEnergy"); uLight = gl.getUniformLocation(prog, "uLight");
+      canvas.addEventListener("webglcontextlost", e => { e.preventDefault(); fallback(); });
+      return true;
+    } catch (err) { fallback(); return false; }
+  }
+  function fallback() {
+    gl = null; canvas.hidden = true;
+    if (!canvas.parentNode.querySelector(".orb-fallback")) {
+      const d = document.createElement("div"); d.className = "orb-fallback"; canvas.parentNode.appendChild(d);
+    }
+  }
+  function resize() {
+    if (!gl) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const size = Math.round(canvas.clientWidth * dpr) || 300;
+    if (canvas.width !== size) { canvas.width = size; canvas.height = size; }
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  }
+  function frame(now) {
+    if (!state.running) return;
+    const dt = Math.min(0.05, (now - (state.last || now)) / 1000); state.last = now;
+    state.kick *= 0.92;
+    state.energy += (Math.min(1, state.target + state.kick) - state.energy) * 0.05;
+    state.light += (state.lightTarget - state.light) * 0.08;
+    const speed = reduce.matches ? 0.06 : 0.22 + state.energy * 1.1;
+    state.time += dt * speed;
+    if (gl) {
+      gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.uniform2f(uRes, canvas.width, canvas.height);
+      gl.uniform1f(uTime, state.time); gl.uniform1f(uEnergy, state.energy); gl.uniform1f(uLight, state.light);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+    requestAnimationFrame(frame);
+  }
+  function start() { if (state.running) return; state.running = true; state.last = 0; requestAnimationFrame(frame); }
+  function stop() { state.running = false; }
+
+  init(); resize();
+  window.addEventListener("resize", resize);
+  document.addEventListener("visibilitychange", () => document.hidden ? stop() : start());
+  start();
+
+  return {
+    setEnergy(v) { state.target = v; document.getElementById("orb").dataset.energy = v > 0.5 ? "high" : "low"; },
+    kick(v) { state.kick = Math.min(1, state.kick + v); },
+    setLight(isLight) { state.lightTarget = isLight ? 1 : 0; },
+    resize
+  };
+})();
+</script>
+<script>
+const $ = id => document.getElementById(id);
+const root = document.documentElement;
+const app = $("app"), orbEl = $("orb"), orbAnchor = $("orbAnchor"), orbSlot = $("orbSlot");
+const hero = $("hero"), thread = $("thread"), scroller = $("scroller"), composer = $("composer");
+const ta = $("prompt"), sendBtn = $("sendBtn"), thinkBtn = $("thinkBtn");
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+const coarse = matchMedia("(pointer: coarse)");
+const S = { model: MODELS[0], think: false, turns: [], busy: false, ctl: null, cancel: null, live: true, active: null };
+
+/* ---------- markdown (escape first, then add only our own tags) ---------- */
+const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+function inline(s) {
+  const codes = [];
+  s = s.replace(/`([^`]+)`/g, (m, c) => { codes.push(c); return "\u0000" + (codes.length - 1) + "\u0000"; });
+  s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  s = s.replace(/(^|[^*\w])\*([^*\n]+?)\*(?!\w)/g, "$1<em>$2</em>");
+  s = s.replace(/(^|[^\w])_([^_\n]+?)_(?!\w)/g, "$1<em>$2</em>");
+  return s.replace(/\u0000(\d+)\u0000/g, (m, i) => "<code>" + codes[i] + "</code>");
+}
+const BLOCK = /^(#{1,3}\s|```|>\s?|\s*[-*•]\s+|\s*\d+[.)]\s+|(-{3,}|\*{3,})\s*$)/;
+function md(src) {
+  const L = src.replace(/\r/g, "").split("\n");
+  let html = "", i = 0, m;
+  while (i < L.length) {
+    const line = L[i];
+    if (/^```/.test(line)) { const b = []; i++; while (i < L.length && !/^```/.test(L[i])) b.push(L[i++]); i++; html += "<pre><code>" + esc(b.join("\n")) + "</code></pre>"; continue; }
+    if (/^\s*$/.test(line)) { i++; continue; }
+    if ((m = line.match(/^(#{1,3})\s+(.*)$/))) { const n = m[1].length; html += `<h${n}>${inline(esc(m[2]))}</h${n}>`; i++; continue; }
+    if (/^(-{3,}|\*{3,})\s*$/.test(line)) { html += "<hr>"; i++; continue; }
+    if (/^>\s?/.test(line)) { const b = []; while (i < L.length && /^>\s?/.test(L[i])) b.push(L[i++].replace(/^>\s?/, "")); html += "<blockquote>" + inline(esc(b.join(" "))) + "</blockquote>"; continue; }
+    if (/^\s*[-*•]\s+/.test(line)) {
+      const items = [];
+      while (i < L.length && /^\s*[-*•]\s+/.test(L[i])) { let it = L[i++].replace(/^\s*[-*•]\s+/, ""); while (i < L.length && /^\s{2,}\S/.test(L[i]) && !BLOCK.test(L[i])) it += " " + L[i++].trim(); items.push(it); }
+      html += "<ul>" + items.map(t => "<li>" + inline(esc(t)) + "</li>").join("") + "</ul>"; continue;
+    }
+    if (/^\s*\d+[.)]\s+/.test(line)) {
+      const start = parseInt(line, 10) || 1, items = [];
+      while (i < L.length && /^\s*\d+[.)]\s+/.test(L[i])) items.push(L[i++].replace(/^\s*\d+[.)]\s+/, ""));
+      html += `<ol${start !== 1 ? ` start="${start}"` : ""}>` + items.map(t => "<li>" + inline(esc(t)) + "</li>").join("") + "</ol>"; continue;
+    }
+    const b = [line]; i++;
+    while (i < L.length && !/^\s*$/.test(L[i]) && !BLOCK.test(L[i])) b.push(L[i++]);
+    html += "<p>" + b.map(l => inline(esc(l))).join("<br>") + "</p>";
+  }
+  return html;
+}
+/* Render markdown into el; words not yet shown fade in like ink settling. */
+function paint(el, text, st) {
+  const tpl = document.createElement("template");
+  tpl.innerHTML = md(text);
+  if (st.instant) { el.replaceChildren(tpl.content); return; }
+  st.born = st.born || [];
+  const walker = document.createTreeWalker(tpl.content, NodeFilter.SHOW_TEXT);
+  const nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
+  const lite = text.length > 2200 || reduceMotion.matches;
+  const now = performance.now(), DUR = 700;
+  let idx = 0, fresh = 0;
+  for (const node of nodes) {
+    const parts = node.nodeValue.split(/(\s+)/);
+    const frag = document.createDocumentFragment(); let changed = false;
+    for (const part of parts) {
+      if (!part) continue;
+      if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); continue; }
+      let start = st.born[idx];
+      if (start === undefined) { start = now + Math.min(fresh++ * 16, 600); st.born[idx] = start; }
+      const age = now - start;
+      if (age < DUR) {
+        /* a word still settling keeps its place in the animation across re-renders */
+        const s = document.createElement("span");
+        s.className = lite ? "w lite" : "w";
+        s.style.animationDelay = Math.round(-age) + "ms";
+        s.textContent = part; frag.appendChild(s); changed = true;
+      } else frag.appendChild(document.createTextNode(part));
+      idx++;
+    }
+    if (changed) node.parentNode.replaceChild(frag, node);
+  }
+  el.replaceChildren(tpl.content);
+}
+
+/* ---------- theme ---------- */
+function isLight() {
+  if (root.dataset.theme === "light") return true;
+  if (root.dataset.theme === "dark") return false;
+  return matchMedia("(prefers-color-scheme: light)").matches;
+}
+function applyTheme(mode, save) {
+  if (mode === "system") delete root.dataset.theme; else root.dataset.theme = mode;
+  document.querySelectorAll("[data-theme-set]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.themeSet === mode)));
+  if (save) { try { localStorage.setItem("seren-theme", mode); } catch (e) {} }
+  Orb.setLight(isLight());
+}
+matchMedia("(prefers-color-scheme: light)").addEventListener("change", () => Orb.setLight(isLight()));
+let savedTheme = "system";
+try { savedTheme = localStorage.getItem("seren-theme") || "system"; } catch (e) {}
+applyTheme(savedTheme, false);
+document.querySelectorAll("[data-theme-set]").forEach(b => b.addEventListener("click", () => applyTheme(b.dataset.themeSet, true)));
+
+/* ---------- greeting that follows the clock ---------- */
+function greet() {
+  const d = new Date(), h = d.getHours();
+  const day = d.toLocaleDateString(undefined, { weekday: "long" });
+  const time = d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+  $("kickerText").textContent = `${day} · ${time}`;
+  let a, b;
+  if (h >= 5 && h < 12) { a = "Good morning."; b = "Where shall we begin?"; }
+  else if (h >= 12 && h < 17) { a = "Good afternoon."; b = "What are we making?"; }
+  else if (h >= 17 && h < 22) { a = "Good evening."; b = "What's on your mind?"; }
+  else { a = "The quiet hours"; b = "are for wondering."; }
+  const hl = $("headline");
+  if (hl.dataset.key !== a) { hl.dataset.key = a; hl.innerHTML = `${a} <em>${b}</em>`; }
+}
+greet(); setInterval(greet, 30000);
+
+/* ---------- the orb follows its anchor: the hero, or the header once you talk ---------- */
+function placeOrb(animate) {
+  const target = app.dataset.state === "chat" ? orbSlot : orbAnchor;
+  const r = target.getBoundingClientRect();
+  const size = orbEl.offsetWidth || 1;
+  orbEl.classList.toggle("animate", !!animate && !reduceMotion.matches);
+  orbEl.style.transform = `translate3d(${r.left}px, ${r.top}px, 0) scale(${r.width / size})`;
+}
+function followOrb(ms) {
+  const end = performance.now() + ms;
+  const step = () => { placeOrb(false); if (performance.now() < end) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
+window.addEventListener("resize", () => { Orb.resize(); placeOrb(false); });
+if (window.visualViewport) visualViewport.addEventListener("resize", () => placeOrb(false));
+scroller.addEventListener("scroll", () => { if (app.dataset.state === "empty") placeOrb(false); }, { passive: true });
+new ResizeObserver(() => placeOrb(false)).observe($("main"));
+document.fonts && document.fonts.ready.then(() => placeOrb(false));
+placeOrb(false);
+
+/* ---------- sidebar: agents and threads ---------- */
+const RING = 69.115;
+function ringSvg(a) {
+  const bar = a.kind === "progress" ? `<circle class="bar" cx="14" cy="14" r="11" fill="none" stroke-width="2.4" stroke-dasharray="${RING}" stroke-dashoffset="${(RING * (1 - a.read / a.total)).toFixed(2)}"/>` : "";
+  const inner = a.kind === "live" ? `<span class="pulse"></span>` : a.kind === "done" ? `<svg class="tick" width="14" height="14"><use href="#i-check"/></svg>` : "";
+  return `<svg width="28" height="28" viewBox="0 0 28 28"><circle class="track" cx="14" cy="14" r="11" fill="none" stroke-width="2"/>${bar}</svg>${inner}`;
+}
+function renderAgents() {
+  $("agentList").innerHTML = AGENTS.map(a => `
+    <button class="agent" data-agent="${a.id}" aria-expanded="${!!a.open}">
+      <span class="ring">${ringSvg(a)}</span>
+      <span class="agent-title">${esc(a.title)}</span>
+      <span class="agent-meta">${esc(a.meta(a))}</span>
+    </button>
+    ${a.open ? `<ul class="agent-steps">${a.steps.map(([t, d]) => `<li class="${d ? "done" : ""}">${esc(t)}</li>`).join("")}</ul>` : ""}`).join("");
+  const running = AGENTS.filter(a => a.kind !== "done").length;
+  $("agentCount").textContent = `${running} running`;
+  $("agentsPillText").textContent = `${running} agents working`;
+}
+$("agentList").addEventListener("click", e => {
+  const b = e.target.closest("[data-agent]"); if (!b) return;
+  const a = AGENTS.find(x => x.id === b.dataset.agent); a.open = !a.open; renderAgents();
+  const again = $("agentList").querySelector(`[data-agent="${a.id}"]`); again && again.focus();
+});
+setInterval(() => {
+  const a = AGENTS.find(x => x.id === "lit");
+  if (a.read < a.total) {
+    a.read++;
+    const btn = $("agentList").querySelector('[data-agent="lit"]');
+    if (btn) { btn.querySelector(".agent-meta").textContent = a.meta(a); btn.querySelector(".bar").setAttribute("stroke-dashoffset", (RING * (1 - a.read / a.total)).toFixed(2)); }
+  }
+}, 6000);
+
+function renderThreads() {
+  const q = $("searchInput").value.trim().toLowerCase();
+  const list = THREADS.filter(t => !q || (t.title + " " + t.ask + " " + t.reply).toLowerCase().includes(q));
+  if (!list.length) { $("threadList").innerHTML = `<div class="label">Threads</div><p class="empty-search">No threads match “${esc(q)}”.</p>`; return; }
+  let html = "", group = null, first = true;
+  for (const t of list) {
+    if (t.group !== group) { group = t.group; html += `<div class="label">${esc(group)}${first ? '<span class="count">examples</span>' : ""}</div>`; first = false; }
+    html += `<button class="thread-link${S.active === t.id ? " active" : ""}" data-thread="${t.id}">${esc(t.title)}</button>`;
+  }
+  $("threadList").innerHTML = html;
+}
+$("searchInput").addEventListener("input", renderThreads);
+renderAgents(); renderThreads();
+
+function openNav(open) { app.classList.toggle("nav-open", open); }
+$("openNavBtn").addEventListener("click", () => openNav(true));
+$("closeNavBtn").addEventListener("click", () => openNav(false));
+$("scrim").addEventListener("click", () => openNav(false));
+$("collapseBtn").addEventListener("click", () => { app.classList.add("nav-collapsed"); $("expandBtn").hidden = false; followOrb(520); });
+$("expandBtn").addEventListener("click", () => { app.classList.remove("nav-collapsed"); $("expandBtn").hidden = true; followOrb(520); });
+
+function toast(msg) {
+  const t = $("toast"); t.textContent = msg; t.classList.add("show");
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("show"), 1800);
+}
+async function copyText(text) {
+  try { await navigator.clipboard.writeText(text); return true; }
+  catch (e) {
+    const area = document.createElement("textarea"); area.value = text; area.setAttribute("readonly", "");
+    area.style.position = "fixed"; area.style.opacity = "0"; document.body.appendChild(area); area.select();
+    let ok = false; try { ok = document.execCommand("copy"); } catch (err) {}
+    area.remove(); return ok;
+  }
+}
+</script>
+<script>
+/* ---------- live replies: ask Claude through the page's sample capability ---------- */
+const sampleReady = (window.claude && typeof claude.use === "function") ? claude.use("sample").catch(() => null) : Promise.resolve(null);
+sampleReady.then(fn => { if (!fn) setLive(false); });
+function setLive(on) {
+  S.live = on;
+  $("footnote").textContent = on ? "Seren is a design concept. Replies are written live by Claude." : "Seren is a design concept. Live replies are off here, so it shows sample replies.";
+}
+function rules() {
+  const now = new Date().toLocaleString(undefined, { weekday: "long", hour: "numeric", minute: "2-digit" });
+  return `You are the assistant inside "Seren", a design concept for a future AI chat app, and the person is chatting with you there.
+Write Markdown that reads well in a narrow chat column: short paragraphs, occasional bold, lists when they help, ### headings only for long answers, fenced code blocks for code. No tables, images or HTML.
+Keep most answers under 220 words unless the person asks for more. Be warm, precise and direct, with no filler openers.
+If asked what you are, say you're Claude, made by Anthropic, answering inside this concept interface.
+The person's local time is ${now}.${S.model.style ? "\n" + S.model.style : ""}${S.think ? "\nThe person asked you to think deeper: reason carefully before you answer." : ""}
+
+Reply to the conversation that follows.`;
+}
+
+/* ---------- model menu ---------- */
+const menu = $("modelMenu"), modelBtn = $("modelBtn");
+function renderMenu() {
+  menu.innerHTML = MODELS.map(m => `
+    <button class="menu-item" role="menuitemradio" aria-checked="${m.id === S.model.id}" data-model="${m.id}">
+      <b>${m.html}</b><svg width="18" height="18"><use href="#i-check"/></svg><span>${esc(m.desc)}</span>
+    </button>`).join("") + `<p class="menu-note">Seren 7 is a design concept. Each mode is answered by Claude, tuned to match.</p>`;
+}
+function toggleMenu(open) {
+  if (open) {
+    renderMenu(); menu.hidden = false;
+    const main = $("main").getBoundingClientRect(), b = modelBtn.getBoundingClientRect(), w = menu.offsetWidth;
+    const desired = innerWidth >= 900 ? b.left - main.left : b.left - main.left + b.width / 2 - w / 2;
+    menu.style.left = Math.max(12, Math.min(desired, main.width - w - 12)) + "px";
+    menu.querySelector('[aria-checked="true"]').focus();
+  } else menu.hidden = true;
+  modelBtn.setAttribute("aria-expanded", String(open));
+}
+modelBtn.addEventListener("click", () => toggleMenu(menu.hidden));
+menu.addEventListener("click", e => {
+  const b = e.target.closest("[data-model]"); if (!b) return;
+  S.model = MODELS.find(m => m.id === b.dataset.model);
+  $("modelName").innerHTML = S.model.html;
+  toggleMenu(false); modelBtn.focus();
+  requestAnimationFrame(() => placeOrb(true));
+  toast(`Switched to ${S.model.name}`);
+});
+document.addEventListener("click", e => { if (!menu.hidden && !menu.contains(e.target) && !modelBtn.contains(e.target)) toggleMenu(false); });
+
+/* ---------- composer ---------- */
+function fit() { ta.style.height = "auto"; ta.style.height = Math.min(ta.scrollHeight, 200) + "px"; sendBtn.disabled = !S.busy && !ta.value.trim(); }
+ta.addEventListener("input", fit);
+ta.addEventListener("keydown", e => {
+  if (e.key === "Enter" && !e.shiftKey && !e.isComposing && !coarse.matches) { e.preventDefault(); composer.requestSubmit(); }
+});
+composer.addEventListener("submit", e => {
+  e.preventDefault();
+  if (S.busy) { stopReply(); return; }
+  const text = ta.value; if (!text.trim()) return;
+  ta.value = ""; fit(); send(text);
+});
+thinkBtn.addEventListener("click", () => { S.think = !S.think; thinkBtn.setAttribute("aria-pressed", String(S.think)); });
+document.querySelectorAll("[data-sugg]").forEach(b => b.addEventListener("click", () => {
+  const s = SUGGESTIONS[b.dataset.sugg]; send(s.ask, s.reply);
+}));
+const HINTS = ["Ask Seren anything…", "Plan, write, explain, imagine…", "What should I cook with leeks?", "Summarize a hard idea simply…"];
+let hint = 0;
+setInterval(() => { if (document.activeElement !== ta && !ta.value) { hint = (hint + 1) % HINTS.length; ta.placeholder = HINTS[hint]; } }, 4200);
+
+/* ---------- conversation state ---------- */
+const wait = ms => new Promise(r => setTimeout(r, ms));
+function nearBottom() { return scroller.scrollHeight - scroller.scrollTop - scroller.clientHeight < 140; }
+function toBottom(smooth) { scroller.scrollTo({ top: scroller.scrollHeight, behavior: smooth ? "smooth" : "instant" }); }
+function flipComposer(fn) {
+  const a = composer.getBoundingClientRect().top; fn(); const b = composer.getBoundingClientRect().top;
+  if (Math.abs(a - b) > 2 && !reduceMotion.matches) composer.animate([{ transform: `translateY(${a - b}px)` }, { transform: "none" }], { duration: 720, easing: "cubic-bezier(.2,.8,.2,1)" });
+}
+async function enterChat() {
+  if (app.dataset.state === "chat") return;
+  hero.classList.add("leaving");
+  if (!reduceMotion.matches) await wait(200);
+  flipComposer(() => { app.dataset.state = "chat"; });
+  hero.classList.remove("leaving");
+  placeOrb(true);
+}
+function newThread() {
+  stopReply(); stopSpeech();
+  S.turns = []; S.active = null; thread.replaceChildren(); renderThreads();
+  if (app.dataset.state === "chat") { flipComposer(() => { app.dataset.state = "empty"; }); placeOrb(true); }
+  Orb.setEnergy(0); greet(); openNav(false); ta.focus({ preventScroll: true });
+}
+$("newBtn").addEventListener("click", newThread);
+$("newBtnTop").addEventListener("click", newThread);
+document.addEventListener("keydown", e => {
+  if (e.altKey && e.code === "KeyN") { e.preventDefault(); newThread(); }
+  if (e.key === "Escape") { if (!menu.hidden) { toggleMenu(false); modelBtn.focus(); } else openNav(false); }
+});
+
+function addUser(text) {
+  const d = document.createElement("div"); d.className = "msg-user"; d.textContent = text; thread.appendChild(d);
+}
+function addAI() {
+  thread.querySelectorAll(".msg-ai.last").forEach(x => x.classList.remove("last"));
+  const el = document.createElement("article"); el.className = "msg-ai last";
+  el.innerHTML = `<div class="msg-meta"><span class="dot" aria-hidden="true"></span><span class="m-name"></span><span class="m-status"></span></div><div class="prose"></div><div class="actions" hidden>
+    <button class="icon-btn" data-act="copy" aria-label="Copy reply"><svg width="17" height="17"><use href="#i-copy"/></svg></button>
+    <button class="icon-btn" data-act="speak" aria-label="Read aloud" aria-pressed="false"><svg width="17" height="17"><use href="#i-speak"/></svg></button>
+    <button class="icon-btn" data-act="redo" aria-label="Regenerate"><svg width="17" height="17"><use href="#i-redo"/></svg></button></div>`;
+  el.querySelector(".m-name").textContent = S.model.name;
+  if (!window.speechSynthesis) el.querySelector('[data-act="speak"]').remove();
+  thread.appendChild(el);
+  return { el, status: el.querySelector(".m-status"), prose: el.querySelector(".prose"), actions: el.querySelector(".actions"), text: "" };
+}
+function thinking(ai) {
+  ai.status.innerHTML = `<span class="thinking"><span class="shimmer">${S.think ? "Thinking deeply" : "Thinking"}</span><span class="phrase"></span></span>`;
+  const p = ai.status.querySelector(".phrase"); let k = 0;
+  p.textContent = PHRASES[0];
+  const t = setInterval(() => { p.style.opacity = 0; setTimeout(() => { k = (k + 1) % PHRASES.length; p.textContent = PHRASES[k]; p.style.opacity = 1; }, 300); }, 2000);
+  return () => clearInterval(t);
+}
+function setBusy(on) {
+  S.busy = on; app.classList.toggle("busy", on);
+  sendBtn.setAttribute("aria-label", on ? "Stop" : "Send"); fit();
+  Orb.setEnergy(on ? 0.85 : 0);
+}
+function stopReply() { if (S.ctl) S.ctl.abort(); if (S.cancel) S.cancel(); }
+
+async function send(text, scripted) {
+  text = text.trim(); if (!text || S.busy) return;
+  await enterChat();
+  addUser(text);
+  S.turns.push({ role: "user", content: text });
+  toBottom(true);
+  await respond(scripted);
+}
+const ERR = {
+  rate_limited: "You've sent a lot of messages quickly. Give it a minute, then try again.",
+  session_expired: "Your Claude session expired. Sign in again, then resend your message.",
+  refused: "Seren can't help with that one. Try asking a different way.",
+  empty_completion: "No reply came back. Try rephrasing your message.",
+  prompt_too_large: "This thread is too long to send. Start a new thread to keep going.",
+  upstream_error: "The connection dropped before the reply finished. Tap regenerate to try again."
+};
+const OFF = ["not_granted", "sampling_disabled", "not_declared", "capability_disabled", "capability_removed"];
+
+async function respond(scripted) {
+  const ai = addAI(), st = {}, t0 = performance.now();
+  const stopThinking = thinking(ai);
+  setBusy(true);
+  let first = true;
+  const onText = ({ text }) => {
+    if (first) { first = false; stopThinking(); ai.status.textContent = "Writing"; }
+    const stick = nearBottom(); ai.text = text; paint(ai.prose, text, st); Orb.kick(0.12);
+    if (stick) toBottom(false);
+  };
+  let outcome = "done", note = "";
+  const fn = S.live ? await sampleReady : null;
+  try {
+    if (fn) {
+      S.ctl = new AbortController();
+      const tier = S.think ? (S.model.tier === "quick" ? "default" : "complex") : S.model.tier;
+      const res = await fn([{ role: "user", content: rules() }, ...S.turns.slice(-16)], { cache: false, signal: S.ctl.signal, modelTier: tier, onText });
+      ai.text = res.text; paint(ai.prose, res.text, st);
+      if (res.truncated) note = "The reply was cut short. Ask for less at a time.";
+    } else if (scripted) {
+      await simulate(scripted, onText);
+    } else {
+      outcome = "off";
+    }
+  } catch (e) {
+    const code = e && e.code;
+    if (code === "cancelled") outcome = "stopped";
+    else if (OFF.includes(code)) {
+      setLive(false);
+      if (scripted) { try { await simulate(scripted, onText); } catch (x) { outcome = "stopped"; } } else outcome = "off";
+    } else {
+      outcome = "error"; note = ERR[code] || ERR.upstream_error;
+      if (code === "refused") { ai.text = ""; ai.prose.replaceChildren(); }
+      else if (e && e.text) { ai.text = e.text; paint(ai.prose, e.text, st); }
+    }
+  }
+  stopThinking(); S.ctl = null; S.cancel = null;
+  const secs = ((performance.now() - t0) / 1000).toFixed(1) + " s";
+  ai.status.textContent = outcome === "stopped" ? "· Stopped" : outcome === "done" ? "· " + secs : "";
+  if (outcome === "off") {
+    ai.prose.innerHTML = `<p class="notice">Live replies aren't available in this view, so Seren can only play its sample replies. <button class="chip" data-act="home" style="margin-top:10px">Show the suggestions</button></p>`;
+  }
+  if (note) { const n = document.createElement("p"); n.className = "notice"; n.textContent = note; ai.prose.after(n); }
+  if (ai.text) { S.turns.push({ role: "assistant", content: ai.text }); ai.actions.hidden = false; }
+  else if (outcome !== "off") ai.actions.hidden = false;
+  ai.el._ai = ai;
+  setBusy(false);
+  if (nearBottom()) toBottom(true);
+}
+
+/* Sample replies stream in a few words at a time, the same way live ones do. */
+function simulate(text, onText) {
+  return new Promise((resolve, reject) => {
+    const tokens = text.match(/\S+\s*|\s+/g) || [text];
+    let i = 0, out = "", timer = null;
+    S.cancel = () => { clearTimeout(timer); reject({ code: "cancelled" }); };
+    const tick = () => {
+      const n = 2 + Math.floor(Math.random() * 4);
+      out += tokens.slice(i, i + n).join(""); i += n;
+      onText({ text: out });
+      if (i < tokens.length) timer = setTimeout(tick, 45 + Math.random() * 40); else resolve(out);
+    };
+    timer = setTimeout(tick, 900 + Math.random() * 700);
+  });
+}
+
+/* ---------- message actions ---------- */
+let speaking = null;
+function stopSpeech() {
+  if (window.speechSynthesis) speechSynthesis.cancel();
+  if (speaking) { speaking.setAttribute("aria-pressed", "false"); speaking = null; }
+  if (!S.busy) Orb.setEnergy(0);
+}
+function plain(mdText) { return mdText.replace(/```[\s\S]*?```/g, " ").replace(/[#*_`>]/g, "").replace(/\[([^\]]+)\]\([^)]+\)/g, "$1"); }
+thread.addEventListener("click", async e => {
+  const b = e.target.closest("[data-act]"); if (!b) return;
+  const el = b.closest(".msg-ai"), ai = el && el._ai;
+  const act = b.dataset.act;
+  if (act === "home") { newThread(); return; }
+  if (!ai) return;
+  if (act === "copy") { toast(await copyText(ai.text) ? "Reply copied" : "Couldn't copy. Select the text instead."); }
+  if (act === "speak") {
+    const was = speaking === b; stopSpeech(); if (was) return;
+    const u = new SpeechSynthesisUtterance(plain(ai.text));
+    const v = speechSynthesis.getVoices().find(x => /en/i.test(x.lang) && /natural|samantha|serena|google uk english female|aria|jenny/i.test(x.name));
+    if (v) u.voice = v;
+    u.rate = 1.02; u.pitch = 1;
+    u.onboundary = () => Orb.kick(0.45);
+    u.onend = u.onerror = () => { if (speaking === b) stopSpeech(); };
+    speaking = b; b.setAttribute("aria-pressed", "true"); Orb.setEnergy(0.35);
+    speechSynthesis.speak(u);
+  }
+  if (act === "redo") {
+    if (S.busy) return;
+    stopSpeech();
+    const last = thread.querySelector(".msg-ai:last-of-type");
+    if (last !== el) { toast("Only the latest reply can be regenerated"); return; }
+    if (S.turns.length && S.turns[S.turns.length - 1].role === "assistant") S.turns.pop();
+    const lastUser = [...S.turns].reverse().find(t => t.role === "user");
+    const match = Object.values(SUGGESTIONS).find(s => lastUser && s.ask === lastUser.content);
+    el.remove();
+    await respond(match && match.reply);
+  }
+});
+
+/* ---------- example threads from the sidebar ---------- */
+$("threadList").addEventListener("click", async e => {
+  const b = e.target.closest("[data-thread]"); if (!b) return;
+  const t = THREADS.find(x => x.id === b.dataset.thread);
+  stopReply(); stopSpeech(); openNav(false);
+  S.active = t.id; renderThreads();
+  thread.replaceChildren();
+  await enterChat();
+  addUser(t.ask);
+  const ai = addAI();
+  ai.text = t.reply; paint(ai.prose, t.reply, { instant: true });
+  ai.status.textContent = "· Example"; ai.actions.hidden = false; ai.el._ai = ai;
+  S.turns = [{ role: "user", content: t.ask }, { role: "assistant", content: t.reply }];
+  scroller.scrollTo({ top: 0, behavior: "instant" });
+});
+
+/* ---------- copy the whole conversation ---------- */
+$("shareBtn").addEventListener("click", async () => {
+  if (!S.turns.length) { toast("Start a conversation first"); return; }
+  const text = S.turns.map(t => (t.role === "user" ? "You" : S.model.name) + ":\n" + t.content).join("\n\n");
+  toast(await copyText(text) ? "Conversation copied" : "Couldn't copy the conversation");
+});
+
+fit();
+</script>
+
+</body></html>
