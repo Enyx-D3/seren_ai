@@ -1,0 +1,15 @@
+Qwen3-0.6B.zip.part000
+Qwen3-0.6B.zip.part001
+Qwen3-0.6B.zip.part002
+Qwen3-0.6B.zip.part003
+Qwen3-0.6B.zip.part004
+Qwen3-0.6B.zip.part005
+Qwen3-0.6B.zip.part006
+Qwen3-0.6B.zip.part007
+Qwen3-0.6B.zip.part008
+Qwen3-0.6B.zip.part009
+Qwen3-0.6B.zip.part010
+Qwen3-0.6B.zip.part011
+Qwen3-0.6B.zip.part012
+HF_URL.txt
+MANIFEST.txt

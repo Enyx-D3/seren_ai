@@ -1,0 +1,3 @@
+Falcon-H1-Tiny-Tool-Calling-90M.zip.part000
+Falcon-H1-Tiny-Tool-Calling-90M.zip.part001
+HF_URL.txt

@@ -1,0 +1,15 @@
+# Service/runtime artifacts (never commit model bytes or browser caches)
+node_modules/
+app/vendor/**/*.wasm
+app/vendor/**/*.mjs.map
+workspace/parts/
+workspace/models/
+workspace/reconstructed/
+workspace/gguf/
+workspace/tmp/
+workspace/*.log
+.DS_Store
+
+# Keep: manifests, hash receipts, reports, tools, fixtures
+!workspace/tools/**
+!workspace/fixtures/**

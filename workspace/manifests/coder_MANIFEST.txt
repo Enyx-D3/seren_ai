@@ -1,0 +1,12 @@
+Falcon-H1-Tiny-R-0.6B.zip.part000
+Falcon-H1-Tiny-R-0.6B.zip.part001
+Falcon-H1-Tiny-R-0.6B.zip.part002
+Falcon-H1-Tiny-R-0.6B.zip.part003
+Falcon-H1-Tiny-R-0.6B.zip.part004
+Falcon-H1-Tiny-R-0.6B.zip.part005
+Falcon-H1-Tiny-R-0.6B.zip.part006
+Falcon-H1-Tiny-R-0.6B.zip.part007
+Falcon-H1-Tiny-R-0.6B.zip.part008
+Falcon-H1-Tiny-R-0.6B.zip.part009
+Falcon-H1-Tiny-R-0.6B.zip.part010
+HF_URL.txt
