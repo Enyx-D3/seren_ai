@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Seren 7</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="css/app.css">
+<script type="module" src="js/main.mjs"></script>
+<style>[hidden]:not([hidden="until-found"]){display:none!important}</style>
+</head>
+<body>
+
+<style>
+/* Layout: one conversation column (720px) beside a quiet sidebar; the living orb is the single bold element and docks into the header once you talk. */
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="irisStroke" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" style="stop-color: var(--iris-a)"/><stop offset=".5" style="stop-color: var(--iris-b)"/><stop offset="1" style="stop-color: var(--iris-c)"/>
+    </linearGradient>
+  </defs>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 8h16M4 16h11"/></symbol>
+  <symbol id="i-side" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="4"/><path d="M9.5 4.5v15"/></symbol>
+  <symbol id="i-new" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.5H7.5a3 3 0 0 0-3 3v9a3 3 0 0 0 3 3h9a3 3 0 0 0 3-3V13"/><path d="M17.6 3.9a1.8 1.8 0 0 1 2.5 2.5L13 13.5l-3.3.8.8-3.3z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m7 10 5 5 5-5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2.5" fill="currentColor"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="8.5" y="8.5" width="11" height="11" rx="3"/><path d="M15.5 8.5V7a2.5 2.5 0 0 0-2.5-2.5H7A2.5 2.5 0 0 0 4.5 7v6A2.5 2.5 0 0 0 7 15.5h1.5"/></symbol>
+  <symbol id="i-speak" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 9.5v5h3.5l4.5 4v-13l-4.5 4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+  <symbol id="i-redo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M19.5 4.5v4h-4"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14.5V4M8 7.5l4-3.5 4 3.5"/><path d="M8 11H7a2.5 2.5 0 0 0-2.5 2.5v4A2.5 2.5 0 0 0 7 20h10a2.5 2.5 0 0 0 2.5-2.5v-4A2.5 2.5 0 0 0 17 11h-1"/></symbol>
+  <symbol id="i-orbit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(-25 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(35 12 12)" opacity=".55"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="3.6"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z"/></symbol>
+  <symbol id="i-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="7.5"/><path d="M12 4.5a7.5 7.5 0 0 1 0 15z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 8.98 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 8.98a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34H9a1.7 1.7 0 0 0 1.03-1.56V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87V9a1.7 1.7 0 0 0 1.56 1.03H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M6.5 7l.8 12a2 2 0 0 0 2 1.9h5.4a2 2 0 0 0 2-1.9l.8-12"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5 18 9M4 20h4L20 8l-4-4L4 16z"/></symbol>
+  <symbol id="i-settings-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/></symbol>
+</svg>
+
+<div class="grain" aria-hidden="true"></div>
+
+<div class="app" id="app" data-state="empty">
+  <div class="aura" aria-hidden="true"></div>
+
+  <aside class="sidebar" id="sidebar" aria-label="Threads and agents">
+    <div class="side-top">
+      <div class="wordmark"><span class="dot" aria-hidden="true"></span>seren</div>
+      <button class="icon-btn hide-mobile" id="collapseBtn" aria-label="Hide sidebar"><svg width="20" height="20"><use href="#i-side"/></svg></button>
+      <button class="icon-btn hide-desktop" id="closeNavBtn" aria-label="Close menu"><svg width="20" height="20"><use href="#i-close"/></svg></button>
+    </div>
+    <div class="side-actions">
+      <button class="btn-new" id="newBtn"><svg width="18" height="18"><use href="#i-new"/></svg>New thread<kbd class="hide-mobile">⌥ N</kbd></button>
+      <label class="search"><svg width="16" height="16"><use href="#i-search"/></svg><input id="searchInput" type="search" placeholder="Search threads" autocomplete="off"></label>
+    </div>
+    <div class="side-scroll">
+      <div class="label">Working for you <span class="count" id="agentCount"></span></div>
+      <div id="agentList"></div>
+      <div id="threadList"></div>
+    </div>
+    <div class="side-foot">
+      <div class="avatar" aria-hidden="true">You</div>
+      <div class="who"><b>You</b><span>Seren 7 · local</span></div>
+      <div class="theme-switch" role="group" aria-label="Theme">
+        <button data-theme-set="system" aria-label="Match system" aria-pressed="true"><svg width="15" height="15"><use href="#i-auto"/></svg></button>
+        <button data-theme-set="light" aria-label="Light" aria-pressed="false"><svg width="15" height="15"><use href="#i-sun"/></svg></button>
+        <button data-theme-set="dark" aria-label="Dark" aria-pressed="false"><svg width="15" height="15"><use href="#i-moon"/></svg></button>
+      </div>
+      <button class="icon-btn" id="settingsBtn" aria-label="Settings and models"><svg width="18" height="18"><use href="#i-gear"/></svg></button>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <main class="main" id="main">
+    <header class="topbar">
+      <button class="icon-btn hide-desktop" id="openNavBtn" aria-label="Open menu"><svg width="22" height="22"><use href="#i-menu"/></svg></button>
+      <button class="icon-btn hide-mobile" id="expandBtn" aria-label="Show sidebar" hidden><svg width="20" height="20"><use href="#i-side"/></svg></button>
+      <button class="model-btn" id="modelBtn" aria-haspopup="menu" aria-expanded="false">
+        <span class="orb-slot" id="orbSlot"><span class="dot" aria-hidden="true"></span></span>
+        <span class="model-name" id="modelName">Auto</span>
+        <svg class="chev" width="16" height="16"><use href="#i-chev"/></svg>
+      </button>
+      <div class="top-spacer"></div>
+      <span class="agents-pill" id="agentsPill" hidden><i></i><span id="agentsPillText"></span></span>
+      <button class="icon-btn" id="settingsBtnTop" aria-label="Settings"><svg width="18" height="18"><use href="#i-gear"/></svg></button>
+      <button class="icon-btn" id="shareBtn" aria-label="Copy conversation"><svg width="20" height="20"><use href="#i-share"/></svg></button>
+      <button class="icon-btn hide-desktop" id="newBtnTop" aria-label="New thread"><svg width="20" height="20"><use href="#i-new"/></svg></button>
+      <div class="menu" id="modelMenu" role="menu" hidden></div>
+    </header>
+
+    <div class="stage">
+      <div class="scroller" id="scroller">
+        <section class="hero" id="hero">
+          <div class="orb-anchor" id="orbAnchor" aria-hidden="true"></div>
+          <p class="kicker"><i aria-hidden="true"></i><span id="kickerText"></span></p>
+          <h1 class="headline" id="headline"></h1>
+          <p class="footnote" id="heroStatus"></p>
+        </section>
+        <div class="thread" id="thread" aria-live="polite"></div>
+      </div>
+
+      <div class="dock" id="dock">
+        <div class="suggestions" id="suggestions">
+          <button class="sugg" data-sugg="kyoto"><span class="glyph" aria-hidden="true">k</span><b>Plan a slow weekend in Kyoto</b><span>Two days, nothing rushed</span></button>
+          <button class="sugg" data-sugg="dark"><span class="glyph" aria-hidden="true">d</span><b>Explain dark matter to a poet</b><span>Physics, said beautifully</span></button>
+          <button class="sugg" data-sugg="landlord"><span class="glyph" aria-hidden="true">r</span><b>Reply to my landlord</b><span>Kind, firm, about the heater</span></button>
+          <button class="sugg" data-sugg="bakery"><span class="glyph" aria-hidden="true">b</span><b>Name a bakery by the sea</b><span>Ten names, each with a story</span></button>
+        </div>
+        <form class="composer" id="composer" autocomplete="off">
+          <label for="prompt" class="sr-hidden">Message Seren</label>
+          <textarea id="prompt" rows="1" placeholder="Ask Seren anything…" aria-label="Message Seren"></textarea>
+          <div class="composer-row">
+            <button type="button" class="chip" id="thinkBtn" aria-pressed="false"><svg width="17" height="17"><use href="#i-orbit"/></svg>Think deeper</button>
+            <button type="submit" class="send" id="sendBtn" aria-label="Send" disabled>
+              <svg class="i-up" width="18" height="18"><use href="#i-up"/></svg>
+              <svg class="i-stop" width="18" height="18"><use href="#i-stop"/></svg>
+            </button>
+          </div>
+        </form>
+        <p class="footnote" id="footnote"></p>
+      </div>
+    </div>
+  </main>
+
+  <div class="orb" id="orb" aria-hidden="true">
+    <div class="orb-inner">
+      <div class="orb-glow"></div>
+      <canvas id="orbCanvas"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+<div aria-live="assertive" id="statusAnnouncer" class="sr-hidden"></div>
+
+<dialog id="setupDialog" class="seren" aria-labelledby="setupTitle">
+  <div class="dlg-head"><h2 id="setupTitle">Bring the models to this browser</h2>
+    <button class="icon-btn" id="setupClose" aria-label="Close"><svg width="20" height="20"><use href="#i-close"/></svg></button></div>
+  <div class="dlg-body">
+    <p class="dlg-note">Seren 7 runs four local specialists entirely on this device. Import the verified Falcon 90M GGUF archives, or serve them from a trusted folder this page can read. Nothing is installed; files stay in this browser's own storage and are checked byte-by-byte before use.</p>
+    <div id="modelRows"></div>
+    <label class="field">Compute preference
+      <select class="select" id="computePref">
+        <option value="auto">Auto (recommended)</option>
+        <option value="wasm">CPU · WebAssembly</option>
+        <option value="webgpu">WebGPU (experimental)</option>
+      </select>
+    </label>
+    <p class="dlg-note" id="storageNote"></p>
+  </div>
+  <div class="dlg-actions">
+    <button class="btn" id="removeModelsBtn">Remove all models</button>
+    <span style="flex:1"></span>
+    <button class="btn" id="importBtn">Import GGUF files…</button>
+    <button class="btn btn-primary" id="setupDone">Done</button>
+  </div>
+</dialog>
+
+<dialog id="confirmDialog" class="seren">
+  <div class="dlg-head"><h2 id="confirmTitle">Are you sure?</h2>
+    <button class="icon-btn" id="confirmClose" aria-label="Close"><svg width="20" height="20"><use href="#i-close"/></svg></button></div>
+  <div class="dlg-body"><p class="dlg-note" id="confirmText"></p></div>
+  <div class="dlg-actions">
+    <button class="btn" id="confirmNo">Cancel</button>
+    <button class="btn btn-primary" id="confirmYes">Confirm</button>
+  </div>
+</dialog>
+
+<input type="file" id="modelFileInput" accept=".gguf,application/octet-stream" multiple hidden>
+</body>
+</html>
