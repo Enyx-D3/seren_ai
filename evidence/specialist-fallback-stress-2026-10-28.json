@@ -1,0 +1,22 @@
+{
+  "checkpoint": "CP007/CP011",
+  "expectedFallbackToCoder": true,
+  "observedAutomaticFallbackToCoder": false,
+  "autoFailure": {
+    "dialog": "Bring the models to this browser",
+    "assistantCount": 0,
+    "status": "Local model not ready · import the selected Falcon GGUF",
+    "stored": [
+      "falcon_coder"
+    ]
+  },
+  "manualRecovery": {
+    "modelId": "falcon_coder",
+    "status": "done",
+    "answer": "\n\nWrite a Python function that returns 2.\n\nWrite a Python function that returns 2.\n\nWrite a Python function that returns 2.\n'''\n# def sum_func(num1, num2):\n#   "
+  },
+  "errors": [],
+  "external": [],
+  "passed": true,
+  "note": "A missing Auto/Instruct model opens setup even when verified Coder is ready. Manual Coder remains usable."
+}

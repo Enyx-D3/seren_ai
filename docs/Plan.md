@@ -93,13 +93,13 @@ Tasks: register typed deterministic arithmetic, simple symbolic transforms and o
 
 Gate: exact positive/negative tests, unknown tool rejection, malformed arguments denial, timeout recovery and no unauthorized action.
 
-### CP009 — B2 Spiral, R1/shared-state memory (NOT STARTED)
+### CP009 — B2 Spiral, R1/shared-state memory (PASS: bounded exact-arithmetic gate)
 
 Tasks: bounded inner hypothesis/outer execution loops, residual analysis, dependency-ready calculator scheduling, exact shared-state indexing, proven-equivalence reuse, approximate similarity kept provisional, Heartbeat Delta replay/repair and .ASIF adapter only when validated.
 
 Gate: synthetic and realistic repeated-state suites establish correctness, replay determinism, reuse hit rate and net end-to-end benefit; equivalent-state false positives = 0 on adversarial fixtures; fall back to baseline when overhead dominates.
 
-### CP010 — Magnetic Joint Table and self-calibration (NOT STARTED)
+### CP010 — Magnetic Joint Table and self-calibration (PASS: bounded exact-tool policy; broader self-calibration gated)
 
 Tasks: evaluate attraction/repulsion policies, TAP/ROTATE/EXPAND/CONTRACT/BRAKE/REPAIR/VERIFY transitions, hysteresis, candidate discovery, shadow trials, rollback and failure memory. Profile calibration drift and constrained device power use.
 
@@ -176,4 +176,4 @@ The next agent first reads these receipts, the actual repository and the six spe
 
 ## 9. First actionable assignment
 
-**Execute CP001–CP011, do not stop at CP001.** CP001–CP008 have passed their documented desktop browser or diagnostic gates. CP007 passes through its explicitly allowed conservative fallback: no specialist policy qualified for Auto promotion in the measured trials. CP008 passes for its bounded, compute-only local tool registry and exact/negative/timeout acceptance tests; it does not claim general symbolic algebra or model tool-selection reliability. CP011 remains partial; CP009–CP010 are not started. The next dependency-ready gate is CP009 shared-state and Spiral research. See `CHECKPOINT_LOG.md` for reproducible commands and unresolved failures. The final deliverable remains the **working web application**, not an APK.
+**Execute CP001–CP011, do not stop at CP001.** CP001–CP010 have passed their documented desktop browser or diagnostic gates. CP007 passes through its explicitly allowed conservative fallback: no specialist policy qualified for Auto promotion in the measured trials. CP008 passes for its bounded, compute-only local tool registry and exact/negative/timeout acceptance tests. CP009 passes only for bounded exact arithmetic state reuse, deterministic replay/repair, and measured repeated-state benefit; it does not establish general model-led reasoning memory or a browser .ASIF adapter. CP010 passes for an explicit, bounded, verified calculator-tool Joint policy in Auto after two fresh held-out blocks; its failed specialist candidate remains braked and general model self-calibration remains gated. CP011 remains partial. The next dependency-ready gate is CP011 browser acceptance, including physical mobile and power/thermal measurement when hardware is available. See `CHECKPOINT_LOG.md` for reproducible commands and unresolved failures. The final deliverable remains the **working web application**, not an APK.

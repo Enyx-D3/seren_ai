@@ -1,0 +1,667 @@
+{
+  "schema_version": 1,
+  "checkpoint": "CP009",
+  "generated_at": "2026-10-28T12:46:13.778Z",
+  "source_revision": "40b327a",
+  "environment": "macOS arm64 / Playwright Chromium 156.0.8078.4 / offline after service-worker ready / local IndexedDB / no model needed",
+  "gate": {
+    "synthetic": {
+      "expressions": [
+        {
+          "name": "rational-product-6",
+          "length": 227,
+          "expected_length": 200
+        },
+        {
+          "name": "large-fraction-sum-6",
+          "length": 239,
+          "expected_length": 202
+        },
+        {
+          "name": "engineering-ratio-product-5",
+          "length": 189,
+          "expected_length": 159
+        }
+      ],
+      "rounds": 50,
+      "attempts": 150,
+      "hits": 147,
+      "hitRate": 0.98,
+      "steadyStateHitRate": 1,
+      "perItem": {
+        "rational-product-6": {
+          "attempts": 50,
+          "hits": 49
+        },
+        "large-fraction-sum-6": {
+          "attempts": 50,
+          "hits": 49
+        },
+        "engineering-ratio-product-5": {
+          "attempts": 50,
+          "hits": 49
+        }
+      },
+      "correctnessFailures": [],
+      "replayChecked": 150,
+      "replayFailures": [],
+      "steps": [
+        "hypothesis",
+        "dependencies_ready",
+        "residual",
+        "verified_result"
+      ],
+      "baselineMs": 18.424999997019768,
+      "spiralMs": 7.295000001788139,
+      "criticalPathRatio": 0.3959294438517287,
+      "persistenceMs": 10.350000001490116,
+      "netIncludingPersistenceRatio": 0.9576662147154585,
+      "samples": [
+        {
+          "elapsedMs": 18.33499999344349,
+          "hits": 147,
+          "attempts": 150
+        },
+        {
+          "elapsedMs": 7.295000001788139,
+          "hits": 147,
+          "attempts": 150
+        },
+        {
+          "elapsedMs": 7.634999997913837,
+          "hits": 147,
+          "attempts": 150
+        },
+        {
+          "elapsedMs": 7.594999998807907,
+          "hits": 147,
+          "attempts": 150
+        },
+        {
+          "elapsedMs": 6.2349999994039536,
+          "hits": 147,
+          "attempts": 150
+        },
+        {
+          "elapsedMs": 5.955000005662441,
+          "hits": 147,
+          "attempts": 150
+        },
+        {
+          "elapsedMs": 6.535000003874302,
+          "hits": 147,
+          "attempts": 150
+        }
+      ],
+      "baselineSamples": [
+        20.70499999821186,
+        22.070000000298023,
+        18.424999997019768,
+        18.150000005960464,
+        17.99500000476837,
+        18.475000001490116,
+        18.099999994039536
+      ]
+    },
+    "realistic": {
+      "expressions": [
+        {
+          "name": "quarterly-budget-variance",
+          "length": 189,
+          "expected_length": 164
+        },
+        {
+          "name": "unit-cost-rollup",
+          "length": 199,
+          "expected_length": 172
+        },
+        {
+          "name": "proration-reconciliation",
+          "length": 199,
+          "expected_length": 166
+        },
+        {
+          "name": "batch-yield",
+          "length": 199,
+          "expected_length": 130
+        }
+      ],
+      "rounds": 30,
+      "attempts": 120,
+      "hits": 116,
+      "hitRate": 0.9666666666666667,
+      "steadyStateHitRate": 1,
+      "perItem": {
+        "quarterly-budget-variance": {
+          "attempts": 30,
+          "hits": 29
+        },
+        "unit-cost-rollup": {
+          "attempts": 30,
+          "hits": 29
+        },
+        "proration-reconciliation": {
+          "attempts": 30,
+          "hits": 29
+        },
+        "batch-yield": {
+          "attempts": 30,
+          "hits": 29
+        }
+      },
+      "correctnessFailures": [],
+      "replayChecked": 120,
+      "replayFailures": [],
+      "steps": [
+        "hypothesis",
+        "dependencies_ready",
+        "residual",
+        "verified_result"
+      ],
+      "baselineMs": 14.125,
+      "spiralMs": 5.759999997913837,
+      "criticalPathRatio": 0.4077876104717761,
+      "persistenceMs": 6.060000002384186,
+      "netIncludingPersistenceRatio": 0.8368141593131344,
+      "samples": [
+        {
+          "elapsedMs": 7.255000002682209,
+          "hits": 116,
+          "attempts": 120
+        },
+        {
+          "elapsedMs": 6.219999998807907,
+          "hits": 116,
+          "attempts": 120
+        },
+        {
+          "elapsedMs": 5.0150000005960464,
+          "hits": 116,
+          "attempts": 120
+        },
+        {
+          "elapsedMs": 6.740000002086163,
+          "hits": 116,
+          "attempts": 120
+        },
+        {
+          "elapsedMs": 4.9799999967217445,
+          "hits": 116,
+          "attempts": 120
+        },
+        {
+          "elapsedMs": 5.759999997913837,
+          "hits": 116,
+          "attempts": 120
+        },
+        {
+          "elapsedMs": 4.814999997615814,
+          "hits": 116,
+          "attempts": 120
+        }
+      ],
+      "baselineSamples": [
+        14.08500000089407,
+        14.125,
+        13.970000006258488,
+        14.33500000089407,
+        14.140000000596046,
+        13.929999999701977,
+        14.599999994039536
+      ]
+    },
+    "reload": {
+      "persistedExactRows": 3,
+      "attempts": 1050,
+      "hits": 1050,
+      "hitRate": 1,
+      "spiralMs": 4.8900000005960464,
+      "baselineMs": 18.625,
+      "ratio": 0.2625503356024723,
+      "samples": [
+        7.100000001490116,
+        5.305000007152557,
+        5.419999994337559,
+        4.8900000005960464,
+        4.7650000005960464,
+        4.809999994933605,
+        4.760000005364418
+      ],
+      "baselineSamples": [
+        25.50500000268221,
+        22.350000001490116,
+        18.875,
+        18.625,
+        18.469999998807907,
+        18.240000002086163,
+        18.274999998509884
+      ],
+      "replayOk": true,
+      "replayDeterministic": true,
+      "reuseCounts": [
+        {
+          "canonical_length": 239,
+          "reuse_count": 49
+        },
+        {
+          "canonical_length": 227,
+          "reuse_count": 49
+        },
+        {
+          "canonical_length": 189,
+          "reuse_count": 49
+        }
+      ]
+    },
+    "adversarial": {
+      "positiveControls": [
+        {
+          "left": "2+1",
+          "right": "1+2",
+          "leftValue": "3",
+          "rightValue": "3",
+          "reused": true,
+          "sameState": true,
+          "expected": "3",
+          "ok": true
+        },
+        {
+          "left": "10+2",
+          "right": "2+10",
+          "leftValue": "12",
+          "rightValue": "12",
+          "reused": true,
+          "sameState": true,
+          "expected": "12",
+          "ok": true
+        },
+        {
+          "left": "2*3",
+          "right": "3*2",
+          "leftValue": "6",
+          "rightValue": "6",
+          "reused": true,
+          "sameState": true,
+          "expected": "6",
+          "ok": true
+        }
+      ],
+      "pairs": [
+        {
+          "left": "2-1",
+          "right": "1-2",
+          "leftValue": "1",
+          "rightValue": "-1",
+          "expectedLeft": "1",
+          "expectedRight": "-1",
+          "reused": false,
+          "sameState": false,
+          "falsePositive": false,
+          "correct": true
+        },
+        {
+          "left": "8/4",
+          "right": "4/8",
+          "leftValue": "2",
+          "rightValue": "1/2",
+          "expectedLeft": "2",
+          "expectedRight": "1/2",
+          "reused": false,
+          "sameState": false,
+          "falsePositive": false,
+          "correct": true
+        },
+        {
+          "left": "2+3*4",
+          "right": "(2+3)*4",
+          "leftValue": "14",
+          "rightValue": "20",
+          "expectedLeft": "14",
+          "expectedRight": "20",
+          "reused": false,
+          "sameState": false,
+          "falsePositive": false,
+          "correct": true
+        },
+        {
+          "left": "1/2+1/3",
+          "right": "1/3+1/2",
+          "leftValue": "5/6",
+          "rightValue": "5/6",
+          "expectedLeft": "5/6",
+          "expectedRight": "5/6",
+          "reused": false,
+          "sameState": false,
+          "falsePositive": false,
+          "correct": true
+        },
+        {
+          "left": "0.1+0.2",
+          "right": "0.3",
+          "leftValue": "3/10",
+          "rightValue": "3/10",
+          "expectedLeft": "3/10",
+          "expectedRight": "3/10",
+          "reused": false,
+          "sameState": false,
+          "falsePositive": false,
+          "correct": true
+        },
+        {
+          "left": "1.0+2.00",
+          "right": "1+2",
+          "leftValue": "3",
+          "rightValue": "3",
+          "expectedLeft": "3",
+          "expectedRight": "3",
+          "reused": false,
+          "sameState": false,
+          "falsePositive": false,
+          "correct": true
+        },
+        {
+          "left": "(1/2)*(2/3)",
+          "right": "(2/3)*(1/2)",
+          "leftValue": "1/3",
+          "rightValue": "1/3",
+          "expectedLeft": "1/3",
+          "expectedRight": "1/3",
+          "reused": false,
+          "sameState": false,
+          "falsePositive": false,
+          "correct": true
+        },
+        {
+          "left": "12345678901234567+1",
+          "right": "1+12345678901234566",
+          "leftValue": "12345678901234568",
+          "rightValue": "12345678901234567",
+          "expectedLeft": "12345678901234568",
+          "expectedRight": "12345678901234567",
+          "reused": false,
+          "sameState": false,
+          "falsePositive": false,
+          "correct": true
+        }
+      ],
+      "falsePositiveCount": 0,
+      "scopeIsolation": {
+        "reused": false,
+        "value": "3",
+        "expected": "3"
+      },
+      "corruption": {
+        "reused": false,
+        "value": "3",
+        "expected": "3",
+        "repairDelta": true,
+        "repairedValue": "3",
+        "ok": true
+      }
+    },
+    "replay": {
+      "sampleExpression": "(12345678901234567/98765432109876543)*(12345678901234567/98765432109876543)*(12345678901234567/98765432109876543)*(12345678901234567/98765432109876543)*(12345678901234567/98765432109876543)*(12345678901234567/98765432109876543)",
+      "sampleExpected": "3540705970274019801166268975631671160346088016413278337532145719726857593306828609047634479681169/928174876619473258821852685528222641681146171957312091625908808952179106319927039532506567749728850049",
+      "deterministic": true,
+      "runs": [
+        {
+          "ok": true,
+          "value": "3540705970274019801166268975631671160346088016413278337532145719726857593306828609047634479681169/928174876619473258821852685528222641681146171957312091625908808952179106319927039532506567749728850049",
+          "final_hash": "13d7a88d",
+          "sequences": 4
+        },
+        {
+          "ok": true,
+          "value": "3540705970274019801166268975631671160346088016413278337532145719726857593306828609047634479681169/928174876619473258821852685528222641681146171957312091625908808952179106319927039532506567749728850049",
+          "final_hash": "13d7a88d",
+          "sequences": 4
+        },
+        {
+          "ok": true,
+          "value": "3540705970274019801166268975631671160346088016413278337532145719726857593306828609047634479681169/928174876619473258821852685528222641681146171957312091625908808952179106319927039532506567749728850049",
+          "final_hash": "13d7a88d",
+          "sequences": 4
+        }
+      ],
+      "tamper": {
+        "payload_value": {
+          "ok": false,
+          "error": "heartbeat sequence or content mismatch",
+          "repairFrom": 4
+        },
+        "previous_hash": {
+          "ok": false,
+          "error": "heartbeat sequence or content mismatch",
+          "repairFrom": 2
+        },
+        "hash": {
+          "ok": false,
+          "error": "heartbeat sequence or content mismatch",
+          "repairFrom": 4
+        },
+        "sequence": {
+          "ok": false,
+          "error": "heartbeat sequence or content mismatch",
+          "repairFrom": 2
+        },
+        "kind": {
+          "ok": false,
+          "error": "heartbeat sequence or content mismatch",
+          "repairFrom": 2
+        },
+        "truncated": {
+          "ok": false,
+          "error": "missing verified result",
+          "repairFrom": 4
+        },
+        "too_long": {
+          "ok": false,
+          "error": "invalid heartbeat length",
+          "repairFrom": 1
+        }
+      },
+      "repairDeterministic": true,
+      "validRequiresNoRepair": true,
+      "dependencyScheduled": true,
+      "sampleDeltas": [
+        {
+          "schema_version": 1,
+          "sequence": 1,
+          "previous_hash": "genesis",
+          "kind": "hypothesis",
+          "payload": {
+            "canonical": "(12345678901234567/98765432109876543)*(12345678901234567/98765432109876543)*(12345678901234567/98765432109876543)*(12345678901234567/98765432109876543)*(12345678901234567/98765432109876543)*(12345678901234567/98765432109876543)",
+            "proof": "exact_text_identity",
+            "policy": "spiral-exact-1"
+          },
+          "hash": "ce705da7"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 2,
+          "previous_hash": "ce705da7",
+          "kind": "dependencies_ready",
+          "payload": {
+            "count": 6,
+            "max_branches": 8
+          },
+          "hash": "59700ede"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 3,
+          "previous_hash": "59700ede",
+          "kind": "residual",
+          "payload": {
+            "zero": true,
+            "method": "factor_aggregation_vs_full_expression"
+          },
+          "hash": "f4995a0e"
+        },
+        {
+          "schema_version": 1,
+          "sequence": 4,
+          "previous_hash": "f4995a0e",
+          "kind": "verified_result",
+          "payload": {
+            "value": "3540705970274019801166268975631671160346088016413278337532145719726857593306828609047634479681169/928174876619473258821852685528222641681146171957312091625908808952179106319927039532506567749728850049",
+            "state_id": "94b93afc6a7aeb130784e33a7ad937100da62d8846c2c48c3929ad940f50f65b",
+            "route": "computed_and_cached"
+          },
+          "hash": "13d7a88d"
+        }
+      ]
+    },
+    "performance": {
+      "oneOffBaselineMs": 1.3200000002980232,
+      "oneOffSpiralMs": 4.865000002086163,
+      "oneOffRatio": 3.6856060613543686,
+      "oneOffSamples": [
+        5.050000004470348,
+        4.494999997317791,
+        4.865000002086163,
+        4.204999998211861,
+        5.25,
+        4.075000002980232,
+        4.939999997615814
+      ],
+      "fallback": {
+        "shortCandidate": false,
+        "shortRoute": "baseline_short_expression",
+        "shortValue": "3",
+        "longCandidate": true,
+        "longSolveError": "too many arithmetic tokens",
+        "longFallbackVia": "approximate calculator",
+        "longFallbackAnswer": "30",
+        "divisionByZeroVia": "verified exact arithmetic",
+        "divisionByZeroAnswer": "Undefined (division by zero)."
+      },
+      "canonical": {
+        "sum": "1+2",
+        "subtraction": "2-1"
+      },
+      "dependencies": 6
+    },
+    "ui": {
+      "expressionLength": 227,
+      "expectedLength": 200,
+      "first": {
+        "answer": "3540705970274019801166268975631671160346088016413278337532145719726857593306828609047634479681169/928174876619473258821852685528222641681146171957312091625908808952179106319927039532506567749728850049",
+        "via": "verified exact arithmetic",
+        "elapsedMs": 139
+      },
+      "second": {
+        "answer": "3540705970274019801166268975631671160346088016413278337532145719726857593306828609047634479681169/928174876619473258821852685528222641681146171957312091625908808952179106319927039532506567749728850049",
+        "via": "verified shared state",
+        "elapsedMs": 159
+      },
+      "third": {
+        "answer": "3540705970274019801166268975631671160346088016413278337532145719726857593306828609047634479681169/928174876619473258821852685528222641681146171957312091625908808952179106319927039532506567749728850049",
+        "via": "verified shared state",
+        "elapsedMs": 126
+      },
+      "afterReload": {
+        "answer": "3540705970274019801166268975631671160346088016413278337532145719726857593306828609047634479681169/928174876619473258821852685528222641681146171957312091625908808952179106319927039532506567749728850049",
+        "via": "verified shared state",
+        "elapsedMs": 205
+      },
+      "shortFallback": {
+        "answer": "3",
+        "via": "verified exact arithmetic",
+        "elapsedMs": 117
+      },
+      "longFallback": {
+        "answer": "30",
+        "via": "approximate calculator",
+        "elapsedMs": 104
+      },
+      "divisionByZero": {
+        "answer": "Undefined (division by zero).",
+        "via": "verified exact arithmetic",
+        "elapsedMs": 103
+      },
+      "conversationId": "63ef035b-bffd-40f2-9f0f-159e0ccc8a5a",
+      "store": {
+        "answers": [
+          {
+            "content": "3540705970274019801166268975631671160346088016413278337532145719726857593306828609047634479681169/928174876619473258821852685528222641681146171957312091625908808952179106319927039532506567749728850049",
+            "via": "verified exact arithmetic",
+            "sharedStateId": "eb97047ec8020271991c4834df1534a581b20ec1b3525dd53ee1d8138bf95134",
+            "replay": {
+              "ok": true,
+              "value": "3540705970274019801166268975631671160346088016413278337532145719726857593306828609047634479681169/928174876619473258821852685528222641681146171957312091625908808952179106319927039532506567749728850049",
+              "final_hash": "57ab380a",
+              "sequences": 4
+            }
+          },
+          {
+            "content": "3540705970274019801166268975631671160346088016413278337532145719726857593306828609047634479681169/928174876619473258821852685528222641681146171957312091625908808952179106319927039532506567749728850049",
+            "via": "verified shared state",
+            "sharedStateId": "eb97047ec8020271991c4834df1534a581b20ec1b3525dd53ee1d8138bf95134",
+            "replay": {
+              "ok": true,
+              "value": "3540705970274019801166268975631671160346088016413278337532145719726857593306828609047634479681169/928174876619473258821852685528222641681146171957312091625908808952179106319927039532506567749728850049",
+              "final_hash": "69ba020c",
+              "sequences": 2
+            }
+          },
+          {
+            "content": "3540705970274019801166268975631671160346088016413278337532145719726857593306828609047634479681169/928174876619473258821852685528222641681146171957312091625908808952179106319927039532506567749728850049",
+            "via": "verified shared state",
+            "sharedStateId": "eb97047ec8020271991c4834df1534a581b20ec1b3525dd53ee1d8138bf95134",
+            "replay": {
+              "ok": true,
+              "value": "3540705970274019801166268975631671160346088016413278337532145719726857593306828609047634479681169/928174876619473258821852685528222641681146171957312091625908808952179106319927039532506567749728850049",
+              "final_hash": "69ba020c",
+              "sequences": 2
+            }
+          },
+          {
+            "content": "3540705970274019801166268975631671160346088016413278337532145719726857593306828609047634479681169/928174876619473258821852685528222641681146171957312091625908808952179106319927039532506567749728850049",
+            "via": "verified shared state",
+            "sharedStateId": "eb97047ec8020271991c4834df1534a581b20ec1b3525dd53ee1d8138bf95134",
+            "replay": {
+              "ok": true,
+              "value": "3540705970274019801166268975631671160346088016413278337532145719726857593306828609047634479681169/928174876619473258821852685528222641681146171957312091625908808952179106319927039532506567749728850049",
+              "final_hash": "69ba020c",
+              "sequences": 2
+            }
+          },
+          {
+            "content": "3",
+            "via": "verified exact arithmetic",
+            "sharedStateId": null,
+            "replay": null
+          },
+          {
+            "content": "30",
+            "via": "approximate calculator",
+            "sharedStateId": null,
+            "replay": null
+          },
+          {
+            "content": "Undefined (division by zero).",
+            "via": "verified exact arithmetic",
+            "sharedStateId": null,
+            "replay": null
+          }
+        ],
+        "exactRows": [
+          {
+            "canonical_length": 227,
+            "reuse_count": 1,
+            "value_digest": "e00e39958b472724a915747356ce08e93756504e27ac91103ce623305dda6bdb"
+          }
+        ]
+      }
+    },
+    "cleanup": {
+      "requested": 27,
+      "sampleRowsAfterDelete": 0
+    }
+  },
+  "errors": [],
+  "external": [],
+  "passed": true,
+  "failures": []
+}

@@ -1,0 +1,92 @@
+{
+  "checkpoint": "CP003/CP006/CP011",
+  "environment": "macOS arm64 / Playwright Chromium / CPU WASM / four verified Falcon Q4_K_M GGUFs",
+  "cycles": 2,
+  "offlineCycle": 2,
+  "results": [
+    {
+      "cycle": 1,
+      "requested": "falcon_instruct",
+      "elapsedMs": 38747,
+      "modelId": "falcon_instruct",
+      "status": "done",
+      "content": "Hello! How can I help you today?",
+      "routeMode": "manual",
+      "policyVersion": "compass-conservative-1"
+    },
+    {
+      "cycle": 1,
+      "requested": "falcon_reason",
+      "elapsedMs": 22422,
+      "modelId": "falcon_reason",
+      "status": "done",
+      "content": "No final answer was emitted within this run’s token budget.",
+      "routeMode": "manual",
+      "policyVersion": "compass-conservative-1"
+    },
+    {
+      "cycle": 1,
+      "requested": "falcon_coder",
+      "elapsedMs": 19233,
+      "modelId": "falcon_coder",
+      "status": "done",
+      "content": " It should add the two numbers a and b and return the result.\n\ndef add(a, b):\n    return a + b\n\nprint(add(2, 3))\n\n# 2. Write a Python function subtract(a, b). I",
+      "routeMode": "manual",
+      "policyVersion": "compass-conservative-1"
+    },
+    {
+      "cycle": 1,
+      "requested": "falcon_tools",
+      "elapsedMs": 24759,
+      "modelId": "falcon_tools",
+      "status": "done",
+      "content": "Hello! How can I assist you today?",
+      "routeMode": "manual",
+      "policyVersion": "compass-conservative-1"
+    },
+    {
+      "cycle": 2,
+      "requested": "falcon_instruct",
+      "elapsedMs": 5984,
+      "modelId": "falcon_instruct",
+      "status": "done",
+      "content": "Hello! How can I help you today?",
+      "routeMode": "manual",
+      "policyVersion": "compass-conservative-1"
+    },
+    {
+      "cycle": 2,
+      "requested": "falcon_reason",
+      "elapsedMs": 13112,
+      "modelId": "falcon_reason",
+      "status": "done",
+      "content": "No final answer was emitted within this run’s token budget.",
+      "routeMode": "manual",
+      "policyVersion": "compass-conservative-1"
+    },
+    {
+      "cycle": 2,
+      "requested": "falcon_coder",
+      "elapsedMs": 10015,
+      "modelId": "falcon_coder",
+      "status": "done",
+      "content": " The function should return the sum of a and b.\n\nAddition of 2 numbers:\n\n    a + b\n    a + b + c\n    a + b + c + d\n    a + b + c + d + e\n    a + b + c + d + e +",
+      "routeMode": "manual",
+      "policyVersion": "compass-conservative-1"
+    },
+    {
+      "cycle": 2,
+      "requested": "falcon_tools",
+      "elapsedMs": 11735,
+      "modelId": "falcon_tools",
+      "status": "done",
+      "content": "Hello! How can I assist you today?",
+      "routeMode": "manual",
+      "policyVersion": "compass-conservative-1"
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "passed": true,
+  "caveat": "Nonempty completion and identity checks demonstrate compatibility, not task correctness or failover."
+}

@@ -1,17 +1,18 @@
 /* Seren 7 browser shell. Every answer is either a labelled deterministic local
    calculation or tokens from the verified GGUF running in the WASM Worker. */
-import { init, conv, msg, models, modelFile, kv, events, toolCalls, exportAllConversations, importConversations, deleteAllConversations, factoryReset, storageEstimate } from './store.mjs';
+import { init, conv, msg, models, modelFile, kv, events, toolCalls, jointRecords, exportAllConversations, importConversations, deleteAllConversations, factoryReset, storageEstimate } from './store.mjs';
 import { SPECIALISTS, MODEL_META, route } from './compass.mjs';
 import { buildChatPrompt } from './prompts.mjs';
 import { tryLocalAnswer, extractExactArithmetic, parseToolFabric, reachableToolsJSON } from './tools.mjs';
 import { runToolProposal } from './tool-runner.mjs';
 import { ExactSpiral, isReuseCandidate, repairHeartbeat } from './spiral.mjs';
+import { proposeExactToolJoint, EXACT_TOOL_JOINT, BRAKED_MODEL_JOINT } from './joint.mjs';
 import { md } from './md.mjs';
 import { initOrb } from './orb.mjs';
 
 const $ = id => document.getElementById(id);
 const state = { conversation: null, messages: [], selected: 'auto', think: false,
-  available: new Map(), busy: null, worker: null, ingest: null, orb: null, theme: 'system' };
+  available: new Map(), failedModels: new Set(), autoPreparing: false, busy: null, worker: null, ingest: null, orb: null, theme: 'system' };
 const names = { falcon_instruct: 'Falcon Instruct', falcon_reason: 'Falcon R',
   falcon_coder: 'Falcon Coder', falcon_tools: 'Falcon Tool-Calling' };
 const localModelFiles = [
@@ -20,6 +21,7 @@ const localModelFiles = [
   'Falcon-H1-Tiny-Coder-Q4_K_M.gguf',
   'Falcon-H1-Tiny-Tool-Calling-Q4_K_M.gguf',
 ];
+const hostedModelFile = Object.fromEntries(SPECIALISTS.map((id, index) => [id, localModelFiles[index]]));
 const suggestions = {
   kyoto: 'Plan a slow weekend in Kyoto. Two days, nothing rushed.',
   dark: 'Explain dark matter to a poet.',
@@ -30,6 +32,27 @@ const newId = () => crypto.randomUUID();
 const waiters = new Map();
 const exactSpiral = new ExactSpiral();
 let localSpeechVoice = null;
+const selectedModel = () => state.selected === 'auto' ? 'falcon_instruct' : state.selected;
+function updateSend() {
+  $('sendBtn').disabled = !state.busy && (!state.available.has(selectedModel()) || !$('prompt').value.trim());
+}
+function updateModelLoadStatus(message = '') {
+  const id = selectedModel();
+  $('modelLoadStatus').textContent = message || (state.available.has(id) ? `${names[id]} ready in this browser` :
+    `Waiting for ${names[id]} · open Settings to import a GGUF`);
+  $('modelLoadStatus').dataset.loading = String(!!state.provisioning);
+  updateSend();
+}
+function setProvisionProgress(progress) {
+  if (state.provisionProgress === progress) return;
+  state.provisionProgress = progress;
+  if (!state.provisioning) return;
+  const label = `${names[state.provisioning]} · ${progress}`;
+  $('heroStatus').textContent = label;
+  updateModelLoadStatus(label);
+  const row = [...$('modelRows').children].find(item => item.dataset.modelId === state.provisioning);
+  if (row) row.querySelector('.desc').textContent = progress;
+}
 
 function refreshLocalSpeechVoice() {
   if (!('speechSynthesis' in window) || !('SpeechSynthesisUtterance' in window)) return;
@@ -51,11 +74,16 @@ function status(text, alert = false) {
 function setBusy(run) {
   if (state.busy?.watchdog) clearTimeout(state.busy.watchdog);
   state.busy = run; $('app').classList.toggle('busy', !!run);
-  $('sendBtn').disabled = !run && !$('prompt').value.trim();
+  updateSend();
   $('sendBtn').setAttribute('aria-label', run ? 'Stop generating' : 'Send');
   state.orb?.setEnergy(run ? 0.8 : 0);
 }
-function scrollEnd() { $('scroller').scrollTop = $('scroller').scrollHeight; }
+function scrollEnd() {
+  const scroller = $('scroller');
+  scroller.style.scrollBehavior = 'auto';
+  scroller.scrollTop = scroller.scrollHeight;
+  scroller.style.removeProperty('scroll-behavior');
+}
 function placeOrb(animate = true) {
   const target = $('app').dataset.state === 'chat' ? $('orbSlot') : $('orbAnchor');
   const rect = target.getBoundingClientRect();
@@ -80,11 +108,14 @@ function renderModels() {
   $('modelRows').replaceChildren(); $('modelMenu').replaceChildren();
   for (const id of SPECIALISTS) {
     const d = state.available.get(id);
-    const row = document.createElement('div'); row.className = 'model-row';
-    row.innerHTML = '<span aria-hidden="true">◌</span><b></b><span class="st"></span><span class="desc"></span>';
+    const row = document.createElement('label'); row.className = 'model-row'; row.dataset.modelId = id;
+    row.innerHTML = '<input type="radio" name="setupModelChoice"><b></b><span class="st"></span><span class="desc"></span>';
+    row.querySelector('input').checked = state.selected === id;
+    row.querySelector('input').onchange = () => { state.selected = id; $('modelName').textContent = MODEL_META[id].display;
+      renderModels(); if (!state.available.has(id) && !state.autoPreparing) void prepareSelectedModel(); };
     row.querySelector('b').textContent = names[id];
-    row.querySelector('.st').textContent = d ? 'Verified · ' + d.quant : 'Not imported';
-    row.querySelector('.desc').textContent = d ? Math.round(d.bytes / 1048576) + ' MiB stored in this browser' : 'Import approved GGUF to enable';
+    row.querySelector('.st').textContent = d ? 'Verified · ' + d.quant : state.provisioning === id ? 'Loading…' : state.failedModels.has(id) ? 'Import needed' : state.autoPreparing ? 'Queued' : 'Not ready';
+    row.querySelector('.desc').textContent = d ? Math.round(d.bytes / 1048576) + ' MiB stored in this browser' : state.provisioning === id ? state.provisionProgress || 'Downloading and verifying locally' : state.autoPreparing && !state.failedModels.has(id) ? 'Automatic setup will start soon' : 'Import a GGUF if this site has no model file';
     $('modelRows').append(row);
   }
   for (const id of ['auto', ...SPECIALISTS]) {
@@ -94,13 +125,15 @@ function renderModels() {
     item.innerHTML = '<b></b><span></span>';
     item.querySelector('b').textContent = MODEL_META[id].display;
     item.querySelector('span').textContent = id === 'auto' ? 'Conservative Instruct until routing is verified' :
-      (state.available.has(id) ? names[id] + ' · ready' : names[id] + ' · import needed');
+      (state.available.has(id) ? names[id] + ' · ready' : names[id] + ' · prepares from this site when used, if available');
     item.onclick = () => { state.selected = id; $('modelName').textContent = MODEL_META[id].display;
-      $('modelMenu').hidden = true; $('modelBtn').setAttribute('aria-expanded', 'false'); renderModels(); $('modelBtn').focus(); };
+      $('modelMenu').hidden = true; $('modelBtn').setAttribute('aria-expanded', 'false'); renderModels(); $('modelBtn').focus();
+      if (!state.available.has(selectedModel()) && !state.autoPreparing) void prepareSelectedModel(); };
     $('modelMenu').append(item);
   }
-  $('heroStatus').textContent = state.available.size ? `${state.available.size} of 4 local specialists imported` : 'Import a local Falcon model to start chatting';
-  status(state.available.size ? `${state.available.size} verified local model${state.available.size === 1 ? '' : 's'} · CPU WebAssembly` : 'Local model not ready · import a verified GGUF');
+  $('heroStatus').textContent = state.provisioning ? `${names[state.provisioning]} · ${state.provisionProgress || 'preparing locally'}` :
+    state.available.size ? `${state.available.size} of 4 local specialists imported` : 'Waiting for a local model · import a GGUF in Settings';
+  updateModelLoadStatus(state.provisioning ? `${names[state.provisioning]} · ${state.provisionProgress || 'preparing locally'}` : '');
 }
 
 async function refreshModels() {
@@ -138,7 +171,7 @@ function renderThreads(filter = '') {
   });
 }
 
-function renderConversation() {
+function renderConversation({ animate = true } = {}) {
   $('thread').replaceChildren();
   $('app').dataset.state = state.messages.length ? 'chat' : 'empty';
   state.messages.forEach((m, i) => {
@@ -147,6 +180,7 @@ function renderConversation() {
       $('thread').append(el); return;
     }
     const el = document.createElement('article'); el.className = 'msg-ai'; el.dataset.messageId = m.id;
+    if (!animate) el.classList.add('no-rise');
     if (i === state.messages.length - 1) el.classList.add('last');
     const meta = document.createElement('div'); meta.className = 'msg-meta';
     const label = document.createElement('span'); label.className = 'm-name'; label.textContent = m.model_id ? names[m.model_id] : 'Seren 7';
@@ -154,7 +188,9 @@ function renderConversation() {
     detail.textContent = m.status === 'streaming' ? 'Writing locally…' : m.status === 'stopped' ? 'Stopped · partial answer' :
       m.status === 'error' ? 'Generation failed' : m.meta?.via || 'Local response';
     meta.append(label, detail);
-    const prose = document.createElement('div'); prose.className = 'prose'; prose.innerHTML = md(m.content || '');
+    const prose = document.createElement('div'); prose.className = 'prose';
+    if (m.status === 'streaming') { prose.classList.add('streaming-text'); prose.textContent = m.content || ''; }
+    else prose.innerHTML = md(m.content || '');
     const actions = document.createElement('div'); actions.className = 'actions';
     const copy = document.createElement('button'); copy.className = 'icon-btn'; copy.setAttribute('aria-label', 'Copy response');
     copy.innerHTML = '<svg width="17" height="17" aria-hidden="true"><use href="#i-copy"/></svg>';
@@ -200,9 +236,18 @@ function renderConversation() {
   scrollEnd();
 }
 
+function updateStreamMessage(message) {
+  const prose = [...$('thread').querySelectorAll('article[data-message-id]')]
+    .find(article => article.dataset.messageId === message.id)?.querySelector('.prose');
+  if (!prose) { renderConversation(); return; }
+  prose.textContent = message.content;
+  scrollEnd();
+}
+
 async function openConversation(id) {
   if (state.busy) stopGeneration();
   state.conversation = await conv.get(id); state.messages = await msg.byConv(id);
+  await exactSpiral.warm(id).catch(() => {});
   for (const m of state.messages.filter(m => m.status === 'streaming')) await msg.update(m.id, { status: 'stopped' });
   state.messages = await msg.byConv(id);
   let priorUser = null;
@@ -216,8 +261,11 @@ async function openConversation(id) {
       if (checked.repaired) {
         message.content = checked.value;
         message.meta = { ...message.meta, via: 'verified exact arithmetic · repaired',
-          spiral_deltas: checked.deltas, replay_repaired: true };
+          spiral_deltas: checked.deltas, replay_repaired: true, spiral_replay_status: 'repaired' };
         await msg.update(message.id, { content: message.content, meta: message.meta });
+      } else if (message.meta.spiral_replay_status !== 'verified_on_resume') {
+        message.meta = { ...message.meta, spiral_replay_status: 'verified_on_resume' };
+        await msg.update(message.id, { meta: message.meta });
       }
     } catch (error) {
       message.status = 'error';
@@ -260,7 +308,7 @@ function runWorker() {
       run.content = data.payload.replace ? data.payload.text : run.content + data.payload.text;
       const m = state.messages.find(x => x.id === run.messageId) || await msg.get(run.messageId);
       const visible = visibleOutput(run.modelId, run.content);
-      if (m) { m.content = visible; renderConversation(); }
+      if (m) { m.content = visible; updateStreamMessage(m); }
       if (data.payload.token_count % 8 === 0) await msg.update(run.messageId, { content: visible });
     } else if (data.kind === 'complete' || data.kind === 'cancelled' || data.kind === 'error') {
       const m = state.messages.find(x => x.id === run.messageId) || await msg.get(run.messageId);
@@ -300,7 +348,7 @@ function runWorker() {
           tool_receipts: toolReceipts };
         await msg.update(m.id, { content: m.content, status: m.status, meta: m.meta });
       }
-      setBusy(null); renderConversation(); status(m?.status === 'stopped' ? 'Stopped' : data.kind === 'complete' ? 'Response complete · local CPU WebAssembly' : 'Local runtime error', true);
+      setBusy(null); renderConversation({ animate: false }); status(m?.status === 'stopped' ? 'Stopped' : data.kind === 'complete' ? 'Response complete · local CPU WebAssembly' : 'Local runtime error', true);
     }
   };
   worker.onerror = async e => {
@@ -361,11 +409,14 @@ function stopGeneration() {
 }
 
 async function submit(text, { regen = false } = {}) {
-  text = text.trim(); if (!text || state.busy) return;
+  text = text.trim(); if (!text || state.busy || !state.available.has(selectedModel())) return;
   await ensureConversation(text);
   if (!regen) { const user = await msg.add(state.conversation.id, { role: 'user', content: text }); state.messages.push(user); }
   $('prompt').value = ''; $('sendBtn').disabled = true;
   let local = null, spiralRun = null;
+  const jointEnabled = new URLSearchParams(location.search).get('joint_policy') !== 'conservative';
+  const jointRun = jointEnabled ? proposeExactToolJoint(text, { selected: state.selected }) : null;
+  if (jointRun) local = { answer: jointRun.answer, via: jointRun.via };
   if (state.selected !== 'falcon_tools') {
     const expression = extractExactArithmetic(text);
     if (isReuseCandidate(expression)) {
@@ -377,14 +428,35 @@ async function submit(text, { regen = false } = {}) {
     local ||= tryLocalAnswer(text);
   }
   if (local) {
-    const runId = spiralRun ? newId() : null;
+    const runId = spiralRun || jointRun ? newId() : null;
     const answer = await msg.add(state.conversation.id, { role: 'assistant', content: local.answer,
-      meta: { via: local.via, ...(spiralRun ? { run_id: runId, backend: 'deterministic',
+      meta: { via: local.via, ...(jointRun ? { run_id: runId, backend: 'deterministic',
+        route_mode: 'verified_joint_tool', route_category: 'tool',
+        route_reason: 'Explicit bounded calculator request passed independent exact verification',
+        policy_version: jointRun.policy_version, joint_action: jointRun.action,
+        verification_id: jointRun.verification } : {}), ...(spiralRun ? { run_id: runId, backend: 'deterministic',
         route_mode: spiralRun.route, route_category: 'arithmetic', route_reason: 'Bounded exact shared-state Spiral',
         policy_version: 'spiral-exact-1', spiral_deltas: spiralRun.deltas,
+        spiral_ack: 'persisted_with_message', spiral_replay_status: 'not_replayed',
         shared_state_id: spiralRun.stateId || null } : {}) } });
-    state.messages.push(answer); renderConversation(); await conv.touch(state.conversation.id); renderThreads(); return;
+    if (jointRun) {
+      for (const policy of [EXACT_TOOL_JOINT, BRAKED_MODEL_JOINT]) {
+        try {
+          if (!(await jointRecords.policy(policy.policy_id))) await jointRecords.putPolicy({
+            id: policy.policy_id, ...policy, schema_version: 3,
+            parameters_json: JSON.stringify({ grammar: policy.policy_id === EXACT_TOOL_JOINT.policy_id ? 'explicit_bounded_exact_arithmetic' : 'mixed_specialist_route' }),
+            applicability_json: JSON.stringify({ description: policy.applicability }),
+            parent_policy_version: 'compass-conservative-1', created_at: Date.now(),
+          });
+        } catch { /* policy receipt failure must not replace verified answer */ }
+      }
+    }
+    state.messages.push(answer); renderConversation(); await conv.touch(state.conversation.id); renderThreads();
+    await exactSpiral.flush({ onlyPending: true }).catch(() => {});
+    return;
   }
+  const requiredModel = state.selected === 'auto' ? 'falcon_instruct' : state.selected;
+  if (!state.available.has(requiredModel)) return;
   const ready = new Set(state.available.keys());
   const decision = route(text, { ready, selected: state.selected, think: state.think });
   const chosen = decision.modelId;
@@ -445,7 +517,12 @@ async function ingestFiles(files) {
     const result = await new Promise((resolve, reject) => {
       const listener = ({ data }) => {
         if (data.reqId !== reqId) return;
-        if (data.type === 'progress') { status(`Verifying ${file.name} · ${Math.round(data.frac * 100)}%`); return; }
+        if (data.type === 'progress') {
+          const progress = `Verifying locally · ${Math.round(data.frac * 100)}%`;
+          status(`${file.name} · ${progress}`);
+          if (state.provisioning) setProvisionProgress(progress);
+          return;
+        }
         worker.removeEventListener('message', listener);
         data.type === 'done' ? resolve(data.desc) : reject(new Error(data.message || 'Import failed'));
       };
@@ -454,6 +531,59 @@ async function ingestFiles(files) {
     toast(names[result.id] + ' verified and stored'); await refreshModels();
   }
   status('Model import complete · private browser storage', true);
+}
+
+async function provisionHostedModel(modelId) {
+  if (state.available.has(modelId)) return true;
+  const name = hostedModelFile[modelId];
+  if (!name) return false;
+  const url = new URL('../models/parts/' + encodeURIComponent(name), import.meta.url);
+  if (url.origin !== location.origin) throw new Error('model source must be on this site');
+  setProvisionProgress('Connecting to model source…');
+  let response;
+  try { response = await fetch(url, { cache: 'no-store', redirect: 'error' }); }
+  catch { return false; }
+  if (!response.ok) return false;
+  const declaredSize = Number(response.headers.get('Content-Length'));
+  if (Number.isFinite(declaredSize) && declaredSize > 300 * 1024 * 1024) throw new Error('hosted model exceeds size limit');
+  const chunks = []; let received = 0;
+  if (response.body) {
+    const reader = response.body.getReader();
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      received += value.byteLength;
+      if (received > 300 * 1024 * 1024) { await reader.cancel(); throw new Error('hosted model exceeds size limit'); }
+      chunks.push(value);
+      setProvisionProgress(declaredSize > 0 ? `Downloading · ${Math.min(100, Math.round(received / declaredSize * 100))}%` : `Downloading · ${Math.round(received / 1048576)} MiB`);
+    }
+  } else chunks.push(await response.blob());
+  setProvisionProgress('Verifying locally…');
+  await ingestFiles([new File(chunks, name, { type: 'application/octet-stream' })]);
+  return state.available.has(modelId);
+}
+
+async function prepareSelectedModel(id = selectedModel()) {
+  if (state.available.has(id)) { updateModelLoadStatus(); return; }
+  if (state.provisioning) return;
+  state.provisioning = id; state.provisionProgress = 'Checking hosted model…'; renderModels();
+  try {
+    if (!await provisionHostedModel(id)) {
+      state.failedModels.add(id);
+      status(`${names[id]} unavailable here · import a GGUF in Settings`, true);
+    } else state.failedModels.delete(id);
+  } catch (error) { state.failedModels.add(id); status('Model setup failed: ' + error.message, true); }
+  finally {
+    state.provisioning = null; state.provisionProgress = null; renderModels();
+  }
+}
+
+async function prepareAllHostedModels() {
+  if (state.autoPreparing || location.protocol === 'file:') return;
+  state.autoPreparing = true; renderModels();
+  try {
+    for (const id of SPECIALISTS) if (!state.available.has(id)) await prepareSelectedModel(id);
+  } finally { state.autoPreparing = false; renderModels(); }
 }
 
 async function boot() {
@@ -471,9 +601,9 @@ async function boot() {
     speechSynthesis.addEventListener?.('voiceschanged', refreshLocalSpeechVoice);
   }
   $('composer').onsubmit = e => { e.preventDefault(); state.busy ? stopGeneration() : submit($('prompt').value); };
-  $('prompt').oninput = () => { if (!state.busy) $('sendBtn').disabled = !$('prompt').value.trim(); };
+  $('prompt').oninput = updateSend;
   $('prompt').onkeydown = e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); $('composer').requestSubmit(); } };
-  for (const b of document.querySelectorAll('[data-sugg]')) b.onclick = () => { $('prompt').value = suggestions[b.dataset.sugg]; $('prompt').focus(); $('sendBtn').disabled = false; };
+  for (const b of document.querySelectorAll('[data-sugg]')) b.onclick = () => { $('prompt').value = suggestions[b.dataset.sugg]; $('prompt').focus(); updateSend(); };
   $('thinkBtn').onclick = () => { state.think = !state.think; $('thinkBtn').setAttribute('aria-pressed', String(state.think)); };
   $('newBtn').onclick = $('newBtnTop').onclick = () => { if (state.busy) stopGeneration(); state.conversation = null; state.messages = []; kv.del('active_conversation'); renderConversation(); closeDrawer(); $('prompt').focus(); };
   $('searchInput').oninput = e => renderThreads(e.target.value);
@@ -514,6 +644,7 @@ async function boot() {
   }
   $('modelFileInput').onchange = async e => { try { await ingestFiles([...e.target.files]); } catch (err) { status('Import failed: ' + err.message, true); } e.target.value = ''; };
   $('removeModelsBtn').onclick = () => confirmAction('Remove all imported model weights from this browser?', async () => {
+    localStorage.setItem('seren-auto-provision-suppressed', '1');
     if (state.busy) stopGeneration(); for (const d of await models.all()) await models.remove(d.id); await refreshModels(); toast('Models removed');
   });
   $('exportChatsBtn').onclick = async () => {
@@ -544,6 +675,7 @@ async function boot() {
     state.worker?.terminate(); state.worker = null;
     try {
       await exactSpiral.flush().catch(() => {}); const receipt = await factoryReset(); exactSpiral.clear();
+      localStorage.setItem('seren-auto-provision-suppressed', '1');
       state.conversation = null; state.messages = []; state.selected = 'auto';
       localStorage.removeItem('seren-theme'); state.theme = 'system'; applyTheme();
       await refreshModels(); renderThreads(); renderConversation();
@@ -563,6 +695,8 @@ async function boot() {
   $('collapseBtn').onclick = () => { $('app').classList.add('nav-collapsed'); $('expandBtn').hidden = false; };
   $('expandBtn').onclick = () => { $('app').classList.remove('nav-collapsed'); $('expandBtn').hidden = true; };
   if ('serviceWorker' in navigator) navigator.serviceWorker.register(new URL('../sw.js', import.meta.url)).catch(e => status('Offline shell unavailable: ' + e.message));
+  if (location.protocol === 'file:') updateModelLoadStatus('Open this app through localhost or the public HTTPS URL to prepare models');
+  else if (state.available.size < SPECIALISTS.length && localStorage.getItem('seren-auto-provision-suppressed') !== '1') void prepareAllHostedModels();
 }
 function applyTheme() {
   document.documentElement.dataset.theme = state.theme;

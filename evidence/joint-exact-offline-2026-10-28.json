@@ -1,0 +1,16 @@
+{
+  "checkpoint": "CP010",
+  "prompt": "Use the calculator tool to compute 31 * 37.",
+  "answer": "1147",
+  "resumed": "1147",
+  "policy_version": "joint-exact-calculator-1",
+  "backend": "deterministic",
+  "model_id": null,
+  "activePolicyStored": true,
+  "failedPolicyRetained": true,
+  "erasedPolicies": true,
+  "errors": [],
+  "external": [],
+  "passed": true,
+  "environment": "macOS arm64 / Playwright Chromium offline after service-worker cache / no model import"
+}

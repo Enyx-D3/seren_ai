@@ -120,6 +120,8 @@ Start with two bounded loops: inner explores hypotheses/variables, outer compare
 
 Initial joint relations: goal attraction, exact shared-state attraction, causal/complementary/novelty attraction, contradiction/duplicate/cost repulsion, temporal relation, oscillation damping/hysteresis. Each relation keeps algorithm version, parameters, evidence scope, applicability, confidence, cost and rollback. Approximate similarity never justifies exact state merge. New policies run in shadow on held-out tasks before promotion.
 
+The CP010 browser implementation has a bounded software Joint controller and one active, narrow rule: in Auto, an explicit calculator-tool arithmetic request goes through the verified local exact solver. Two independent held-out blocks established its exact-answer and resource gain against the conservative model route. Manual model selection bypasses it. The earlier Tool specialist candidate remains braked with counterexamples; the browser never self-promotes model routes. `?joint_policy=conservative` restores the prior Auto behavior for diagnosis or rollback. General magnetic relations and physical mobile power effects remain research work.
+
 ## 8. Tools and verification
 
 Typed local tool registry examples: arithmetic, algebra, constrained solver, unit conversion, local document search (with user-selected files), code syntax check (sandboxed). The Tool-Calling Falcon proposes a registered name and valid JSON arguments; policy enforces allowlist, permissions, recursion depth, timeout, resource cap, and result verification. Model text is not an executable command. Sensitive operations require explicit user approval and cannot run silently.

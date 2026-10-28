@@ -95,6 +95,8 @@ CP008's physical `tool_calls` receipts use `id` as `tool_call_id`, `conversation
 
 **Safety invariant:** `similar_to` is never treated as `equivalent_to` without an independent proof/guard. `content_identity` hash helps equality indexing but does not by itself prove a mathematical transformation is valid.
 
+CP009 populates conversation-scoped `shared_states` with verified exact arithmetic expressions and values. The browser implementation additionally stores `canonical_expression`, `value`, and `value_digest`; only identical canonical text or proven two-atom `+`/`*` commutativity can reuse a value. Proven variants create `equivalent_to` edges. Heartbeat deltas and replay status live in message metadata; their checksum detects accidental replay damage, while exact arithmetic is recomputed on resume to verify the displayed answer. Approximate similarity and model prose are not cached as equivalent states.
+
 ### `joint_policies` and `joint_trials`
 
 `joint_policies`: `policy_id`; `version`; `relation_kind`; `parameters_json`; `status` (`candidate/shadow/active/braked/rejected`); `created_at`; `parent_policy_version` nullable; `rollback_pointer`; `applicability_json`.
@@ -102,6 +104,8 @@ CP008's physical `tool_calls` receipts use `id` as `tool_call_id`, `conversation
 `joint_trials`: `trial_id`; `policy_id`; `benchmark_id`; `split_id`; `seed`; `baseline_metrics`; `candidate_metrics`; `uncertainty`; `verifier_id`; `outcome`; `started_at`; `finished_at`; `failure_notes`.
 
 Promotions require recorded held-out gain in the task's primary verified objective without unacceptable correctness/privacy/resource regression. Negative experiments remain queryable.
+
+CP010 stores the active bounded exact-tool Joint policy and its braked specialist predecessor in `joint_policies` after the exact route is used. The browser's `joint_trials` store accepts versioned evaluator records but the release comparison is preserved in source-controlled `evidence/joint-exact-*.json`; ordinary chats do not invent correctness labels or trial rows. Per-message metadata records the active policy version and deterministic verification. Factory erase removes both policy rows. There is no automatic model-policy promotion.
 
 ## 4. UI/runtime JSON event schemas
 
@@ -127,7 +131,7 @@ Malformed or out-of-order events are rejected/quarantined. No UI updates should 
 
 ## 5. IndexedDB logical contract and physical V3 mapping
 
-The logical entities are `models`, `competence_profiles`, `conversations`, `messages`, `runs`, `run_events`, `tool_calls`, `verifications`, `shared_states`, `state_edges`, `joint_policies`, `joint_trials`, `settings`, and `asset_receipts`. Per approved ADR-001, the **physical** IndexedDB name remains `seren7` to preserve existing user data. V3 has all entity stores except `settings`, which maps to the existing `kv` store. The existing `blobs` store is the OPFS fallback; V1 `events` is legacy and is not used for new run events. Empty stores do not imply CP009/CP010 features are implemented.
+The logical entities are `models`, `competence_profiles`, `conversations`, `messages`, `runs`, `run_events`, `tool_calls`, `verifications`, `shared_states`, `state_edges`, `joint_policies`, `joint_trials`, `settings`, and `asset_receipts`. Per approved ADR-001, the **physical** IndexedDB name remains `seren7` to preserve existing user data. V3 has all entity stores except `settings`, which maps to the existing `kv` store. The existing `blobs` store is the OPFS fallback; V1 `events` is legacy and is not used for new run events. CP009 populates exact arithmetic shared states and proven-equivalence edges; CP010 populates active and braked Joint policy rows on use, while broad self-calibration trial rows are not fabricated from ordinary chat.
 
 Current physical field mappings: `conversations.id` = `conversation_id`; `conversations.next_message_sequence` is an internal atomic append counter initialized from existing messages on first write; `messages.id` = `message_id`; `messages.content` = `text`; `run_events.request_id` = `run_id`; `kv.k`/`kv.v` = settings key/value. New stores use `id` as physical primary key while their logical IDs retain the names in section 3. Each new record must carry schema version, timestamps and provenance appropriate to its feature before it is considered conformant.
 

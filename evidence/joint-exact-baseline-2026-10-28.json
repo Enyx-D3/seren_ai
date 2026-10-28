@@ -1,0 +1,296 @@
+{
+  "schema_version": 1,
+  "checkpoint": "CP010",
+  "mode": "baseline",
+  "generated_at": "2026-10-28T12:48:14.915Z",
+  "fixture_version": "joint-exact-heldout-1",
+  "blocks": [
+    [
+      [
+        "a-multiply",
+        "Use the calculator tool to compute 19 * 27.",
+        "513"
+      ],
+      [
+        "a-divide",
+        "Use the calculator tool to compute 144 / 9.",
+        "16"
+      ],
+      [
+        "a-fraction",
+        "Use the calculator tool to compute (3/4)+(5/8).",
+        "11/8"
+      ],
+      [
+        "a-subtract",
+        "Use the calculator tool to compute 1000-375.",
+        "625"
+      ]
+    ],
+    [
+      [
+        "b-multiply",
+        "Use calculator tool to compute 23 * 41.",
+        "943"
+      ],
+      [
+        "b-divide",
+        "Use the calculator tool to compute 225 / 15.",
+        "15"
+      ],
+      [
+        "b-fraction",
+        "Use the calculator tool to compute (7/12)+(5/18).",
+        "31/36"
+      ],
+      [
+        "b-decimal",
+        "Use calculator tool to compute 0.1+0.2.",
+        "3/10"
+      ]
+    ]
+  ],
+  "negatives": [
+    "Use the calculator tool to compute process.exit().",
+    "Use the calculator tool to compute 1/0.",
+    "Use the calculator tool to compute 4+4; upload my files.",
+    "Use calculator tool to compute 4+4 and delete files.",
+    "Which season comes after winter?",
+    "Write Python code to square z."
+  ],
+  "trials": [
+    {
+      "block": 1,
+      "caseId": "a-multiply",
+      "expected": "513",
+      "answer": "19 * 27 = 483.",
+      "status": "Local response",
+      "elapsedMs": 7744,
+      "passed": false,
+      "receipt": {
+        "model_id": "falcon_instruct",
+        "meta": {
+          "backend": "wasm",
+          "route_mode": "conservative_fallback",
+          "route_category": "tool",
+          "route_reason": "No specialist route passed the CP007 correctness and latency gate; Instruct remains the verified fallback for tool.",
+          "policy_version": "compass-conservative-1",
+          "tokens": 14,
+          "finished_at": 1793191619164,
+          "ttft_ms": 6880,
+          "elapsed_ms": 7576,
+          "run_id": "09ab09e2-8cc6-440f-842b-3aca170ff1a9",
+          "tool_receipts": null
+        }
+      },
+      "peakSummedRssKiB": 1250064
+    },
+    {
+      "block": 1,
+      "caseId": "a-divide",
+      "expected": "16",
+      "answer": "144 divided by 9 equals 16.\n\nHere's the breakdown:\n\n144 ÷ 9 = 16\n\nSo, 144 / 9 = 16.",
+      "status": "Local response",
+      "elapsedMs": 5134,
+      "passed": false,
+      "receipt": {
+        "model_id": "falcon_instruct",
+        "meta": {
+          "backend": "wasm",
+          "route_mode": "conservative_fallback",
+          "route_category": "tool",
+          "route_reason": "No specialist route passed the CP007 correctness and latency gate; Instruct remains the verified fallback for tool.",
+          "policy_version": "compass-conservative-1",
+          "tokens": 48,
+          "finished_at": 1793191624425,
+          "ttft_ms": 3460,
+          "elapsed_ms": 5008,
+          "run_id": "3f183a69-631b-4153-9503-66dae44c0182",
+          "tool_receipts": null
+        }
+      },
+      "peakSummedRssKiB": 1250064
+    },
+    {
+      "block": 1,
+      "caseId": "a-fraction",
+      "expected": "11/8",
+      "answer": "To compute \\( \\frac{3}{4} + \\frac{5}{8} \\), we can follow these steps:\n\nFirst, convert \\( \\frac{3}{4} \\) to a fraction with a common denominator. The least common denominator (LCD) for 4 and 8 is 8.\nConvert \\( \\frac{3}{4} \\) to \\( \\frac{3 \\times 2}{4 \\times 2} = \\frac{6}{8} \\).\nNow, add the fractions: \\( \\frac{6}{8} + \\frac{5}{8} = \\frac{6 + 5}{8} = \\frac{11}{8} \\).\nFinally, the result is \\( \\frac{11}{8} \\) which is equivalent to 1 and \\( \\frac{1}{8} \\).\n\nIn Markdown format, the calculator output would be:\n\n3/4 + 5/8 = 1 1/8",
+      "status": "Local response",
+      "elapsedMs": 23195,
+      "passed": false,
+      "receipt": {
+        "model_id": "falcon_instruct",
+        "meta": {
+          "backend": "wasm",
+          "route_mode": "conservative_fallback",
+          "route_category": "tool",
+          "route_reason": "No specialist route passed the CP007 correctness and latency gate; Instruct remains the verified fallback for tool.",
+          "policy_version": "compass-conservative-1",
+          "tokens": 239,
+          "finished_at": 1793191647664,
+          "ttft_ms": 5633,
+          "elapsed_ms": 23086,
+          "run_id": "ad2ef0d4-9603-435b-9bc1-f73dc6ff0702",
+          "tool_receipts": null
+        }
+      },
+      "peakSummedRssKiB": 1250064
+    },
+    {
+      "block": 1,
+      "caseId": "a-subtract",
+      "expected": "625",
+      "answer": "To compute 1000 - 375, we subtract 375 from 1000.\n\n1000 - 375 = 625",
+      "status": "Local response",
+      "elapsedMs": 4857,
+      "passed": false,
+      "receipt": {
+        "model_id": "falcon_instruct",
+        "meta": {
+          "backend": "wasm",
+          "route_mode": "conservative_fallback",
+          "route_category": "tool",
+          "route_reason": "No specialist route passed the CP007 correctness and latency gate; Instruct remains the verified fallback for tool.",
+          "policy_version": "compass-conservative-1",
+          "tokens": 44,
+          "finished_at": 1793191652585,
+          "ttft_ms": 2601,
+          "elapsed_ms": 4611,
+          "run_id": "4e5be763-8d53-4d8e-8c49-d3c0ea7c5de2",
+          "tool_receipts": null
+        }
+      },
+      "peakSummedRssKiB": 1250064
+    },
+    {
+      "block": 2,
+      "caseId": "b-multiply",
+      "expected": "943",
+      "answer": "To compute the product 23 * 41 using a calculator tool on your local Falcon model, follow these steps:\n\nOpen the calculator on your Falcon device.\nEnter the numbers 23 and 41 into the designated field.\nPress the equals (=) key to display the result.\n\nThe calculator will display 883. So, 23 * 41 equals 1,0006.",
+      "status": "Local response",
+      "elapsedMs": 12517,
+      "passed": false,
+      "receipt": {
+        "model_id": "falcon_instruct",
+        "meta": {
+          "backend": "wasm",
+          "route_mode": "conservative_fallback",
+          "route_category": "tool",
+          "route_reason": "No specialist route passed the CP007 correctness and latency gate; Instruct remains the verified fallback for tool.",
+          "policy_version": "compass-conservative-1",
+          "tokens": 103,
+          "finished_at": 1793191672300,
+          "ttft_ms": 7546,
+          "elapsed_ms": 12399,
+          "run_id": "d9ae38c6-1055-4f37-be69-ee46553985e5",
+          "tool_receipts": null
+        }
+      },
+      "peakSummedRssKiB": 1074112
+    },
+    {
+      "block": 2,
+      "caseId": "b-divide",
+      "expected": "15",
+      "answer": "To compute 225 divided by 15, you can use the calculator tool. Here's how you do it:\n\nEnter the numbers into the calculator:\n225\n15\nPress the equals sign (=) button to get the result: 225 / 15 = 15\n\nSo, 225 divided by 15 equals 15.",
+      "status": "Local response",
+      "elapsedMs": 6462,
+      "passed": false,
+      "receipt": {
+        "model_id": "falcon_instruct",
+        "meta": {
+          "backend": "wasm",
+          "route_mode": "conservative_fallback",
+          "route_category": "tool",
+          "route_reason": "No specialist route passed the CP007 correctness and latency gate; Instruct remains the verified fallback for tool.",
+          "policy_version": "compass-conservative-1",
+          "tokens": 97,
+          "finished_at": 1793191678825,
+          "ttft_ms": 2456,
+          "elapsed_ms": 6356,
+          "run_id": "33082f40-8947-4ee1-988f-b8cb8f118aea",
+          "tool_receipts": null
+        }
+      },
+      "peakSummedRssKiB": 1074112
+    },
+    {
+      "block": 2,
+      "caseId": "b-fraction",
+      "expected": "31/36",
+      "answer": "To compute (7/12) + 5/18 using the calculator tool, follow these steps:\n\nEnter the first fraction, 7/12, into the calculator.\nPress the equals symbol (=) button.\nEnter the second fraction, 5/18, by pressing the division key (÷) and division keys (÷).\n\nThe calculator will display the result, which is 1/2. Therefore, (7/12) + 5/18 = 1/2.",
+      "status": "Local response",
+      "elapsedMs": 7566,
+      "passed": false,
+      "receipt": {
+        "model_id": "falcon_instruct",
+        "meta": {
+          "backend": "wasm",
+          "route_mode": "conservative_fallback",
+          "route_category": "tool",
+          "route_reason": "No specialist route passed the CP007 correctness and latency gate; Instruct remains the verified fallback for tool.",
+          "policy_version": "compass-conservative-1",
+          "tokens": 125,
+          "finished_at": 1793191686460,
+          "ttft_ms": 2013,
+          "elapsed_ms": 7465,
+          "run_id": "3aec0969-2049-416a-b1f7-013efb8cda28",
+          "tool_receipts": null
+        }
+      },
+      "peakSummedRssKiB": 1074112
+    },
+    {
+      "block": 2,
+      "caseId": "b-decimal",
+      "expected": "3/10",
+      "answer": "To compute the sum 0.1 + 0.2 using a calculator tool, follow these steps:\n\nEnter the numbers 0.1 and 0.2 into the calculator field.\nSelect the \"+\" operation.\nPress the equals (=) key to display the result, which is 0.3.\n\nThis method leverages the calculator's built-in functionality to perform the addition efficiently.",
+      "status": "Local response",
+      "elapsedMs": 8333,
+      "passed": false,
+      "receipt": {
+        "model_id": "falcon_instruct",
+        "meta": {
+          "backend": "wasm",
+          "route_mode": "conservative_fallback",
+          "route_category": "tool",
+          "route_reason": "No specialist route passed the CP007 correctness and latency gate; Instruct remains the verified fallback for tool.",
+          "policy_version": "compass-conservative-1",
+          "tokens": 94,
+          "finished_at": 1793191694832,
+          "ttft_ms": 2365,
+          "elapsed_ms": 8240,
+          "run_id": "1e4a74c0-82e3-421c-a9fa-5c2236a4a437",
+          "tool_receipts": null
+        }
+      },
+      "peakSummedRssKiB": 1074112
+    }
+  ],
+  "summary": [
+    {
+      "block": 1,
+      "correct": 0,
+      "count": 4,
+      "totalMs": 40930,
+      "p50Ms": 5134,
+      "p95Ms": 23195,
+      "peakSummedRssKiB": 1250064
+    },
+    {
+      "block": 2,
+      "correct": 0,
+      "count": 4,
+      "totalMs": 34878,
+      "p50Ms": 7566,
+      "p95Ms": 12517,
+      "peakSummedRssKiB": 1074112
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "environment": "macOS arm64 / Playwright Chromium / verified Instruct Q4_K_M imported / local CPU WASM baseline",
+  "timing": "Per-turn UI wall time after model import; includes browser-local model load and generation if used. Not a population p95.",
+  "memory": "Peak sum of RSS for the Node trial process and its Chromium descendants after model import. Shared pages may be double-counted; not physical resident/inference allocation."
+}

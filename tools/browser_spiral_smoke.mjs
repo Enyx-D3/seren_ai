@@ -10,7 +10,7 @@ try {
   await page.goto('http://127.0.0.1:8799/');
   await page.evaluate(() => navigator.serviceWorker.ready);
   await page.reload();
-  await page.waitForFunction(() => document.querySelector('#heroStatus')?.textContent.includes('Import a local Falcon'));
+  await page.waitForFunction(() => document.querySelector('#heroStatus')?.textContent.includes('Start chatting'));
   await page.context().setOffline(true);
   async function ask() {
     const before = await page.locator('.msg-ai').count();

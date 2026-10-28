@@ -352,6 +352,11 @@ export const sharedStates = {
     return reqP(d.transaction('shared_states').objectStore('shared_states')
       .index('identity_scope').getAll([contentIdentity, scope]));
   },
+  async byScope(scope) {
+    const d = await db();
+    return reqP(d.transaction('shared_states').objectStore('shared_states')
+      .index('by_scope').getAll(scope));
+  },
   async put(row) { await tx('shared_states', 'readwrite', store => store.put(row)); return row; },
   async reuse(idv) {
     const d = await db();
@@ -392,6 +397,27 @@ export const sharedStates = {
       proof_ref: proofRef, residual: '0', policy_version: 'spiral-exact-1', created_at: Date.now() };
     await tx('state_edges', 'readwrite', store => store.put(row));
     return row;
+  },
+};
+
+/* Versioned Joint policies are local release/evaluation records. A trial may
+   be written only by an explicit evaluator with known ground truth. */
+export const jointRecords = {
+  async policy(idv) { const d = await db(); return reqP(d.transaction('joint_policies').objectStore('joint_policies').get(idv)); },
+  async putPolicy(row) {
+    if (!row || typeof row.id !== 'string' || !['active', 'shadow', 'braked', 'rejected', 'candidate'].includes(row.status))
+      throw new Error('invalid joint policy record');
+    await tx('joint_policies', 'readwrite', store => store.put(row)); return row;
+  },
+  async putTrial(row) {
+    if (!row || typeof row.id !== 'string' || typeof row.policy_id !== 'string' || typeof row.benchmark_id !== 'string')
+      throw new Error('invalid joint trial record');
+    await tx('joint_trials', 'readwrite', store => store.put(row)); return row;
+  },
+  async trials(policyId) {
+    const d = await db();
+    const all = await reqP(d.transaction('joint_trials').objectStore('joint_trials').getAll());
+    return all.filter(row => row.policy_id === policyId);
   },
 };
 

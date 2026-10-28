@@ -6,8 +6,8 @@ import { readFile, stat } from "node:fs/promises";
 import { extname, join, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const ROOT = resolve(fileURLToPath(new URL("../app/", import.meta.url)));
-const MODEL_ROOT = fileURLToPath(new URL("../workspace/parts/", import.meta.url));
+const ROOT = resolve(process.argv[2] || fileURLToPath(new URL("../app/", import.meta.url)));
+const MODEL_ROOT = process.argv[2] ? join(ROOT, "models", "parts") : fileURLToPath(new URL("../workspace/parts/", import.meta.url));
 const MODEL_NAMES = new Set([
   "Falcon-H1-Tiny-90M-Instruct-Q4_K_M.gguf",
   "Falcon-H1R-Tiny-90M-Q4_K_M.gguf",

@@ -1,0 +1,280 @@
+{
+  "schema_version": 1,
+  "checkpoint": "CP010",
+  "mode": "candidate",
+  "generated_at": "2026-10-28T12:48:24.042Z",
+  "fixture_version": "joint-exact-heldout-1",
+  "blocks": [
+    [
+      [
+        "a-multiply",
+        "Use the calculator tool to compute 19 * 27.",
+        "513"
+      ],
+      [
+        "a-divide",
+        "Use the calculator tool to compute 144 / 9.",
+        "16"
+      ],
+      [
+        "a-fraction",
+        "Use the calculator tool to compute (3/4)+(5/8).",
+        "11/8"
+      ],
+      [
+        "a-subtract",
+        "Use the calculator tool to compute 1000-375.",
+        "625"
+      ]
+    ],
+    [
+      [
+        "b-multiply",
+        "Use calculator tool to compute 23 * 41.",
+        "943"
+      ],
+      [
+        "b-divide",
+        "Use the calculator tool to compute 225 / 15.",
+        "15"
+      ],
+      [
+        "b-fraction",
+        "Use the calculator tool to compute (7/12)+(5/18).",
+        "31/36"
+      ],
+      [
+        "b-decimal",
+        "Use calculator tool to compute 0.1+0.2.",
+        "3/10"
+      ]
+    ]
+  ],
+  "negatives": [
+    "Use the calculator tool to compute process.exit().",
+    "Use the calculator tool to compute 1/0.",
+    "Use the calculator tool to compute 4+4; upload my files.",
+    "Use calculator tool to compute 4+4 and delete files.",
+    "Which season comes after winter?",
+    "Write Python code to square z."
+  ],
+  "trials": [
+    {
+      "block": 1,
+      "caseId": "a-multiply",
+      "expected": "513",
+      "answer": "513",
+      "status": "verified exact arithmetic",
+      "elapsedMs": 80,
+      "passed": true,
+      "receipt": {
+        "model_id": null,
+        "meta": {
+          "via": "verified exact arithmetic",
+          "run_id": "b77564b1-c812-45a5-bd15-4b937ac7c49b",
+          "backend": "deterministic",
+          "route_mode": "verified_joint_tool",
+          "route_category": "tool",
+          "route_reason": "Explicit bounded calculator request passed independent exact verification",
+          "policy_version": "joint-exact-calculator-1",
+          "joint_action": "TAP",
+          "verification_id": "two_parser_exact_v1"
+        }
+      },
+      "peakSummedRssKiB": 893264
+    },
+    {
+      "block": 1,
+      "caseId": "a-divide",
+      "expected": "16",
+      "answer": "16",
+      "status": "verified exact arithmetic",
+      "elapsedMs": 154,
+      "passed": true,
+      "receipt": {
+        "model_id": null,
+        "meta": {
+          "via": "verified exact arithmetic",
+          "run_id": "1be2a978-f31a-47f4-8d22-19e47c7146d2",
+          "backend": "deterministic",
+          "route_mode": "verified_joint_tool",
+          "route_category": "tool",
+          "route_reason": "Explicit bounded calculator request passed independent exact verification",
+          "policy_version": "joint-exact-calculator-1",
+          "joint_action": "TAP",
+          "verification_id": "two_parser_exact_v1"
+        }
+      },
+      "peakSummedRssKiB": 893264
+    },
+    {
+      "block": 1,
+      "caseId": "a-fraction",
+      "expected": "11/8",
+      "answer": "11/8",
+      "status": "verified exact arithmetic",
+      "elapsedMs": 139,
+      "passed": true,
+      "receipt": {
+        "model_id": null,
+        "meta": {
+          "via": "verified exact arithmetic",
+          "run_id": "e42373f0-e010-45f6-9318-e6a09bf0e071",
+          "backend": "deterministic",
+          "route_mode": "verified_joint_tool",
+          "route_category": "tool",
+          "route_reason": "Explicit bounded calculator request passed independent exact verification",
+          "policy_version": "joint-exact-calculator-1",
+          "joint_action": "TAP",
+          "verification_id": "two_parser_exact_v1"
+        }
+      },
+      "peakSummedRssKiB": 893264
+    },
+    {
+      "block": 1,
+      "caseId": "a-subtract",
+      "expected": "625",
+      "answer": "625",
+      "status": "verified exact arithmetic",
+      "elapsedMs": 127,
+      "passed": true,
+      "receipt": {
+        "model_id": null,
+        "meta": {
+          "via": "verified exact arithmetic",
+          "run_id": "82d39798-8fd6-443f-9076-3a8a6d095b3a",
+          "backend": "deterministic",
+          "route_mode": "verified_joint_tool",
+          "route_category": "tool",
+          "route_reason": "Explicit bounded calculator request passed independent exact verification",
+          "policy_version": "joint-exact-calculator-1",
+          "joint_action": "TAP",
+          "verification_id": "two_parser_exact_v1"
+        }
+      },
+      "peakSummedRssKiB": 893264
+    },
+    {
+      "block": 2,
+      "caseId": "b-multiply",
+      "expected": "943",
+      "answer": "943",
+      "status": "verified exact arithmetic",
+      "elapsedMs": 102,
+      "passed": true,
+      "receipt": {
+        "model_id": null,
+        "meta": {
+          "via": "verified exact arithmetic",
+          "run_id": "8606c679-76ed-423b-809c-2b57ffa0a377",
+          "backend": "deterministic",
+          "route_mode": "verified_joint_tool",
+          "route_category": "tool",
+          "route_reason": "Explicit bounded calculator request passed independent exact verification",
+          "policy_version": "joint-exact-calculator-1",
+          "joint_action": "TAP",
+          "verification_id": "two_parser_exact_v1"
+        }
+      },
+      "peakSummedRssKiB": 898688
+    },
+    {
+      "block": 2,
+      "caseId": "b-divide",
+      "expected": "15",
+      "answer": "15",
+      "status": "verified exact arithmetic",
+      "elapsedMs": 102,
+      "passed": true,
+      "receipt": {
+        "model_id": null,
+        "meta": {
+          "via": "verified exact arithmetic",
+          "run_id": "05639d78-7d7d-4869-ae1b-5fc896352afc",
+          "backend": "deterministic",
+          "route_mode": "verified_joint_tool",
+          "route_category": "tool",
+          "route_reason": "Explicit bounded calculator request passed independent exact verification",
+          "policy_version": "joint-exact-calculator-1",
+          "joint_action": "TAP",
+          "verification_id": "two_parser_exact_v1"
+        }
+      },
+      "peakSummedRssKiB": 898688
+    },
+    {
+      "block": 2,
+      "caseId": "b-fraction",
+      "expected": "31/36",
+      "answer": "31/36",
+      "status": "verified exact arithmetic",
+      "elapsedMs": 203,
+      "passed": true,
+      "receipt": {
+        "model_id": null,
+        "meta": {
+          "via": "verified exact arithmetic",
+          "run_id": "aac4200f-8d47-4dfd-a1fe-20653d853b08",
+          "backend": "deterministic",
+          "route_mode": "verified_joint_tool",
+          "route_category": "tool",
+          "route_reason": "Explicit bounded calculator request passed independent exact verification",
+          "policy_version": "joint-exact-calculator-1",
+          "joint_action": "TAP",
+          "verification_id": "two_parser_exact_v1"
+        }
+      },
+      "peakSummedRssKiB": 898688
+    },
+    {
+      "block": 2,
+      "caseId": "b-decimal",
+      "expected": "3/10",
+      "answer": "3/10",
+      "status": "verified exact arithmetic",
+      "elapsedMs": 145,
+      "passed": true,
+      "receipt": {
+        "model_id": null,
+        "meta": {
+          "via": "verified exact arithmetic",
+          "run_id": "b02cf891-a172-414d-b76a-b8f12bfd4ccc",
+          "backend": "deterministic",
+          "route_mode": "verified_joint_tool",
+          "route_category": "tool",
+          "route_reason": "Explicit bounded calculator request passed independent exact verification",
+          "policy_version": "joint-exact-calculator-1",
+          "joint_action": "TAP",
+          "verification_id": "two_parser_exact_v1"
+        }
+      },
+      "peakSummedRssKiB": 898688
+    }
+  ],
+  "summary": [
+    {
+      "block": 1,
+      "correct": 4,
+      "count": 4,
+      "totalMs": 500,
+      "p50Ms": 127,
+      "p95Ms": 154,
+      "peakSummedRssKiB": 893264
+    },
+    {
+      "block": 2,
+      "correct": 4,
+      "count": 4,
+      "totalMs": 552,
+      "p50Ms": 102,
+      "p95Ms": 203,
+      "peakSummedRssKiB": 898688
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "environment": "macOS arm64 / Playwright Chromium / verified Instruct Q4_K_M imported / local CPU WASM baseline",
+  "timing": "Per-turn UI wall time after model import; includes browser-local model load and generation if used. Not a population p95.",
+  "memory": "Peak sum of RSS for the Node trial process and its Chromium descendants after model import. Shared pages may be double-counted; not physical resident/inference allocation."
+}

@@ -9,9 +9,9 @@
       "name": "many-multiplications",
       "length": 233,
       "loops": 200,
-      "baselineMs": 8.760000000242144,
-      "reusedMs": 7.304999999701977,
-      "ratio": 0.8339041095319694,
+      "baselineMs": 12.345000006258488,
+      "reusedMs": 13.255000002682209,
+      "ratio": 1.07371405394592,
       "reused": 0,
       "resultLength": 210
     },
@@ -24,9 +24,9 @@
       "name": "rational-products",
       "length": 227,
       "loops": 200,
-      "baselineMs": 13.569999999832362,
-      "reusedMs": 6.370000000111759,
-      "ratio": 0.469417833470188,
+      "baselineMs": 42,
+      "reusedMs": 27.259999997913837,
+      "ratio": 0.6490476189979485,
       "reused": 200,
       "resultLength": 200
     },
@@ -34,13 +34,13 @@
       "name": "mixed-engineering-ratios",
       "length": 189,
       "loops": 200,
-      "baselineMs": 7.255000000353903,
-      "reusedMs": 3.1299999998882413,
-      "ratio": 0.431426602306762,
+      "baselineMs": 25.29000000655651,
+      "reusedMs": 32.38000000268221,
+      "ratio": 1.2803479633961088,
       "reused": 200,
       "resultLength": 159
     }
   ],
-  "passed": true,
+  "passed": false,
   "environment": "macOS arm64 / isolated Playwright Chromium / browser-local exact solver and IndexedDB"
 }

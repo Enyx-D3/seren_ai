@@ -1,0 +1,14 @@
+{
+  "checkpoint": "CP011",
+  "before": 0,
+  "first": "Hello! Hi, I'm Surely. How can I help you today?",
+  "after": [
+    "falcon_instruct"
+  ],
+  "afterEraseReload": 0,
+  "sameSiteModelRequests": 2,
+  "errors": [],
+  "external": [],
+  "passed": true,
+  "environment": "macOS arm64 / Playwright Chromium / fresh profile / localhost same-origin auto provisioning"
+}

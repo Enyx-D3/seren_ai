@@ -16,45 +16,38 @@
   "samples": [
     {
       "phase": "idle",
-      "at": 1793149849009,
+      "at": 1793172107678,
       "processCount": 4,
-      "physicalMiB": 147,
-      "sumProcessPeakMiB": 147
+      "physicalMiB": 177,
+      "sumProcessPeakMiB": 193
     },
     {
       "phase": "loaded",
-      "at": 1793149853911,
+      "at": 1793172111018,
       "processCount": 4,
-      "physicalMiB": 571,
-      "sumProcessPeakMiB": 607
+      "physicalMiB": 564,
+      "sumProcessPeakMiB": 608
     },
     {
       "phase": "generating",
-      "at": 1793149857263,
+      "at": 1793172113185,
       "processCount": 4,
-      "physicalMiB": 505,
-      "sumProcessPeakMiB": 643
-    },
-    {
-      "phase": "generating",
-      "at": 1793149858396,
-      "processCount": 4,
-      "physicalMiB": 509,
-      "sumProcessPeakMiB": 643
+      "physicalMiB": 506,
+      "sumProcessPeakMiB": 719
     },
     {
       "phase": "complete",
-      "at": 1793149859284,
+      "at": 1793172114277,
       "processCount": 4,
-      "physicalMiB": 514,
-      "sumProcessPeakMiB": 643
+      "physicalMiB": 509,
+      "sumProcessPeakMiB": 719
     },
     {
       "phase": "worker-terminated",
-      "at": 1793149859886,
+      "at": 1793172114615,
       "processCount": 4,
-      "physicalMiB": 289,
-      "sumProcessPeakMiB": 643
+      "physicalMiB": 287,
+      "sumProcessPeakMiB": 719
     }
   ],
   "caveat": "Sum of macOS per-process physical footprints for the isolated test browser. Shared accounting and asynchronous process peaks make this a whole-browser estimate, not model-only allocation."

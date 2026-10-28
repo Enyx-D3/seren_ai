@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "checkpoint": "CP010",
+  "candidate": "joint-exact-calculator-1",
+  "generated_at": "2026-10-28T12:48:24.138Z",
+  "threshold": {
+    "minAdditionalCorrectPerBlock": 1,
+    "maxCorrectnessRegressions": 0,
+    "maxTotalLatencyRatio": 1.25,
+    "maxP95LatencyRatio": 1.25,
+    "maxPeakSummedRssRatio": 1.25,
+    "maxObservedAccuracyDrift": 0.25,
+    "requiredIndependentBlocks": 2
+  },
+  "blocks": [
+    {
+      "block": 1,
+      "baseline": {
+        "block": 1,
+        "correct": 0,
+        "count": 4,
+        "totalMs": 40930,
+        "p50Ms": 5134,
+        "p95Ms": 23195,
+        "peakSummedRssKiB": 1250064
+      },
+      "candidate": {
+        "block": 1,
+        "correct": 4,
+        "count": 4,
+        "totalMs": 500,
+        "p50Ms": 127,
+        "p95Ms": 154,
+        "peakSummedRssKiB": 893264
+      },
+      "gains": [
+        "a-multiply",
+        "a-divide",
+        "a-fraction",
+        "a-subtract"
+      ],
+      "regressions": [],
+      "totalLatencyRatio": 0.01221597849987784,
+      "p95LatencyRatio": 0.006639361931450744,
+      "peakSummedRssRatio": 0.7145746137797745,
+      "eligible": true
+    },
+    {
+      "block": 2,
+      "baseline": {
+        "block": 2,
+        "correct": 0,
+        "count": 4,
+        "totalMs": 34878,
+        "p50Ms": 7566,
+        "p95Ms": 12517,
+        "peakSummedRssKiB": 1074112
+      },
+      "candidate": {
+        "block": 2,
+        "correct": 4,
+        "count": 4,
+        "totalMs": 552,
+        "p50Ms": 102,
+        "p95Ms": 203,
+        "peakSummedRssKiB": 898688
+      },
+      "gains": [
+        "b-multiply",
+        "b-divide",
+        "b-fraction",
+        "b-decimal"
+      ],
+      "regressions": [],
+      "totalLatencyRatio": 0.015826595561672114,
+      "p95LatencyRatio": 0.016217943596708476,
+      "peakSummedRssRatio": 0.8366799737829947,
+      "eligible": true
+    }
+  ],
+  "allCandidateReceipts": true,
+  "noExternal": true,
+  "noErrors": true,
+  "candidateAccuracyDrift": 0,
+  "consecutivePassingBlocks": 2,
+  "eligible_for_manual_promotion": true,
+  "auto_promoted": false,
+  "applicability": "Auto mode, explicit bounded calculator-tool arithmetic only",
+  "rejectedCandidateRetained": "evidence/joint-shadow-2026-10-28.json",
+  "limitations": "Eight distinct exact requests in two blocks on one desktop Chromium host. UI wall times include local model generation for baseline. No physical mobile or direct battery/thermal measurement."
+}

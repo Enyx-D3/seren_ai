@@ -16,6 +16,15 @@ const checksum = value => {
   return (number >>> 0).toString(16).padStart(8, '0');
 };
 
+function validRow(row, scope) {
+  if (!row || row.scope !== scope || row.confidence_kind !== 'exact' ||
+      typeof row.canonical_expression !== 'string' || typeof row.value !== 'string') return false;
+  const identity = hash(`arith:${ENCODING}:${row.canonical_expression}`);
+  return row.content_identity === identity &&
+    row.id === hash(`${scope}\0${identity}`) &&
+    row.value_digest === hash(`${row.canonical_expression}\0${row.value}`);
+}
+
 export function canonicalArithmetic(source) {
   if (typeof source !== 'string' || !source || source.length > 256) throw new Error('invalid arithmetic state');
   const expression = source.trim();
@@ -80,16 +89,50 @@ export class ExactSpiral {
     this.storage = storage;
     this.memory = new Map();
     this.dirty = new Map();
+    this.pending = new Set();
+    this.corrupt = new Set();
+    this.warmed = new Set();
     this.linked = new Set();
   }
-  async flush() {
-    const entries = [...this.dirty]; this.dirty.clear();
-    await Promise.all(entries.map(([id, count]) => this.storage.incrementReuse
-      ? this.storage.incrementReuse(id, count)
-      : this.storage.put({ ...[...this.memory.values()].find(row => row.id === id), reuse_count: count })));
+  async warm(scope) {
+    if (typeof scope !== 'string' || !scope || this.warmed.has(scope)) return;
+    if (typeof this.storage.byScope !== 'function') return;
+    const rows = await this.storage.byScope(scope);
+    for (const row of rows) {
+      if (row?.confidence_kind !== 'exact') continue;
+      const key = `${scope}\0${row.canonical_expression}`;
+      if (validRow(row, scope)) { if (!this.memory.has(key)) this.memory.set(key, row); }
+      else this.corrupt.add(key);
+    }
+    this.warmed.add(scope);
+  }
+  async flush({ onlyPending = false } = {}) {
+    const entries = [...this.dirty].filter(([id]) => !onlyPending || this.pending.has(id));
+    for (const [id] of entries) this.dirty.delete(id);
+    const failures = [];
+    await Promise.all(entries.map(async ([id, count]) => {
+      const row = [...this.memory.values()].find(candidate => candidate.id === id);
+      if (!row) return;
+      try {
+        if (this.pending.has(id)) {
+          await this.storage.put({ ...row, reuse_count: (row.reuse_count || 0) + count, updated_at: Date.now() });
+          this.pending.delete(id);
+        } else if (typeof this.storage.incrementReuse === 'function') {
+          await this.storage.incrementReuse(id, count);
+        } else {
+          await this.storage.put({ ...row, reuse_count: (row.reuse_count || 0) + count, updated_at: Date.now() });
+        }
+      } catch (error) { failures.push([id, count, error]); }
+    }));
+    for (const [id, count] of failures) this.dirty.set(id, (this.dirty.get(id) || 0) + count);
+    if (failures.length) throw failures[0][2];
   }
   clear(scope) {
-    for (const key of this.memory.keys()) if (!scope || key.startsWith(`${scope}\0`)) this.memory.delete(key);
+    for (const [key, row] of this.memory) {
+      if (scope && !key.startsWith(`${scope}\0`)) continue;
+      this.memory.delete(key); this.pending.delete(row.id); this.dirty.delete(row.id); this.corrupt.delete(key);
+    }
+    if (scope) this.warmed.delete(scope); else this.warmed.clear();
   }
   async solve(expression, { scope, forceReuse = false } = {}) {
     if (typeof scope !== 'string' || !scope || scope.length > 200) throw new Error('state scope required');
@@ -108,16 +151,19 @@ export class ExactSpiral {
       return { value, route: 'baseline_short_expression', reused: false, deltas };
     }
     const identity = hash(`arith:${ENCODING}:${canonical}`), key = `${scope}\0${canonical}`;
-    const valid = row => row && row.scope === scope && row.canonical_expression === canonical &&
-      row.content_identity === identity && row.confidence_kind === 'exact' &&
-      row.value_digest === hash(`${canonical}\0${row.value}`);
     let row = this.memory.get(key);
-    let corrupted = false;
-    if (!row) {
-      const found = await this.storage.find(identity, scope);
-      row = found.find(valid) || null;
-      corrupted = found.length > 0 && !row;
-      if (row) this.memory.set(key, row);
+    let corrupted = this.corrupt.has(key);
+    if (!row && !this.warmed.has(scope)) {
+      if (typeof this.storage.byScope === 'function') {
+        await this.warm(scope);
+        row = this.memory.get(key) || null;
+        corrupted = this.corrupt.has(key);
+      } else {
+        const found = await this.storage.find(identity, scope);
+        row = found.find(candidate => validRow(candidate, scope)) || null;
+        corrupted = found.length > 0 && !row;
+        if (row) this.memory.set(key, row);
+      }
     }
     if (row) {
       if (expression !== canonical && proof !== 'exact_text_identity') await this.#linkVariant(expression, scope, row, proof);
@@ -142,11 +188,15 @@ export class ExactSpiral {
       canonical_expression: canonical, confidence_kind: 'exact', verification_id: 'two_parser_exact_v1',
       value, value_digest: hash(`${canonical}\0${value}`), reuse_count: 0,
       created_at: Date.now(), updated_at: Date.now() };
-    await this.storage.put(row); this.memory.set(key, row);
+    this.memory.set(key, row); this.pending.add(row.id);
     if (expression !== canonical && proof !== 'exact_text_identity') await this.#linkVariant(expression, scope, row, proof);
-    if (corrupted) step('repair', { reason: 'invalid_shared_state_receipt', state_id: row.id });
-    step('verified_result', { value, state_id: row.id, route: 'computed_and_stored' });
-    return { value, route: 'computed_and_stored', reused: false, stateId: row.id, deltas };
+    if (corrupted) {
+      await this.storage.put(row); this.pending.delete(row.id);
+      this.corrupt.delete(key);
+      step('repair', { reason: 'invalid_shared_state_receipt', state_id: row.id });
+    }
+    step('verified_result', { value, state_id: row.id, route: corrupted ? 'computed_and_repaired' : 'computed_and_cached' });
+    return { value, route: corrupted ? 'computed_and_repaired' : 'computed_and_cached', reused: false, stateId: row.id, deltas };
   }
   async #linkVariant(expression, scope, target, proof) {
     if (!this.storage.linkEquivalent) return;

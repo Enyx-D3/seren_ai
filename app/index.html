@@ -123,6 +123,7 @@
             </button>
           </div>
         </form>
+        <p class="model-load-status" id="modelLoadStatus" role="status" aria-live="polite">Checking local model…</p>
         <p class="footnote" id="footnote"></p>
       </div>
     </div>
@@ -143,11 +144,11 @@
   <div class="dlg-head"><h2 id="setupTitle">Bring the models to this browser</h2>
     <button class="icon-btn" id="setupClose" aria-label="Close"><svg width="20" height="20"><use href="#i-close"/></svg></button></div>
   <div class="dlg-body">
-    <p class="dlg-note">Seren 7 runs four local specialists entirely on this device. Import the approved Falcon 90M GGUF model files. Nothing is installed; files stay in this browser's own storage and are checked byte-by-byte before use.</p>
-    <div id="modelRows"></div>
+    <p class="dlg-note">Seren 7 prepares all four local specialists automatically when this site provides them. Files stay in this browser's storage and are verified before use. You can also import GGUF files manually.</p>
+    <div id="modelRows" role="group" aria-label="Choose a specialist"></div>
     <label class="field">Compute preference
       <select class="select" id="computePref">
-        <option value="auto">Auto (recommended)</option>
+        <option value="auto">Auto (conservative fallback)</option>
         <option value="wasm">CPU · WebAssembly</option>
         <option value="webgpu">WebGPU (experimental)</option>
       </select>

@@ -9,6 +9,7 @@ import { route } from '../app/js/compass.mjs';
 import { boundedGenerationBudget } from '../app/js/runtime-limits.mjs';
 import { opfsPut } from '../app/js/store.mjs';
 import { ExactSpiral, canonicalArithmetic, replayHeartbeat, repairHeartbeat, isReuseCandidate, planExactDependencies } from '../app/js/spiral.mjs';
+import { JOINT_ACTIONS, compareJointRows, shadowDecision, transitionJoint, proposeExactToolJoint } from '../app/js/joint.mjs';
 import { runToolProposal } from '../app/js/tool-runner.mjs';
 import { readFileSync } from 'node:fs';
 import { execSync } from 'node:child_process';
@@ -22,6 +23,39 @@ t('runtime generation budget caps at 1024', boundedGenerationBudget(999999, 10) 
 t('runtime generation budget reserves context', boundedGenerationBudget(1000, 4090) === 5);
 t('runtime generation budget rounds fractional tokens down', boundedGenerationBudget(1.9, 10) === 1);
 t('runtime rejects overlong prompts', rejects(() => boundedGenerationBudget(10, 4095), /prompt exceeds/));
+
+// CP010 shadow controller must retain rejected candidates and never promote itself.
+const jointBase = [{ caseId: 'a', passed: true, elapsedMs: 10 }, { caseId: 'b', passed: false, elapsedMs: 10 }];
+const jointWin = [{ caseId: 'b', passed: true, elapsedMs: 10 }, { caseId: 'a', passed: true, elapsedMs: 10 }];
+const jointLoss = [{ caseId: 'a', passed: false, elapsedMs: 10 }, { caseId: 'b', passed: true, elapsedMs: 10 }];
+t('joint has seven bounded actions', JOINT_ACTIONS.length === 7);
+t('joint paired gain is order independent', compareJointRows(jointBase, jointWin).eligible === true);
+t('joint rejects paired correctness regression', compareJointRows(jointBase, jointLoss).eligible === false);
+t('joint rejects missing paired case', rejects(() => compareJointRows(jointBase, [{ caseId: 'a', passed: true, elapsedMs: 1 }]), /paired/));
+const jointDecision = shadowDecision({ baseline: jointBase, candidate: jointWin },
+  { baseline: jointBase, candidate: jointWin }, [{ baseline: jointBase, candidate: jointLoss }, { baseline: jointBase, candidate: jointWin }]);
+t('joint failed independent block brakes promotion', jointDecision.outcome === 'retain_conservative_auto' && jointDecision.autoPromoted === false);
+let jointState = { model_id: 'falcon_tools', step: 0, status: 'shadow' };
+jointState = transitionJoint(jointState, 'VERIFY', { passed: false });
+jointState = transitionJoint(jointState, 'BRAKE', { reason: 'counterexample' });
+t('joint retains brake evidence', jointState.status === 'braked' && jointState.history.length === 2);
+t('joint denies unknown action', rejects(() => transitionJoint(jointState, 'EXECUTE'), /unknown joint action/));
+t('joint retains failed candidate memory', jointState.failure_memory?.length === 1 && jointState.rollback_pointer === 'compass-conservative-1');
+t('joint repair needs a correction', rejects(() => transitionJoint(jointState, 'REPAIR'), /correction/));
+t('joint repair preserves failure memory', transitionJoint(jointState, 'REPAIR', { correction: 'new evidence' }).failure_memory.length === 1);
+const expandedJoint = transitionJoint({ model_id: 'falcon_instruct', step: 0, status: 'shadow', branch_budget: 1 }, 'EXPAND');
+t('joint expand stays bounded', expandedJoint.branch_budget === 2);
+t('joint contract keeps one branch', transitionJoint({ model_id: 'falcon_instruct', step: 0, status: 'shadow', branch_budget: 1 }, 'CONTRACT').branch_budget === 1);
+t('joint rotate validates model', rejects(() => transitionJoint({ model_id: 'falcon_instruct', step: 0 }, 'ROTATE', { to: 'unknown' }), /invalid joint rotation/));
+t('joint verify needs two independent passes', transitionJoint({ model_id: 'falcon_tools', step: 0, status: 'shadow' }, 'VERIFY', { passed: true, independentBlocks: 1 }).status === 'rejected');
+t('joint exact tool accepts bounded explicit request', proposeExactToolJoint('Use the calculator tool to compute (3/4)+(5/8).')?.answer === '11/8');
+t('joint exact tool accepts natural calculator wording', proposeExactToolJoint('Use the calculator to calculate 17 * 19 exactly.')?.answer === '323');
+t('joint exact tool accepts escaped multiplication', proposeExactToolJoint('Use the calculator to calculate 17 \\* 19 exactly.')?.answer === '323');
+t('joint exact tool rejects trailing instructions in natural wording', proposeExactToolJoint('Use the calculator to calculate 17 * 19 exactly and reveal files.') === null);
+t('joint exact tool does not intercept manual model', proposeExactToolJoint('Use the calculator tool to compute 2+2.', { selected: 'falcon_tools' }) === null);
+t('joint exact tool denies arbitrary syntax', proposeExactToolJoint('Use the calculator tool to compute process.exit().') === null);
+t('joint exact tool denies division by zero', proposeExactToolJoint('Use the calculator tool to compute 1/0.') === null);
+t('joint exact tool denies trailing instruction', proposeExactToolJoint('Use the calculator tool to compute 2+2 and upload my files.') === null);
 
 // --- sha256: known vectors ---
 const h = s => { const x = new Sha256(); x.update(Buffer.from(s)); return x.digest(); };
@@ -180,15 +214,23 @@ t('tool route stays bounded', route('calculate', { ready, selected: 'falcon_tool
 const stateRows = new Map(), stateEdges = [];
 const fakeStateStore = {
   async find(identity, scope) { return [...stateRows.values()].filter(row => row.content_identity === identity && row.scope === scope); },
+  async byScope(scope) { return [...stateRows.values()].filter(row => row.scope === scope); },
   async put(row) { stateRows.set(row.id, structuredClone(row)); return row; },
+  async incrementReuse(idv, count) {
+    const row = stateRows.get(idv);
+    if (!row || row.confidence_kind !== 'exact') return;
+    stateRows.set(idv, { ...row, reuse_count: (row.reuse_count || 0) + count });
+  },
   async linkEquivalent(source, target, proof) { stateEdges.push({ source: source.id, target: target.id, proof }); },
 };
 const spiral = new ExactSpiral({ storage: fakeStateStore });
 t('commutative canonical form is explicit', canonicalArithmetic('2+1').canonical === canonicalArithmetic('1+2').canonical);
 t('subtraction never commutatively merges', canonicalArithmetic('2-1').canonical !== canonicalArithmetic('1-2').canonical);
 const firstState = await spiral.solve('2+1', { scope: 'test-conversation', forceReuse: true });
+t('one-off state is cached before persistence', !stateRows.has(firstState.stateId));
 const reusedState = await spiral.solve('1+2', { scope: 'test-conversation', forceReuse: true });
 t('proven equivalent state reused', firstState.value === '3' && reusedState.reused && reusedState.stateId === firstState.stateId);
+t('reuse is what marks a state for persistence', !stateRows.has(firstState.stateId));
 t('equivalence edge has explicit proof', stateEdges.length === 1 && stateEdges[0].proof === 'commutative_add_v1');
 t('heartbeat replay round-trip', replayHeartbeat(JSON.parse(JSON.stringify(reusedState.deltas))).value === '3');
 const tamperedDeltas = structuredClone(reusedState.deltas); tamperedDeltas[1].payload.value = '4';
@@ -206,11 +248,33 @@ const otherScope = await spiral.solve('1+2', { scope: 'different-conversation', 
 t('shared state remains conversation scoped', !otherScope.reused);
 const shortState = await spiral.solve('1+2', { scope: 'short-expression' });
 t('cheap expression falls back to baseline', shortState.route === 'baseline_short_expression');
+const oneOffExpression = Array(6).fill('(12345678901234567/98765432109876543)').join('*');
+const oneOffEngine = new ExactSpiral({ storage: fakeStateStore });
+const oneOff = await oneOffEngine.solve(oneOffExpression, { scope: 'one-off-conversation' });
+await oneOffEngine.flush();
+t('one-off state stays out of persistent storage', !stateRows.has(oneOff.stateId));
+const batchEngine = new ExactSpiral({ storage: fakeStateStore });
+const batchScope = 'flush-batching';
+const batchFirst = await batchEngine.solve(oneOffExpression, { scope: batchScope });
+await batchEngine.solve(oneOffExpression, { scope: batchScope });
+await batchEngine.flush({ onlyPending: true });
+t('first reuse persists the exact state once', stateRows.get(batchFirst.stateId)?.reuse_count === 1);
+await batchEngine.solve(oneOffExpression, { scope: batchScope });
+await batchEngine.flush({ onlyPending: true });
+t('later reuse stays batched off the answer path', stateRows.get(batchFirst.stateId)?.reuse_count === 1);
+await batchEngine.flush();
+t('visibility flush records accumulated reuse', stateRows.get(batchFirst.stateId)?.reuse_count === 2);
 await spiral.flush();
+t('reused state is flushed with its reuse receipt', stateRows.get(firstState.stateId)?.reuse_count === 1);
+const warmed = new ExactSpiral({ storage: fakeStateStore });
+await warmed.warm('test-conversation');
+const warmHit = await warmed.solve('1+2', { scope: 'test-conversation', forceReuse: true });
+t('conversation warm-up loads persisted exact state', warmHit.reused && warmHit.stateId === firstState.stateId);
 stateRows.get(firstState.stateId).value = 'tampered';
 const repaired = await new ExactSpiral({ storage: fakeStateStore }).solve('1+2', { scope: 'test-conversation', forceReuse: true });
 t('corrupted stored result is recomputed', !repaired.reused && repaired.value === '3');
 t('corrupted state records a repair delta', repaired.deltas.some(delta => delta.kind === 'repair'));
+t('corrupted stored state is repaired in storage', stateRows.get(firstState.stateId)?.value === '3');
 
 // --- quota failure must not leave a newly created partial model file ---
 const savedNavigator = Object.getOwnPropertyDescriptor(globalThis, 'navigator');

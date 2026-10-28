@@ -1,0 +1,53 @@
+{
+  "checkpoint": "CP011",
+  "results": [
+    {
+      "requested": "falcon_instruct",
+      "answer": "Hello, my dear friend. How can I assist you today?",
+      "modelId": "falcon_instruct",
+      "stored": [
+        "falcon_instruct"
+      ]
+    },
+    {
+      "requested": "falcon_reason",
+      "answer": "No final answer was emitted within this run’s token budget.",
+      "modelId": "falcon_reason",
+      "stored": [
+        "falcon_instruct",
+        "falcon_reason"
+      ]
+    },
+    {
+      "requested": "falcon_coder",
+      "answer": "\n    \"\"\"\n    print(\"Hello, World!\")\n\n\ndef main():\n    \"\"\"\n    Main function to execute the program.\n    \n    This functi",
+      "modelId": "falcon_coder",
+      "stored": [
+        "falcon_coder",
+        "falcon_instruct",
+        "falcon_reason"
+      ]
+    },
+    {
+      "requested": "falcon_tools",
+      "answer": "Hello! How can I assist you today?",
+      "modelId": "falcon_tools",
+      "stored": [
+        "falcon_coder",
+        "falcon_instruct",
+        "falcon_reason",
+        "falcon_tools"
+      ]
+    }
+  ],
+  "storedOffline": [
+    "falcon_coder",
+    "falcon_instruct",
+    "falcon_reason",
+    "falcon_tools"
+  ],
+  "errors": [],
+  "external": [],
+  "passed": true,
+  "environment": "macOS arm64 / Playwright Chromium / fresh profile / four same-origin on-demand GGUFs / offline reload"
+}

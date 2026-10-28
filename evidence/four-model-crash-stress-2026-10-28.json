@@ -1,0 +1,38 @@
+{
+  "checkpoint": "CP003/CP007/CP011",
+  "fault": "synthetic runtime Worker error after model load, before completion",
+  "results": [
+    {
+      "requested": "falcon_instruct",
+      "modelId": "falcon_instruct",
+      "status": "error",
+      "content": "Runtime worker failed: synthetic crash",
+      "automaticFallback": false
+    },
+    {
+      "requested": "falcon_reason",
+      "modelId": "falcon_reason",
+      "status": "error",
+      "content": "Runtime worker failed: synthetic crash",
+      "automaticFallback": false
+    },
+    {
+      "requested": "falcon_coder",
+      "modelId": "falcon_coder",
+      "status": "error",
+      "content": "Runtime worker failed: synthetic crash",
+      "automaticFallback": false
+    },
+    {
+      "requested": "falcon_tools",
+      "modelId": "falcon_tools",
+      "status": "error",
+      "content": "Runtime worker failed: synthetic crash",
+      "automaticFallback": false
+    }
+  ],
+  "errors": [],
+  "passed": true,
+  "observedCrossModelFallback": false,
+  "note": "All four failures are reported and persisted. No cross-model fallback is implemented."
+}

@@ -1,0 +1,20 @@
+{
+  "checkpoint": "CP010/CP011",
+  "results": [
+    {
+      "prompt": "Use the calculator to calculate 17 * 19 exactly.",
+      "answer": "323",
+      "label": "Seren 7",
+      "details": "Run details\nModel: deterministic\nBackend: deterministic\nRoute mode: verified_joint_tool\nTask category: tool\nRoute reason: Explicit bounded calculator request passed independent exact verification\nPolicy: joint-exact-calculator-1\nTokens: unknown\nFirst token: unmeasured\nElapsed: unmeasured\nTool calls: 0\nRun ID: f0c31715-6609-4c3a-8ad1-ee06dec53a02"
+    },
+    {
+      "prompt": "Use the calculator to calculate 17 \\* 19 exactly.",
+      "answer": "323",
+      "label": "Seren 7",
+      "details": "Run details\nModel: deterministic\nBackend: deterministic\nRoute mode: verified_joint_tool\nTask category: tool\nRoute reason: Explicit bounded calculator request passed independent exact verification\nPolicy: joint-exact-calculator-1\nTokens: unknown\nFirst token: unmeasured\nElapsed: unmeasured\nTool calls: 0\nRun ID: 84953ddd-ae78-4ce9-ae82-42ad4b0713c6"
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "passed": true
+}

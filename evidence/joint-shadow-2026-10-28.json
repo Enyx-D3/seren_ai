@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "checkpoint": "CP010",
+  "policy_id": "joint-shadow-1-tool-candidate",
+  "policy_version": "joint-shadow-1",
+  "status": "braked",
+  "family": "tool",
+  "baselineModel": "falcon_instruct",
+  "candidateModel": "falcon_tools",
+  "sourceEvidence": [
+    "evidence/competence-browser-v2-2026-10-27.json",
+    "evidence/compass-counterbalanced-2026-10-28.json"
+  ],
+  "developmentSplit": "calibration",
+  "evaluationSplit": "heldout",
+  "decision": {
+    "development": {
+      "gains": 2,
+      "regressions": 0,
+      "counterexamples": [],
+      "baselineCorrect": 0,
+      "candidateCorrect": 2,
+      "count": 2,
+      "baselineMs": 26548,
+      "candidateMs": 22325,
+      "latencyRatio": 0.8409296368841344,
+      "goalAttraction": 2,
+      "costRepulsion": 0,
+      "eligible": true
+    },
+    "heldout": {
+      "gains": 2,
+      "regressions": 0,
+      "counterexamples": [],
+      "baselineCorrect": 0,
+      "candidateCorrect": 2,
+      "count": 2,
+      "baselineMs": 23199,
+      "candidateMs": 22291,
+      "latencyRatio": 0.9608603819130135,
+      "goalAttraction": 2,
+      "costRepulsion": 0,
+      "eligible": true
+    },
+    "independentBlocks": [
+      {
+        "gains": 1,
+        "regressions": 2,
+        "counterexamples": [
+          "chat-b",
+          "code-b"
+        ],
+        "baselineCorrect": 6,
+        "candidateCorrect": 5,
+        "count": 8,
+        "baselineMs": 10999,
+        "candidateMs": 19901,
+        "latencyRatio": 1.8093463042094735,
+        "goalAttraction": -1,
+        "costRepulsion": 0.8093463042094735,
+        "eligible": false
+      },
+      {
+        "gains": 1,
+        "regressions": 2,
+        "counterexamples": [
+          "chat-b",
+          "code-b"
+        ],
+        "baselineCorrect": 5,
+        "candidateCorrect": 4,
+        "count": 8,
+        "baselineMs": 12337,
+        "candidateMs": 21493,
+        "latencyRatio": 1.742157736889033,
+        "goalAttraction": -1,
+        "costRepulsion": 0.7421577368890331,
+        "eligible": false
+      }
+    ],
+    "consecutivePasses": 0,
+    "calibrationDrift": 0,
+    "outcome": "retain_conservative_auto",
+    "autoPromoted": false,
+    "reason": "calibration, held-out, or two independent blocks did not meet the gate"
+  },
+  "state": {
+    "model_id": "falcon_tools",
+    "step": 4,
+    "status": "braked",
+    "history": [
+      {
+        "action": "TAP",
+        "evidence": {
+          "family": "tool",
+          "source": "calibration"
+        }
+      },
+      {
+        "action": "ROTATE",
+        "evidence": {
+          "from": "falcon_instruct",
+          "to": "falcon_tools"
+        }
+      },
+      {
+        "action": "VERIFY",
+        "evidence": {
+          "passed": false
+        }
+      },
+      {
+        "action": "BRAKE",
+        "evidence": {
+          "counterexamples": [
+            "chat-b",
+            "code-b",
+            "chat-b",
+            "code-b"
+          ]
+        }
+      }
+    ],
+    "last_action": "BRAKE",
+    "focus": "tool",
+    "rollback_pointer": "compass-conservative-1",
+    "failure_memory": [
+      {
+        "counterexamples": [
+          "chat-b",
+          "code-b",
+          "chat-b",
+          "code-b"
+        ]
+      }
+    ]
+  },
+  "constraints": {
+    "maxLatencyRatio": 1.25,
+    "independentBlocksRequired": 2,
+    "autoPromotion": false
+  },
+  "limitations": "Small prior task sets; independent blocks include non-tool tasks and model generation variability. No new model run, RAM, battery or physical-device measurement."
+}
