@@ -1,6 +1,6 @@
 # TRD — Local Execution and Integration Architecture
 
-**Version:** 1.1 Web-only · **Status:** target architecture; model/runtime compatibility unproven
+**Version:** 1.1 Web-only · **Status:** target architecture; Chromium CPU/WASM path proven, other runtimes and release compatibility unproven. Current evidence: `CHECKPOINT_LOG.md`.
 
 ## 1. Technology principle
 
@@ -48,7 +48,7 @@ Discovered Drive model archive pieces:
 | Coder | 99,614,720 | 45,823,443 | 145,438,163 |
 | Tool-Calling | 99,614,720 | 46,343,913 | 145,958,633 |
 
-Source: https://drive.google.com/drive/folders/1IZhJVobJhXeeotVLGW3g54Kz0dxYqajo ; Instruct also in https://drive.google.com/drive/folders/141t5B_EMfRgl_16oeCpTN1-YV49m9_rS . Matching manifests exist, but ZIP contents and exact checksums have **not** yet been verified. Follow the physical split convention only after inspection; reconstruct to a temporary workspace, validate archive listing and file hashes, identify weights format, tokenizer, config, chat template, architecture and license. Keep original archives immutable. Do not equate compressed bytes with quantization or runtime RAM.
+Source: https://drive.google.com/drive/folders/1IZhJVobJhXeeotVLGW3g54Kz0dxYqajo ; Instruct also in https://drive.google.com/drive/folders/141t5B_EMfRgl_16oeCpTN1-YV49m9_rS . CP001 archive recovery and GGUF checksum evidence is recorded in `CHECKPOINT_LOG.md` and `workspace/models/MANIFEST_LOCAL.json`; Instruct and Coder source ZIP parts were truncated and recovered from matching official files. Keep original archives immutable. Do not equate compressed bytes with quantization or runtime RAM.
 
 Official model cards use `tiiuae/Falcon-H1-Tiny-{90M-Instruct,R-90M,Coder-90M,Tool-Calling-90M}` naming patterns; read each exact model card, do not synthesize repo IDs from this shorthand. This is a Falcon-LLM licensed family; perform packaging review.
 
@@ -129,6 +129,8 @@ R1/Heartbeat records carry state ID, predecessor/dependency, sequence, version, 
 ## 9. Storage and offline packaging
 
 **Only browser implementation for V1:** IndexedDB for metadata/messages, OPFS for large verified model assets and indexes (with documented fallback where OPFS is unavailable), Cache API/service worker for shell/WASM/fonts when offline revisit is required, storage quota preflight and versioned migration. A **browser-side** .ASIF/WASM adapter may replace or augment indexing after independent validation; no native SQLite database or local file daemon. Service worker caching is optional implementation machinery, not a requirement to install a PWA.
+
+ADR-001 approves retaining the physical IndexedDB name `seren7`; V3 adds the logical entity stores while preserving V2 records and OPFS references. See `Schema.md` for physical key mappings and `CHECKPOINT_LOG.md` for the migration test. Store creation alone is not feature implementation or CP005 acceptance.
 
 No remote inference, online analytics, unbounded service worker caching, or secret model download after first-run model provisioning. Package third-party licenses with distributed assets. Test the website with network blocked from OS/network panel after initial provisioning; distinguish website shell availability from model availability.
 

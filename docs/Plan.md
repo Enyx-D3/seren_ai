@@ -1,6 +1,6 @@
 # Plan — Seren 7 Browser-Only Four-Falcon Execution Train
 
-**Version:** 1.1 Web-only · **Prepared:** 2026-10-26 · **Plan state:** READY FOR IMPLEMENTATION, NOT EXECUTED
+**Version:** 1.1 Web-only · **Prepared:** 2026-10-26 · **Plan state:** execution underway. Checkpoint headings below are original gates; current statuses and evidence are in `CHECKPOINT_LOG.md`.
 
 ## 1. Objective, ownership and guardrails
 
@@ -43,49 +43,51 @@ Parallel tasks are allowed only when they do not race on the same source files o
 
 ## 4. Checkpoints and acceptance gates
 
-### CP001 — Four archive reconstruction and identity (NOT STARTED)
+### CP001 — Four archive reconstruction and identity (PASS; recovery caveat in ledger)
 
 Tasks: acquire eight parts by exact Drive IDs; verify sizes and ordering; create temporary, correctly ordered reconstructed ZIPs; validate ZIP CRC, member list and extraction; inspect weights, `config.json`, tokenizer/chat templates; record license, source repo and checksums. Original Drive pieces remain unchanged. Some pieces live in a general model-ingress folder, not the empty specialist folders. Never declare model ready from a manifest alone.
 
 Gate: **4/4 archives structurally complete, hashes and filenames recorded, exact architecture recognized, no unexplained duplicate/conflict.** Output: immutable model manifest and reproducible reconstruction report. If any parts are missing/corrupt, mark blocked and identify exact part ID.
 
-### CP002 — Compute feasibility tournament (NOT STARTED)
+### CP002 — Compute feasibility tournament (PASS for browser CPU path; see ledger)
 
 Tasks: inspect any recoverable B2CCP kernels for a possible **browser WASM/WebGPU port**; probe in-browser WebGPU and WASM Falcon-H1 compatibility; if needed investigate ONNX conversion with faithful recurrent-state handling. Compare same weights/tokenizer/prompt across browser-compatible candidates. No native-only candidate can satisfy the release gate. Use official libraries as experimental comparators where appropriate and report failure modes explicitly.
 
 Gate: at least **one real in-browser local neural inference path** for Instruct; deterministic input/output repeatability within documented numeric tolerance; successful tokenization and no hidden network calls. Capture OS/browser/GPU, model version, context length, TTFT, tokens/sec and peak RAM. If browser inference cannot work, mark the web release `BLOCKED` and propose a verifiable browser port; never switch to native/server inference or a fake model.
 
-### CP003 — Local chat engine MVP (NOT STARTED)
+### CP003 — Local chat engine MVP (PASS for tested desktop CPU path; see ledger)
 
 Tasks: implement `LocalModelAdapter` with load/generate/cancel/unload, prompt-template support, context and generation limits, streaming events and machine-readable errors. Support one Instruct model with genuine outputs. Never embed archived ZIP directly in JS bundle without memory/license assessment.
 
 Gate: >20 diverse prompts produce real on-device tokens, with proper cancellation, timeout, memory tracking, negative tests (bad model, bad tokenizer, unavailable GPU). Network offline throughout inference.
 
-### CP004 — Integrate existing Seren frontend (NOT STARTED)
+### CP004 — Integrate existing Seren frontend (PASS for tested desktop/viewport UI; see ledger)
 
 Tasks: preserve visual assets; replace `window.claude.use('sample')` production path and conceptual footnote; map model state/events; stop/regenerate/copy/speak; remove sample agent status and replace with real local task telemetry; display authentic backend and loading errors. Keep the original DOM/CSS system and hero-to-chat orb docking.
 
 Gate: test manual chat to streamed answer end to end; no Claude/network calls; screenshot comparison at desktop/mobile breakpoints; real Stop halts generation; no UI-main-thread freeze.
 
-### CP005 — Offline persistence and recovery (NOT STARTED)
+### CP005 — Offline persistence and recovery (PASS for tested desktop browser; see ledger)
 
 Tasks: **browser IndexedDB + OPFS** schema in `Schema.md`; thread CRUD/search; interrupted stream recovery; model cache; service worker/local asset caching including fonts when needed for offline revisit; privacy export/delete. Test browser quota and migration. Do not implement native SQLite or installer flows.
 
+ADR-001 approved keeping the existing `seren7` database. A V2 → V3 browser migration test preserves 60 messages, two run-event streams and an OPFS model reference, then checks private deletion and future-version rejection. A separate browser test confirms JSON conversation export, deletion, reimport and invalid-file rejection; another confirms all app-owned IndexedDB records and model files are erased after confirmation. Quota, multi-tab races, long-term recovery and broader retention gates remain.
+
 Gate: open the HTTPS/localhost web page, provision browser-local assets, disable OS network, refresh/reopen the cached site, resume >50-message history, stream a new reply, export/delete, and capture no remote inference egress. No PWA installation is required.
 
-### CP006 — Four specialist profiles (NOT STARTED)
+### CP006 — Four specialist profiles (PASS for diagnostic profile gate; see ledger)
 
 Tasks: independently load Instruct, R, Coder, Tool-Calling; create disjoint train/calibration/held-out task sets. Score correctness, format adherence, abstention, tool choice, time/memory on each hardware profile. Record failure cases and source evidence. Do not assume roles by name.
 
 Gate: all four run on at least one local execution path, with visible 4x competence matrix and output-format metrics. Benchmarks must be repeatable, blind to route training data and include negative controls.
 
-### CP007 — Competence-aware B2 Compass (NOT STARTED)
+### CP007 — Competence-aware B2 Compass (PASS: measured conservative fallback; specialist promotion remains gated)
 
 Tasks: implement task classifier, policy, budget-aware model route, dynamic loading, fallback, explicit manual route, and local telemetry. Compare static routing versus Compass on held-out mixed workloads; measure real latency, not just fewer calculator attempts.
 
 Gate: no correctness regression beyond pre-agreed tolerance; measured routing win or clear conservative fallback; genuine model labels and explanation categories visible in advanced inspector.
 
-### CP008 — Local calculators and Tool-Calling (NOT STARTED)
+### CP008 — Local calculators and Tool-Calling (PASS: bounded local tool gate)
 
 Tasks: register typed deterministic arithmetic, simple symbolic transforms and optional sandboxed code syntax tools. Model proposes tool JSON, validator checks schema and permissions, verifier checks exact output. No arbitrary shell or device mutation. Keep tool receipts.
 
@@ -103,7 +105,7 @@ Tasks: evaluate attraction/repulsion policies, TAP/ROTATE/EXPAND/CONTRACT/BRAKE/
 
 Gate: independent held-out comparison beats static policy in the chosen primary metric without loss of correctness or unacceptable latency/RAM increase. Unsuccessful candidates retained, not auto-promoted. New controller rules may improve only through approved evidence.
 
-### CP011 — Web browser acceptance, static deployment and handoff (NOT STARTED)
+### CP011 — Web browser acceptance, static deployment and handoff (PARTIAL)
 
 Tasks: build a reproducible **web release bundle** (HTML/CSS/JS/Workers/WASM and licensed static assets), smoke-test HTTPS/localhost serving, offline cache/revisit, browser storage, security, responsive mobile viewport, keyboard, themes, orb GPU context loss, cancellation, accessibility, browser refresh/restart and device thermal behavior. Validate local model import and asset-license notices. No APK, mobile/desktop binary, native wrapper or required PWA install. Static hosting may deliver files, but must not receive user prompts or perform inference.
 
@@ -174,4 +176,4 @@ The next agent first reads these receipts, the actual repository and the six spe
 
 ## 9. First actionable assignment
 
-**Execute CP001–CP011, do not stop at CP001.** Start by finding and reassembling all four Falcon 90M ZIP archives from the recorded Drive parts, verify archive integrity and inspect weights/tokenizers/config. Deliver a machine-readable inventory and reproducible report. Then complete CP002 in-browser WebGPU/WASM/browser-B2CCP feasibility, and continue through implementation, routing, memory, optimization and CP011 website acceptance. The first user-visible demo is CP004, a real Instruct response streamed through the original Seren 7 **website**, fully local; the final deliverable is the **working web application**, not an APK.
+**Execute CP001–CP011, do not stop at CP001.** CP001–CP008 have passed their documented desktop browser or diagnostic gates. CP007 passes through its explicitly allowed conservative fallback: no specialist policy qualified for Auto promotion in the measured trials. CP008 passes for its bounded, compute-only local tool registry and exact/negative/timeout acceptance tests; it does not claim general symbolic algebra or model tool-selection reliability. CP011 remains partial; CP009–CP010 are not started. The next dependency-ready gate is CP009 shared-state and Spiral research. See `CHECKPOINT_LOG.md` for reproducible commands and unresolved failures. The final deliverable remains the **working web application**, not an APK.

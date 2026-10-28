@@ -1,5 +1,6 @@
 # Service/runtime artifacts (never commit model bytes or browser caches)
 node_modules/
+dist/
 app/vendor/**/*.wasm
 app/vendor/**/*.mjs.map
 workspace/parts/

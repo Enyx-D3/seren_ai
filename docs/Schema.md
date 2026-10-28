@@ -1,6 +1,6 @@
 # Schema — Local Seren 7 Data and Event Contracts
 
-**Version:** 1.1 Web-only · **Status:** logical design; implementation/migrations pending
+**Version:** 1.2 Web-only · **Status:** logical design plus approved physical V3 mapping; remaining feature records/acceptance pending. Current evidence: `CHECKPOINT_LOG.md` and `docs/decisions/ADR-001-browser-storage-schema.md`.
 
 ## 1. Principles
 
@@ -81,6 +81,8 @@ Assistant regenerations create new message versions/branches; do not mutate a pr
 
 `tool_call_id`; `run_id`; `proposer_model_id`; `tool_name`; `arguments_json`; `permission_scope`; `status` (`proposed/approved/denied/running/succeeded/failed`); `result_json`; `verification_id`; `elapsed_ms`. Enforce a versioned local registry and validate JSON schema before invocation. Never store an executable raw shell command as an approved tool just because a model proposed it.
 
+CP008's physical `tool_calls` receipts use `id` as `tool_call_id`, `conversation_id` for deletion, `verification` as the method/status label, and additionally allow `timeout` and `cancelled` status. The bounded local tool worker records a final receipt for every parsed model proposal it attempts; conversation deletion removes these rows. The assistant message also retains a display receipt in `meta.tool_receipts` for export. No shell or user-file mutation tool is registered.
+
 ### `verifications`
 
 `verification_id`; `run_id`; `subject_id`; `method`; `expected_contract`; `observed_result`; `status` (`pass/fail/partial/unknown`); `verifier_version`; `evidence_uri`; `timestamp`; `independence_level`. Keep results associated with a specific version of the candidate, not only a display string.
@@ -123,17 +125,19 @@ All browser Worker messages have `schema_version: 1`, `request_id`, `sequence`, 
 
 Malformed or out-of-order events are rejected/quarantined. No UI updates should depend on event text parsing.
 
-## 5. IndexedDB implementation proposal
+## 5. IndexedDB logical contract and physical V3 mapping
 
-Database name `seren-local-v1`. Object stores: `models`, `competence_profiles`, `conversations`, `messages`, `runs`, `run_events`, `tool_calls`, `verifications`, `shared_states`, `state_edges`, `joint_policies`, `joint_trials`, `settings`, `asset_receipts`.
+The logical entities are `models`, `competence_profiles`, `conversations`, `messages`, `runs`, `run_events`, `tool_calls`, `verifications`, `shared_states`, `state_edges`, `joint_policies`, `joint_trials`, `settings`, and `asset_receipts`. Per approved ADR-001, the **physical** IndexedDB name remains `seren7` to preserve existing user data. V3 has all entity stores except `settings`, which maps to the existing `kv` store. The existing `blobs` store is the OPFS fallback; V1 `events` is legacy and is not used for new run events. Empty stores do not imply CP009/CP010 features are implemented.
 
-Indexes: `messages.by_conversation_created`, `messages.by_run`, `runs.by_conversation_created`, `run_events.by_run_seq`, `competence_profiles.by_model_task_hardware`, `shared_states.by_identity_scope`, `state_edges.by_from`, `joint_trials.by_policy_benchmark`, `models.by_status`, `conversations.by_updated`.
+Current physical field mappings: `conversations.id` = `conversation_id`; `conversations.next_message_sequence` is an internal atomic append counter initialized from existing messages on first write; `messages.id` = `message_id`; `messages.content` = `text`; `run_events.request_id` = `run_id`; `kv.k`/`kv.v` = settings key/value. New stores use `id` as physical primary key while their logical IDs retain the names in section 3. Each new record must carry schema version, timestamps and provenance appropriate to its feature before it is considered conformant.
+
+V3 indexes include `messages.by_conversation_created`, `messages.by_run`, `runs.conversation_created` and `runs.by_conversation`, `run_events.by_run_seq`, `competence_profiles.model_task_hardware`, `shared_states.identity_scope` and `shared_states.by_scope`, `state_edges.from` and `state_edges.by_to`, `joint_trials.policy_benchmark`, `models.by_status`, and `conversations.by_updated`. Legacy indexes remain for compatibility. Index presence does not imply records are populated.
 
 Large model shards and serialized indexes belong in browser OPFS, referenced by stable content keys; use a documented browser fallback when OPFS is unavailable. A browser Cache API/service worker may cache the web shell/WASM assets but must not assume unlimited storage or require PWA installation. Use `navigator.storage.estimate()` where supported and warn before large provisioning. Implement a browser import/provision flow through user-selected file handles or approved static model asset downloads, with hashes.
 
 ## 6. Migrations, retention and deletion
 
-Increment `schema_version` with forward-only, idempotent migrations; back up or export before destructive structural changes. On unexpected older/newer schema, block writes until migration/compatibility is confirmed. Model artifacts and global evaluation receipts are separate from private conversations. User's `Delete all conversations` removes threads, messages, conversation-local runs and private derived states. `Factory reset` removes all local app data and optionally model weights after explicit confirmation. Report precisely what remains and what is recoverable.
+Increment `schema_version` with forward-only, idempotent migrations; back up or export before destructive structural changes. V2 → V3 adds stores/indexes without deleting existing data; migration evidence is in `CHECKPOINT_LOG.md`. An unknown future DB version fails to open (`VersionError`) and blocks writes. Model artifacts and global evaluation receipts are separate from private conversations. User's `Delete all conversations` removes threads, messages, conversation-local runs, tool calls, verifications and private derived states; the browser test checks a synthetic cascade. The all-conversation JSON export has a validated, atomic browser import path that regenerates IDs; model weights are deliberately excluded. The confirmed `Erase all local data` control clears all app IndexedDB stores and imported GGUFs from OPFS; the offline shell cache stays so the site can still reopen. Report precisely what remains and what is recoverable.
 
 ## 7. Backward-compatible storage interface
 

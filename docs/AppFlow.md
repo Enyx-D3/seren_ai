@@ -1,6 +1,6 @@
 # AppFlow — Seren 7 Local AI Journeys
 
-**Version:** 1.1 Web-only · **Status:** specified; not implemented
+**Version:** 1.1 Web-only · **Status:** specified; partially implemented. Current checkpoint evidence: `CHECKPOINT_LOG.md`.
 
 ## 1. Global navigation
 

@@ -1,6 +1,6 @@
 # PRD — Seren 7 Local Four-Falcon AI
 
-**Document:** PRD.md · **Version:** 1.1 Web-only · **Status:** approved scope draft, implementation unverified · **Date:** 2026-10-26
+**Document:** PRD.md · **Version:** 1.1 Web-only · **Status:** approved scope draft; partial implementation, release unverified · **Date:** 2026-10-26. Current checkpoint evidence: `CHECKPOINT_LOG.md`.
 
 ## 1. Product summary
 

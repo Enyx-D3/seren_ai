@@ -9,15 +9,21 @@ export function parseGGUFMetadata(u8) {
   const dv = new DataView(u8.buffer, u8.byteOffset, u8.byteLength);
   const isGGUF = u8.length >= 4 && u8[0] === 0x47 && u8[1] === 0x47 && u8[2] === 0x55 && u8[3] === 0x46;
   if (!isGGUF) throw new Error("not GGUF");
+  if (dv.byteLength < 24) throw new Error("truncated GGUF header");
   const version = dv.getUint32(4, true);
   const tensorCount = Number(dv.getBigUint64(8, true));
   const kvCount = Number(dv.getBigUint64(16, true));
+  if (version !== 2 && version !== 3) throw new Error("unsupported GGUF version " + version);
+  if (!Number.isSafeInteger(tensorCount) || tensorCount > 1000000) throw new Error("invalid GGUF tensor count");
+  if (!Number.isSafeInteger(kvCount) || kvCount > 4096) throw new Error("invalid GGUF metadata count");
   let o = 24;
-  const need = n => { if (o + n > dv.byteLength) throw new Error(`metadata slice exhausted at o=${o} (+${n}) — increase slice size`); };
+  const need = n => {
+    if (!Number.isSafeInteger(n) || n < 0 || n > dv.byteLength - o)
+      throw new Error(`metadata slice exhausted at o=${o} (+${n})`);
+  };
 
-  const str = () => { const n = Number(dv.getBigUint64(o, true)); o += 8; need(n); const b = u8.subarray(o, o + n); o += n; return new TextDecoder().decode(b); };
+  const str = () => { need(8); const n = Number(dv.getBigUint64(o, true)); o += 8; need(n); const b = u8.subarray(o, o + n); o += n; return new TextDecoder().decode(b); };
   const plain = t => {
-    need(8); /* worst case */
     switch (T[t]) {
       case "u8": case "bool": need(1); const v8 = dv.getUint8(o); o += 1; return t === "bool" ? !!v8 : v8;
       case "i8": need(1); const s8 = dv.getInt8(o); o += 1; return s8;
@@ -35,9 +41,12 @@ export function parseGGUFMetadata(u8) {
   };
   const val = t => {
     if (T[t] === "arr") {
+      need(12);
       const et = dv.getUint32(o, true); o += 4;
       const n = Number(dv.getBigUint64(o, true)); o += 8;
+      if (!Number.isSafeInteger(n) || n < 0 || n > 1000000) throw new Error("invalid GGUF array length");
       if (T[et] === "str") {
+        if (n > 100000) throw new Error("invalid GGUF string array length");
         const out = new Array(Math.min(n, 65536));
         for (let i = 0; i < n; i++) out[i] = str();
         return out;
@@ -54,8 +63,10 @@ export function parseGGUFMetadata(u8) {
 
   const kv = {};
   for (let i = 0; i < kvCount; i++) {
+    need(8);
     const nStr = Number(dv.getBigUint64(o, true)); o += 8; need(nStr);
     const k = new TextDecoder().decode(u8.subarray(o, o + nStr)); o += nStr;
+    need(4);
     const t = dv.getUint32(o, true); o += 4;
     kv[k] = val(t);
   }
@@ -75,6 +86,11 @@ export function describeModel(u8) {
     return out;
   };
   const markers = markerIds([["<|begin_of_text|>"], ["<|end_of_text|>"], ["<|im_start|>"], ["<|im_end|>"], ["<|eot_id|>"], ["<|eom_id|>"], ["<|start_header_id|>"], ["<|end_header_id|>"], ["<|pad|>"]]);
+  for (const required of ["<|begin_of_text|>", "<|end_of_text|>", "<|im_start|>", "<|im_end|>"]) {
+    if (!Number.isInteger(markers[required])) throw new Error("missing required tokenizer marker " + required);
+  }
+  if (!Number.isInteger(kv["tokenizer.ggml.bos_token_id"]) || !Number.isInteger(kv["tokenizer.ggml.eos_token_id"]))
+    throw new Error("missing tokenizer BOS/EOS ids");
   markers[">>PREFIX<<"] = tokens.indexOf(">>PREFIX<<") !== -1 ? tokens.indexOf(">>PREFIX<<") : null;
   markers[">>MIDDLE<<"] = tokens.indexOf(">>MIDDLE<<") !== -1 ? tokens.indexOf(">>MIDDLE<<") : null;
   markers[">>SUFFIX<<"] = tokens.indexOf(">>SUFFIX<<") !== -1 ? tokens.indexOf(">>SUFFIX<<") : null;

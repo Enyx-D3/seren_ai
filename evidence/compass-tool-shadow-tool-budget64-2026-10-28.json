@@ -1,0 +1,210 @@
+{
+  "variant": "tool-budget64",
+  "corpus": [
+    {
+      "id": "chat-1",
+      "family": "chat",
+      "prompt": "Which month follows April? Answer with one word.",
+      "expected": "\\bMay\\b"
+    },
+    {
+      "id": "chat-2",
+      "family": "chat",
+      "prompt": "What color are ripe bananas? Answer with one word.",
+      "expected": "\\byellow\\b"
+    },
+    {
+      "id": "math-1",
+      "family": "math",
+      "prompt": "What is 23 plus 18?",
+      "expected": "^41$"
+    },
+    {
+      "id": "math-2",
+      "family": "math",
+      "prompt": "What is 12 times 7?",
+      "expected": "^84$"
+    },
+    {
+      "id": "code-1",
+      "family": "code",
+      "prompt": "Write a JavaScript expression that returns x minus 1.",
+      "expected": "x\\s*-\\s*1"
+    },
+    {
+      "id": "code-2",
+      "family": "code",
+      "prompt": "Write a Python expression that returns y doubled.",
+      "expected": "y\\s*\\*\\s*2|2\\s*\\*\\s*y|y\\s*\\+\\s*y"
+    },
+    {
+      "id": "tool-1",
+      "family": "tool",
+      "prompt": "Use the calculator tool to compute 19 * 23.",
+      "expected": "calculator: 437"
+    },
+    {
+      "id": "tool-2",
+      "family": "tool",
+      "prompt": "Use the calculator tool to compute 96 / 8.",
+      "expected": "calculator: 12"
+    }
+  ],
+  "baseline": {
+    "policy": "conservative_auto",
+    "rows": [
+      {
+        "caseId": "chat-1",
+        "family": "chat",
+        "answer": "April follows April.",
+        "status": "Local response",
+        "elapsedMs": 2930,
+        "passed": false
+      },
+      {
+        "caseId": "chat-2",
+        "family": "chat",
+        "answer": "Red",
+        "status": "Local response",
+        "elapsedMs": 744,
+        "passed": false
+      },
+      {
+        "caseId": "math-1",
+        "family": "math",
+        "answer": "41",
+        "status": "verified exact arithmetic",
+        "elapsedMs": 60,
+        "passed": true
+      },
+      {
+        "caseId": "math-2",
+        "family": "math",
+        "answer": "84",
+        "status": "verified exact arithmetic",
+        "elapsedMs": 61,
+        "passed": true
+      },
+      {
+        "caseId": "code-1",
+        "family": "code",
+        "answer": "function getDifference(x) {\n    return x - 1;\n}\n\nIn this expression, x is the variable that will store the result of the subtraction, and -1 is the function that returns the result. The getDifference function is defined to accept x as an argument, making it a generic function that can be used for any number.",
+        "status": "Local response",
+        "elapsedMs": 1678,
+        "passed": true
+      },
+      {
+        "caseId": "code-2",
+        "family": "code",
+        "answer": "To achieve this, you can use the math module in Python, which provides a convenient function for performing mathematical operations. Here's how you can do it:\n\nmath_operation = lambda x: x * 2\ny = 2\nresult = math_operation(y)\nprint(result)  # Output: 4\n\nThis expression y = 2 sets y to 2, and then math_operation(y) applies the multiplication to y, resulting in 2 * 2 = 4. The print(result) statement then displays the value returned, which is 4.",
+        "status": "Local response",
+        "elapsedMs": 2443,
+        "passed": false
+      },
+      {
+        "caseId": "tool-1",
+        "family": "tool",
+        "answer": "To compute 19 * 23 using the calculator tool on your local Falcon model, follow these steps:\n\nOpen the Falcon calculator app and select \"Calculator.\"\nEnter the numbers 19 and 23 in the input field.\nPress the \"Calculate\" key to compute the product.\n\nThe result will be 437.",
+        "status": "Local response",
+        "elapsedMs": 2128,
+        "passed": false
+      },
+      {
+        "caseId": "tool-2",
+        "family": "tool",
+        "answer": "To compute 96 divided by 8, follow these steps:\n\nMove the decimal point: In this case, move the decimal point two places to the left.\nMultiply: Multiply 96 by 8. This gives 768.\nSubtract: Subtract 768 from 96 to get the remainder. 96 - 768 = -672.\nMove the decimal point: Now, move the decimal point one place to the left (because we're dividing by 8). This results in -0.875.\n\nThe final answer is -0.875.",
+        "status": "Local response",
+        "elapsedMs": 3045,
+        "passed": false
+      }
+    ],
+    "errors": []
+  },
+  "candidate": {
+    "policy": "tool_only",
+    "rows": [
+      {
+        "caseId": "chat-1",
+        "family": "chat",
+        "answer": "April",
+        "status": "Local response",
+        "elapsedMs": 3297,
+        "passed": false
+      },
+      {
+        "caseId": "chat-2",
+        "family": "chat",
+        "answer": "Red",
+        "status": "Local response",
+        "elapsedMs": 894,
+        "passed": false
+      },
+      {
+        "caseId": "math-1",
+        "family": "math",
+        "answer": "41",
+        "status": "verified exact arithmetic",
+        "elapsedMs": 62,
+        "passed": true
+      },
+      {
+        "caseId": "math-2",
+        "family": "math",
+        "answer": "84",
+        "status": "verified exact arithmetic",
+        "elapsedMs": 61,
+        "passed": true
+      },
+      {
+        "caseId": "code-1",
+        "family": "code",
+        "answer": "Here's a JavaScript expression that returns x minus 1:\n\nfunction subtract1(x) {\n    return x - 1;\n}\n\nThis expression takes an argument x and returns x minus 1, which is equivalent to x - 1. The subtract1 function is a built-in function in JavaScript that is commonly used for this purpose.",
+        "status": "Local response",
+        "elapsedMs": 2911,
+        "passed": true
+      },
+      {
+        "caseId": "code-2",
+        "family": "code",
+        "answer": "y = 2\n\nThis expression uses the * operator to perform the operation of y being doubled. The * operator is a shorthand for multiplication, which is a built-in Python function. Therefore, when you use y * 2, the result will be 2 * 2, which equals 4.",
+        "status": "Local response",
+        "elapsedMs": 2155,
+        "passed": true
+      },
+      {
+        "caseId": "tool-1",
+        "family": "tool",
+        "answer": "calculator: 437",
+        "status": "Local response",
+        "elapsedMs": 11215,
+        "passed": true
+      },
+      {
+        "caseId": "tool-2",
+        "family": "tool",
+        "answer": "calculator: 12",
+        "status": "Local response",
+        "elapsedMs": 5861,
+        "passed": true
+      }
+    ],
+    "errors": []
+  },
+  "baselineSummary": {
+    "correct": 3,
+    "total": 8,
+    "toolReceipts": 0,
+    "totalElapsedMs": 13089,
+    "p95ElapsedMs": 3045
+  },
+  "candidateSummary": {
+    "correct": 6,
+    "total": 8,
+    "toolReceipts": 2,
+    "totalElapsedMs": 26456,
+    "p95ElapsedMs": 11215
+  },
+  "policy": "Only explicit calculator-tool requests switch to Tool-Calling; all other tasks use conservative Auto/Instruct.",
+  "environment": "macOS arm64 / Playwright Chromium headless / exact Q4_K_M GGUFs / local CPU WebAssembly",
+  "caveat": "Eight fresh tasks, two per family. Per-turn elapsed time includes actual UI, local model loading and any switch; initial model file import is excluded."
+}

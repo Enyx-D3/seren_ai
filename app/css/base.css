@@ -246,6 +246,10 @@ svg { display: block; }
   .model-btn { position: absolute; left: 50%; transform: translateX(-50%); }
   .hide-mobile { display: none; }
 }
+@media (max-width: 359px) {
+  .model-btn { left: 50px; right: 140px; transform: none; gap: 5px; padding-inline: 5px; }
+  .model-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+}
 @media (min-width: 900px) {
   .app.nav-collapsed .sidebar { margin-left: calc(-1 * var(--side)); }
   .hide-desktop { display: none; }

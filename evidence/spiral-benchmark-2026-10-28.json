@@ -1,0 +1,46 @@
+{
+  "measurements": [
+    {
+      "name": "many-additions",
+      "length": 239,
+      "error": "too many arithmetic tokens"
+    },
+    {
+      "name": "many-multiplications",
+      "length": 233,
+      "loops": 200,
+      "baselineMs": 8.760000000242144,
+      "reusedMs": 7.304999999701977,
+      "ratio": 0.8339041095319694,
+      "reused": 0,
+      "resultLength": 210
+    },
+    {
+      "name": "nested-parentheses",
+      "length": 203,
+      "error": "too many arithmetic tokens"
+    },
+    {
+      "name": "rational-products",
+      "length": 227,
+      "loops": 200,
+      "baselineMs": 13.569999999832362,
+      "reusedMs": 6.370000000111759,
+      "ratio": 0.469417833470188,
+      "reused": 200,
+      "resultLength": 200
+    },
+    {
+      "name": "mixed-engineering-ratios",
+      "length": 189,
+      "loops": 200,
+      "baselineMs": 7.255000000353903,
+      "reusedMs": 3.1299999998882413,
+      "ratio": 0.431426602306762,
+      "reused": 200,
+      "resultLength": 159
+    }
+  ],
+  "passed": true,
+  "environment": "macOS arm64 / isolated Playwright Chromium / browser-local exact solver and IndexedDB"
+}

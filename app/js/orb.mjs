@@ -101,7 +101,6 @@ void main(){
       gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
       uRes = gl.getUniformLocation(prog, "uRes"); uTime = gl.getUniformLocation(prog, "uTime");
       uEnergy = gl.getUniformLocation(prog, "uEnergy"); uLight = gl.getUniformLocation(prog, "uLight");
-      canvas.addEventListener("webglcontextlost", e => { e.preventDefault(); fallback(); });
       return true;
     } catch (err) { fallback(); return false; }
   }
@@ -118,7 +117,7 @@ void main(){
     state.kick *= 0.92;
     state.energy += (Math.min(1, state.target + state.kick) - state.energy) * 0.05;
     state.light += (state.lightTarget - state.light) * 0.08;
-    const speed = reduce.matches ? 0.06 : 0.22 + state.energy * 1.1;
+    const speed = reduce.matches ? 0 : 0.22 + state.energy * 1.1;
     state.time += dt * speed;
     if (gl) {
       gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
@@ -131,6 +130,12 @@ void main(){
   function start() { if (state.running) return; state.running = true; state.last = 0; requestAnimationFrame(frame); }
   function stop() { state.running = false; }
 
+  canvas.addEventListener("webglcontextlost", e => { e.preventDefault(); fallback(); });
+  canvas.addEventListener("webglcontextrestored", () => {
+    canvas.hidden = false;
+    canvas.parentNode.querySelector(".orb-fallback")?.remove();
+    init(); resize();
+  });
   init(); resize();
   window.addEventListener("resize", resize);
   document.addEventListener("visibilitychange", () => document.hidden ? stop() : start());

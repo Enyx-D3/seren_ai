@@ -1,0 +1,68 @@
+{
+  "environment": {
+    "os": "darwin",
+    "arch": "arm64",
+    "browser": "Playwright Chromium headless",
+    "model": "Falcon-H1-Tiny-90M-Instruct-Q4_K_M.gguf",
+    "backend": "CPU WebAssembly"
+  },
+  "load": {
+    "modelBytes": 58600064
+  },
+  "generation": {
+    "kind": "complete",
+    "tokens": 21
+  },
+  "samples": [
+    {
+      "phase": "idle",
+      "at": 1793120004759,
+      "processCount": 4,
+      "physicalMiB": 146,
+      "sumProcessPeakMiB": 146
+    },
+    {
+      "phase": "loaded",
+      "at": 1793120010249,
+      "processCount": 4,
+      "physicalMiB": 537,
+      "sumProcessPeakMiB": 596
+    },
+    {
+      "phase": "generating",
+      "at": 1793120014972,
+      "processCount": 4,
+      "physicalMiB": 513,
+      "sumProcessPeakMiB": 687
+    },
+    {
+      "phase": "generating",
+      "at": 1793120017388,
+      "processCount": 4,
+      "physicalMiB": 482,
+      "sumProcessPeakMiB": 687
+    },
+    {
+      "phase": "generating",
+      "at": 1793120018220,
+      "processCount": 4,
+      "physicalMiB": 480,
+      "sumProcessPeakMiB": 687
+    },
+    {
+      "phase": "complete",
+      "at": 1793120018717,
+      "processCount": 4,
+      "physicalMiB": 481,
+      "sumProcessPeakMiB": 687
+    },
+    {
+      "phase": "worker-terminated",
+      "at": 1793120019275,
+      "processCount": 4,
+      "physicalMiB": 266,
+      "sumProcessPeakMiB": 687
+    }
+  ],
+  "caveat": "Sum of macOS per-process physical footprints for the isolated test browser. Shared accounting and asynchronous process peaks make this a whole-browser estimate, not model-only allocation."
+}

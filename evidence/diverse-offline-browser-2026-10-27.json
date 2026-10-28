@@ -1,0 +1,202 @@
+{
+  "date": "2026-10-27T17:29:20.810Z",
+  "browser": "Playwright Chromium headless",
+  "model": "Falcon-H1-Tiny-90M-Instruct-Q4_K_M.gguf",
+  "backend": "CPU WebAssembly",
+  "offline_after_load": true,
+  "requests_after_offline": [],
+  "rows": [
+    {
+      "prompt": "Say hello in one sentence.",
+      "answer": "Hello! How can I help you today?",
+      "tokens": 9,
+      "kind": "complete",
+      "ttft_ms": 5822,
+      "elapsed_ms": 6668
+    },
+    {
+      "prompt": "Name a primary color.",
+      "answer": "The primary color is red. It is the most common and vibrant color in the world, often used in various artistic and decorative contexts.",
+      "tokens": 28,
+      "kind": "complete",
+      "ttft_ms": 3466,
+      "elapsed_ms": 6554
+    },
+    {
+      "prompt": "What planet do humans live on?",
+      "answer": "Humans are primarily found in the **Jovian Cloud**, also known as Saturn. This is the planet where we live, with a surface",
+      "tokens": 32,
+      "kind": "complete",
+      "ttft_ms": 3512,
+      "elapsed_ms": 6948
+    },
+    {
+      "prompt": "Give one synonym for quick.",
+      "answer": "Give me one synonym for \"quick.\"",
+      "tokens": 11,
+      "kind": "complete",
+      "ttft_ms": 3432,
+      "elapsed_ms": 4530
+    },
+    {
+      "prompt": "Name an animal that can fly.",
+      "answer": "An elephant is known for its remarkable ability to fly. They can soar across the sky with ease, their powerful wings enabling them to soar through the",
+      "tokens": 32,
+      "kind": "complete",
+      "ttft_ms": 3517,
+      "elapsed_ms": 7001
+    },
+    {
+      "prompt": "What is the opposite of cold?",
+      "answer": "The opposite of cold is warm.",
+      "tokens": 7,
+      "kind": "complete",
+      "ttft_ms": 3282,
+      "elapsed_ms": 4172
+    },
+    {
+      "prompt": "Write one sentence about rain.",
+      "answer": "\"Raindrops gently fall from the clouds, creating a mesmerizing display that adds to the allure of the rainy day.\"",
+      "tokens": 29,
+      "kind": "complete",
+      "ttft_ms": 3505,
+      "elapsed_ms": 6566
+    },
+    {
+      "prompt": "List two fruits.",
+      "answer": "- Apples\n- Oranges",
+      "tokens": 7,
+      "kind": "complete",
+      "ttft_ms": 3612,
+      "elapsed_ms": 4299
+    },
+    {
+      "prompt": "What month comes after March?",
+      "answer": "The month that comes after March is April.",
+      "tokens": 9,
+      "kind": "complete",
+      "ttft_ms": 3518,
+      "elapsed_ms": 4290
+    },
+    {
+      "prompt": "What is 7 + 5?",
+      "answer": "7 + 5 equals 12. This is straightforward addition, so it's easy to understand.",
+      "tokens": 23,
+      "kind": "complete",
+      "ttft_ms": 3542,
+      "elapsed_ms": 6083
+    },
+    {
+      "prompt": "What is 9 times 8?",
+      "answer": "9 times 8 equals 72.",
+      "tokens": 9,
+      "kind": "complete",
+      "ttft_ms": 3521,
+      "elapsed_ms": 4326
+    },
+    {
+      "prompt": "What is 100 minus 37?",
+      "answer": "100 minus 37 equals 63.",
+      "tokens": 12,
+      "kind": "complete",
+      "ttft_ms": 4272,
+      "elapsed_ms": 5514
+    },
+    {
+      "prompt": "What is half of 50?",
+      "answer": "Half of 50 is 25. So, half of 50 is 25.",
+      "tokens": 22,
+      "kind": "complete",
+      "ttft_ms": 3637,
+      "elapsed_ms": 5918
+    },
+    {
+      "prompt": "Is 17 odd or even?",
+      "answer": "17 is an odd number. It is not divisible by 2, hence it is classified as odd.",
+      "tokens": 22,
+      "kind": "complete",
+      "ttft_ms": 3551,
+      "elapsed_ms": 6768
+    },
+    {
+      "prompt": "What is the square of 6?",
+      "answer": "The square of 6 is 36. You can find it by multiplying 6 by itself: 6 * 6 = 36",
+      "tokens": 32,
+      "kind": "complete",
+      "ttft_ms": 3812,
+      "elapsed_ms": 7165
+    },
+    {
+      "prompt": "Write a short Python greeting.",
+      "answer": "Here's a simple Python greeting:\n\nGreetings, _Your_Greetings_Model!",
+      "tokens": 24,
+      "kind": "complete",
+      "ttft_ms": 3731,
+      "elapsed_ms": 6478
+    },
+    {
+      "prompt": "Name a common programming language.",
+      "answer": "Python is a popular and widely-used programming language. It is known for its simplicity and versatility, making it a favorite among many developers.",
+      "tokens": 29,
+      "kind": "complete",
+      "ttft_ms": 3891,
+      "elapsed_ms": 6599
+    },
+    {
+      "prompt": "What does HTML stand for?",
+      "answer": "HTML stands for HyperText Markup Language. It is a markup language used to create web pages, allowing web applications to structure and structure content effectively.",
+      "tokens": 31,
+      "kind": "complete",
+      "ttft_ms": 3592,
+      "elapsed_ms": 7058
+    },
+    {
+      "prompt": "Give one reason to back up files.",
+      "answer": "Give one reason to back up files.\n\nTo back up files, you can use a secure file transfer service like **Gutflavi**",
+      "tokens": 32,
+      "kind": "complete",
+      "ttft_ms": 3890,
+      "elapsed_ms": 6999
+    },
+    {
+      "prompt": "Explain photosynthesis briefly.",
+      "answer": "Photosynthesis is a process that converts light energy into chemical energy. It occurs in plants and is essential for life as we know it. Here's",
+      "tokens": 32,
+      "kind": "complete",
+      "ttft_ms": 4334,
+      "elapsed_ms": 8178
+    },
+    {
+      "prompt": "How many days are in a week?",
+      "answer": "There are 7 days in a week.",
+      "tokens": 9,
+      "kind": "complete",
+      "ttft_ms": 3778,
+      "elapsed_ms": 4602
+    },
+    {
+      "prompt": "What is the capital of Japan?",
+      "answer": "The capital of Japan is Tokyo. It's a bustling city known for its rich history and cultural heritage.",
+      "tokens": 23,
+      "kind": "complete",
+      "ttft_ms": 4011,
+      "elapsed_ms": 6761
+    },
+    {
+      "prompt": "Complete: The sky is usually ___.",
+      "answer": "The sky is usually bright and clear.",
+      "tokens": 8,
+      "kind": "complete",
+      "ttft_ms": 3896,
+      "elapsed_ms": 4824
+    },
+    {
+      "prompt": "Give one example of renewable energy.",
+      "answer": "One example of renewable energy is solar power. Solar panels are designed to capture sunlight and convert it into electricity. This method is eco-friendly and has a low",
+      "tokens": 32,
+      "kind": "complete",
+      "ttft_ms": 3702,
+      "elapsed_ms": 7560
+    }
+  ]
+}

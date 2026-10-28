@@ -1,0 +1,8 @@
+# Static web hosting and local model setup
+
+1. Run `npm ci` and `npm run build:web` from this repository. The command verifies the pinned wllama JavaScript and WASM SHA-256 digests, then prints a new `dist/seren7-web-*` directory containing the static site, workers, fonts, WASM, license notice, and `asset-manifest.json`.
+2. Serve that directory through HTTPS, or `http://localhost` for local use. Set `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: credentialless` for browsers that support threaded WASM. Keep these headers on HTML, worker, and WASM responses. Static hosts may deliver files; there is no inference endpoint.
+3. In Settings, import the approved Instruct, Reasoning, Coder, and Tool-Calling Q4_K_M GGUF files. The localhost development server also offers **Import local verified files** for the four files already present in `workspace/parts/`. Import checks the exact model hash and metadata before saving browser-local bytes. Each browser profile has separate storage. The release build deliberately excludes model weights and user data.
+4. Wait for the page's offline shell to install, then revisit once with the network disabled. Model availability also depends on the browser retaining its local storage. Settings offers conversation export/import, conversation deletion, model removal and a confirmed full local-data erase.
+
+The current verified path is Chromium CPU WebAssembly. WebGPU, physical mobile browsers, and the full CP011 release gate remain unverified. Read [CHECKPOINT_LOG.md](../CHECKPOINT_LOG.md) before claiming support on a device. The bundle has been smoke-tested at `/seren/` on localhost to check nested-path worker and service-worker URLs.

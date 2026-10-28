@@ -1,0 +1,30 @@
+{
+  "status": "feasibility_only_not_shipped",
+  "date": "2026-10-27",
+  "host": "macOS arm64; headed Playwright Chromium; Apple Metal 3 WebGPU adapter",
+  "runtime": "@wllama/wllama 3.8.1, isolated npm tarball under /tmp",
+  "runtime_package_integrity": "sha512-Pl7BEJhPU8OHn[...]3Uf7BBfotS1gw== (npm pack abbreviated display)",
+  "commands": [
+    "npm pack @wllama/wllama@3.8.1 --pack-destination /tmp",
+    "tar -xzf /tmp/wllama-wllama-3.8.1.tgz -C /tmp/seren-wllama-v3-spike",
+    "node tools/browser_wllama_v3_spike.mjs --headed --gpu --model=instruct",
+    "node tools/browser_wllama_v3_spike.mjs --headed --gpu --model=reason",
+    "node tools/browser_wllama_v3_spike.mjs --headed --gpu --model=coder",
+    "node tools/browser_wllama_v3_spike.mjs --headed --gpu --model=tools"
+  ],
+  "requested_gpu_layers": 4,
+  "native_log": "using device WebGPU; offloading output layer and 3 repeating layers; offloaded 4/25 layers to GPU; WebGPU model buffer 18.51 MiB",
+  "results": {
+    "falcon_instruct": { "sha256": "e7d655345a876ecb073ea86f5ce68e412b99090c34a6bde8a2982bc48afb2612", "completion_tokens": 22, "generated_text": "Sure, I'd like to say hello! 😊 How can I assist you today?" },
+    "falcon_reason": { "sha256": "c763e52b3902e5834d602b46c779ae54fa7b82cd94a0e893d818b804e081bdfd", "completion_tokens": 24, "generated_text": "\nThe user says: \"Say hello. \"\n\nIt seems the user is asking: \"" },
+    "falcon_coder": { "sha256": "1f769dd9cc450a4a080ebd623e1bf7c15d0a3ccdfb40e339e6640c53228cd019", "completion_tokens": 24, "generated_text": "\"\"\"Adds two numbers\"\"\"\n    return a + b\n\ndef subtract(a, b):\n    \"\"\"" },
+    "falcon_tools": { "sha256": "9381ccff79b2941339cdf0df8b7047a794970295585dd3ee3aac863ee6f1886e", "completion_tokens": 6, "generated_text": "Hello! 😊" }
+  },
+  "limits": [
+    "Only a short generation on each exact model; no quality or route benchmark",
+    "The shipped worker remains pinned to CPU/WASM wllama 2.4.0",
+    "No mobile GPU or physical peak memory evidence",
+    "wllama 3.8.1 _getDebugInfo failed with Unexpected end of JSON input; native offload logs were captured instead",
+    "Headless Chromium without a flag had no WebGPU adapter; with the unsafe flag it used software SwiftShader"
+  ]
+}

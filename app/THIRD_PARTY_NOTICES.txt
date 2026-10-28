@@ -1,0 +1,10 @@
+Seren 7 browser bundle — third-party notices
+
+Falcon-H1-Tiny model weights are not included in this static bundle. Users import their own approved model files separately. Review each model's source license before distributing weights.
+
+Browser runtime: @wllama/wllama 2.4.0. License text: vendor/wllama/LICENCE.
+Archive utility: fflate 0.8.3. License text: vendor/fflate/LICENCE.
+SHA-256 utility: js-sha256 0.11.1. License text: vendor/jssha256/LICENSE.txt.
+
+Bundled fonts: DM Mono, Fraunces, Onest. Each is under the SIL Open Font License 1.1. Full license texts: fonts/DM_Mono_OFL.txt, fonts/Fraunces_OFL.txt, fonts/Onest_OFL.txt.
+Font license sources: https://github.com/google/fonts/blob/main/ofl/dmmono/OFL.txt ; https://github.com/google/fonts/blob/main/ofl/fraunces/OFL.txt ; https://github.com/google/fonts/blob/main/ofl/onest/OFL.txt .

@@ -1,0 +1,209 @@
+{
+  "corpus": [
+    {
+      "id": "chat-1",
+      "family": "chat",
+      "prompt": "Which month follows April? Answer with one word.",
+      "expected": "\\bMay\\b"
+    },
+    {
+      "id": "chat-2",
+      "family": "chat",
+      "prompt": "What color are ripe bananas? Answer with one word.",
+      "expected": "\\byellow\\b"
+    },
+    {
+      "id": "math-1",
+      "family": "math",
+      "prompt": "What is 23 plus 18?",
+      "expected": "^41$"
+    },
+    {
+      "id": "math-2",
+      "family": "math",
+      "prompt": "What is 12 times 7?",
+      "expected": "^84$"
+    },
+    {
+      "id": "code-1",
+      "family": "code",
+      "prompt": "Write a JavaScript expression that returns x minus 1.",
+      "expected": "x\\s*-\\s*1"
+    },
+    {
+      "id": "code-2",
+      "family": "code",
+      "prompt": "Write a Python expression that returns y doubled.",
+      "expected": "y\\s*\\*\\s*2|2\\s*\\*\\s*y|y\\s*\\+\\s*y"
+    },
+    {
+      "id": "tool-1",
+      "family": "tool",
+      "prompt": "Use the calculator tool to compute 19 * 23.",
+      "expected": "calculator: 437"
+    },
+    {
+      "id": "tool-2",
+      "family": "tool",
+      "prompt": "Use the calculator tool to compute 96 / 8.",
+      "expected": "calculator: 12"
+    }
+  ],
+  "baseline": {
+    "policy": "conservative_auto",
+    "rows": [
+      {
+        "caseId": "chat-1",
+        "family": "chat",
+        "answer": "April.",
+        "status": "Local response",
+        "elapsedMs": 8871,
+        "passed": false
+      },
+      {
+        "caseId": "chat-2",
+        "family": "chat",
+        "answer": "Red",
+        "status": "Local response",
+        "elapsedMs": 3374,
+        "passed": false
+      },
+      {
+        "caseId": "math-1",
+        "family": "math",
+        "answer": "41",
+        "status": "verified exact arithmetic",
+        "elapsedMs": 166,
+        "passed": true
+      },
+      {
+        "caseId": "math-2",
+        "family": "math",
+        "answer": "84",
+        "status": "verified exact arithmetic",
+        "elapsedMs": 125,
+        "passed": true
+      },
+      {
+        "caseId": "code-1",
+        "family": "code",
+        "answer": "function subtract1() {\n    return x - 1;\n}",
+        "status": "Local response",
+        "elapsedMs": 5618,
+        "passed": true
+      },
+      {
+        "caseId": "code-2",
+        "family": "code",
+        "answer": "y = 2\nprint(y * 2)",
+        "status": "Local response",
+        "elapsedMs": 4852,
+        "passed": true
+      },
+      {
+        "caseId": "tool-1",
+        "family": "tool",
+        "answer": "To compute 19 * 23, you can use the calculator tool on your Falcon model. Here's how:\n\nOpen the calculator on your Falcon model.\nEnter 19, which is the number you want to multiply.\nPress the equals sign (=) button.\nEnter 23, the second number.\nThe calculator will display the result, which is 387.\n\nSo, 19 * 23 equals 387.",
+        "status": "Local response",
+        "elapsedMs": 17672,
+        "passed": false
+      },
+      {
+        "caseId": "tool-2",
+        "family": "tool",
+        "answer": "To compute 96 divided by 8, we can use the calculator tool. Here's how:\n\nPress the equals sign (=) key to get 96.\nPress the divide key (/) to divide 96 by 8.\nThe calculator will display 12.\n\nSo, 96 divided by 8 equals 12.",
+        "status": "Local response",
+        "elapsedMs": 12737,
+        "passed": false
+      }
+    ],
+    "errors": []
+  },
+  "candidate": {
+    "policy": "tool_only",
+    "rows": [
+      {
+        "caseId": "chat-1",
+        "family": "chat",
+        "answer": "April",
+        "status": "Local response",
+        "elapsedMs": 12864,
+        "passed": false
+      },
+      {
+        "caseId": "chat-2",
+        "family": "chat",
+        "answer": "Red",
+        "status": "Local response",
+        "elapsedMs": 6282,
+        "passed": false
+      },
+      {
+        "caseId": "math-1",
+        "family": "math",
+        "answer": "41",
+        "status": "verified exact arithmetic",
+        "elapsedMs": 573,
+        "passed": true
+      },
+      {
+        "caseId": "math-2",
+        "family": "math",
+        "answer": "84",
+        "status": "verified exact arithmetic",
+        "elapsedMs": 286,
+        "passed": true
+      },
+      {
+        "caseId": "code-1",
+        "family": "code",
+        "answer": "function subtractOne(x) {\n    return x - 1;\n}\n\nThis expression uses the function keyword to define a function with a parameter x that returns the value of x minus 1. The subtractOne function is then returned by the function declaration.",
+        "status": "Local response",
+        "elapsedMs": 8083,
+        "passed": true
+      },
+      {
+        "caseId": "code-2",
+        "family": "code",
+        "answer": "To create a Python expression that double the value of y, you can use the ** operator, which is commonly used with lists. The expression is as follows:\n\nresult = y * 2\n\nThis code will output 2 * y, which is equivalent to 2 * y in Python.",
+        "status": "Local response",
+        "elapsedMs": 15555,
+        "passed": true
+      },
+      {
+        "caseId": "tool-1",
+        "family": "tool",
+        "answer": "calculator: 437",
+        "status": "Local response",
+        "elapsedMs": 35949,
+        "passed": true
+      },
+      {
+        "caseId": "tool-2",
+        "family": "tool",
+        "answer": "calculator: 12",
+        "status": "Local response",
+        "elapsedMs": 79911,
+        "passed": true
+      }
+    ],
+    "errors": []
+  },
+  "baselineSummary": {
+    "correct": 4,
+    "total": 8,
+    "toolReceipts": 0,
+    "totalElapsedMs": 53415,
+    "p95ElapsedMs": 17672
+  },
+  "candidateSummary": {
+    "correct": 6,
+    "total": 8,
+    "toolReceipts": 2,
+    "totalElapsedMs": 159503,
+    "p95ElapsedMs": 79911
+  },
+  "policy": "Only explicit calculator-tool requests switch to Tool-Calling; all other tasks use conservative Auto/Instruct.",
+  "environment": "macOS arm64 / Playwright Chromium headless / exact Q4_K_M GGUFs / local CPU WebAssembly",
+  "caveat": "Eight fresh tasks, two per family. Per-turn elapsed time includes actual UI, local model loading and any switch; initial model file import is excluded."
+}

@@ -1,0 +1,301 @@
+{
+  "source": "evidence/competence-browser-v2-2026-10-27.json",
+  "candidate": {
+    "chat": "falcon_tools",
+    "math": "falcon_instruct",
+    "code": "falcon_coder",
+    "tool": "falcon_tools"
+  },
+  "calibration": {
+    "chat": [
+      {
+        "modelId": "falcon_tools",
+        "correct": 1,
+        "format": 2,
+        "total": 2,
+        "medianElapsedMs": 2041
+      },
+      {
+        "modelId": "falcon_instruct",
+        "correct": 0,
+        "format": 2,
+        "total": 2,
+        "medianElapsedMs": 4127
+      },
+      {
+        "modelId": "falcon_coder",
+        "correct": 0,
+        "format": 0,
+        "total": 2,
+        "medianElapsedMs": 2005
+      },
+      {
+        "modelId": "falcon_reason",
+        "correct": 0,
+        "format": 0,
+        "total": 2,
+        "medianElapsedMs": 4371
+      }
+    ],
+    "math": [
+      {
+        "modelId": "falcon_instruct",
+        "correct": 2,
+        "format": 0,
+        "total": 2,
+        "medianElapsedMs": 6298
+      },
+      {
+        "modelId": "falcon_tools",
+        "correct": 1,
+        "format": 1,
+        "total": 2,
+        "medianElapsedMs": 2409
+      },
+      {
+        "modelId": "falcon_coder",
+        "correct": 1,
+        "format": 0,
+        "total": 2,
+        "medianElapsedMs": 1984
+      },
+      {
+        "modelId": "falcon_reason",
+        "correct": 0,
+        "format": 0,
+        "total": 2,
+        "medianElapsedMs": 3960
+      }
+    ],
+    "code": [
+      {
+        "modelId": "falcon_coder",
+        "correct": 2,
+        "format": 2,
+        "total": 2,
+        "medianElapsedMs": 1906
+      },
+      {
+        "modelId": "falcon_instruct",
+        "correct": 1,
+        "format": 2,
+        "total": 2,
+        "medianElapsedMs": 11746
+      },
+      {
+        "modelId": "falcon_tools",
+        "correct": 0,
+        "format": 2,
+        "total": 2,
+        "medianElapsedMs": 3823
+      },
+      {
+        "modelId": "falcon_reason",
+        "correct": 0,
+        "format": 2,
+        "total": 2,
+        "medianElapsedMs": 3884
+      }
+    ],
+    "tool": [
+      {
+        "modelId": "falcon_tools",
+        "correct": 2,
+        "format": 2,
+        "total": 2,
+        "medianElapsedMs": 11531
+      },
+      {
+        "modelId": "falcon_coder",
+        "correct": 0,
+        "format": 0,
+        "total": 2,
+        "medianElapsedMs": 1979
+      },
+      {
+        "modelId": "falcon_reason",
+        "correct": 0,
+        "format": 0,
+        "total": 2,
+        "medianElapsedMs": 13305
+      },
+      {
+        "modelId": "falcon_instruct",
+        "correct": 0,
+        "format": 0,
+        "total": 2,
+        "medianElapsedMs": 13817
+      }
+    ]
+  },
+  "heldout": [
+    {
+      "caseId": "chat-h1",
+      "family": "chat",
+      "baselineModel": "falcon_instruct",
+      "candidateModel": "falcon_tools",
+      "baselineCorrect": false,
+      "candidateCorrect": false,
+      "oracleCorrect": true,
+      "baselineFormat": false,
+      "candidateFormat": true,
+      "baselineElapsedMs": 4053,
+      "candidateElapsedMs": 1882,
+      "baselineTtftMs": 3916,
+      "candidateTtftMs": 1853
+    },
+    {
+      "caseId": "chat-h2",
+      "family": "chat",
+      "baselineModel": "falcon_instruct",
+      "candidateModel": "falcon_tools",
+      "baselineCorrect": false,
+      "candidateCorrect": false,
+      "oracleCorrect": false,
+      "baselineFormat": false,
+      "candidateFormat": true,
+      "baselineElapsedMs": 5394,
+      "candidateElapsedMs": 2060,
+      "baselineTtftMs": 3959,
+      "candidateTtftMs": 1979
+    },
+    {
+      "caseId": "math-h1",
+      "family": "math",
+      "baselineModel": "falcon_instruct",
+      "candidateModel": "falcon_instruct",
+      "baselineCorrect": true,
+      "candidateCorrect": true,
+      "oracleCorrect": true,
+      "baselineFormat": false,
+      "candidateFormat": false,
+      "baselineElapsedMs": 5393,
+      "candidateElapsedMs": 5393,
+      "baselineTtftMs": 4128,
+      "candidateTtftMs": 4128
+    },
+    {
+      "caseId": "math-h2",
+      "family": "math",
+      "baselineModel": "falcon_instruct",
+      "candidateModel": "falcon_instruct",
+      "baselineCorrect": true,
+      "candidateCorrect": true,
+      "oracleCorrect": true,
+      "baselineFormat": false,
+      "candidateFormat": false,
+      "baselineElapsedMs": 5367,
+      "candidateElapsedMs": 5367,
+      "baselineTtftMs": 4231,
+      "candidateTtftMs": 4231
+    },
+    {
+      "caseId": "code-h1",
+      "family": "code",
+      "baselineModel": "falcon_instruct",
+      "candidateModel": "falcon_coder",
+      "baselineCorrect": true,
+      "candidateCorrect": false,
+      "oracleCorrect": true,
+      "baselineFormat": true,
+      "candidateFormat": true,
+      "baselineElapsedMs": 12907,
+      "candidateElapsedMs": 1778,
+      "baselineTtftMs": 4386,
+      "candidateTtftMs": 115
+    },
+    {
+      "caseId": "code-h2",
+      "family": "code",
+      "baselineModel": "falcon_instruct",
+      "candidateModel": "falcon_coder",
+      "baselineCorrect": true,
+      "candidateCorrect": true,
+      "oracleCorrect": true,
+      "baselineFormat": true,
+      "candidateFormat": true,
+      "baselineElapsedMs": 2689,
+      "candidateElapsedMs": 1751,
+      "baselineTtftMs": 2210,
+      "candidateTtftMs": 215
+    },
+    {
+      "caseId": "tool-h1",
+      "family": "tool",
+      "baselineModel": "falcon_instruct",
+      "candidateModel": "falcon_tools",
+      "baselineCorrect": false,
+      "candidateCorrect": true,
+      "oracleCorrect": true,
+      "baselineFormat": false,
+      "candidateFormat": true,
+      "baselineElapsedMs": 11070,
+      "candidateElapsedMs": 11117,
+      "baselineTtftMs": 9460,
+      "candidateTtftMs": 9322
+    },
+    {
+      "caseId": "tool-h2",
+      "family": "tool",
+      "baselineModel": "falcon_instruct",
+      "candidateModel": "falcon_tools",
+      "baselineCorrect": false,
+      "candidateCorrect": true,
+      "oracleCorrect": true,
+      "baselineFormat": false,
+      "candidateFormat": true,
+      "baselineElapsedMs": 12129,
+      "candidateElapsedMs": 11174,
+      "baselineTtftMs": 9531,
+      "candidateTtftMs": 9431
+    }
+  ],
+  "baseline": {
+    "correct": 4,
+    "total": 8,
+    "format": 2,
+    "routeRegret": 3,
+    "medianGenerationMs": 5394,
+    "p95GenerationMs": 12907,
+    "totalGenerationMs": 59002
+  },
+  "proposed": {
+    "correct": 5,
+    "total": 8,
+    "format": 6,
+    "routeRegret": 2,
+    "medianGenerationMs": 5367,
+    "p95GenerationMs": 11174,
+    "totalGenerationMs": 40522
+  },
+  "meanAbsoluteCalibrationGap": 0.25,
+  "calibrationGap": [
+    {
+      "family": "chat",
+      "predicted": 0.5,
+      "heldout": 0,
+      "absoluteGap": 0.5
+    },
+    {
+      "family": "math",
+      "predicted": 1,
+      "heldout": 1,
+      "absoluteGap": 0
+    },
+    {
+      "family": "code",
+      "predicted": 1,
+      "heldout": 0.5,
+      "absoluteGap": 0.5
+    },
+    {
+      "family": "tool",
+      "predicted": 1,
+      "heldout": 1,
+      "absoluteGap": 0
+    }
+  ],
+  "deniedAcceptedToolCalls": 0,
+  "decision": "shadow_only",
+  "caveat": "Eight held-out task cases (two per family). Generation latency excludes model-load/switch overhead. No production Auto route is changed."
+}

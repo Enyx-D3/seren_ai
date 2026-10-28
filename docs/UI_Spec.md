@@ -1,6 +1,6 @@
 # UI_Spec — Preserve Seren 7, Connect Real Local Intelligence
 
-**Version:** 1.1 Web-only · **Source:** uploaded `Seren 7(1).html` (~78 KB, 1,160 lines) · **Status:** inspected concept, no production backend
+**Version:** 1.1 Web-only · **Source:** uploaded `Seren 7(1).html` (~78 KB, 1,160 lines) · **Status:** partial browser implementation; release UI unverified. Current evidence: `CHECKPOINT_LOG.md`.
 
 ## 1. Design intent and non-negotiable fidelity
 

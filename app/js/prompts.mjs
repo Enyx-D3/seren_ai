@@ -48,36 +48,25 @@ export function baseSystem(opts) {
   return lines.join("\n");
 }
 
-/* Tools block per the R/Tools template: tools as JSON inside <tools>, plus
-   the tool_call protocol instruction. The envelope characters are assembled
-   from a char code because paired backtick-brace literals are unstable in
-   this toolchain's serializers. */
-const TBT = String.fromCharCode(96);
-const FAB_EXAMPLE = TBT + "{\"name\": \"...\", \"arguments\": {...}}" + TBT;
-
 export function toolSystemBlock(jsonTools) {
   return [
     "You are a Falcon assistant skilled in function calling. You are helpful, respectful, and concise.",
     "",
     "# Tools",
     "",
-    "You have access to the following functions. You MUST use them to answer questions when needed.",
+    "You have access to the following functions. You MUST use them to answer questions when needed. For each function call, you MUST return a JSON object inside <tool_call></tool_call> tags.",
     "",
     "<tools>",
-    JSON.stringify(jsonTools),
+    JSON.stringify(jsonTools, null, 2),
     "</tools>",
     "",
     "# Output Format",
     "",
     "Your response MUST follow this format when making function calls:",
-    "",
-    "Place each function call as a JSON object wrapped in a pair of backticks, immediately around the JSON braces, with no spaces between the backtick and the brace, for example:",
-    "",
-    FAB_EXAMPLE,
-    "",
-    "Name must be one of the tool names in <tools> and arguments must follow that tool's parameters. One wrapped object per tool call; put consecutive calls in a row.",
-    "",
-    "If no function calls are needed, respond normally without any wrapped object.",
+    "<tool_call>",
+    '[{"name": "function_name", "arguments": {"arg1": "value1"}}]',
+    "</tool_call>",
+    "If no function calls are needed, respond normally without the tool_call tags.",
   ].join("\n");
 }
 
@@ -88,10 +77,10 @@ export function buildChatPrompt(modelId, turns, opts) {
   opts = opts || {};
   if (modelId === "falcon_coder") return buildCoderPrompt(turns, opts);
   const fam = modelId === "falcon_reason" ? "falcon_reason" : modelId === "falcon_tools" ? "falcon_tools" : "falcon_instruct";
-  const sys = opts.tools ? toolSystemBlock(opts.tools) : (opts.system || baseSystem({ think: !!opts.think }));
+  const sys = opts.tools ? (opts.system || baseSystem({ think: !!opts.think })) + "\n" + toolSystemBlock(opts.tools) : (opts.system || baseSystem({ think: !!opts.think }));
   let s = "";
-  if (fam !== "falcon_instruct" && opts.tools) s += SPC.bos; /* R/Tools tool branch prepends bos */
-  s += SPC.start + "system\n" + sys + SPC.end + "\n";
+  if (fam !== "falcon_instruct") s += SPC.bos;
+  s += opts.tools && fam !== "falcon_instruct" ? "<|system|>\n" + sys + "\n" : SPC.start + "system\n" + sys + SPC.end + "\n";
   for (const t of turns) {
     if (t.role === "system") continue;
     s += SPC.start + (t.role === "assistant" ? "assistant" : "user") + "\n" + t.content + SPC.end + "\n";

@@ -1,0 +1,398 @@
+{
+  "threshold": {
+    "maxCorrectnessRegressions": 0,
+    "minAdditionalCorrect": 1,
+    "maxLatencyRatio": 1.25
+  },
+  "cases": [
+    {
+      "id": "chat-a",
+      "family": "chat",
+      "prompt": "Which season comes after winter? Give one word.",
+      "expected": "\\bspring\\b"
+    },
+    {
+      "id": "chat-b",
+      "family": "chat",
+      "prompt": "What is the opposite of north? Give one word.",
+      "expected": "\\bsouth\\b"
+    },
+    {
+      "id": "math-a",
+      "family": "math",
+      "prompt": "Calculate 0.25 + 0.5.",
+      "expected": "^3/4$"
+    },
+    {
+      "id": "math-b",
+      "family": "math",
+      "prompt": "What is 8 times 9?",
+      "expected": "^72$"
+    },
+    {
+      "id": "code-a",
+      "family": "code",
+      "prompt": "Write a JavaScript expression that adds 2 to n.",
+      "expected": "n\\s*\\+\\s*2|2\\s*\\+\\s*n"
+    },
+    {
+      "id": "code-b",
+      "family": "code",
+      "prompt": "Write a Python expression that squares z.",
+      "expected": "z\\s*\\*\\*\\s*2|z\\s*\\*\\s*z"
+    },
+    {
+      "id": "tool-a",
+      "family": "tool",
+      "prompt": "Use the calculator tool to compute 17 * 23.",
+      "expected": "calculator: 391"
+    },
+    {
+      "id": "tool-b",
+      "family": "tool",
+      "prompt": "Use the calculator tool to compute 84 / 7.",
+      "expected": "calculator: 12"
+    }
+  ],
+  "blocks": [
+    {
+      "block": "AB",
+      "order": [
+        "conservative_auto",
+        "tool_only"
+      ],
+      "baseline": {
+        "block": "AB",
+        "policy": "conservative_auto",
+        "rows": [
+          {
+            "caseId": "chat-a",
+            "family": "chat",
+            "answer": "The season that comes after winter is spring.",
+            "status": "Local response",
+            "elapsedMs": 3766,
+            "passed": true
+          },
+          {
+            "caseId": "chat-b",
+            "family": "chat",
+            "answer": "\"South\"",
+            "status": "Local response",
+            "elapsedMs": 1099,
+            "passed": true
+          },
+          {
+            "caseId": "math-a",
+            "family": "math",
+            "answer": "3/4",
+            "status": "verified exact arithmetic",
+            "elapsedMs": 75,
+            "passed": true
+          },
+          {
+            "caseId": "math-b",
+            "family": "math",
+            "answer": "72",
+            "status": "verified exact arithmetic",
+            "elapsedMs": 66,
+            "passed": true
+          },
+          {
+            "caseId": "code-a",
+            "family": "code",
+            "answer": "n = 5;\nconst result = n + 2;\nconsole.log(result);",
+            "status": "Local response",
+            "elapsedMs": 1082,
+            "passed": true
+          },
+          {
+            "caseId": "code-b",
+            "family": "code",
+            "answer": "To square a number z using Python, you can use the ** operator, which is short for exponentiation. The syntax is z**2. Here's how you can do it:\n\nz = 4  # You can use any integer value\nresult = z ** 2\nprint(result)  # Output: 16\n\nThis expression takes the input z as an argument, squares it, and returns the result.",
+            "status": "Local response",
+            "elapsedMs": 1848,
+            "passed": true
+          },
+          {
+            "caseId": "tool-a",
+            "family": "tool",
+            "answer": "To compute 17 * 23 using the calculator tool on our local Falcon model, follow these steps:\n\nEnter the numbers 17 and 23 into the calculator.\nPress the arithmetic button (×) to calculate the product.\n\nThe result will be 359.",
+            "status": "Local response",
+            "elapsedMs": 1515,
+            "passed": false
+          },
+          {
+            "caseId": "tool-b",
+            "family": "tool",
+            "answer": "To compute 84 divided by 7 using the calculator tool on your local Falcon model, you would press the F key. The result would be displayed as 0.1 in the calculator interface. This way, you can easily input the division and get the answer 0.1 as displayed in the interface.",
+            "status": "Local response",
+            "elapsedMs": 1548,
+            "passed": false
+          }
+        ],
+        "errors": []
+      },
+      "candidate": {
+        "block": "AB",
+        "policy": "tool_only",
+        "rows": [
+          {
+            "caseId": "chat-a",
+            "family": "chat",
+            "answer": "The season that comes after winter is spring.",
+            "status": "Local response",
+            "elapsedMs": 2810,
+            "passed": true
+          },
+          {
+            "caseId": "chat-b",
+            "family": "chat",
+            "answer": "\"Northwest\"",
+            "status": "Local response",
+            "elapsedMs": 847,
+            "passed": false
+          },
+          {
+            "caseId": "math-a",
+            "family": "math",
+            "answer": "3/4",
+            "status": "verified exact arithmetic",
+            "elapsedMs": 66,
+            "passed": true
+          },
+          {
+            "caseId": "math-b",
+            "family": "math",
+            "answer": "72",
+            "status": "verified exact arithmetic",
+            "elapsedMs": 66,
+            "passed": true
+          },
+          {
+            "caseId": "code-a",
+            "family": "code",
+            "answer": "Here's a JavaScript expression that adds 2 to an integer n:\n\nn = 5;\nresult = n + 2;",
+            "status": "Local response",
+            "elapsedMs": 1215,
+            "passed": true
+          },
+          {
+            "caseId": "code-b",
+            "family": "code",
+            "answer": "You can use the ** operator to square a number. Here's how you can do it:\n\nz = 4\nresult = **z\n\nThe ** operator acts as the exponentiation operator, squaring z to 4.",
+            "status": "Local response",
+            "elapsedMs": 1499,
+            "passed": false
+          },
+          {
+            "caseId": "tool-a",
+            "family": "tool",
+            "answer": "Malformed local tool proposal. No action was run.",
+            "status": "Local response",
+            "elapsedMs": 8199,
+            "passed": false
+          },
+          {
+            "caseId": "tool-b",
+            "family": "tool",
+            "answer": "calculator: 12",
+            "status": "Local response",
+            "elapsedMs": 5199,
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "base": {
+        "correct": 6,
+        "totalMs": 10999,
+        "p95Ms": 3766
+      },
+      "proposed": {
+        "correct": 5,
+        "totalMs": 19901,
+        "p95Ms": 8199
+      },
+      "regressions": [
+        "chat-b",
+        "code-b"
+      ],
+      "latencyRatio": {
+        "total": 1.8093463042094735,
+        "p95": 2.177110993096123
+      },
+      "eligible": false
+    },
+    {
+      "block": "BA",
+      "order": [
+        "tool_only",
+        "conservative_auto"
+      ],
+      "baseline": {
+        "block": "BA",
+        "policy": "conservative_auto",
+        "rows": [
+          {
+            "caseId": "chat-a",
+            "family": "chat",
+            "answer": "The season that comes after winter is \"spring.\"",
+            "status": "Local response",
+            "elapsedMs": 2946,
+            "passed": true
+          },
+          {
+            "caseId": "chat-b",
+            "family": "chat",
+            "answer": "North is the opposite of South.",
+            "status": "Local response",
+            "elapsedMs": 1014,
+            "passed": true
+          },
+          {
+            "caseId": "math-a",
+            "family": "math",
+            "answer": "3/4",
+            "status": "verified exact arithmetic",
+            "elapsedMs": 67,
+            "passed": true
+          },
+          {
+            "caseId": "math-b",
+            "family": "math",
+            "answer": "72",
+            "status": "verified exact arithmetic",
+            "elapsedMs": 67,
+            "passed": true
+          },
+          {
+            "caseId": "code-a",
+            "family": "code",
+            "answer": "n = 10;\n// This expression assigns the value 10 to variable n\nn += 2;\n// This line adds 2 to n, effectively returning the value 12.",
+            "status": "Local response",
+            "elapsedMs": 1465,
+            "passed": false
+          },
+          {
+            "caseId": "code-b",
+            "family": "code",
+            "answer": "To square a number z in Python, you can use the square function, which returns the square of its argument. The syntax is z**2. Here's how you can do it:\n\n# Function to square a number\ndef square(x):\n    # Apply the square function to x\n    return x ** 2\n\n# Example usage\nresult = square(3)  # Output: 9\nprint(f\"z squared to {square(z)} is {result}\")\n\nThis expression z**2 will square the input z, which is 3 in this case.",
+            "status": "Local response",
+            "elapsedMs": 2782,
+            "passed": true
+          },
+          {
+            "caseId": "tool-a",
+            "family": "tool",
+            "answer": "17 23 can be computed by using the calculator tool, which is located near the top of your screen. Enter 17 first, then 23 next. The calculator will display the result, which is 356. So, 17 23 equals 356.",
+            "status": "Local response",
+            "elapsedMs": 1748,
+            "passed": false
+          },
+          {
+            "caseId": "tool-b",
+            "family": "tool",
+            "answer": "To compute 84 divided by 7 using the calculator tool, you'll go to the Calculator tab. Here's how you do it:\n\nPress Ø to enter the ÷ key.\nType 84 and press Enter.\nThe calculator will then display the result, which is 12, so 84 divided by 7 equals 12.",
+            "status": "Local response",
+            "elapsedMs": 2248,
+            "passed": false
+          }
+        ],
+        "errors": []
+      },
+      "candidate": {
+        "block": "BA",
+        "policy": "tool_only",
+        "rows": [
+          {
+            "caseId": "chat-a",
+            "family": "chat",
+            "answer": "The season that comes after winter is spring.",
+            "status": "Local response",
+            "elapsedMs": 2868,
+            "passed": true
+          },
+          {
+            "caseId": "chat-b",
+            "family": "chat",
+            "answer": "\"Northwest\"",
+            "status": "Local response",
+            "elapsedMs": 915,
+            "passed": false
+          },
+          {
+            "caseId": "math-a",
+            "family": "math",
+            "answer": "3/4",
+            "status": "verified exact arithmetic",
+            "elapsedMs": 66,
+            "passed": true
+          },
+          {
+            "caseId": "math-b",
+            "family": "math",
+            "answer": "72",
+            "status": "verified exact arithmetic",
+            "elapsedMs": 67,
+            "passed": true
+          },
+          {
+            "caseId": "code-a",
+            "family": "code",
+            "answer": "Here's a JavaScript expression that adds 2 to a variable n:\n\nn += 2;\n\nThis expression uses the += operator to increment the value of n by 2, effectively performing the addition 2 on the result.",
+            "status": "Local response",
+            "elapsedMs": 1648,
+            "passed": false
+          },
+          {
+            "caseId": "code-b",
+            "family": "code",
+            "answer": "You can use the ** operator in Python to square a number. Here's how you can do it:\n\nz = 5\nresult = **z\nprint(result)  # Output: 25\n\nThis expression result = **z squares the variable z by multiplying it by z, effectively squaring it to 25.",
+            "status": "Local response",
+            "elapsedMs": 1949,
+            "passed": false
+          },
+          {
+            "caseId": "tool-a",
+            "family": "tool",
+            "answer": "Malformed local tool proposal. No action was run.",
+            "status": "Local response",
+            "elapsedMs": 8498,
+            "passed": false
+          },
+          {
+            "caseId": "tool-b",
+            "family": "tool",
+            "answer": "calculator: 12",
+            "status": "Local response",
+            "elapsedMs": 5482,
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "base": {
+        "correct": 5,
+        "totalMs": 12337,
+        "p95Ms": 2946
+      },
+      "proposed": {
+        "correct": 4,
+        "totalMs": 21493,
+        "p95Ms": 8498
+      },
+      "regressions": [
+        "chat-b",
+        "code-b"
+      ],
+      "latencyRatio": {
+        "total": 1.742157736889033,
+        "p95": 2.88458927359131
+      },
+      "eligible": false
+    }
+  ],
+  "decision": "retain_conservative_auto",
+  "environment": "macOS arm64 / isolated Playwright Chromium profiles / exact Q4_K_M GGUFs / local CPU WebAssembly",
+  "caveat": "Eight new tasks repeated once in AB and BA order. Model import excluded; turn time includes local model load and UI. Small regex-scored sample; no broad accuracy claim."
+}

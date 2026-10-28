@@ -7,7 +7,13 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare:runtime": "node tools/prepare_runtime.mjs",
+    "build:web": "npm run prepare:runtime && node tools/build_web.mjs",
+    "test": "node tools/module_selftest.mjs",
+    "test:tools": "npm test && node tools/browser_tool_safety_smoke.mjs && node tools/browser_tool_ui_smoke.mjs && node tools/browser_tool_timeout_recovery.mjs",
+    "test:spiral": "npm test && node tools/browser_spiral_bench.mjs && node tools/browser_spiral_smoke.mjs",
+    "serve": "node tools/serve.mjs",
+    "test:browser": "node tools/browser_app_smoke.mjs && node tools/browser_compass_policy_smoke.mjs && node tools/browser_no_gpu_smoke.mjs && node tools/browser_local_speech_smoke.mjs && node tools/browser_accessibility_smoke.mjs && node tools/browser_local_import_smoke.mjs && node tools/browser_exact_smoke.mjs && node tools/browser_offline_smoke.mjs && node tools/browser_restart_offline_smoke.mjs && node tools/browser_stop_smoke.mjs && node tools/browser_worker_crash_smoke.mjs && node tools/browser_generation_timeout_smoke.mjs && node tools/browser_import_negative.mjs && node tools/browser_eviction_smoke.mjs && node tools/browser_runtime_integrity_smoke.mjs && node tools/browser_store_smoke.mjs && node tools/browser_multitab_store_smoke.mjs && node tools/browser_schema_migration.mjs && node tools/browser_data_controls_smoke.mjs && node tools/browser_factory_reset_smoke.mjs && node tools/browser_settings_mobile_smoke.mjs && node tools/browser_keyboard_smoke.mjs && node tools/browser_orb_recovery.mjs && node tools/browser_four_models.mjs && node tools/browser_tool_ui_smoke.mjs && node tools/browser_repeatability_smoke.mjs"
   },
   "keywords": [],
   "author": "",

@@ -57,7 +57,7 @@
     </div>
     <div class="side-actions">
       <button class="btn-new" id="newBtn"><svg width="18" height="18"><use href="#i-new"/></svg>New thread<kbd class="hide-mobile">⌥ N</kbd></button>
-      <label class="search"><svg width="16" height="16"><use href="#i-search"/></svg><input id="searchInput" type="search" placeholder="Search threads" autocomplete="off"></label>
+      <label class="search"><svg width="16" height="16"><use href="#i-search"/></svg><input id="searchInput" type="search" placeholder="Search threads" aria-label="Search threads" autocomplete="off"></label>
     </div>
     <div class="side-scroll">
       <div class="label">Working for you <span class="count" id="agentCount"></span></div>
@@ -81,7 +81,7 @@
     <header class="topbar">
       <button class="icon-btn hide-desktop" id="openNavBtn" aria-label="Open menu"><svg width="22" height="22"><use href="#i-menu"/></svg></button>
       <button class="icon-btn hide-mobile" id="expandBtn" aria-label="Show sidebar" hidden><svg width="20" height="20"><use href="#i-side"/></svg></button>
-      <button class="model-btn" id="modelBtn" aria-haspopup="menu" aria-expanded="false">
+      <button class="model-btn" id="modelBtn" aria-haspopup="menu" aria-controls="modelMenu" aria-expanded="false">
         <span class="orb-slot" id="orbSlot"><span class="dot" aria-hidden="true"></span></span>
         <span class="model-name" id="modelName">Auto</span>
         <svg class="chev" width="16" height="16"><use href="#i-chev"/></svg>
@@ -102,7 +102,7 @@
           <h1 class="headline" id="headline"></h1>
           <p class="footnote" id="heroStatus"></p>
         </section>
-        <div class="thread" id="thread" aria-live="polite"></div>
+        <div class="thread" id="thread" aria-live="off"></div>
       </div>
 
       <div class="dock" id="dock">
@@ -137,13 +137,13 @@
 </div>
 
 <div class="toast" id="toast" role="status"></div>
-<div aria-live="assertive" id="statusAnnouncer" class="sr-hidden"></div>
+<div aria-live="polite" id="statusAnnouncer" class="sr-hidden"></div>
 
 <dialog id="setupDialog" class="seren" aria-labelledby="setupTitle">
   <div class="dlg-head"><h2 id="setupTitle">Bring the models to this browser</h2>
     <button class="icon-btn" id="setupClose" aria-label="Close"><svg width="20" height="20"><use href="#i-close"/></svg></button></div>
   <div class="dlg-body">
-    <p class="dlg-note">Seren 7 runs four local specialists entirely on this device. Import the verified Falcon 90M GGUF archives, or serve them from a trusted folder this page can read. Nothing is installed; files stay in this browser's own storage and are checked byte-by-byte before use.</p>
+    <p class="dlg-note">Seren 7 runs four local specialists entirely on this device. Import the approved Falcon 90M GGUF model files. Nothing is installed; files stay in this browser's own storage and are checked byte-by-byte before use.</p>
     <div id="modelRows"></div>
     <label class="field">Compute preference
       <select class="select" id="computePref">
@@ -153,12 +153,20 @@
       </select>
     </label>
     <p class="dlg-note" id="storageNote"></p>
+    <p class="dlg-note"><a href="./THIRD_PARTY_NOTICES.txt" target="_blank" rel="noopener">Third-party licenses and font notices</a></p>
   </div>
   <div class="dlg-actions">
     <button class="btn" id="removeModelsBtn">Remove all models</button>
     <span style="flex:1"></span>
+    <button class="btn" id="importLocalBtn" hidden>Import local verified files</button>
     <button class="btn" id="importBtn">Import GGUF files…</button>
     <button class="btn btn-primary" id="setupDone">Done</button>
+  </div>
+  <div class="dlg-actions">
+    <button class="btn" id="exportChatsBtn">Export conversations</button>
+    <button class="btn" id="importChatsBtn">Import conversations…</button>
+    <button class="btn" id="deleteChatsBtn">Delete conversations</button>
+    <button class="btn" id="factoryResetBtn">Erase all local data</button>
   </div>
 </dialog>
 
@@ -173,5 +181,6 @@
 </dialog>
 
 <input type="file" id="modelFileInput" accept=".gguf,application/octet-stream" multiple hidden>
+<input type="file" id="chatFileInput" accept=".json,application/json" hidden>
 </body>
 </html>
