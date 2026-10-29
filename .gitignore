@@ -10,6 +10,7 @@ workspace/gguf/
 workspace/tmp/
 workspace/*.log
 .DS_Store
+.vercel/
 
 # Keep: manifests, hash receipts, reports, tools, fixtures
 !workspace/tools/**
