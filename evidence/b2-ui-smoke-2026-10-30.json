@@ -1,0 +1,149 @@
+{
+  "baseUrl": "http://127.0.0.1:8799/",
+  "rows": 1,
+  "math": "323",
+  "logic": "Yes. Mira is a cat, and all cats are mammals.",
+  "chat": "Hello, hello, hello, hello, hello, hello, hello, hello.",
+  "plan": "Midday Backup: Copy all files from your local drive to another location.\n\nRisk: Ensure all files are backed up regularly to prevent data corruption.",
+  "evidence": {
+    "answers": [
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-2",
+        "verification": {
+          "status": "verified",
+          "method": "two_parser_exact_v1"
+        },
+        "metrics": {
+          "modelCalls": 0,
+          "calculatorCalls": 1,
+          "cacheHits": 0,
+          "tokens": 0,
+          "firstModelTokenMs": null,
+          "verificationMs": 11,
+          "elapsedMs": 11
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-2",
+        "verification": {
+          "status": "verified",
+          "method": "bounded_syllogism_v1"
+        },
+        "metrics": {
+          "modelCalls": 0,
+          "calculatorCalls": 0,
+          "cacheHits": 0,
+          "tokens": 0,
+          "firstModelTokenMs": null,
+          "verificationMs": 0,
+          "elapsedMs": 1
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-2",
+        "verification": {
+          "status": "unverified",
+          "method": "none",
+          "residual": {
+            "unresolved": [
+              "Say hello in one short sentence."
+            ],
+            "unprocessed": 0
+          }
+        },
+        "metrics": {
+          "modelCalls": 1,
+          "calculatorCalls": 0,
+          "cacheHits": 0,
+          "tokens": 16,
+          "firstModelTokenMs": 3658,
+          "verificationMs": 0,
+          "elapsedMs": 6841
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-2",
+        "verification": {
+          "status": "unverified",
+          "method": "none",
+          "residual": {
+            "unresolved": [
+              "Plan a two-step morning backup; then list one risk."
+            ],
+            "unprocessed": 0
+          }
+        },
+        "metrics": {
+          "modelCalls": 1,
+          "calculatorCalls": 0,
+          "cacheHits": 0,
+          "tokens": 34,
+          "firstModelTokenMs": 3314,
+          "verificationMs": 0,
+          "elapsedMs": 4424
+        }
+      }
+    ],
+    "calibration": {
+      "arithmetic": {
+        "runs": 1,
+        "verifiedSuccesses": 1,
+        "verifiedFailures": 0,
+        "unverified": 0,
+        "modelCalls": 0,
+        "calculatorCalls": 1,
+        "elapsedMs": 11,
+        "repairs": 0,
+        "schemaVersion": 2,
+        "updatedAt": 1793374489828
+      },
+      "logic": {
+        "runs": 1,
+        "verifiedSuccesses": 1,
+        "verifiedFailures": 0,
+        "unverified": 0,
+        "modelCalls": 0,
+        "calculatorCalls": 0,
+        "elapsedMs": 1,
+        "repairs": 0,
+        "schemaVersion": 2,
+        "updatedAt": 1793374490341
+      },
+      "conversation": {
+        "runs": 1,
+        "verifiedSuccesses": 0,
+        "verifiedFailures": 0,
+        "unverified": 1,
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "elapsedMs": 6841,
+        "repairs": 0,
+        "schemaVersion": 2,
+        "updatedAt": 1793374497336
+      },
+      "planning": {
+        "runs": 1,
+        "verifiedSuccesses": 0,
+        "verifiedFailures": 0,
+        "unverified": 1,
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "elapsedMs": 4424,
+        "repairs": 0,
+        "schemaVersion": 2,
+        "updatedAt": 1793374501848
+      }
+    }
+  },
+  "errors": [],
+  "external": [],
+  "passed": true
+}

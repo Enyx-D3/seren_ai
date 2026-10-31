@@ -1,5 +1,5 @@
 // tools/serve.mjs — local static dev server for the Seren 7 web app.
-// Serves app/ plus exactly four approved local GGUF files for browser tests.
+// Serves app/ plus the approved Instruct GGUF for browser tests.
 // COOP/COEP headers enable wllama multi-thread WASM where supported.
 import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
@@ -10,9 +10,6 @@ const ROOT = resolve(process.argv[2] || fileURLToPath(new URL("../app/", import.
 const MODEL_ROOT = process.argv[2] ? join(ROOT, "models", "parts") : fileURLToPath(new URL("../workspace/parts/", import.meta.url));
 const MODEL_NAMES = new Set([
   "Falcon-H1-Tiny-90M-Instruct-Q4_K_M.gguf",
-  "Falcon-H1R-Tiny-90M-Q4_K_M.gguf",
-  "Falcon-H1-Tiny-Coder-Q4_K_M.gguf",
-  "Falcon-H1-Tiny-Tool-Calling-Q4_K_M.gguf",
 ]);
 const PORT = Number(process.env.PORT || 8799);
 const MIME = {

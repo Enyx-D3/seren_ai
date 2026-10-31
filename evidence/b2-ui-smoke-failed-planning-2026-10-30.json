@@ -1,0 +1,139 @@
+{
+  "baseUrl": "http://127.0.0.1:8799/",
+  "rows": 1,
+  "math": "323",
+  "logic": "Yes. Mira is a cat, and all cats are mammals.",
+  "chat": "Hello, hello, hello, hello, hello, hello!",
+  "plan": "Plan a two-step morning backup:\nOpen the Backup app and select Backup > Copy.\nChoose the number of steps you need (e.g., 2).\nCopy the necessary files to a local storage drive.\nList the risk:\nFile Transfer Risk: Ensure you have a secure connection (e.g., S3) to transfer files to another",
+  "evidence": {
+    "answers": [
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-1",
+        "verification": {
+          "status": "verified",
+          "method": "two_parser_exact_v1"
+        },
+        "metrics": {
+          "modelCalls": 0,
+          "calculatorCalls": 1,
+          "cacheHits": 0,
+          "tokens": 0,
+          "firstModelTokenMs": null,
+          "verificationMs": 6,
+          "elapsedMs": 6
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-1",
+        "verification": {
+          "status": "verified",
+          "method": "bounded_syllogism_v1"
+        },
+        "metrics": {
+          "modelCalls": 0,
+          "calculatorCalls": 0,
+          "cacheHits": 0,
+          "tokens": 0,
+          "firstModelTokenMs": null,
+          "verificationMs": 0,
+          "elapsedMs": 0
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-1",
+        "verification": {
+          "status": "unverified",
+          "method": "none",
+          "residual": [
+            "Say hello in one short sentence."
+          ]
+        },
+        "metrics": {
+          "modelCalls": 1,
+          "calculatorCalls": 0,
+          "cacheHits": 0,
+          "tokens": 12,
+          "firstModelTokenMs": 1496,
+          "verificationMs": 0,
+          "elapsedMs": 1669
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-1",
+        "verification": {
+          "status": "unverified",
+          "method": "none",
+          "residual": [
+            "Plan a two-step morning backup; then list one risk."
+          ]
+        },
+        "metrics": {
+          "modelCalls": 1,
+          "calculatorCalls": 0,
+          "cacheHits": 0,
+          "tokens": 96,
+          "firstModelTokenMs": 1291,
+          "verificationMs": 0,
+          "elapsedMs": 2743
+        }
+      }
+    ],
+    "calibration": {
+      "arithmetic": {
+        "runs": 1,
+        "verifiedSuccesses": 1,
+        "verifiedFailures": 0,
+        "unverified": 0,
+        "modelCalls": 0,
+        "calculatorCalls": 1,
+        "elapsedMs": 6,
+        "repairs": 0,
+        "updatedAt": 1793335182885
+      },
+      "logic": {
+        "runs": 1,
+        "verifiedSuccesses": 1,
+        "verifiedFailures": 0,
+        "unverified": 0,
+        "modelCalls": 0,
+        "calculatorCalls": 0,
+        "elapsedMs": 0,
+        "repairs": 0,
+        "updatedAt": 1793335184601
+      },
+      "conversation": {
+        "runs": 1,
+        "verifiedSuccesses": 0,
+        "verifiedFailures": 0,
+        "unverified": 1,
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "elapsedMs": 1669,
+        "repairs": 0,
+        "updatedAt": 1793335186329
+      },
+      "planning": {
+        "runs": 1,
+        "verifiedSuccesses": 0,
+        "verifiedFailures": 0,
+        "unverified": 1,
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "elapsedMs": 2743,
+        "repairs": 0,
+        "updatedAt": 1793335189136
+      }
+    }
+  },
+  "errors": [],
+  "external": [],
+  "passed": true
+}

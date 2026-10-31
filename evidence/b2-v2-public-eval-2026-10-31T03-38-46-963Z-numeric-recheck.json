@@ -1,0 +1,311 @@
+{
+  "sourcePath": "evidence/b2-v2-public-eval-2026-10-31T03-38-46-963Z.json",
+  "reason": "Initial numeric regex wrongly rejected a final number followed by sentence punctuation.",
+  "checker": "last numeric claim with decimal and comma handling",
+  "rows": [
+    {
+      "id": "gsm8k-34",
+      "system": "falcon_alone",
+      "previous": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "23",
+        "observed": "40"
+      },
+      "corrected": {
+        "status": "failed",
+        "expected": "23",
+        "observed": "40"
+      }
+    },
+    {
+      "id": "gsm8k-34",
+      "system": "falcon_plus_b2",
+      "previous": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "23",
+        "observed": "40"
+      },
+      "corrected": {
+        "status": "failed",
+        "expected": "23",
+        "observed": "40"
+      }
+    },
+    {
+      "id": "gsm8k-117",
+      "system": "falcon_plus_b2",
+      "previous": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "360",
+        "observed": "240"
+      },
+      "corrected": {
+        "status": "failed",
+        "expected": "360",
+        "observed": "240"
+      }
+    },
+    {
+      "id": "gsm8k-117",
+      "system": "falcon_alone",
+      "previous": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "360",
+        "observed": null
+      },
+      "corrected": {
+        "status": "failed",
+        "expected": "360",
+        "observed": "120"
+      }
+    },
+    {
+      "id": "gsm8k-1108",
+      "system": "falcon_alone",
+      "previous": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "38",
+        "observed": "12"
+      },
+      "corrected": {
+        "status": "failed",
+        "expected": "38",
+        "observed": "12"
+      }
+    },
+    {
+      "id": "gsm8k-1108",
+      "system": "falcon_plus_b2",
+      "previous": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "38",
+        "observed": "19"
+      },
+      "corrected": {
+        "status": "failed",
+        "expected": "38",
+        "observed": "19"
+      }
+    },
+    {
+      "id": "gsm8k-212",
+      "system": "falcon_plus_b2",
+      "previous": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "5",
+        "observed": "4.5"
+      },
+      "corrected": {
+        "status": "failed",
+        "expected": "5",
+        "observed": "4.5"
+      }
+    },
+    {
+      "id": "gsm8k-212",
+      "system": "falcon_alone",
+      "previous": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "5",
+        "observed": "3"
+      },
+      "corrected": {
+        "status": "failed",
+        "expected": "5",
+        "observed": "3"
+      }
+    },
+    {
+      "id": "gsm8k-942",
+      "system": "falcon_alone",
+      "previous": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "205",
+        "observed": null
+      },
+      "corrected": {
+        "status": "failed",
+        "expected": "205",
+        "observed": "70"
+      }
+    },
+    {
+      "id": "gsm8k-942",
+      "system": "falcon_plus_b2",
+      "previous": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "205",
+        "observed": "35"
+      },
+      "corrected": {
+        "status": "failed",
+        "expected": "205",
+        "observed": "75"
+      }
+    },
+    {
+      "id": "gsm8k-1229",
+      "system": "falcon_plus_b2",
+      "previous": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "36",
+        "observed": "8"
+      },
+      "corrected": {
+        "status": "failed",
+        "expected": "36",
+        "observed": "8"
+      }
+    },
+    {
+      "id": "gsm8k-1229",
+      "system": "falcon_alone",
+      "previous": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "36",
+        "observed": null
+      },
+      "corrected": {
+        "status": "failed",
+        "expected": "36",
+        "observed": "30"
+      }
+    },
+    {
+      "id": "gsm8k-709",
+      "system": "falcon_alone",
+      "previous": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "3000",
+        "observed": "100"
+      },
+      "corrected": {
+        "status": "failed",
+        "expected": "3000",
+        "observed": "100"
+      }
+    },
+    {
+      "id": "gsm8k-709",
+      "system": "falcon_plus_b2",
+      "previous": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "3000",
+        "observed": "50"
+      },
+      "corrected": {
+        "status": "failed",
+        "expected": "3000",
+        "observed": "50"
+      }
+    },
+    {
+      "id": "gsm8k-965",
+      "system": "falcon_plus_b2",
+      "previous": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "374",
+        "observed": "150"
+      },
+      "corrected": {
+        "status": "failed",
+        "expected": "374",
+        "observed": "150"
+      }
+    },
+    {
+      "id": "gsm8k-965",
+      "system": "falcon_alone",
+      "previous": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "374",
+        "observed": "100"
+      },
+      "corrected": {
+        "status": "failed",
+        "expected": "374",
+        "observed": "100"
+      }
+    },
+    {
+      "id": "gsm8k-986",
+      "system": "falcon_alone",
+      "previous": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "70",
+        "observed": "5.00"
+      },
+      "corrected": {
+        "status": "failed",
+        "expected": "70",
+        "observed": "5.00"
+      }
+    },
+    {
+      "id": "gsm8k-986",
+      "system": "falcon_plus_b2",
+      "previous": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "70",
+        "observed": "2"
+      },
+      "corrected": {
+        "status": "failed",
+        "expected": "70",
+        "observed": "2"
+      }
+    },
+    {
+      "id": "gsm8k-106",
+      "system": "falcon_plus_b2",
+      "previous": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "72",
+        "observed": "26"
+      },
+      "corrected": {
+        "status": "failed",
+        "expected": "72",
+        "observed": "26"
+      }
+    },
+    {
+      "id": "gsm8k-106",
+      "system": "falcon_alone",
+      "previous": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "72",
+        "observed": "360"
+      },
+      "corrected": {
+        "status": "failed",
+        "expected": "72",
+        "observed": "360"
+      }
+    }
+  ],
+  "summary": {
+    "falcon_alone": 0,
+    "falcon_plus_b2": 0
+  }
+}

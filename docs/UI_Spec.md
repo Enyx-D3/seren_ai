@@ -1,5 +1,7 @@
 # UI_Spec — Preserve Seren 7, Connect Real Local Intelligence
 
+**ADR-002/ADR-003 active UI:** Settings shows one verified Falcon Instruct weight. Auto is the B2 Spiral controller; Think deeper expands a bounded state/direction/repair budget. Run details should show selected operation and actual score evidence, established versus unresolved work, inference/calculator calls, verification status and limits. A missing evidence field stays unknown; no fictitious “magnetic” activity is shown.
+
 **Version:** 1.1 Web-only · **Source:** uploaded `Seren 7(1).html` (~78 KB, 1,160 lines) · **Status:** partial browser implementation; release UI unverified. Current evidence: `CHECKPOINT_LOG.md`.
 
 ## 1. Design intent and non-negotiable fidelity
@@ -48,27 +50,28 @@ Original current implementation uses `MODELS` (`seren`, `swift`, `muse`), `AGENT
 ### A. First-run local setup
 
 - Use the same panel aesthetic, orb, typography, and minimal copy.
-- Show `Import models to this browser`, per-part integrity, projected browser storage requirement and verified active runtime; no app installation language.
-- Label roles: Instruct, Reasoning, Coder, Tool-Calling. Show unavailable until binary check succeeds.
+- Show `Prepare Falcon Instruct in this browser`, integrity progress, projected browser storage requirement and verified active runtime; no app installation language.
+- Show only the active Instruct model. Historical R/Coder/Tool-Calling weights are not preparation options or fallback models.
 - No sign-in or subscription. Do not request personal data for model use.
 
 ### B. Empty/new chat
 
 - Retain hero greeting, orb and four suggestions; suggestions insert user prompts, not AI claims.
 - Display concise `Private · Runs on this device` and measured offline readiness.
-- Model selector may offer `Auto`, `Chat`, `Reason`, `Code`, `Tools` or retain Seren style presets with an explicit underlying model subtitle.
+- Model selector may offer `Auto/B2 Spiral` and presentation styles, but every language route must disclose the same Falcon Instruct model. A style must not imply another neural model.
 
 ### C. Active chat
 
 - User bubble; assistant answer with Markdown, code block copy and accessible status.
-- Show `Falcon Instruct · CPU` or `Falcon R · WebGPU` only when confirmed by runtime.
-- `Thinking deeper` triggers a real route; model load and verification appear as succinct status stages.
+- Show `Falcon Instruct · CPU/WASM` or a WebGPU label only when confirmed by the runtime. A local calculator path can say `Verified calculator` without implying that Falcon generated its result.
+- `Thinking deeper` triggers real bounded B2 work; operation selection, model load, verification and residual repair appear as succinct, event-backed status stages.
 - Response footer: copy, read-aloud (if a local speech voice exists), regenerate. Cancel immediately stops token reception and sends cancellation to engine.
 
-### D. Specialist and Compass inspector (collapsed by default)
+### D. B2 direction inspector (collapsed by default)
 
 - No full-screen 3D search visual in MVP; use a small expandable detail panel.
-- Fields: request ID, selected model, route reason category, calculator calls, verification status, shared-state reuse, latency, memory footprint, and fallback.
+- Fields: request ID, one model identity, problem category, selected eligible operation, reason and evidence scope, candidate score factors (goal attraction, expected progress, information gain, cost, risk, exact reuse) **only when measured**, rejected directions, calculator calls, verified derivations, unresolved residuals, shared-state reuse, latency, memory footprint and fallback.
+- Distinguish `verified`, `provisional`, `shadow` and `unavailable` capabilities. Matrix, Level 3 psychological/magnetic, virtual and B2CCP operations are not marked ready without browser proof.
 - Never expose fabricated intermediate reasoning or internal chain-of-thought. Show only factual task/verification summaries.
 
 ### E. Real agent sidebar
@@ -80,7 +83,7 @@ Original current implementation uses `MODELS` (`seren`, `swift`, `muse`), `AGENT
 ### F. Settings/storage
 
 - Select compute preference: Auto / WebGPU / CPU-WASM / Browser B2CCP (only enabled when an actual browser-compatible port is verified).
-- View model storage footprint, per-model load/unload and cache clearing.
+- View Instruct storage footprint, actual load/unload and cache clearing.
 - Local data export/delete, theme, reduced-motion and diagnostics privacy toggles.
 
 ## 4. Responsive behavior
@@ -99,7 +102,7 @@ Orb should respond to **actual** `idle`, `loading`, `generating`, `verifying`, `
 ## 6. Accessibility and content safety
 
 - Announce stream completion, failure and cancellation through restrained `aria-live` regions; avoid reading every token aloud automatically.
-- Model picker must support keyboard opening, arrow selection, Escape, focus return, semantic menu states.
+- Mode/presentation picker must support keyboard opening, arrow selection, Escape, focus return and semantic menu states.
 - Persist accessible labels for icon-only buttons and prevent focus loss on model switch.
 - Sanitize Markdown and link targets; continue escaping user/AI text before any HTML insertion. Never render arbitrary model-produced HTML/scripts.
 - Use local fonts, SVG icons, and other assets for offline test; record any external asset request as a bug.
@@ -112,9 +115,9 @@ Orb should respond to **actual** `idle`, `loading`, `generating`, `verifying`, `
 4. Stop interrupts underlying inference; partial response labeled stopped.
 5. 50+ turn scroll stability and refresh persistence checked.
 6. Theme, sidebar, suggestions, voice availability, copy and regenerate all tested.
-7. No fake `3 agents working`; model identity and local/offline status truthful.
+7. No fake `3 agents working`; model identity, selected operation, verification and local/offline status truthful.
 8. Reduced-motion and context-lost orb fallback tested.
 
 ## 8. Mapping decisions pending user approval
 
-Preserve `Seren 7`, `Swift`, `Muse` as **style presets** or rename selector to actual specialist/mode names. The existing `Muse` style is **not** the external Muse coding agent and **not** a Drive Falcon variant. The user should see actual model identity in an accessible details panel regardless of preset label.
+Preserve `Seren 7`, `Swift`, `Muse` as **style presets** or rename selector to actual B2 modes. The existing `Muse` style is **not** the external Muse coding agent and **not** an active Falcon variant. The user should see the one actual model identity in an accessible details panel regardless of preset label.

@@ -1,5 +1,5 @@
-// Create a static web bundle. The explicit local-only option copies the four
-// user-provided verified GGUFs for same-site, on-demand browser provisioning.
+// Create a static web bundle. The explicit local-only option copies the single
+// user-provided verified Instruct GGUF for same-site browser provisioning.
 import { cp, mkdir, mkdtemp, readdir, readFile, stat, writeFile } from 'node:fs/promises';
 import { createReadStream } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -10,9 +10,6 @@ const root = resolve(import.meta.dirname, '..');
 const includeLocalModels = process.argv.includes('--include-local-models');
 const modelFiles = {
   falcon_instruct: 'Falcon-H1-Tiny-90M-Instruct-Q4_K_M.gguf',
-  falcon_reason: 'Falcon-H1R-Tiny-90M-Q4_K_M.gguf',
-  falcon_coder: 'Falcon-H1-Tiny-Coder-Q4_K_M.gguf',
-  falcon_tools: 'Falcon-H1-Tiny-Tool-Calling-Q4_K_M.gguf',
 };
 const approvedModelPaths = new Set(Object.values(modelFiles).map(name => `models/parts/${name}`));
 async function hashFile(path) {
@@ -23,7 +20,7 @@ async function hashFile(path) {
 const outputRoot = join(root, 'dist');
 await mkdir(outputRoot, { recursive: true });
 const output = await mkdtemp(join(outputRoot, 'seren7-web-'));
-await cp(join(root, 'app'), output, { recursive: true, filter: path => !basename(path).startsWith('.') });
+await cp(join(root, 'app'), output, { recursive: true, filter: path => !basename(path).startsWith('.') && basename(path) !== 'joint.mjs' });
 await writeFile(join(output, 'vercel.json'), JSON.stringify({
   $schema: 'https://openapi.vercel.sh/vercel.json',
   headers: [
@@ -45,7 +42,7 @@ if (includeLocalModels) {
     await cp(source, join(destination, name));
   }
   await writeFile(join(output, 'MODEL_BUNDLE_NOTICE.txt'),
-    'Private local-use bundle: four user-provided Falcon-H1-Tiny 90M Q4_K_M GGUFs are included as static assets.\n' +
+    'Private local-use bundle: one user-provided Falcon-H1-Tiny 90M Instruct Q4_K_M GGUF is included as a static asset.\n' +
     'Each is checked against the CP001 SHA-256 receipt before packaging and again in the browser before use.\n' +
     'The source model cards identify the Falcon-LLM License. Review the exact model/license terms and redistribution obligations before publishing this bundle.\n' +
     'Model card license link: https://falconllm.tii.ae/falcon-terms-and-conditions.html\n');
@@ -53,7 +50,7 @@ if (includeLocalModels) {
   const notice = await readFile(noticePath, 'utf8');
   await writeFile(noticePath, notice.replace(
     'Falcon-H1-Tiny model weights are not included in this static bundle. Users import their own approved model files separately. Review each model\'s source license before distributing weights.',
-    'This private local-use bundle includes four user-provided Falcon-H1-Tiny model weights. See MODEL_BUNDLE_NOTICE.txt. Review the exact source license and redistribution terms before publication.'));
+    'This private local-use bundle includes one user-provided Falcon-H1-Tiny Instruct model weight. See MODEL_BUNDLE_NOTICE.txt. Review the exact source license and redistribution terms before publication.'));
 }
 
 const files = [];
@@ -72,8 +69,8 @@ async function list(dir) {
   }
 }
 await list(output);
-const required = ['index.html', 'vercel.json', 'THIRD_PARTY_NOTICES.txt', 'js/main.mjs', 'js/tool-runner.mjs', 'js/spiral.mjs', 'js/joint.mjs', 'sw.js', 'workers/ingest-worker.mjs', 'workers/runtime-worker.mjs', 'workers/tool-worker.mjs', 'vendor/wllama/index.js', 'vendor/wllama/wllama-single.wasm', 'vendor/wllama/wllama-multi.wasm', 'vendor/wllama/LICENCE', 'vendor/fflate/LICENCE', 'vendor/jssha256/LICENSE.txt', 'fonts/DM_Mono_OFL.txt', 'fonts/Fraunces_OFL.txt', 'fonts/Onest_OFL.txt'];
+const required = ['index.html', 'vercel.json', 'THIRD_PARTY_NOTICES.txt', 'js/main.mjs', 'js/tool-runner.mjs', 'js/spiral.mjs', 'sw.js', 'workers/ingest-worker.mjs', 'workers/runtime-worker.mjs', 'workers/tool-worker.mjs', 'vendor/wllama/index.js', 'vendor/wllama/wllama-single.wasm', 'vendor/wllama/wllama-multi.wasm', 'vendor/wllama/LICENCE', 'vendor/fflate/LICENCE', 'vendor/jssha256/LICENSE.txt', 'fonts/DM_Mono_OFL.txt', 'fonts/Fraunces_OFL.txt', 'fonts/Onest_OFL.txt'];
 for (const path of required) if (!files.some(file => file.path === path)) throw new Error(`missing release asset: ${path}`);
 if (includeLocalModels) for (const path of approvedModelPaths) if (!files.some(file => file.path === path)) throw new Error(`missing local model: ${path}`);
 await writeFile(join(output, 'asset-manifest.json'), JSON.stringify({ format: 'seren7-web-assets-v1', models_included: includeLocalModels, files }, null, 2) + '\n');
-console.log(`Web bundle: ${output} (${files.length} assets; ${includeLocalModels ? 'four local models included for private use' : 'model weights excluded'})`);
+console.log(`Web bundle: ${output} (${files.length} assets; ${includeLocalModels ? 'one local model included for private use' : 'model weights excluded'})`);

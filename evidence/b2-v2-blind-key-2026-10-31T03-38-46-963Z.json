@@ -1,0 +1,58 @@
+{
+  "alpaca-plan-176": [
+    "falcon_alone",
+    "falcon_plus_b2"
+  ],
+  "alpaca-plan-228": [
+    "falcon_plus_b2",
+    "falcon_alone"
+  ],
+  "alpaca-plan-243": [
+    "falcon_plus_b2",
+    "falcon_alone"
+  ],
+  "alpaca-plan-490": [
+    "falcon_plus_b2",
+    "falcon_alone"
+  ],
+  "alpaca-plan-550": [
+    "falcon_alone",
+    "falcon_plus_b2"
+  ],
+  "alpaca-plan-596": [
+    "falcon_plus_b2",
+    "falcon_alone"
+  ],
+  "alpaca-plan-646": [
+    "falcon_plus_b2",
+    "falcon_alone"
+  ],
+  "alpaca-chat-521": [
+    "falcon_plus_b2",
+    "falcon_alone"
+  ],
+  "alpaca-chat-626": [
+    "falcon_plus_b2",
+    "falcon_alone"
+  ],
+  "alpaca-chat-627": [
+    "falcon_alone",
+    "falcon_plus_b2"
+  ],
+  "alpaca-chat-629": [
+    "falcon_plus_b2",
+    "falcon_alone"
+  ],
+  "alpaca-chat-630": [
+    "falcon_plus_b2",
+    "falcon_alone"
+  ],
+  "alpaca-chat-650": [
+    "falcon_alone",
+    "falcon_plus_b2"
+  ],
+  "alpaca-chat-758": [
+    "falcon_plus_b2",
+    "falcon_alone"
+  ]
+}

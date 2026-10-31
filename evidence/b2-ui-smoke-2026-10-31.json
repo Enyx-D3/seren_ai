@@ -1,0 +1,165 @@
+{
+  "baseUrl": "http://127.0.0.1:8811/",
+  "rows": 1,
+  "math": "323",
+  "logic": "Yes. Mira is a cat, and all cats are mammals.",
+  "chat": "Hello, my good friend!",
+  "plan": "Two-Step Morning Backup: Copy files from your computer to a secure email account.\n\nRisk: At least 2 steps, including a password, and ensure the email address is secure.",
+  "evidence": {
+    "answers": [
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-2",
+        "verification": {
+          "status": "verified",
+          "method": "two_parser_exact_v1"
+        },
+        "metrics": {
+          "modelCalls": 0,
+          "calculatorCalls": 1,
+          "cacheHits": 0,
+          "tokens": 0,
+          "firstModelTokenMs": null,
+          "verificationMs": 11,
+          "elapsedMs": 12
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-2",
+        "verification": {
+          "status": "verified",
+          "method": "bounded_syllogism_v1"
+        },
+        "metrics": {
+          "modelCalls": 0,
+          "calculatorCalls": 0,
+          "cacheHits": 0,
+          "tokens": 0,
+          "firstModelTokenMs": null,
+          "verificationMs": 0,
+          "elapsedMs": 1
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-2",
+        "verification": {
+          "status": "unverified",
+          "method": "none",
+          "residual": {
+            "unresolved": [
+              "Say hello in one short sentence."
+            ],
+            "unprocessed": 0
+          }
+        },
+        "metrics": {
+          "modelCalls": 1,
+          "calculatorCalls": 0,
+          "cacheHits": 0,
+          "tokens": 6,
+          "firstModelTokenMs": 3460,
+          "verificationMs": 0,
+          "elapsedMs": 5965
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-2",
+        "verification": {
+          "status": "unverified",
+          "method": "none",
+          "residual": {
+            "unresolved": [
+              "Plan a two-step morning backup; then list one risk."
+            ],
+            "unprocessed": 0
+          }
+        },
+        "metrics": {
+          "modelCalls": 1,
+          "calculatorCalls": 0,
+          "cacheHits": 0,
+          "tokens": 41,
+          "firstModelTokenMs": 3039,
+          "verificationMs": 0,
+          "elapsedMs": 4434
+        }
+      }
+    ],
+    "calibration": {
+      "arithmetic": {
+        "runs": 1,
+        "verifiedSuccesses": 1,
+        "verifiedFailures": 0,
+        "unverified": 0,
+        "modelCalls": 0,
+        "calculatorCalls": 1,
+        "elapsedMs": 12,
+        "repairs": 0,
+        "verifiedModelSuccesses": 0,
+        "verifiedModelFailures": 0,
+        "modelRuns": 0,
+        "modelElapsedMs": 0,
+        "schemaVersion": 2,
+        "updatedAt": 1793419547605
+      },
+      "logic": {
+        "runs": 1,
+        "verifiedSuccesses": 1,
+        "verifiedFailures": 0,
+        "unverified": 0,
+        "modelCalls": 0,
+        "calculatorCalls": 0,
+        "elapsedMs": 1,
+        "repairs": 0,
+        "verifiedModelSuccesses": 0,
+        "verifiedModelFailures": 0,
+        "modelRuns": 0,
+        "modelElapsedMs": 0,
+        "schemaVersion": 2,
+        "updatedAt": 1793419548089
+      },
+      "conversation": {
+        "runs": 1,
+        "verifiedSuccesses": 0,
+        "verifiedFailures": 0,
+        "unverified": 1,
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "elapsedMs": 5965,
+        "repairs": 0,
+        "verifiedModelSuccesses": 0,
+        "verifiedModelFailures": 0,
+        "modelRuns": 1,
+        "modelElapsedMs": 5965,
+        "schemaVersion": 2,
+        "updatedAt": 1793419554168
+      },
+      "planning": {
+        "runs": 1,
+        "verifiedSuccesses": 0,
+        "verifiedFailures": 0,
+        "unverified": 1,
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "elapsedMs": 4434,
+        "repairs": 0,
+        "verifiedModelSuccesses": 0,
+        "verifiedModelFailures": 0,
+        "modelRuns": 1,
+        "modelElapsedMs": 4434,
+        "schemaVersion": 2,
+        "updatedAt": 1793419558697
+      }
+    }
+  },
+  "errors": [],
+  "external": [],
+  "passed": true
+}

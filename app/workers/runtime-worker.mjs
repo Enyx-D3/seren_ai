@@ -14,7 +14,7 @@ const PATHS = {
   "single-thread/wllama.wasm": "../vendor/wllama/wllama-single.wasm",
   "multi-thread/wllama.wasm": "../vendor/wllama/wllama-multi.wasm",
 };
-const N_CTX = RUNTIME_CONTEXT_TOKENS; /* bounded context: 90M specialists on constrained hardware */
+const N_CTX = RUNTIME_CONTEXT_TOKENS; /* bounded context: one 90M model on constrained hardware */
 
 let wllama = null;
 let loadedModelId = null;

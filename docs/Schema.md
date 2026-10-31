@@ -1,5 +1,7 @@
 # Schema — Local Seren 7 Data and Event Contracts
 
+**ADR-002/ADR-003 active contract:** `b2-controller-3` with `b2-direction-1-conservative` now records `spiral_metrics`, `spiral_trace`, `spiral_verification`, bounded `spiral_state`, exact-state replay and directional operation receipts in versioned message `meta`. `kv.spiral_calibration_v2` retains category counters and an `operations` map keyed by operation kind. Its six direction factors are engineering priors until a profile has at least three independently checked outcomes; an unverified result is not a success. The older V1 key remains for rollback. A checked calculator result does not count as a Falcon success. Frozen benchmark outcomes never enter live calibration. Full-answer `verified` requires every required claim independently checked; mixed tool receipts, incomplete parts and open-ended prose stay `unverified`. The physical IndexedDB name/version remain `seren7` V3 per ADR-001. Historical specialist IDs in old conversations remain readable but cannot be imported as active weights.
+
 **Version:** 1.2 Web-only · **Status:** logical design plus approved physical V3 mapping; remaining feature records/acceptance pending. Current evidence: `CHECKPOINT_LOG.md` and `docs/decisions/ADR-001-browser-storage-schema.md`.
 
 ## 1. Principles
@@ -32,7 +34,7 @@ erDiagram
 
 | Field | Type | Notes |
 |---|---|---|
-| `model_id` | enum PK | `falcon_instruct`, `falcon_reason`, `falcon_coder`, `falcon_tools` |
+| `model_id` | enum PK | Active writes/load: `falcon_instruct` only; historical specialist IDs remain readable in old records |
 | `source_repo` | string | Exact source model ID/URL, not guessed |
 | `artifact_version` | string | Local verified version/build |
 | `format`, `quantization` | strings nullable | Verified from reconstructed archive |
@@ -50,7 +52,7 @@ Unique key: `model_id + artifact_version`. A source URL without local validated 
 | Field | Type | Notes |
 |---|---|---|
 | `profile_id` | UUID PK | Independent evaluation version |
-| `model_id` | FK | Four-model roster |
+| `model_id` | FK | Active profile: `falcon_instruct`; historical rows retained as provenance only |
 | `task_family` | enum | chat, logic, code, tool, arithmetic, extraction, unknown |
 | `benchmark_id`, `split_id` | strings | Prevent training/test leakage |
 | `n_total`, `n_accepted`, `n_correct` | integers | Preserve format failures separately |
@@ -63,9 +65,11 @@ Unique key: `model_id + artifact_version`. A source URL without local validated 
 
 Do not translate `0/48 accepted` into `0% knowledge` without inspecting task scorers and format failures. Profiles are empirical, scoped and versioned.
 
+Directional Compass also needs a **per-operation** checked profile, distinct from neural model competence: operation ID and capability, task family, applicability, independent outcome count, expected verified progress, observed information gain, latency/call cost, error rate, exact reuse rate, evidence split, policy version and freshness. The current `spiral_calibration_v2[category].operations[kind]` stores only `runs`, `verifiedSuccesses`, `verifiedFailures` and `elapsedMs`; `b2-direction-1-conservative` uses those checked counts after three observations to adjust expected progress. Its other score factors remain engineering priors, not measured values. The richer fields are a logical target. Do not write held-out answers or grades into live profiles; keep benchmark receipts separate.
+
 ### `conversations` and `messages`
 
-`conversations`: `conversation_id` UUID PK; `title`; `created_at`; `updated_at`; `active_mode` (`auto/chat/reason/code/tools`); `pinned`; `schema_version`; `deleted_at` nullable; `privacy_scope`.
+`conversations`: `conversation_id` UUID PK; `title`; `created_at`; `updated_at`; `active_mode` (`auto/chat/think_deeper` or a verified presentation preset); `pinned`; `schema_version`; `deleted_at` nullable; `privacy_scope`. Historical mode strings remain readable but do not activate another model.
 
 `messages`: `message_id` UUID PK; `conversation_id` FK; `parent_message_id` nullable; `role` (`system/user/assistant/tool`); `text`; `status` (`pending/streaming/complete/stopped/error/unverified`); `model_id` nullable; `run_id` nullable; `version`; `created_at`; `completed_at` nullable; `token_count` nullable.
 
@@ -76,6 +80,12 @@ Assistant regenerations create new message versions/branches; do not mutate a pr
 `runs`: `run_id` UUID PK; `conversation_id`; `request_message_id`; `selected_mode`; `initial_policy_version`; `status`; `started_at`; `ended_at`; `token_budget`; `ms_budget`; `branch_budget`; `actual_model_ids[]`; `backend_kind`; `resource_metrics`; `verification_summary`; `error_code` nullable.
 
 `run_events`: composite PK `(run_id, seq)`; `kind`; `timestamp_ms`; `payload_json`; `schema_version`. Monotonic `seq` prevents stale tokens. Event types match `TRD.md`. Terminal event is exactly one of `complete`, `cancelled`, `abstained`, `error`; replays are idempotent.
+
+### Directional B2 state and operation receipts (logical target)
+
+`problem_state`: goal, input givens and provenance, dependency nodes, established derivations with verifier IDs, unresolved residuals, remaining budget, visited direction identities, policy/schema version and state identity. `operation_candidate`: operation ID, capability, preconditions, six score factors with evidence scope and uncertainty, selection or rejection reason. `direction_transition`: pre/post state identity, selected operation, outcome, verifier receipt, residual delta, measured cost and stop reason. Current code uses `createSpiralState()` and `direction`/`direction_result` trace entries; `app/js/main.mjs` persists a bounded `meta.spiral_state` snapshot containing `schemaVersion`, `verifiedFacts`, `unresolved`, `residuals`, `visitedDirections` and `parts`. It does **not** persist the full target contract or a separate `problem_state` store. Adding durable dedicated stores or indexes requires a versioned migration and tests.
+
+Only independently checked results can enter `established`; uncheckable model claims remain in `residuals` or provisional output. A no-progress transition records the failed direction and brakes. Retain verified nodes when one dependency fails. Exact shared-state reuse requires identity or a proven equivalence edge and a valid replay/checksum receipt.
 
 ### `tool_calls`
 
@@ -105,14 +115,14 @@ CP009 populates conversation-scoped `shared_states` with verified exact arithmet
 
 Promotions require recorded held-out gain in the task's primary verified objective without unacceptable correctness/privacy/resource regression. Negative experiments remain queryable.
 
-CP010 stores the active bounded exact-tool Joint policy and its braked specialist predecessor in `joint_policies` after the exact route is used. The browser's `joint_trials` store accepts versioned evaluator records but the release comparison is preserved in source-controlled `evidence/joint-exact-*.json`; ordinary chats do not invent correctness labels or trial rows. Per-message metadata records the active policy version and deterministic verification. Factory erase removes both policy rows. There is no automatic model-policy promotion.
+Historical CP010 stores the bounded exact-tool Joint policy and its braked specialist predecessor in `joint_policies` after the exact route is used. The browser's `joint_trials` store accepts versioned evaluator records but the release comparison is preserved in source-controlled `evidence/joint-exact-*.json`; ordinary chats do not invent correctness labels or trial rows. Per-message metadata records policy version and deterministic verification. Factory erase removes both policy rows. No model or operation policy auto-promotes.
 
 ## 4. UI/runtime JSON event schemas
 
 All browser Worker messages have `schema_version: 1`, `request_id`, `sequence`, `kind`, `timestamp_ms`, `payload`. Examples:
 
 ```json
-{"schema_version":1,"request_id":"r-1","sequence":1,"kind":"route_selected","timestamp_ms":100,"payload":{"model_id":"falcon_instruct","backend":"wasm","reason_category":"chat"}}
+{"schema_version":1,"request_id":"r-1","sequence":1,"kind":"route_selected","timestamp_ms":100,"payload":{"model_id":"falcon_instruct","backend":"wasm","operation_id":"falcon_hypothesis","reason_category":"chat","policy_version":"b2-controller-3"}}
 ```
 
 ```json
@@ -151,7 +161,9 @@ interface LocalStore {
   appendMessage(message: Message): Promise<void>;
   appendRunEvent(event: RuntimeEvent): Promise<void>;
   getConversation(id: string): Promise<ConversationSnapshot>;
-  getBestCompetence(modelId: string, task: string, hardware: string): Promise<CompetenceProfile | null>;
+  getBestCompetence(modelId: 'falcon_instruct', task: string, hardware: string): Promise<CompetenceProfile | null>;
+  // Future gated operation-level API; no physical store implied in V3.
+  getOperationProfile?(operationId: string, task: string, hardware: string): Promise<OperationProfile | null>;
   findSharedState(identity: string, scope: string): Promise<SharedState[]>;
   exportData(selection: ExportSelection): Promise<Blob>;
   deleteData(selection: DeleteSelection): Promise<DeletionReceipt>;

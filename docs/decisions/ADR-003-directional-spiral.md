@@ -1,0 +1,33 @@
+# ADR-003 — Directional B2 Spiral with one Falcon language engine
+
+**Decision:** The user's 2026-10-31 B2 Spiral direction supersedes a linear “Falcon → answer → check → retry” description of the active controller. ADR-002's one Falcon-H1-Tiny 90M Instruct model and browser-only/local-only constraints remain in force. This record specifies the target architecture; it is not evidence that every component is implemented or that general reasoning has improved.
+
+## Active architecture
+
+Every request enters B2. The controller maintains a versioned problem state, chooses a direction among currently feasible operations, executes one bounded operation, independently checks any checkable result, updates only the established facts and unresolved residuals, and chooses again when progress warrants it:
+
+`Problem → Mathematical/structured state → B2 Compass direction → selected local operation or Falcon hypothesis → verification → verified progress and residual → next direction or stop → response`.
+
+Falcon provides language interpretation, candidate hypotheses and natural-language presentation. B2 owns decomposition, operation selection, budgets, verifier choice, residual analysis, stopping and exact shared-state reuse. A model statement does not become an established fact merely because it is fluent or repeated. A final Falcon rewrite may present verified facts, but cannot promote unsupported prose to verified status.
+
+## State and transition contract
+
+A `SpiralState` records the goal, supplied givens and provenance, dependency nodes, established derivations with independent receipts, unresolved residuals, remaining resource budget, visited directions, and policy version. A dependency is ready only when its required inputs are established or explicitly provisional. Every transition records the pre-state identity, eligible and rejected operations, selected operation and score provenance, result, verifier receipt, residual delta, measured cost and post-state identity. Partial success preserves previously verified nodes; repair targets the failing node rather than restarting all nodes. Reuse through R1 requires exact identity or separately proved equivalence and a valid version/checksum receipt.
+
+Candidate operations can include an allowlisted basic calculator, verified symbolic/constraint operation, valid shared-state reuse, a single Falcon hypothesis, a local verifier, clarification, or abstention. The candidate registry must say `verified`, `shadow`, or `unavailable` for each browser implementation. Matrix calculators, the proposed Level 3 psychological/magnetic calculator, virtual calculators, and B2CCP are **research candidates**, not active capabilities until browser compatibility, correctness, resource and security evidence exists. “Magnetic” denotes software direction scoring; it is not a physical magnetic effect or a claim about psychological truth.
+
+B2 Compass assesses each eligible operation against six explicit factors: goal attraction, expected progress, information gain, compute cost, error risk, and verified memory reuse. Scores must carry a version, evidence scope and uncertainty. Missing evidence cannot be silently replaced by model-name intuition or arbitrary positive scores. An operation with no demonstrated benefit can remain in shadow evaluation. Direction changes after a checked residual; repeated identical text or an unchanged residual is not progress. The controller stops on a verified complete answer, an honest provisional/partial result, exhausted budget, or no productive eligible direction.
+
+## Verification, learning and safety
+
+Only independent deterministic checks may mark exact calculations and structured claims verified. A tool receipt establishes only the operation it checked, not the full answer. Plans, conversation, untested code, model explanations, and semantic claims stay provisional unless a relevant independent checker or blinded human assessment supports the specific criterion. Unknown facts remain unresolved. Model-generated tool requests are proposals subject to schema, allowlist, permissions and deadlines.
+
+Calibration consumes checked local outcomes and measured operation cost; it can change bounded software budgets or propose a shadow candidate, never Falcon weights or an untested production policy. Frozen benchmark items and their answers never enter live calibration. Failed directions, counterexamples and rollback identities remain in the ledger. A candidate operation policy needs independent held-out gains without material correctness, latency, memory or privacy regression before promotion.
+
+## Evidence and implementation status
+
+The 2026-10-31 disjoint confirmation receipt found Falcon alone and Falcon+B2 both correct on **6/18 objective cases**; B2 took **193,196 ms** versus **180,133 ms** total, about **7.3% longer**. Six semantic cases per arm still need blinded human grading. These results establish neither a general reasoning gain nor a root-cause diagnosis. The subsequent `b2-controller-3`/`b2-direction-1-conservative` code adds bounded state, eligible operation ranking and residual receipts; its six scores start as explicit engineering priors, and the expected-progress factor may use local checked outcomes after at least three observations. This new policy has **not** yet passed a new independent quality comparison. Current browser code also has exact arithmetic, narrow structured logic, allowlisted tools, bounded hypotheses and repairs, exact R1 state reuse and per-category counters. It does **not** yet implement a general evidence-calibrated direction search, matrix/Level 3/B2CCP processors, generalized dependency graph or verified semantic plan checker. Keep those capabilities marked partial or unavailable until measured.
+
+## Consequences and rollback
+
+Update active PRD, TRD, AppFlow, UI, Schema, Plan, README and AGENTS instructions to use this contract. Preserve the four-specialist CP001–CP010 reports as historical research, with no active routing or fallback role. Revert an experimental direction policy to the last independently verified controller if its held-out quality or resource gate fails; preserve the failed experiment and state receipts. No public deployment follows from this decision.

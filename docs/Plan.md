@@ -1,10 +1,12 @@
-# Plan — Seren 7 Browser-Only Four-Falcon Execution Train
+# Plan — Seren 7 Browser-Only B2 Spiral Execution Train
+
+**ADR-002/ADR-003 active plan:** The user replaced the four-specialist release objective with one Falcon Instruct and a directional B2 Spiral. Existing CP001–CP011 receipts remain historical evidence. The active research gate is to represent problem state, choose evidence-backed operations, retain verified derivations, isolate residuals, redirect bounded work and compare the same Falcon alone versus Falcon+B2 on independent tasks. The 2026-10-31 disjoint objective comparison was 6/18 versus 6/18, with B2 about 7.3% slower, so the reasoning-improvement gate remains open. Physical mobile acceptance remains open without a phone.
 
 **Version:** 1.1 Web-only · **Prepared:** 2026-10-26 · **Plan state:** execution underway. Checkpoint headings below are original gates; current statuses and evidence are in `CHECKPOINT_LOG.md`.
 
 ## 1. Objective, ownership and guardrails
 
-Deliver a verified **browser-only Seren 7 web application like ChatGPT**, with locally executed, offline-capable inference from the user-provided HTML interface, using **exactly four** Falcon-H1-Tiny 90M specialists: Instruct, R, Coder, Tool-Calling. Integrate B2 Compass, B2 Spiral, local calculators, shared-state memory and recoverable browser persistence in progressively testable stages. Exclude 135M, Qwen, all cloud LLMs, native applications and remote inference. Keep the original UI rather than rebuilding it. **No APK, native wrapper, Electron/Tauri desktop package, inference daemon or mandatory PWA installation in the present release.**
+Deliver a verified **browser-only Seren 7 web application like ChatGPT**, with locally executed, offline-capable inference from the user-provided HTML interface, using **exactly one** Falcon-H1-Tiny 90M Instruct model as the language engine. B2 Compass chooses feasible operations by measured direction, B2 Spiral maintains dependencies and residuals, calculators and verifiers establish exact results, and R1 retains proven reusable states. Exclude other Falcon specialists, 135M, Qwen, cloud LLMs, native applications and remote inference from the active runtime and benchmark pool. Keep the original UI. **No APK, native wrapper, Electron/Tauri package, inference daemon or mandatory PWA installation in the present release.**
 
 Any coding agent (Claude/Nemotron/Muse/Codex/Cursor) reads `AGENTS.md` and this file, executes **CP001 through CP011 in full** (starting at the first dependency-ready `NOT STARTED` checkpoint), and records reproducible evidence. No checkpoint is presumed complete because its design appears here. The project must not stop at CP001 or at the first successful chat demo.
 
@@ -14,34 +16,32 @@ Any coding agent (Claude/Nemotron/Muse/Codex/Cursor) reads `AGENTS.md` and this 
 |---|---|---|
 | Seren HTML | 1,160-line responsive concept, orb, sidebar, composer, theme, sample streams | Real local backend, persistence, mobile QA |
 | Falcon Instruct ZIP | `part000` 34,209,792 B; `part001` 46,315,432 B | Reconstruct, archive integrity, model config/tokenizer, inference |
-| Falcon R ZIP | `part000` 99,614,720 B; `part001` 46,368,895 B | Same |
-| Falcon Coder ZIP | `part000` 99,614,720 B; `part001` 45,823,443 B | Same |
-| Falcon Tool-Calling ZIP | `part000` 99,614,720 B; `part001` 46,343,913 B | Same |
+| Falcon R ZIP (historical, excluded) | `part000` 99,614,720 B; `part001` 46,368,895 B | Archive provenance only; not an active dependency |
+| Falcon Coder ZIP (historical, excluded) | `part000` 99,614,720 B; `part001` 45,823,443 B | Archive provenance only; not an active dependency |
+| Falcon Tool-Calling ZIP (historical, excluded) | `part000` 99,614,720 B; `part001` 46,343,913 B | Archive provenance only; not an active dependency |
 | B2CCP | Earlier Brain2 project history describes execution mechanisms | Exact code version, model support, reproducible local integration |
 | WebGPU/WASM | Browser APIs and standard inference libraries exist | Falcon-H1 hybrid architecture compatible and sufficiently fast |
 | Magnetic Compass / .ASIF | Recovered architectural specifications and component experiments | Integrated Seren end-to-end proof |
 
 Canonical Drive archive folder: https://drive.google.com/drive/folders/1IZhJVobJhXeeotVLGW3g54Kz0dxYqajo . Dedicated Instruct duplicate: https://drive.google.com/drive/folders/141t5B_EMfRgl_16oeCpTN1-YV49m9_rS . Preserve these read-only sources.
 
-## 3. Dependency chain
+## 3. Active B2 dependency chain
 
 ```mermaid
 flowchart TD
-    A["CP001 Archive audit"] --> B["CP002 Runtime feasibility"]
-    B --> C["CP003 Instruct local generation"]
-    C --> D["CP004 Seren streaming UI"]
-    D --> E["CP005 Local persistence"]
-    E --> F["CP006 Four-model competence"]
-    F --> G["CP007 Compass routing"]
-    G --> H["CP008 Tools / calculators"]
-    H --> I["CP009 Spiral + shared state"]
-    I --> J["CP010 Joint self-calibration"]
-    J --> K["CP011 QA + deployment"]
+    A["Verified one-Falcon browser runtime and local storage"] --> B["Versioned problem state and dependency/residual contract"]
+    B --> C["Feasible operation registry and Compass score evidence"]
+    C --> D["Selected operation, independent check and residual-only update"]
+    D --> E["No-progress brake, checked reuse and bounded calibration"]
+    E --> F["Same-Falcon held-out A/B and blind semantic review"]
+    F --> G["Desktop/mobile browser acceptance and release decision"]
 ```
 
 Parallel tasks are allowed only when they do not race on the same source files or alter gate dependencies. Visual regression setup and test fixtures may begin alongside CP001–CP003.
 
-## 4. Checkpoints and acceptance gates
+## 4. Historical checkpoint catalog and active B2 gate
+
+CP001–CP010 below preserve the original four-model investigation and its measured statuses. They must not be read as active four-model release requirements. CP011 still has live browser acceptance work. ADR-003 adds the current B2 gate after the historical catalog.
 
 ### CP001 — Four archive reconstruction and identity (PASS; recovery caveat in ledger)
 
@@ -75,13 +75,13 @@ ADR-001 approved keeping the existing `seren7` database. A V2 → V3 browser mig
 
 Gate: open the HTTPS/localhost web page, provision browser-local assets, disable OS network, refresh/reopen the cached site, resume >50-message history, stream a new reply, export/delete, and capture no remote inference egress. No PWA installation is required.
 
-### CP006 — Four specialist profiles (PASS for diagnostic profile gate; see ledger)
+### CP006 — Historical four-specialist diagnostic profiles (PASS for the original diagnostic gate; not active runtime)
 
 Tasks: independently load Instruct, R, Coder, Tool-Calling; create disjoint train/calibration/held-out task sets. Score correctness, format adherence, abstention, tool choice, time/memory on each hardware profile. Record failure cases and source evidence. Do not assume roles by name.
 
 Gate: all four run on at least one local execution path, with visible 4x competence matrix and output-format metrics. Benchmarks must be repeatable, blind to route training data and include negative controls.
 
-### CP007 — Competence-aware B2 Compass (PASS: measured conservative fallback; specialist promotion remains gated)
+### CP007 — Historical model-routing Compass (PASS for the former conservative fallback; no specialist route active)
 
 Tasks: implement task classifier, policy, budget-aware model route, dynamic loading, fallback, explicit manual route, and local telemetry. Compare static routing versus Compass on held-out mixed workloads; measure real latency, not just fewer calculator attempts.
 
@@ -111,14 +111,20 @@ Tasks: build a reproducible **web release bundle** (HTML/CSS/JS/Workers/WASM and
 
 Gate: tests signed off with measured receipts in a representative desktop browser and mobile web browser; end-to-end local inference works on each platform claimed supported; no remote inference, fabricated UI status, untested model substitution or hidden native binary; unsupported browsers documented honestly. Deliver web source/build, static hosting guide, offline readiness instructions and test report.
 
+### Active B2 directional-reasoning gate — PARTIAL
+
+Implement and instrument `ProblemState → candidate operation scores → selected operation → verifier receipt → verified derivation/residual delta → next direction or brake` under ADR-003. Include dependency-ready nested work, residual-only repair, exact R1 reuse, per-operation checked competence and cost, and no-progress stopping. Mark unimplemented matrix, Level 3 psychological/magnetic, virtual and B2CCP processors unavailable or shadow. Score the six Compass factors against recorded evidence rather than model-name assumptions; leave unmeasured weights provisional. A failed candidate and its rollback path remain in the ledger.
+
+Gate: compare the **same Falcon 90M Instruct weights** alone versus B2 on a new disjoint, counterbalanced, held-out workload across math, logic, contradictions, coding, planning and conversation. Use independent checkers for executable outcomes and blind human grading for semantic outcomes; record accuracy, latency, tokens, calls, RAM, no-progress rates, residual resolution and memory reuse. Promote only after checked gain without material correctness/resource regression. The 2026-10-31 public-source 6/18 parity result and +7.3% B2 latency are a failed promotion attempt, not proof that directional B2 is impossible. Public-source contamination and missing human grades limit conclusions.
+
 ## 5. Test matrix and measurable KPIs
 
 | Dimension | Baseline and measured output | Required rule |
 |---|---|---|
-| Conversation | Per-model accepted-answer and format rates | No fabricated neural output |
+| Conversation | One-model accepted-answer and format rates | No fabricated neural output |
 | Performance | TTFT, tokens/sec, p50/p95 latency, cold-load time | Report physical measured figures per device |
 | Resource | Peak RSS, GPU memory, storage, CPU load, energy/thermal | Investigate <=500 MiB target, truthful exceptions |
-| Routing | Accuracy, expected verification gain, abstention, route regret | Held-out comparison to static router |
+| Direction | Per-operation checked progress, information gain, cost, risk, reuse, abstention and regret | Held-out comparison to same Falcon alone; no invented competence score |
 | Shared state | Exact/equivalence correctness, hit %, residual cost | Never merge merely approximate states |
 | Offline | Network-disabled request/response and restart | Zero remote inference calls |
 | Reliability | Cancel, abort, crash, migration, corrupt model, retry | Recover without false answer or data loss |
@@ -129,7 +135,7 @@ Where a numeric threshold has not been grounded by hardware tests, first establi
 
 ## 6. Roles, time and sequencing
 
-Rough engineering duration: **5–8 weeks** if original B2CCP and model assets are recoverable; this is a planning estimate, not a commitment. CP001–CP004 constitute the highest priority working-demo critical path. Work split may be:
+The original **5–8 week** estimate assumed recovering B2CCP and four model assets; it is historical and is not a forecast for the current one-model directional B2 work. The active critical path is state/direction/residual correctness, independent comparison, then browser acceptance. Work split may be:
 
 - **Engineering/runtime:** archive audit, adapters, model benchmarks, memory management.
 - **Frontend/design:** preserve HTML, local status, accessibility and visual QA.
@@ -145,7 +151,7 @@ Agents may assume any workstream only after inspecting the same canonical docume
 | Corrupt archive/missing tokenizer | Block model-ready flag; obtain exact missing asset, no silent substitute |
 | WebGPU cannot run Falcon-H1 | Document unsupported operators; test in-browser WASM/B2CCP-port feasibility; no fake pass |
 | B2CCP native code absent or browser-incompatible | Do not require native bridge; scope/verify optional WebGPU/WASM port, or mark web inference blocked |
-| Four models overwhelm RAM | Load one at a time, measure quantizations and cold-switch cost |
+| One model overwhelms RAM | Measure actual browser allocation and supported quantization; block unsupported devices honestly |
 | Browser model cache evicted by quota pressure | Warn, preserve recovery manifest, support user-controlled re-import into OPFS |
 | Compass route degrades quality | Shadow comparison, revert to static conservative routing |
 | Tool agent attempts unapproved action | Reject at allowlist/policy boundary |
@@ -176,4 +182,4 @@ The next agent first reads these receipts, the actual repository and the six spe
 
 ## 9. First actionable assignment
 
-**Execute CP001–CP011, do not stop at CP001.** CP001–CP010 have passed their documented desktop browser or diagnostic gates. CP007 passes through its explicitly allowed conservative fallback: no specialist policy qualified for Auto promotion in the measured trials. CP008 passes for its bounded, compute-only local tool registry and exact/negative/timeout acceptance tests. CP009 passes only for bounded exact arithmetic state reuse, deterministic replay/repair, and measured repeated-state benefit; it does not establish general model-led reasoning memory or a browser .ASIF adapter. CP010 passes for an explicit, bounded, verified calculator-tool Joint policy in Auto after two fresh held-out blocks; its failed specialist candidate remains braked and general model self-calibration remains gated. CP011 remains partial. The next dependency-ready gate is CP011 browser acceptance, including physical mobile and power/thermal measurement when hardware is available. See `CHECKPOINT_LOG.md` for reproducible commands and unresolved failures. The final deliverable remains the **working web application**, not an APK.
+**Continue the active B2 gate and CP011, preserving CP001–CP010 as historical receipts.** CP008 demonstrated bounded local tool safety, CP009 exact arithmetic state reuse and CP010 a narrow verified calculator policy in the former design. Those do not prove general directional reasoning or operation-level calibration. The next work is an evidence-backed state/direction/residual controller and new same-Falcon comparison; the latest 6/18 parity and higher B2 latency prevent promotion. Physical mobile, power/thermal, and blinded semantic acceptance remain open. See `CHECKPOINT_LOG.md` for reproducible commands and failures. The deliverable remains the **working web application**, not an APK.

@@ -4,7 +4,7 @@ import { Sha256 } from '../app/js/sha256.mjs';
 import { describeModel } from '../app/js/gguf.mjs';
 import { evalExpr, tryLocalAnswer, convert, parseToolFabric, executeToolCall, reachableToolsJSON, renderToolResultBlock } from '../app/js/tools.mjs';
 import { exactArithmetic } from '../app/js/exact-arithmetic.mjs';
-import { buildChatPrompt, buildFimPrompt, stopsFor } from '../app/js/prompts.mjs';
+import { buildChatPrompt, stopsFor } from '../app/js/prompts.mjs';
 import { route } from '../app/js/compass.mjs';
 import { boundedGenerationBudget } from '../app/js/runtime-limits.mjs';
 import { opfsPut } from '../app/js/store.mjs';
@@ -186,29 +186,24 @@ t('instruct prompt ends with assistant turn', p.prompt.endsWith(SPC_OPEN + 'assi
 t('instruct has user turn framed', p.prompt.includes(SPC_OPEN + 'user\nhi' + SPC_END + '\n'));
 t('instruct stops [228,11,16]', j(p.stops) === '[228,11,16]');
 t('instruct mode chat', p.mode === 'chat');
-const p2 = buildChatPrompt('falcon_reason', [{ role: 'ghost', content: 'x' }, { role: 'assistant', content: 'hey' }, { role: 'user', content: 'world' }]);
-t('reason frames valid roles only', p2.prompt.includes(SPC_OPEN + 'assistant\nhey' + SPC_END) && !p2.prompt.includes('ghost'));
-const pr = buildChatPrompt('falcon_coder', [{ role: 'user', content: 'def fib(n):' }]);
-t('coder raw passthrough', pr.mode === 'raw' && pr.prompt === 'def fib(n):' && j(pr.stops) === '[11]');
-const pf = buildFimPrompt('def add(a,b):', '    return a+b');
-t('fim PSM shape', pf.mode === 'fim' && pf.prompt.startsWith('def add(a,b):\n>>SUFFIX<<'));
-t('fim ends with >>MIDDLE<<', pf.prompt.trimEnd().endsWith('>>MIDDLE<<'));
-t('stopsFor coder [11]', j(stopsFor({ id: 'falcon_coder', gguf: { markers: { '<|end_of_text|>': 11 }, eosId: 11 } })) === '[11]');
+t('reason model rejected by active prompt builder', rejects(() => buildChatPrompt('falcon_reason', []), /only Falcon Instruct/));
+t('coder model rejected by active prompt builder', rejects(() => buildChatPrompt('falcon_coder', []), /only Falcon Instruct/));
+t('stopsFor rejects coder', rejects(() => stopsFor({ id: 'falcon_coder', gguf: { markers: { '<|end_of_text|>': 11 }, eosId: 11 } }), /only Falcon Instruct/));
 t('stopsFor chat [228,16,11]', j(stopsFor({ id: 'falcon_instruct', gguf: { markers: { '<|im_end|>': 228, '<|eot_id|>': 16 }, eosId: 11 } })) === '[228,16,11]');
-const toolP = buildChatPrompt('falcon_tools', [{ role: 'user', content: 'q' }], { tools: [{ name: 'now', description: 'x', parameters: {} }] });
-t('tools block carries <tools> + bos', toolP.prompt.startsWith('<|begin_of_text|>') && toolP.prompt.includes('<tools>'));
+const toolP = buildChatPrompt('falcon_instruct', [{ role: 'user', content: 'q' }], { tools: [{ name: 'now', description: 'x', parameters: {} }] });
+t('Instruct tool prompt carries local allowlist', toolP.prompt.includes('<tools>'));
 
 // --- compass ---
-const ready = new Set(['falcon_instruct', 'falcon_reason', 'falcon_coder', 'falcon_tools']);
+const ready = new Set(['falcon_instruct']);
 t('auto code stays on evidenced fallback', route('fix this python function def broken', { ready }).modelId === 'falcon_instruct');
 t('auto reasoning stays on evidenced fallback', route('why does the sky look blue? explain', { ready }).modelId === 'falcon_instruct');
 t('route default -> instruct', route('hello there, be nice', { ready }).modelId === 'falcon_instruct');
-t('auto refuses unavailable fallback', route('hello', { ready: new Set(['falcon_coder']) }).modelId === null);
-t('manual route allows ready specialist', route('hello', { ready, selected: 'falcon_coder' }).modelId === 'falcon_coder');
-t('manual route refuses unavailable specialist', route('hello', { ready: new Set(['falcon_instruct']), selected: 'falcon_coder' }).modelId === null);
-t('route explains task and policy', route('fix this python function def broken', { ready }).category === 'code' && route('hello', { ready }).policyVersion === 'compass-conservative-1');
+t('auto refuses unavailable model', route('hello', { ready: new Set() }).modelId === null);
+t('manual route allows Instruct only', route('hello', { ready, selected: 'falcon_instruct' }).modelId === 'falcon_instruct');
+t('other model selection rejected', rejects(() => route('hello', { ready, selected: 'falcon_coder' }), /unknown model/));
+t('route explains B2 category and policy', route('fix this python function def broken', { ready }).category === 'code' && route('hello', { ready }).mode === 'b2_spiral');
 t('think stays bounded', route('why', { ready, think: true }).budget.maxTokens === 512);
-t('tool route stays bounded', route('calculate', { ready, selected: 'falcon_tools', think: true }).budget.maxTokens === 64);
+t('route stays bounded', route('calculate', { ready, think: true }).budget.maxTokens === 512);
 
 // --- CP009 exact shared state and deterministic heartbeat replay ---
 const stateRows = new Map(), stateEdges = [];

@@ -2,7 +2,7 @@
    Scope: the whole site. Model weights (/models/*) are NEVER cached here —
    after ingest they live in OPFS/IndexedDB, so the SW keeps only code+fonts,
    letting an offline revisit of the page still boot and chat with cached models. */
-const CACHE = "seren7-shell-v20";
+const CACHE = "seren7-shell-v30";
 
 const FONT_FILES = (() => {
   const out = [];
@@ -35,7 +35,6 @@ const SHELL = [
   "./js/tools.mjs",
   "./js/tool-runner.mjs",
   "./js/spiral.mjs",
-  "./js/joint.mjs",
   "./js/compass.mjs",
   "./js/sha256.mjs",
   "./vendor/jssha256/sha256.mjs",

@@ -13,7 +13,8 @@ This file is vendor-neutral. Claude, Nemotron, Muse, Codex, Cursor, human engine
 
 ## Non-negotiable scope
 
-- Exactly four Falcon-H1-Tiny 90M specialists: Instruct, Reasoning (R), Coder, Tool-Calling. **No 135M or Qwen** in the runtime, benchmarks, or fallback model pool unless the user later explicitly changes the requirement.
+- Exactly one Falcon-H1-Tiny 90M Instruct model. B2 Spiral controls reasoning, tools and budgets. No Reasoning, Coder, Tool-Calling, 135M or Qwen model in the active runtime, benchmarks or fallback pool. See ADR-002; the user explicitly changed this requirement on 2026-10-30.
+- B2's active direction contract is [ADR-003](docs/decisions/ADR-003-directional-spiral.md): maintain established derivations and unresolved residuals, choose a feasible operation from measured evidence, verify progress independently, and redirect only the remaining work. A repeated Falcon answer is not progress. Matrix, psychological/magnetic, virtual and B2CCP processors remain research candidates until verified in-browser; no documentation may present them as shipped capabilities.
 - **Web-only V1:** deliver a ChatGPT-like responsive **website**, accessed through standard desktop/mobile browsers. No Android APK, mobile native app, desktop installer, Electron, Tauri, WebView wrapper, native inference daemon, or required PWA install. Browser workers and browser storage are the product architecture.
 - Inference, calculator execution, chat history, competence maps, and memory are **fully local** to the user's browser. No cloud LLM, hosted API, telemetry, or remote task service. Initial model provisioning may use user-approved Drive archives; after first-run website assets and models are cached, the same page must support offline revisit and chat where the browser allows it.
 - Preserve the uploaded Seren 7 appearance, responsive layout, animated orb, and working interaction vocabulary. Do not replace it with a starter dashboard or unrelated template.
@@ -31,15 +32,16 @@ Newest explicit user instruction > confirmed architectural decisions in this fil
 | Decision ID | Required rule |
 |---|---|
 | DEC-001 | Ship a browser-only, local-inference web application; reject remote inference dependencies or native app packaging. |
-| DEC-002 | Use only the four Falcon 90M specialists. |
+| DEC-002 | Superseded by ADR-002: use one Falcon 90M Instruct model with B2 Spiral. |
 | DEC-003 | Preserve the original UI; refactoring requires visual and behavior regression checks. |
-| DEC-004 | Route by empirically measured competence, not a model's name alone. |
+| DEC-004 | With one active model, B2 Compass selects an **operation/direction** by measured goal progress, information gain, cost, risk and exact reuse; do not route by model name or invented competence scores. |
 | DEC-005 | Verify model parts, hashes, config, tokenizer, and chat templates before inference. |
 | DEC-006 | Treat WebGPU/ONNX and B2CCP integration as separate proof obligations. |
 | DEC-007 | Do not auto-promote self-calibrated Compass/joint policies or retrained weights. |
 | DEC-008 | Keep unverified output provisional; exact math/tools require independent deterministic checks. |
 | DEC-009 | Persist error, counterexample, and recovery history; avoid erasing failed directions. |
 | DEC-010 | A model-generated tool call is a proposal, not authority to run arbitrary commands. |
+| DEC-011 | A B2 transition must preserve verified facts, isolate its residual, record candidate directions and measured cost, then stop or select a new feasible operation; no-progress loops brake. See ADR-003. |
 
 ## Required work loop
 
@@ -67,7 +69,7 @@ Do not replace a negative result with optimistic prose. Keep candidate magnetic 
 - **Functional:** first-run import, actual token stream, model switches, stop, regenerate, history resume, offline mode, file corruption, memory pressure, crash recovery.
 - **Correctness:** exact calculators, deterministic parser/tool contracts, prompt-template compatibility, shared-state equivalence/reuse and version checks.
 - **Performance:** time-to-first-token, tokens/sec, p50/p95 latency, active model count, RAM/VRAM, CPU use, and battery/thermal behavior on target hardware.
-- **Routing:** per-model task profiles, held-out task accuracy, abstention, fallback, calibration error, route regret, verification overhead.
+- **Routing:** one-model baseline versus B2, per-operation task profiles, held-out task accuracy, abstention, fallback, calibration error, direction regret, verification overhead and no-progress brakes.
 - **Security/privacy:** offline traffic audit, file import validation, prompt-injection containment, permissioned local tools, data deletion.
 - **UI/accessibility:** mobile safe areas, reduced motion, keyboard navigation, contrast, screen reader announcements, and layout regression.
 

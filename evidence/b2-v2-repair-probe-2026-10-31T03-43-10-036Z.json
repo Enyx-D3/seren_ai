@@ -1,0 +1,168 @@
+{
+  "sourceSha256": "03d720615a8cde25116206df4248a5d51611a2f0f7ba85dd36579909ab2e583a",
+  "environment": "macOS arm64 / Chromium / local Falcon Instruct Q4_K_M / CPU WebAssembly",
+  "purpose": "New development prompts, disjoint from frozen public evaluation fixture. Structural and numeric residuals are checkable; open-ended plan semantics remain unverified.",
+  "rows": [
+    {
+      "prompt": "Explain step by step how to compute 37*46 exactly, and give the final number.",
+      "candidates": [
+        "To compute 37*46 exactly, follow these steps:\n\n1. **Break down the multiplication**: First, divide 37 by 46, which gives you 0.809090909.\n\n2. **Multiply the result by 46**: Now, multiply 0.809090909 by 46.\n\n   ```\n   0.809090909 * 46\n   ------\n   37\n   ```\n\n   The result is 37.",
+        "To compute 37*46 exactly, follow these steps:\n\n1. **Break down the multiplication**: First, express 37 and 46 as 30 + 7 + 4 + 6.\n\n2. **Multiply each part separately**: Multiply 30, 7, 4, and 6.\n\n   - 30 * 7 = 210\n   - 30 * 4 = 120\n   - 7 * 4 = 28\n\n3. **Add"
+      ],
+      "answer": "I could not verify an on-topic answer within the local reasoning budget. Please rephrase or add detail.",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Explain step by step how to compute 37*46 exactly, and give the final number."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 126
+        },
+        {
+          "step": "residual",
+          "part": "part-1",
+          "residual": "The final numeric result should be 1702; the candidate ended with 37."
+        },
+        {
+          "step": "repair",
+          "part": "part-1",
+          "candidate": 2,
+          "verification": "failed",
+          "residualResolved": true
+        },
+        {
+          "step": "brake",
+          "part": "part-1",
+          "residual": "The final numeric result should be 1702; the candidate ended with 28."
+        }
+      ],
+      "metrics": {
+        "modelCalls": 2,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 254,
+        "firstModelTokenMs": null,
+        "verificationMs": 2,
+        "elapsedMs": 16988
+      }
+    },
+    {
+      "prompt": "Plan three numbered steps for archiving family photos locally and mention one risk.",
+      "candidates": [
+        "**Step 1:** Gathering Photos from Multiple Sources**\nStart by collecting all family photos from various online platforms, social media accounts, and email addresses. This will help you cross-reference and ensure that your archival is comprehensive and diverse.\n\n**Risk:** **Risk:** Incomplete or incomplete photos may not be suitable for archiving, leading to gaps or missing information.\n\n**Step 2:** Organizing and Categorizing Photos**\nOrganize your photos by family type, location, and date. This categorization will make it easier to manage and retrieve specific photos for archiving.\n\n",
+        "Step 1: Identify the target audience for archiving family photos.\n\nStep 2: Conduct a preliminary inventory of family photos.\n\nStep 3: Develop a strategy to categorize and archive each photo based on the target audience.\n\nStep 4: Implement a robust archiving system with a user-friendly interface.\n\nRisk: The risk is that the system may struggle to maintain a consistent collection frequency, potentially leading to a delay in the archiving process."
+      ],
+      "answer": "I could not verify an on-topic answer within the local reasoning budget. Please rephrase or add detail.",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Plan three numbered steps for archiving family photos locally and mention one risk."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 128
+        },
+        {
+          "step": "residual",
+          "part": "part-1",
+          "residual": "Unmet explicit plan constraints: step_count"
+        },
+        {
+          "step": "repair",
+          "part": "part-1",
+          "candidate": 2,
+          "verification": "failed",
+          "residualResolved": false
+        },
+        {
+          "step": "brake",
+          "part": "part-1",
+          "residual": "Unmet explicit plan constraints: step_count"
+        }
+      ],
+      "metrics": {
+        "modelCalls": 2,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 224,
+        "firstModelTokenMs": null,
+        "verificationMs": 1,
+        "elapsedMs": 23254
+      }
+    },
+    {
+      "prompt": "Plan two numbered steps for organizing a music collection and mention one risk.",
+      "candidates": [
+        "**Step 1: Gathering Information**\n\n* Begin by gathering all the essential items for your music collection, such as vinars, cassettes, and CDs.\n* Create a list of these items to keep track of, ensuring you have a clear understanding of your collection's scope.\n\n* Risk: This step is crucial as it ensures you have all the necessary materials, minimizing the risk of missing out on valuable items.\n\n**Step 2: Arranging the Collection**\n\n* Sort the items into categories based on their genre, artist background, and price.\n* Consider using tags or tags",
+        "Step 1: Gather all the essential items for the music collection.\n\nStep 2: Create a system for categorizing and organizing the items based on their type.\n\nStep 3: Assign specific categories to each item, ensuring a clear hierarchy.\n\nRisk: Ensure all items are of equal weight to maintain consistency in the collection."
+      ],
+      "answer": "I could not verify an on-topic answer within the local reasoning budget. Please rephrase or add detail.",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Plan two numbered steps for organizing a music collection and mention one risk."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 128
+        },
+        {
+          "step": "residual",
+          "part": "part-1",
+          "residual": "Unmet explicit plan constraints: step_count"
+        },
+        {
+          "step": "repair",
+          "part": "part-1",
+          "candidate": 2,
+          "verification": "failed",
+          "residualResolved": false
+        },
+        {
+          "step": "brake",
+          "part": "part-1",
+          "residual": "Unmet explicit plan constraints: step_count"
+        }
+      ],
+      "metrics": {
+        "modelCalls": 2,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 197,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 16018
+      }
+    }
+  ],
+  "errors": [],
+  "external": []
+}

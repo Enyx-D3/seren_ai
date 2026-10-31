@@ -1,0 +1,315 @@
+{
+  "sourceSha256": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14",
+  "rows": [
+    {
+      "id": "gsm8k-34",
+      "publishedFinal": "23",
+      "finalMatchesLastStep": false,
+      "checkedSteps": 2,
+      "mismatchedSteps": [],
+      "unsupportedSteps": [],
+      "checks": [
+        {
+          "expression": "40/2",
+          "written": "20",
+          "calculated": "20",
+          "matches": true
+        },
+        {
+          "expression": "5+20",
+          "written": "25",
+          "calculated": "25",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "id": "gsm8k-117",
+      "publishedFinal": "360",
+      "finalMatchesLastStep": true,
+      "checkedSteps": 2,
+      "mismatchedSteps": [],
+      "unsupportedSteps": [],
+      "checks": [
+        {
+          "expression": "3*2",
+          "written": "6",
+          "calculated": "6",
+          "matches": true
+        },
+        {
+          "expression": "60*6",
+          "written": "360",
+          "calculated": "360",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "id": "gsm8k-1108",
+      "publishedFinal": "38",
+      "finalMatchesLastStep": true,
+      "checkedSteps": 2,
+      "mismatchedSteps": [],
+      "unsupportedSteps": [],
+      "checks": [
+        {
+          "expression": "19+26",
+          "written": "45",
+          "calculated": "45",
+          "matches": true
+        },
+        {
+          "expression": "45-7",
+          "written": "38",
+          "calculated": "38",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "id": "gsm8k-212",
+      "publishedFinal": "5",
+      "finalMatchesLastStep": true,
+      "checkedSteps": 4,
+      "mismatchedSteps": [],
+      "unsupportedSteps": [],
+      "checks": [
+        {
+          "expression": "6*2",
+          "written": "12",
+          "calculated": "12",
+          "matches": true
+        },
+        {
+          "expression": "1.5*2",
+          "written": "3",
+          "calculated": "3",
+          "matches": true
+        },
+        {
+          "expression": "12+3",
+          "written": "15",
+          "calculated": "15",
+          "matches": true
+        },
+        {
+          "expression": "15/3",
+          "written": "5",
+          "calculated": "5",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "id": "gsm8k-942",
+      "publishedFinal": "205",
+      "finalMatchesLastStep": true,
+      "checkedSteps": 2,
+      "mismatchedSteps": [],
+      "unsupportedSteps": [],
+      "checks": [
+        {
+          "expression": "3*35",
+          "written": "105",
+          "calculated": "105",
+          "matches": true
+        },
+        {
+          "expression": "40+105+60",
+          "written": "205",
+          "calculated": "205",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "id": "gsm8k-1229",
+      "publishedFinal": "36",
+      "finalMatchesLastStep": true,
+      "checkedSteps": 4,
+      "mismatchedSteps": [],
+      "unsupportedSteps": [],
+      "checks": [
+        {
+          "expression": "40",
+          "written": "40",
+          "calculated": "40",
+          "matches": true
+        },
+        {
+          "expression": "40+32",
+          "written": "72",
+          "calculated": "72",
+          "matches": true
+        },
+        {
+          "expression": "72*0.5",
+          "written": "36",
+          "calculated": "36",
+          "matches": true
+        },
+        {
+          "expression": "72-36",
+          "written": "36",
+          "calculated": "36",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "id": "gsm8k-709",
+      "publishedFinal": "3000",
+      "finalMatchesLastStep": true,
+      "checkedSteps": 5,
+      "mismatchedSteps": [],
+      "unsupportedSteps": [],
+      "checks": [
+        {
+          "expression": "100/2",
+          "written": "50",
+          "calculated": "50",
+          "matches": true
+        },
+        {
+          "expression": "50/4",
+          "written": "12.5",
+          "calculated": "25/2",
+          "matches": true
+        },
+        {
+          "expression": "48*50",
+          "written": "2400",
+          "calculated": "2400",
+          "matches": true
+        },
+        {
+          "expression": "48*12.5",
+          "written": "600",
+          "calculated": "600",
+          "matches": true
+        },
+        {
+          "expression": "2400+600",
+          "written": "3000",
+          "calculated": "3000",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "id": "gsm8k-965",
+      "publishedFinal": "374",
+      "finalMatchesLastStep": true,
+      "checkedSteps": 4,
+      "mismatchedSteps": [],
+      "unsupportedSteps": [],
+      "checks": [
+        {
+          "expression": "10*30",
+          "written": "300",
+          "calculated": "300",
+          "matches": true
+        },
+        {
+          "expression": "2*18",
+          "written": "36",
+          "calculated": "36",
+          "matches": true
+        },
+        {
+          "expression": "5*22",
+          "written": "110",
+          "calculated": "110",
+          "matches": true
+        },
+        {
+          "expression": "300-36+110",
+          "written": "374",
+          "calculated": "374",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "id": "gsm8k-986",
+      "publishedFinal": "70",
+      "finalMatchesLastStep": true,
+      "checkedSteps": 4,
+      "mismatchedSteps": [],
+      "unsupportedSteps": [],
+      "checks": [
+        {
+          "expression": "3*3",
+          "written": "9.00",
+          "calculated": "9",
+          "matches": true
+        },
+        {
+          "expression": "2.5*2",
+          "written": "5.00",
+          "calculated": "5",
+          "matches": true
+        },
+        {
+          "expression": "9+5",
+          "written": "14.00",
+          "calculated": "14",
+          "matches": true
+        },
+        {
+          "expression": "14*5",
+          "written": "70.00",
+          "calculated": "70",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "id": "gsm8k-106",
+      "publishedFinal": "72",
+      "finalMatchesLastStep": true,
+      "checkedSteps": 6,
+      "mismatchedSteps": [],
+      "unsupportedSteps": [],
+      "checks": [
+        {
+          "expression": "2*1",
+          "written": "2",
+          "calculated": "2",
+          "matches": true
+        },
+        {
+          "expression": "5-2",
+          "written": "3",
+          "calculated": "3",
+          "matches": true
+        },
+        {
+          "expression": "6-2",
+          "written": "4",
+          "calculated": "4",
+          "matches": true
+        },
+        {
+          "expression": "4-2",
+          "written": "2",
+          "calculated": "2",
+          "matches": true
+        },
+        {
+          "expression": "4*3*2",
+          "written": "24",
+          "calculated": "24",
+          "matches": true
+        },
+        {
+          "expression": "3*24",
+          "written": "72",
+          "calculated": "72",
+          "matches": true
+        }
+      ]
+    }
+  ]
+}

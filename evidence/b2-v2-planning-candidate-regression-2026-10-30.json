@@ -1,0 +1,9 @@
+{
+  "environment": "macOS arm64, Playwright Chromium, local Falcon Instruct Q4_K_M, CPU WebAssembly",
+  "procedure": "node tools/browser_b2_ui_smoke.mjs with automatic second planning candidate enabled; same four-prompt UI smoke before and after",
+  "prompt": "Plan a two-step morning backup; then list one risk.",
+  "before": { "modelCalls": 1, "elapsedMs": 4610, "answer": "Two-Step Morning Backup: Copy files from your computer to a secure email account.\n\nRisk: At least 2 steps, ensure you have a password, and don't share personal information." },
+  "candidate": { "modelCalls": 2, "elapsedMs": 10419, "answer": "Midday Backup: Copy files from your computer to a secure email account.\n\nRisk: Attempt to copy files from your computer to a public email address, risking breaches of privacy." },
+  "assessment": "Both answers are unverified and fail to give two concrete numbered backup steps. The candidate used more model calls and latency without a demonstrated quality gain. Outputs vary by generation; this is one negative UI observation, not a population estimate.",
+  "action": "Keep second planning candidate behind the explicit Think deeper control; retain the capability and unit tests for measured future use."
+}

@@ -2,6 +2,7 @@ import { chromium } from 'playwright';
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage();
 await page.goto('http://127.0.0.1:8799/');
+await page.waitForFunction(() => document.querySelector('#heroStatus')?.textContent.includes('Falcon Instruct ready'), null, { timeout: 120000 });
 await page.locator('#prompt').fill('2+2'); await page.locator('#sendBtn').click();
 await page.waitForFunction(() => document.querySelector('.msg-ai .prose')?.textContent === '4');
 await page.locator('#settingsBtnTop').click();

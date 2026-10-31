@@ -1,5 +1,5 @@
 /* Seren 7 — ingest worker (DEC-005): verify, then store, a GGUF weight file.
-   Exactly the four Falcon-H1-Tiny 90M specialists are accepted; identity is
+   Only the Falcon-H1-Tiny 90M Instruct model is accepted; identity is
    decided by GGUF metadata bytes, not by filename. Hashing streams in chunks
    so the UI never stalls. Everything stays on this device. */
 import { sha256Blob } from "../js/sha256.mjs";
@@ -10,9 +10,6 @@ import { EXPECTED_SHA256 } from "../js/model-receipts.mjs";
 
 const NAME_TO_ID = new Map([
   ["90m Instruct", "falcon_instruct"],
-  ["90m Coder", "falcon_coder"],
-  ["90m H1R", "falcon_reason"],
-  ["90m Agentic", "falcon_tools"],
 ]);
 const QUANT_FILE_TYPE = 15; /* Q4_K_M — the distributed build (CP001 manifest) */
 const MIN_BYTES = 10 * 1024 * 1024;
@@ -43,7 +40,7 @@ async function ingest(reqId, file) {
   const d = describeModel(head); /* throws for any non falcon-h1 input */
   const id = NAME_TO_ID.get(d.name);
   if (!id) {
-    throw new Error('not one of the four approved specialists: general.name is "' + d.name + '" (expected Falcon-H1-Tiny 90M Instruct, Coder, H1R or Agentic)');
+    throw new Error('only Falcon-H1-Tiny 90M Instruct is approved: general.name is "' + d.name + '"');
   }
   if (sha256 !== EXPECTED_SHA256[id]) {
     throw new Error("GGUF SHA-256 does not match the CP001 receipt for " + id);

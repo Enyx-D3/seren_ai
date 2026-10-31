@@ -1,25 +1,20 @@
 /* Seren 7 browser shell. Every answer is either a labelled deterministic local
    calculation or tokens from the verified GGUF running in the WASM Worker. */
-import { init, conv, msg, models, modelFile, kv, events, toolCalls, jointRecords, exportAllConversations, importConversations, deleteAllConversations, factoryReset, storageEstimate } from './store.mjs';
-import { SPECIALISTS, MODEL_META, route } from './compass.mjs';
+import { init, conv, msg, models, modelFile, kv, events, toolCalls, exportAllConversations, importConversations, deleteAllConversations, factoryReset, storageEstimate } from './store.mjs';
+import { SPECIALISTS, MODEL_META } from './compass.mjs';
 import { buildChatPrompt } from './prompts.mjs';
-import { tryLocalAnswer, extractExactArithmetic, parseToolFabric, reachableToolsJSON } from './tools.mjs';
+import { extractExactArithmetic, reachableToolsJSON } from './tools.mjs';
 import { runToolProposal } from './tool-runner.mjs';
-import { ExactSpiral, isReuseCandidate, repairHeartbeat } from './spiral.mjs';
-import { proposeExactToolJoint, EXACT_TOOL_JOINT, BRAKED_MODEL_JOINT } from './joint.mjs';
+import { ExactSpiral, SpiralController, SPIRAL_POLICY, SPIRAL_CALIBRATION_KEY, planSpiral, repairHeartbeat, modelCalibrationOutcome } from './spiral.mjs';
 import { md } from './md.mjs';
 import { initOrb } from './orb.mjs';
 
 const $ = id => document.getElementById(id);
 const state = { conversation: null, messages: [], selected: 'auto', think: false,
-  available: new Map(), failedModels: new Set(), autoPreparing: false, busy: null, worker: null, ingest: null, orb: null, theme: 'system' };
-const names = { falcon_instruct: 'Falcon Instruct', falcon_reason: 'Falcon R',
-  falcon_coder: 'Falcon Coder', falcon_tools: 'Falcon Tool-Calling' };
+  available: new Map(), failedModels: new Set(), autoPreparing: false, busy: null, worker: null, loadedModelId: null, ingest: null, orb: null, theme: 'system' };
+const names = { falcon_instruct: 'Falcon Instruct' };
 const localModelFiles = [
   'Falcon-H1-Tiny-90M-Instruct-Q4_K_M.gguf',
-  'Falcon-H1R-Tiny-90M-Q4_K_M.gguf',
-  'Falcon-H1-Tiny-Coder-Q4_K_M.gguf',
-  'Falcon-H1-Tiny-Tool-Calling-Q4_K_M.gguf',
 ];
 const hostedModelFile = Object.fromEntries(SPECIALISTS.map((id, index) => [id, localModelFiles[index]]));
 const suggestions = {
@@ -31,6 +26,7 @@ const suggestions = {
 const newId = () => crypto.randomUUID();
 const waiters = new Map();
 const exactSpiral = new ExactSpiral();
+const spiral = new SpiralController({ exact: exactSpiral });
 let localSpeechVoice = null;
 const selectedModel = () => state.selected === 'auto' ? 'falcon_instruct' : state.selected;
 function updateSend() {
@@ -93,13 +89,6 @@ function placeOrb(animate = true) {
   orb.style.transform = `translate3d(${rect.left}px, ${rect.top}px, 0) scale(${rect.width / size})`;
 }
 function visibleOutput(modelId, raw) {
-  if (modelId === 'falcon_reason') {
-    const end = raw.lastIndexOf('</think>');
-    return end >= 0 ? raw.slice(end + 8).trimStart() : '';
-  }
-  if (modelId === 'falcon_tools' && (raw.includes('<tool_call>') || /`\s*\{\s*"name"/.test(raw))) {
-    return 'Checking a local tool proposal…';
-  }
   return raw;
 }
 function closeDrawer() { $('app').classList.remove('nav-open'); }
@@ -108,11 +97,8 @@ function renderModels() {
   $('modelRows').replaceChildren(); $('modelMenu').replaceChildren();
   for (const id of SPECIALISTS) {
     const d = state.available.get(id);
-    const row = document.createElement('label'); row.className = 'model-row'; row.dataset.modelId = id;
-    row.innerHTML = '<input type="radio" name="setupModelChoice"><b></b><span class="st"></span><span class="desc"></span>';
-    row.querySelector('input').checked = state.selected === id;
-    row.querySelector('input').onchange = () => { state.selected = id; $('modelName').textContent = MODEL_META[id].display;
-      renderModels(); if (!state.available.has(id) && !state.autoPreparing) void prepareSelectedModel(); };
+    const row = document.createElement('div'); row.className = 'model-row'; row.dataset.modelId = id;
+    row.innerHTML = '<b></b><span class="st"></span><span class="desc"></span>';
     row.querySelector('b').textContent = names[id];
     row.querySelector('.st').textContent = d ? 'Verified · ' + d.quant : state.provisioning === id ? 'Loading…' : state.failedModels.has(id) ? 'Import needed' : state.autoPreparing ? 'Queued' : 'Not ready';
     row.querySelector('.desc').textContent = d ? Math.round(d.bytes / 1048576) + ' MiB stored in this browser' : state.provisioning === id ? state.provisionProgress || 'Downloading and verifying locally' : state.autoPreparing && !state.failedModels.has(id) ? 'Automatic setup will start soon' : 'Import a GGUF if this site has no model file';
@@ -124,7 +110,7 @@ function renderModels() {
     item.setAttribute('aria-checked', String(state.selected === id));
     item.innerHTML = '<b></b><span></span>';
     item.querySelector('b').textContent = MODEL_META[id].display;
-    item.querySelector('span').textContent = id === 'auto' ? 'Conservative Instruct until routing is verified' :
+    item.querySelector('span').textContent = id === 'auto' ? 'B2 Spiral with Falcon Instruct' :
       (state.available.has(id) ? names[id] + ' · ready' : names[id] + ' · prepares from this site when used, if available');
     item.onclick = () => { state.selected = id; $('modelName').textContent = MODEL_META[id].display;
       $('modelMenu').hidden = true; $('modelBtn').setAttribute('aria-expanded', 'false'); renderModels(); $('modelBtn').focus();
@@ -132,7 +118,7 @@ function renderModels() {
     $('modelMenu').append(item);
   }
   $('heroStatus').textContent = state.provisioning ? `${names[state.provisioning]} · ${state.provisionProgress || 'preparing locally'}` :
-    state.available.size ? `${state.available.size} of 4 local specialists imported` : 'Waiting for a local model · import a GGUF in Settings';
+    state.available.has('falcon_instruct') ? 'Falcon Instruct ready · B2 Spiral active' : 'Waiting for Falcon Instruct · import its GGUF in Settings';
   updateModelLoadStatus(state.provisioning ? `${names[state.provisioning]} · ${state.provisionProgress || 'preparing locally'}` : '');
 }
 
@@ -183,7 +169,7 @@ function renderConversation({ animate = true } = {}) {
     if (!animate) el.classList.add('no-rise');
     if (i === state.messages.length - 1) el.classList.add('last');
     const meta = document.createElement('div'); meta.className = 'msg-meta';
-    const label = document.createElement('span'); label.className = 'm-name'; label.textContent = m.model_id ? names[m.model_id] : 'Seren 7';
+    const label = document.createElement('span'); label.className = 'm-name'; label.textContent = m.model_id ? (names[m.model_id] || 'Legacy response') : 'Seren 7';
     const detail = document.createElement('span'); detail.className = 'm-status';
     detail.textContent = m.status === 'streaming' ? 'Writing locally…' : m.status === 'stopped' ? 'Stopped · partial answer' :
       m.status === 'error' ? 'Generation failed' : m.meta?.via || 'Local response';
@@ -217,14 +203,24 @@ function renderConversation({ animate = true } = {}) {
     if (m.meta?.run_id) {
       details = document.createElement('details'); details.className = 'inspector-details';
       const summary = document.createElement('summary'); summary.textContent = 'Run details'; details.append(summary);
+      const residual = m.meta.spiral_verification?.residual;
       const values = [
         ['Model', m.model_id || 'deterministic'], ['Backend', m.meta.backend || 'local'],
         ['Route mode', m.meta.route_mode || 'unrecorded'],
         ['Task category', m.meta.route_category || 'unrecorded'],
         ['Route reason', m.meta.route_reason || 'unrecorded'],
         ['Policy', m.meta.policy_version || 'unrecorded'],
-        ['Tokens', m.meta.tokens ?? 'unknown'], ['First token', m.meta.ttft_ms == null ? 'unmeasured' : m.meta.ttft_ms + ' ms'],
+        ['Tokens', m.meta.tokens ?? 'unknown'], ['First visible answer', m.meta.ttft_ms == null ? 'unmeasured' : m.meta.ttft_ms + ' ms'],
         ['Elapsed', m.meta.elapsed_ms == null ? 'unmeasured' : m.meta.elapsed_ms + ' ms'],
+        ['B2 complexity', m.meta.spiral_plan?.complexity || 'unrecorded'],
+        ['B2 subtasks', m.meta.spiral_plan?.parts || 0],
+        ['Unprocessed subtasks', m.meta.spiral_plan?.omittedParts || 0],
+        ['Model calls', m.meta.spiral_metrics?.modelCalls ?? 'unmeasured'],
+        ['Calculator calls', m.meta.spiral_metrics?.calculatorCalls ?? 'unmeasured'],
+        ['Verified reuse hits', m.meta.spiral_metrics?.cacheHits ?? 'unmeasured'],
+        ['Verification overhead', m.meta.spiral_metrics?.verificationMs == null ? 'unmeasured' : m.meta.spiral_metrics.verificationMs + ' ms'],
+        ['Verification', m.meta.spiral_verification?.status || 'unverified'],
+        ...(residual ? [['Unresolved', (typeof residual === 'string' ? residual : JSON.stringify(residual)).slice(0, 300)]] : []),
         ['Tool calls', m.meta.tool_receipts ? m.meta.tool_receipts.length : 0],
         ['Run ID', m.meta.run_id],
       ];
@@ -255,7 +251,7 @@ async function openConversation(id) {
     if (message.role === 'user') priorUser = message.content;
     if (message.role !== 'assistant' || !message.meta?.spiral_deltas) continue;
     try {
-      const expression = extractExactArithmetic(priorUser);
+      const expression = message.meta.spiral_expression || extractExactArithmetic(priorUser);
       if (!expression) throw new Error('missing exact source expression');
       const checked = repairHeartbeat(expression, message.meta.spiral_deltas, message.content);
       if (checked.repaired) {
@@ -283,6 +279,7 @@ async function ensureConversation(firstText) {
 }
 function runWorker() {
   if (state.worker) return state.worker;
+  state.loadedModelId = null;
   const worker = new Worker(new URL('../workers/runtime-worker.mjs', import.meta.url), { type: 'module' });
   worker.onmessage = async ({ data }) => {
     if (data.type === 'reply') {
@@ -290,70 +287,29 @@ function runWorker() {
       return;
     }
     if (data.type !== 'event') return;
-    const run = state.busy;
-    if (!run || data.request_id !== run.id) return;
-    if (data.schema_version !== 1 || !Number.isInteger(data.sequence) || data.sequence <= (run.lastSequence || 0)) return;
-    if (run.terminalSeen) return;
-    run.lastSequence = data.sequence;
-    if (data.kind === 'complete' || data.kind === 'cancelled' || data.kind === 'error') run.terminalSeen = true;
-    // Messages hold the visible answer. Keep event receipts without duplicating
-    // token text, which can include private reasoning or other sensitive content.
+    const run = state.busy, generation = run?.generation;
+    if (!generation || data.request_id !== generation.id) return;
+    if (data.schema_version !== 1 || !Number.isInteger(data.sequence) || data.sequence <= generation.lastSequence) return;
+    generation.lastSequence = data.sequence;
     const receipt = data.kind === 'token'
       ? { token_id: data.payload.token_id, token_count: data.payload.token_count, replace: !!data.payload.replace }
       : data.payload;
-    await events.append(run.id, data.kind, receipt, run.conversationId);
+    void events.append(run.id, data.kind, receipt, run.conversationId).catch(() => {});
     if (data.kind === 'token') {
       armGenerationWatchdog(run);
-      if (!run.firstTokenAt) run.firstTokenAt = performance.now();
-      run.content = data.payload.replace ? data.payload.text : run.content + data.payload.text;
-      const m = state.messages.find(x => x.id === run.messageId) || await msg.get(run.messageId);
-      const visible = visibleOutput(run.modelId, run.content);
-      if (m) { m.content = visible; updateStreamMessage(m); }
-      if (data.payload.token_count % 8 === 0) await msg.update(run.messageId, { content: visible });
-    } else if (data.kind === 'complete' || data.kind === 'cancelled' || data.kind === 'error') {
-      const m = state.messages.find(x => x.id === run.messageId) || await msg.get(run.messageId);
-      if (m) {
-        m.content = '';
-        let toolReceipts = null;
-        if (data.kind === 'complete' && m.model_id === 'falcon_tools') {
-          const proposal = parseToolFabric(run.content);
-          if (proposal.calls.length) {
-            toolReceipts = [];
-            for (const call of proposal.calls.slice(0, 3)) {
-              const result = await runToolProposal(call, { signal: run.toolAbortController.signal });
-              const receipt = { name: call.name, arguments: call.arguments, ...result };
-              toolReceipts.push(receipt);
-              try {
-                await toolCalls.add({ runId: run.id, conversationId: run.conversationId,
-                  proposerModelId: m.model_id, call, result });
-                await events.append(run.id, 'tool_result', { name: call.name, status: result.status,
-                  verification: result.verification || 'none', elapsed_ms: result.elapsed_ms }, run.conversationId);
-              } catch (error) {
-                receipt.receipt_error = `local receipt write failed: ${error.message}`;
-              }
-              if (result.status === 'cancelled') break;
-            }
-            m.content = toolReceipts.map(r => r.ok ? `${r.name}: ${r.value}` :
-              `${r.name}: ${r.status === 'denied' ? 'rejected' : 'failed'} (${r.error})`).join('\n');
-          } else if (proposal.errors.length || run.content.includes('<tool_call>')) {
-            m.content = 'Malformed local tool proposal. No action was run.';
-          }
-        }
-        m.content ||= visibleOutput(m.model_id, run.content) || (data.kind === 'error' ? `Local runtime error: ${data.payload.message}` :
-          m.model_id === 'falcon_reason' ? 'No final answer was emitted within this run’s token budget.' : '');
-        m.status = run.cancelled || data.kind === 'cancelled' ? 'stopped' : data.kind === 'complete' ? 'done' : 'error';
-        m.meta = { ...m.meta, tokens: data.payload.tokens || 0, backend: 'wasm', finished_at: Date.now(),
-          ttft_ms: run.firstTokenAt ? Math.round(run.firstTokenAt - run.startedAt) : null,
-          elapsed_ms: Math.round(performance.now() - run.startedAt), run_id: run.id,
-          tool_receipts: toolReceipts };
-        await msg.update(m.id, { content: m.content, status: m.status, meta: m.meta });
-      }
-      setBusy(null); renderConversation({ animate: false }); status(m?.status === 'stopped' ? 'Stopped' : data.kind === 'complete' ? 'Response complete · local CPU WebAssembly' : 'Local runtime error', true);
+      if (!generation.firstTokenAt) generation.firstTokenAt = performance.now();
+      generation.text = data.payload.replace ? data.payload.text : generation.text + data.payload.text;
+      generation.onToken?.(generation.text);
+    } else if (['complete', 'cancelled', 'error'].includes(data.kind)) {
+      run.generation = null;
+      if (data.kind === 'complete') generation.resolve({ text: generation.text, tokens: data.payload.tokens || 0,
+        ttftMs: generation.firstTokenAt ? Math.round(generation.firstTokenAt - generation.startedAt) : null });
+      else generation.reject(new Error(data.kind === 'cancelled' ? 'Stopped' : data.payload.message || 'Generation failed'));
     }
   };
   worker.onerror = async e => {
     const error = new Error('Runtime worker failed: ' + e.message);
-    worker.terminate(); state.worker = null;
+    worker.terminate(); state.worker = null; state.loadedModelId = null;
     for (const waiter of waiters.values()) waiter.reject(error);
     waiters.clear();
     await failActiveRun(error.message);
@@ -363,6 +319,7 @@ function runWorker() {
 async function failActiveRun(message) {
   const run = state.busy;
   if (run) {
+    run.generation?.reject(new Error(message)); run.generation = null;
     const m = state.messages.find(x => x.id === run.messageId) || await msg.get(run.messageId);
     if (m) {
       m.status = 'error'; m.content ||= message;
@@ -378,7 +335,7 @@ function armGenerationWatchdog(run, ms = 180000) {
   run.watchdog = setTimeout(async () => {
     if (state.busy !== run) return;
     const message = run.cancelled ? 'Stop timed out; local worker was terminated' : 'Generation stalled; local worker was terminated';
-    state.worker?.terminate(); state.worker = null;
+    state.worker?.terminate(); state.worker = null; state.loadedModelId = null;
     for (const waiter of waiters.values()) waiter.reject(new Error(message));
     waiters.clear();
     await failActiveRun(message);
@@ -389,7 +346,7 @@ function request(cmd, fields) {
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => {
       if (!waiters.has(reqId)) return;
-      waiters.delete(reqId); state.worker?.terminate(); state.worker = null;
+      waiters.delete(reqId); state.worker?.terminate(); state.worker = null; state.loadedModelId = null;
       reject(new Error(cmd + ' timed out'));
     }, 180000);
     waiters.set(reqId, {
@@ -402,10 +359,32 @@ function request(cmd, fields) {
 function stopGeneration() {
   if (!state.busy) return;
   state.busy.cancelled = true;
-  state.busy.toolAbortController?.abort();
-  if (!state.busy.terminalSeen) state.worker?.postMessage({ cmd: 'abort', reqId: state.busy.id });
+  state.busy.abortController.abort();
+  if (state.busy.generation) state.worker?.postMessage({ cmd: 'abort', reqId: state.busy.generation.id });
   armGenerationWatchdog(state.busy, 10000);
   status('Stopping local generation…');
+}
+
+async function generateForSpiral(run, desc, { turns, maxTokens, onToken, signal, tools = false }) {
+  if (signal?.aborted) return Promise.reject(new Error('Stopped'));
+  if (state.loadedModelId !== 'falcon_instruct') {
+    const blob = await modelFile(desc);
+    if (!blob) throw new Error('Verified model bytes missing from browser storage');
+    status('Loading Falcon Instruct locally…');
+    await request('load', { modelId: 'falcon_instruct', blob, expectedSha256: desc.sha256 });
+    state.loadedModelId = 'falcon_instruct';
+    if (signal?.aborted) throw new Error('Stopped');
+    status('B2 Spiral reasoning locally…');
+  }
+  const built = buildChatPrompt('falcon_instruct', turns, { think: false,
+    tools: tools ? reachableToolsJSON() : null });
+  return new Promise((resolve, reject) => {
+    const generation = { id: newId(), text: '', lastSequence: 0, resolve, reject, onToken, startedAt: performance.now(), firstTokenAt: null };
+    run.generation = generation;
+    runWorker().postMessage({ cmd: 'complete', reqId: generation.id, modelId: 'falcon_instruct',
+      prompt: built.prompt, stops: desc.stops || built.stops, maxTokens, temperature: 0.2 });
+    armGenerationWatchdog(run);
+  });
 }
 
 async function submit(text, { regen = false } = {}) {
@@ -413,89 +392,84 @@ async function submit(text, { regen = false } = {}) {
   await ensureConversation(text);
   if (!regen) { const user = await msg.add(state.conversation.id, { role: 'user', content: text }); state.messages.push(user); }
   $('prompt').value = ''; $('sendBtn').disabled = true;
-  let local = null, spiralRun = null;
-  const jointEnabled = new URLSearchParams(location.search).get('joint_policy') !== 'conservative';
-  const jointRun = jointEnabled ? proposeExactToolJoint(text, { selected: state.selected }) : null;
-  if (jointRun) local = { answer: jointRun.answer, via: jointRun.via };
-  if (state.selected !== 'falcon_tools') {
-    const expression = extractExactArithmetic(text);
-    if (isReuseCandidate(expression)) {
-      try {
-        spiralRun = await exactSpiral.solve(expression, { scope: state.conversation.id });
-        local = { answer: spiralRun.value, via: spiralRun.reused ? 'verified shared state' : 'verified exact arithmetic' };
-      } catch { /* storage/canonicalization failure falls back to independent calculation */ }
-    }
-    local ||= tryLocalAnswer(text);
-  }
-  if (local) {
-    const runId = spiralRun || jointRun ? newId() : null;
-    const answer = await msg.add(state.conversation.id, { role: 'assistant', content: local.answer,
-      meta: { via: local.via, ...(jointRun ? { run_id: runId, backend: 'deterministic',
-        route_mode: 'verified_joint_tool', route_category: 'tool',
-        route_reason: 'Explicit bounded calculator request passed independent exact verification',
-        policy_version: jointRun.policy_version, joint_action: jointRun.action,
-        verification_id: jointRun.verification } : {}), ...(spiralRun ? { run_id: runId, backend: 'deterministic',
-        route_mode: spiralRun.route, route_category: 'arithmetic', route_reason: 'Bounded exact shared-state Spiral',
-        policy_version: 'spiral-exact-1', spiral_deltas: spiralRun.deltas,
-        spiral_ack: 'persisted_with_message', spiral_replay_status: 'not_replayed',
-        shared_state_id: spiralRun.stateId || null } : {}) } });
-    if (jointRun) {
-      for (const policy of [EXACT_TOOL_JOINT, BRAKED_MODEL_JOINT]) {
-        try {
-          if (!(await jointRecords.policy(policy.policy_id))) await jointRecords.putPolicy({
-            id: policy.policy_id, ...policy, schema_version: 3,
-            parameters_json: JSON.stringify({ grammar: policy.policy_id === EXACT_TOOL_JOINT.policy_id ? 'explicit_bounded_exact_arithmetic' : 'mixed_specialist_route' }),
-            applicability_json: JSON.stringify({ description: policy.applicability }),
-            parent_policy_version: 'compass-conservative-1', created_at: Date.now(),
-          });
-        } catch { /* policy receipt failure must not replace verified answer */ }
-      }
-    }
-    state.messages.push(answer); renderConversation(); await conv.touch(state.conversation.id); renderThreads();
-    await exactSpiral.flush({ onlyPending: true }).catch(() => {});
-    return;
-  }
-  const requiredModel = state.selected === 'auto' ? 'falcon_instruct' : state.selected;
-  if (!state.available.has(requiredModel)) return;
-  const ready = new Set(state.available.keys());
-  const decision = route(text, { ready, selected: state.selected, think: state.think });
-  const chosen = decision.modelId;
-  if (!chosen || !state.available.has(chosen)) {
-    status('Local model not ready · import the selected Falcon GGUF', true); $('setupDialog').showModal(); renderConversation(); return;
-  }
-  const desc = state.available.get(chosen);
-  const answer = await msg.add(state.conversation.id, { role: 'assistant', content: '', status: 'streaming', model_id: chosen,
-    meta: { backend: 'wasm', route_mode: decision.mode, route_category: decision.category,
-      route_reason: decision.reason, policy_version: decision.policyVersion } });
+  const desc = state.available.get('falcon_instruct');
+  const calibration = await kv.get(SPIRAL_CALIBRATION_KEY) || {};
+  const plan = planSpiral(text, { deeper: state.think, calibration });
+  const answer = await msg.add(state.conversation.id, { role: 'assistant', content: '', status: 'streaming', model_id: 'falcon_instruct',
+    meta: { backend: 'wasm', route_mode: 'b2_spiral', route_category: plan.category,
+      route_reason: `${plan.complexity} path · ${plan.parts.length} part(s)`, policy_version: SPIRAL_POLICY } });
   state.messages.push(answer); renderConversation();
-  const runId = newId(); setBusy({ id: runId, messageId: answer.id, conversationId: state.conversation.id,
-    modelId: chosen, content: '', startedAt: performance.now(), firstTokenAt: null, lastSequence: 0,
-    toolAbortController: new AbortController() });
+  const runId = newId();
+  const run = { id: runId, messageId: answer.id, conversationId: state.conversation.id,
+    modelId: 'falcon_instruct', startedAt: performance.now(), firstVisibleAt: null,
+    abortController: new AbortController(), generation: null, cancelled: false };
+  setBusy(run);
   try {
-    await events.append(runId, 'route_selected', { model_id: chosen, backend: 'wasm',
-      reason_category: decision.category, route_mode: decision.mode, policy_version: decision.policyVersion,
-      token_budget: decision.budget.maxTokens }, state.conversation.id);
-    const blob = await modelFile(desc);
-    if (!blob) throw new Error('Verified model bytes missing from browser storage');
-    status('Loading ' + names[chosen] + ' locally…');
-    await request('load', { modelId: chosen, blob, expectedSha256: desc.sha256 });
-    if (state.busy?.cancelled) {
-      answer.status = 'stopped'; await msg.update(answer.id, { status: 'stopped' });
-      setBusy(null); renderConversation(); status('Stopped before generation', true); return;
-    }
+    await events.append(runId, 'route_selected', { model_id: 'falcon_instruct', backend: 'wasm',
+      reason_category: plan.category, route_mode: 'b2_spiral', policy_version: SPIRAL_POLICY,
+      plan: { complexity: plan.complexity, parts: plan.parts.length, max_model_calls: plan.maxModelCalls } }, state.conversation.id);
+    if (run.cancelled) throw new Error('Stopped');
     const turns = state.messages.filter(m => (m.role === 'user' || m.role === 'assistant') && m.id !== answer.id && m.content)
       .slice(-12).map(m => ({ role: m.role, content: m.content }));
-    const built = buildChatPrompt(chosen, turns, { think: state.think,
-      tools: chosen === 'falcon_tools' ? reachableToolsJSON() : null });
-    status('Writing with ' + names[chosen] + ' · CPU WebAssembly');
-    runWorker().postMessage({ cmd: 'complete', reqId: runId, modelId: chosen,
-      prompt: built.prompt, stops: desc.stops || built.stops,
-      maxTokens: decision.budget.maxTokens,
-      temperature: chosen === 'falcon_tools' ? 0 : 0.7 });
-    armGenerationWatchdog(state.busy);
+    status('B2 Spiral reasoning locally…');
+    const result = await spiral.run(text, { scope: state.conversation.id, turns, deeper: state.think, calibration,
+      signal: run.abortController.signal,
+      onToken: content => { if (!run.firstVisibleAt) run.firstVisibleAt = performance.now(); answer.content = content; updateStreamMessage(answer); },
+      generate: options => generateForSpiral(run, desc, { ...options, tools: plan.category === 'tool' }),
+      runTool: async call => {
+        const result = await runToolProposal(call, { signal: run.abortController.signal });
+        await toolCalls.add({ runId, conversationId: run.conversationId, proposerModelId: 'falcon_instruct', call, result }).catch(() => {});
+        return result;
+      } });
+    if (!run.firstVisibleAt) run.firstVisibleAt = performance.now();
+    answer.content = result.answer; answer.status = 'done';
+    answer.meta = { ...answer.meta, via: result.verification.status === 'verified' ? 'Verified local result' : 'Local draft · unverified',
+      run_id: runId, tokens: result.metrics.tokens,
+      ttft_ms: Math.round(run.firstVisibleAt - run.startedAt),
+      elapsed_ms: Math.round(performance.now() - run.startedAt),
+      spiral_plan: { complexity: result.plan.complexity, parts: result.plan.parts.length, omittedParts: result.plan.omittedParts },
+      spiral_metrics: result.metrics, spiral_trace: result.trace, spiral_verification: result.verification,
+      spiral_state: { schemaVersion: result.state.schemaVersion, verifiedFacts: result.state.verifiedFacts,
+        unresolved: result.state.unresolved, residuals: result.state.residuals,
+        visitedDirections: result.state.visitedDirections },
+      ...(result.exact ? { spiral_deltas: result.exact.deltas, spiral_expression: result.trace.find(step => step.step === 'calculate')?.expression,
+        shared_state_id: result.exact.stateId || null } : {}) };
+    await msg.update(answer.id, { content: answer.content, status: answer.status, meta: answer.meta });
+    await events.append(runId, 'spiral_result', { metrics: result.metrics, verification: result.verification, steps: result.trace.map(s => s.step) }, run.conversationId);
+    const current = calibration[plan.category]?.schemaVersion === 2 ? calibration[plan.category] : { runs: 0, verifiedSuccesses: 0, verifiedFailures: 0,
+      unverified: 0, modelCalls: 0, calculatorCalls: 0, elapsedMs: 0, repairs: 0,
+      verifiedModelSuccesses: 0, verifiedModelFailures: 0, modelRuns: 0, modelElapsedMs: 0 };
+    const modelOutcome = modelCalibrationOutcome(result);
+    const checkedFailure = modelOutcome === 'failure';
+    const operations = structuredClone(current.operations || {});
+    for (const receipt of result.trace.filter(step => step.step === 'direction_result')) {
+      const profile = operations[receipt.operation] || { runs: 0, verifiedSuccesses: 0, verifiedFailures: 0, elapsedMs: 0 };
+      operations[receipt.operation] = { runs: profile.runs + 1,
+        verifiedSuccesses: profile.verifiedSuccesses + Number(receipt.verificationStatus === 'verified'),
+        verifiedFailures: profile.verifiedFailures + Number(receipt.verificationStatus === 'failed'),
+        elapsedMs: profile.elapsedMs + (receipt.elapsedMs || 0) };
+    }
+    calibration[plan.category] = { ...current, schemaVersion: 2, runs: current.runs + 1,
+      operations,
+      verifiedSuccesses: current.verifiedSuccesses + Number(result.verification.status === 'verified'),
+      verifiedFailures: current.verifiedFailures + Number(!!checkedFailure),
+      verifiedModelSuccesses: (current.verifiedModelSuccesses || 0) + Number(modelOutcome === 'success'),
+      verifiedModelFailures: (current.verifiedModelFailures || 0) + Number(modelOutcome === 'failure'),
+      modelRuns: (current.modelRuns || 0) + Number(result.metrics.modelCalls > 0),
+      modelElapsedMs: (current.modelElapsedMs || 0) + (result.metrics.modelCalls > 0 ? result.metrics.elapsedMs : 0),
+      unverified: current.unverified + Number(result.verification.status === 'unverified'),
+      modelCalls: current.modelCalls + result.metrics.modelCalls,
+      calculatorCalls: current.calculatorCalls + result.metrics.calculatorCalls,
+      elapsedMs: current.elapsedMs + result.metrics.elapsedMs,
+      repairs: current.repairs + result.trace.filter(step => step.step === 'repair').length,
+      updatedAt: Date.now() };
+    await kv.set(SPIRAL_CALIBRATION_KEY, calibration).catch(() => {});
+    await exactSpiral.flush({ onlyPending: true }).catch(() => {});
+    setBusy(null); renderConversation({ animate: false }); status('Response complete · B2 Spiral · local CPU WebAssembly', true);
   } catch (e) {
-    await msg.update(answer.id, { status: 'error', content: 'Local runtime error: ' + e.message });
-    answer.status = 'error'; answer.content = 'Local runtime error: ' + e.message;
+    answer.status = run.cancelled ? 'stopped' : 'error';
+    answer.content ||= run.cancelled ? '' : 'Local runtime error: ' + e.message;
+    await msg.update(answer.id, { status: answer.status, content: answer.content });
     setBusy(null); renderConversation(); status(e.message, true);
   }
 }
@@ -637,7 +611,7 @@ async function boot() {
           if (!response.ok) throw new Error(name + ': local development server returned ' + response.status);
           await ingestFiles([new File([await response.blob()], name, { type: 'application/octet-stream' })]);
         }
-        status('Four approved local models verified in this browser', true);
+        status('Falcon Instruct verified in this browser', true);
       } catch (error) { status('Local model import failed: ' + error.message, true); }
       finally { button.disabled = false; }
     };
@@ -672,7 +646,7 @@ async function boot() {
   });
   $('factoryResetBtn').onclick = () => confirmAction('Erase all conversations, imported models, settings and local evaluation data from this browser? This cannot be undone.', async () => {
     if (state.busy) { status('Stop the current generation before resetting local data', true); return; }
-    state.worker?.terminate(); state.worker = null;
+    state.worker?.terminate(); state.worker = null; state.loadedModelId = null;
     try {
       await exactSpiral.flush().catch(() => {}); const receipt = await factoryReset(); exactSpiral.clear();
       localStorage.setItem('seren-auto-provision-suppressed', '1');
@@ -696,7 +670,7 @@ async function boot() {
   $('expandBtn').onclick = () => { $('app').classList.remove('nav-collapsed'); $('expandBtn').hidden = true; };
   if ('serviceWorker' in navigator) navigator.serviceWorker.register(new URL('../sw.js', import.meta.url)).catch(e => status('Offline shell unavailable: ' + e.message));
   if (location.protocol === 'file:') updateModelLoadStatus('Open this app through localhost or the public HTTPS URL to prepare models');
-  else if (state.available.size < SPECIALISTS.length && localStorage.getItem('seren-auto-provision-suppressed') !== '1') void prepareAllHostedModels();
+  else if (!state.available.has('falcon_instruct') && localStorage.getItem('seren-auto-provision-suppressed') !== '1') void prepareAllHostedModels();
 }
 function applyTheme() {
   document.documentElement.dataset.theme = state.theme;

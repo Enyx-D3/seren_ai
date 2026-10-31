@@ -1,5 +1,9 @@
 # TRD — Local Execution and Integration Architecture
 
+**ADR-002/ADR-003 active architecture:** Runtime/ingest/build allow only pinned Instruct Q4_K_M. All user turns pass `SpiralController`; the target controller owns problem state, dependency-ready operation choice, independent verification, residual-only redirection and exact shared-state reuse. The same Falcon handles language hypotheses and presentation. Historical four-model part sizes below are provenance only. Current code implements only a subset of the directional contract, and no model self-critique is independent proof.
+
+**B2 V2 verification rule:** A checked tool operation is not proof of a full open-ended answer. Preserve every failed and successful tool receipt; a mixed set stays unverified. An incomplete multi-part task cannot be marked verified. Version V2 software calibration separately from V1 and use a minimum of three checked outcomes before increasing repair budget. The exact controller contract and remaining validation gaps are in `B2_Spiral.md`.
+
 **Version:** 1.1 Web-only · **Status:** target architecture; Chromium CPU/WASM path proven, other runtimes and release compatibility unproven. Current evidence: `CHECKPOINT_LOG.md`.
 
 ## 1. Technology principle
@@ -19,20 +23,22 @@ Preferred **web-only release architecture**: select the first **verified in-brow
 ```mermaid
 flowchart TD
     UI["Seren UI + state machine"] --> BUS["Typed local event bus"]
-    BUS --> COMPASS["Competence-aware Compass"]
-    COMPASS --> RUNTIME["Execution adapter selector"]
-    RUNTIME --> MODELS["Four Falcon specialists"]
-    COMPASS --> CALC["Verified calculators/tools"]
-    MODELS --> VERIFY["Verifier and response assembler"]
+    BUS --> STATE["B2 problem state + unresolved residuals"]
+    STATE --> COMPASS["Evidence-backed operation Compass"]
+    COMPASS --> FALCON["One Falcon Instruct language Worker"]
+    COMPASS --> CALC["Approved local calculators/tools"]
+    COMPASS --> REUSE["Proven exact R1 reuse"]
+    FALCON --> VERIFY["Independent verifier / provisional output"]
     CALC --> VERIFY
-    VERIFY --> STORE["Local conversations + R1/.ASIF adapter"]
-    STORE --> COMPASS
+    REUSE --> VERIFY
+    VERIFY --> STATE
+    STATE --> STORE["Local conversations + verified state"]
     VERIFY --> BUS
 ```
 
 - **UI layer:** original HTML/CSS and modularized JS, controls, Markdown rendering, animation and accessibility.
-- **Orchestration:** task classification, budget, competence registry, model load scheduler, cancellation, response assembly.
-- **Model execution:** four exact Falcon variants, tokenizer/prompt template, context management, streaming decoder.
+- **Orchestration:** versioned problem state, dependency graph, residual analyzer, operation registry, evidence-scored Compass, bounded recursion, cancellation and response assembly.
+- **Model execution:** one exact Falcon Instruct, tokenizer/prompt template, context management and streaming decoder.
 - **Tool fabric:** independent deterministic math, limited local structured tools, contracts and permissions.
 - **Memory/state:** local persistence, content indexing, R1 Heartbeat Delta identifiers/sequence/receipts, safe reuse.
 - **Experiment control:** shadow Compass policy tournaments, regression gates and rollbacks.
@@ -56,7 +62,7 @@ Official model cards use `tiiuae/Falcon-H1-Tiny-{90M-Instruct,R-90M,Coder-90M,To
 
 Probe on startup: secure context, Worker, WebGPU adapter/device limits and features, WASM SIMD/thread support, device memory/storage quota if available, model kernel compatibility and thermal behavior. Require `localhost`/HTTPS origin for browser WebGPU testing; do not ship a raw `file://`-only inference requirement. Use meaningful **in-browser** fallback when an adapter is unavailable.
 
-Memory manager: single active specialist by default, optional warm standby only after benchmark; track weights, activations, KV/recurrent state, browser overhead and orb. Budget loading/unloading, cancel pending loads, and prevent two simultaneous model allocations from exceeding policy. If a target exceeds 500 MiB, record the result and choose a verified narrower device profile/quantization, not a false pass.
+Memory manager: one active Instruct model; track weights, activations, KV/recurrent state, browser overhead and orb. Budget loading/unloading and cancel pending loads. If a target exceeds 500 MiB, record the result and choose a verified narrower device profile/quantization or mark the device unsupported, not a false pass.
 
 ## 5. Local execution contracts
 
@@ -99,7 +105,7 @@ Event kinds: `accepted`, `route_selected`, `model_loading`, `model_ready`, `toke
 type RuntimeKind = 'webgpu' | 'wasm' | 'browser_b2ccp';
 interface LocalModelAdapter {
   probe(): Promise<{available:boolean; reason?:string; limits?:Record<string,number>}>;
-  load(modelId: 'falcon_instruct'|'falcon_reason'|'falcon_coder'|'falcon_tools'): Promise<void>;
+  load(modelId: 'falcon_instruct'): Promise<void>;
   generate(request: GenerationRequest, onEvent: (event: RuntimeEvent)=>void, signal: AbortSignal): Promise<void>;
   unload(modelId:string): Promise<void>;
   metrics(): ResourceMetrics;
@@ -108,23 +114,51 @@ interface LocalModelAdapter {
 
 No concrete implementation is implied by this interface.
 
-## 6. Competence-aware Compass
+## 6. Evidence-backed operation Compass
 
-Task features: conversation/code/logic/tool/math/unknown, prompt length, local memory hit, required exactness, risk, budget and device state. Profiles store per-model sample count, accepted answer accuracy, calibration error, malformed output, p95 latency, cost and freshness. Selection uses an empirically calibrated score, not a universal winner:
+Task features: conversation/code/logic/tool/math/unknown, prompt length, unresolved dependency, exactness requirement, risk, budget, available verifier, verified memory hit and device state. Keep one Falcon profile and **per-operation** checked outcome, p95 latency, cost, error, reuse and freshness; a fluent model answer is not an accuracy label. For each feasible operation, record the six factors from ADR-003 and their measurement/provenance:
 
-`score(model, task) = E[verified progress] - lambda*latency - mu*memory - rho*risk + exploration_bonus`, with abstention and deterministic-verifier options. Parameters are experimental. Compare with static-routing baselines; prevent a policy from declaring victory using its own unverified score.
+`direction(operation, state) = f(goal attraction, expected verified progress, information gain, compute cost, error risk, proven memory reuse)`.
 
-## 7. B2 Spiral and Magnetic Joint Table
+The form and weights of `f` are experimental; absent measurements remain `unknown`, not invented zero-cost or high-competence labels. Ineligible/unavailable operations have no score. Record candidate and selected directions, score version and rejected reasons. Compare any promoted score policy against the same Falcon-alone baseline and a conservative B2 fallback on a new held-out set. A local profile cannot validate its own hypothesis without an independent outcome receipt.
 
-Start with two bounded loops: inner explores hypotheses/variables, outer compares execution routes and resources. Both connect to Compass. Use versioned state, independent verification, a residual finder and at most a budgeted number of parallel branches. Candidates can `TAP`, `ROTATE`, `EXPAND`, `CONTRACT`, `BRAKE`, `REPAIR`, `VERIFY`. Magnetism is a **software-defined score/relationship field**, not physical magnetic force.
+## 7. B2 Spiral, state transitions and Magnetic Joint Table
 
-Initial joint relations: goal attraction, exact shared-state attraction, causal/complementary/novelty attraction, contradiction/duplicate/cost repulsion, temporal relation, oscillation damping/hysteresis. Each relation keeps algorithm version, parameters, evidence scope, applicability, confidence, cost and rollback. Approximate similarity never justifies exact state merge. New policies run in shadow on held-out tasks before promotion.
+The target loop is `problem → state → direction → selected operation → independently checked progress → residual → next direction or stop`. B2 may create nested dependency nodes when a subproblem is independently solvable. A transition preserves established derivations, updates only the checked node and carries unresolved residuals forward. Repeated text or an unchanged residual is not progress. A bounded controller can `TAP`, `ROTATE`, `EXPAND`, `CONTRACT`, `BRAKE`, `REPAIR`, `VERIFY`, but these labels are not proof that each transition is implemented or useful. Magnetism is a **software-defined score/relationship field**, not physical force.
 
-The CP010 browser implementation has a bounded software Joint controller and one active, narrow rule: in Auto, an explicit calculator-tool arithmetic request goes through the verified local exact solver. Two independent held-out blocks established its exact-answer and resource gain against the conservative model route. Manual model selection bypasses it. The earlier Tool specialist candidate remains braked with counterexamples; the browser never self-promotes model routes. `?joint_policy=conservative` restores the prior Auto behavior for diagnosis or rollback. General magnetic relations and physical mobile power effects remain research work.
+```ts
+type EvidenceStatus = 'verified' | 'provisional' | 'failed';
+type CapabilityStatus = 'verified' | 'shadow' | 'unavailable';
+interface SpiralState {
+  version: number;
+  goal: string;
+  givens: Array<{value: string; provenance: string}>;
+  dependencies: Array<{id: string; requires: string[]; status: EvidenceStatus}>;
+  established: Array<{nodeId: string; value: string; verifierReceiptId: string}>;
+  residuals: Array<{nodeId: string; criterion: string; reason: string}>;
+  remainingBudget: {modelCalls: number; calculatorCalls: number; elapsedMs: number};
+  visitedDirections: string[];
+  policyVersion: string;
+}
+interface DirectionCandidate {
+  operationId: string;
+  capability: CapabilityStatus;
+  preconditions: string[];
+  scoreEvidence: {goalAttraction?: number; expectedProgress?: number;
+    informationGain?: number; computeCost?: number; errorRisk?: number;
+    verifiedMemoryReuse?: number; source: string; version: string};
+}
+```
+
+This is a **logical target contract**, not an assertion that every field has a physical store or measured value today. A transition receipt must identify selected/rejected operations, pre/post state identities, check method, residual delta, measured cost and stop reason. A verified full answer requires all required nodes independently checked. An uncheckable claim stays provisional. Exact R1 reuse requires identical state or proved equivalence and a valid replay receipt.
+
+Candidate joint relations: goal attraction, exact shared-state attraction, causal/complementary/novelty attraction, contradiction/duplicate/cost repulsion, temporal relation, oscillation damping/hysteresis. Each relation keeps algorithm version, parameters, evidence scope, applicability, confidence, cost and rollback. Approximate similarity never justifies exact state merge. Unimplemented relations are shadow/unavailable and new policies run in shadow on held-out tasks before promotion.
+
+Historical CP010 evidence established a narrow exact-calculator rule in the former Auto policy; its Tool specialist candidate remains braked with counterexamples. In the active one-model build, exact calculations can use local deterministic operations, but broad direction-score efficacy and general reasoning gain have not passed held-out evaluation. No model or operation policy self-promotes. General magnetic relations and physical mobile power effects remain research work.
 
 ## 8. Tools and verification
 
-Typed local tool registry examples: arithmetic, algebra, constrained solver, unit conversion, local document search (with user-selected files), code syntax check (sandboxed). The Tool-Calling Falcon proposes a registered name and valid JSON arguments; policy enforces allowlist, permissions, recursion depth, timeout, resource cap, and result verification. Model text is not an executable command. Sensitive operations require explicit user approval and cannot run silently.
+Typed local tool registry examples: arithmetic, algebra, constrained solver and unit conversion. Local document search and code syntax checks require separate browser-compatible security/permission proof. The **same Instruct Falcon** may propose a registered name and valid JSON arguments; B2 can also select a deterministic operation directly. Policy enforces allowlist, permissions, recursion depth, timeout, resource cap and result verification. Model text is not an executable command. Sensitive operations require explicit user approval and cannot run silently. A checked tool result does not establish a full prose answer.
 
 R1/Heartbeat records carry state ID, predecessor/dependency, sequence, version, acknowledgement/replay/repair status and evidence. Compare actual decoded results for correctness. Do **not** claim R1-native receipts alone provide cryptographic integrity; use byte/hash checks where needed for model artifact integrity separately. Shared state may be reused when exact byte/state identity is established or mathematical equivalence is independently proven. Keep unverified approximate matches distinct.
 

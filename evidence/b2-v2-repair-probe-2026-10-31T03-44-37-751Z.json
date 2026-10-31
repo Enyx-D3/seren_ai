@@ -1,0 +1,145 @@
+{
+  "sourceSha256": "8cd790312d6bfb744c0d9d494bccc78013ecae0e0acab522b2afbcf945ab871e",
+  "environment": "macOS arm64 / Chromium / local Falcon Instruct Q4_K_M / CPU WebAssembly",
+  "purpose": "New development prompts, disjoint from frozen public evaluation fixture. Structural and numeric residuals are checkable; open-ended plan semantics remain unverified.",
+  "rows": [
+    {
+      "prompt": "Explain step by step how to compute 37*46 exactly, and give the final number.",
+      "candidates": [
+        "To compute 37*46 exactly, follow these steps:\n\n1. **Break down the multiplication**: First, express 37 and 46 as 30 + 7. This makes it easier to add them:\n\n   ```\n   37\n  + 46\n   ------\n   83\n   ```\n\n2. **Add the tens**: Now, add the tens: 30 + 40 = 70.\n\n3. **Add the ones**: Add the ones: 7 + 6 = 1",
+        "To compute 37*46 exactly, follow these steps:\n\n1. **Break down the multiplication**: First, divide 37 by 46, which equals 0.809.\n\n2. **Multiply the result by 46**: Now, multiply 0.809 by 46.\n\n3. **Calculate the product**: 0.809 * 46 = 37.046.\n\n4. **Round the result**: Since we're dealing with whole numbers, round 37.046 to"
+      ],
+      "answer": "The exact numeric result is 1702. I could not verify the explanation.",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Explain step by step how to compute 37*46 exactly, and give the final number."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 128
+        },
+        {
+          "step": "residual",
+          "part": "part-1",
+          "residual": "The final numeric result should be 1702; the candidate ended with 1."
+        },
+        {
+          "step": "repair",
+          "part": "part-1",
+          "candidate": 2,
+          "verification": "failed",
+          "residualResolved": false
+        },
+        {
+          "step": "brake",
+          "part": "part-1",
+          "residual": "The final numeric result should be 1702; the candidate ended with 37.046."
+        }
+      ],
+      "metrics": {
+        "modelCalls": 2,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 256,
+        "firstModelTokenMs": null,
+        "verificationMs": 3,
+        "elapsedMs": 15926
+      }
+    },
+    {
+      "prompt": "Plan three numbered steps for archiving family photos locally and mention one risk.",
+      "candidates": [
+        "**Step 1:** Gather Photos from Multiple Sources**\n- Collect a wide range of family photos from various social media platforms, email addresses, and email lists. This helps in cross-verifying and ensuring consistency in archiving.\n\n**Risk:** **Risk:** Inconsistent Posting Limits, may result in missing some photos due to varying time available.\n\n**Step 2:** Create a Digital Archive**\n- Utilize a cloud storage service like Google Drive, Dropbox, or OneNote to store and organize archived photos. This ensures that each photo is accessible and accessible for archiving.\n\n",
+        "Step 1: Gather all family photos from various sources.\nStep 2: Organize photos by family type and date.\nStep 3: Create a folder for each archived photo.\n\n**Risk:** The risk of losing all photos from multiple sources could be a significant concern.\n\n**Step Count:** 3\n\n**Photos:**\n- Family photo 1: 1\n- Family photo 2: 2\n- Family photo 3: 2\n\n**Folder Structure:**\n- **Family Photo 1:** 1 folder\n- **Family Photo 2:** 2 folders"
+      ],
+      "answer": "Step 1: Gather all family photos from various sources.\nStep 2: Organize photos by family type and date.\nStep 3: Create a folder for each archived photo.\n\n**Risk:** The risk of losing all photos from multiple sources could be a significant concern.\n\n**Step Count:** 3\n\n**Photos:**\n- Family photo 1: 1\n- Family photo 2: 2\n- Family photo 3: 2\n\n**Folder Structure:**\n- **Family Photo 1:** 1 folder\n- **Family Photo 2:** 2 folders",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Plan three numbered steps for archiving family photos locally and mention one risk."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 128
+        },
+        {
+          "step": "residual",
+          "part": "part-1",
+          "residual": "Unmet explicit plan constraints: step_count"
+        },
+        {
+          "step": "repair",
+          "part": "part-1",
+          "candidate": 2,
+          "verification": "unverified",
+          "residualResolved": true
+        }
+      ],
+      "metrics": {
+        "modelCalls": 2,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 256,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 16537
+      }
+    },
+    {
+      "prompt": "Plan two numbered steps for organizing a music collection and mention one risk.",
+      "candidates": [
+        "**Step 1: Gathering Information**\n\n* Begin by gathering all the essential items for your music collection, such as vinars, cassettes, and CDs.\n* Create a list of your favorite songs and note their release dates and genres.\n\n* Risk: This step is crucial as it ensures you have a comprehensive understanding of your musical preferences.\n\n**Step 2: Organizing the Collection**\n\n* Arrange your items in a logical sequence, starting with the most popular and easily accessible ones.\n* Consider adding a playlist of your favorite songs to enhance the collection's appeal.\n\n"
+      ],
+      "answer": "**Step 1: Gathering Information**\n\n* Begin by gathering all the essential items for your music collection, such as vinars, cassettes, and CDs.\n* Create a list of your favorite songs and note their release dates and genres.\n\n* Risk: This step is crucial as it ensures you have a comprehensive understanding of your musical preferences.\n\n**Step 2: Organizing the Collection**\n\n* Arrange your items in a logical sequence, starting with the most popular and easily accessible ones.\n* Consider adding a playlist of your favorite songs to enhance the collection's appeal.",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Plan two numbered steps for organizing a music collection and mention one risk."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 128
+        }
+      ],
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 128,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 6982
+      }
+    }
+  ],
+  "errors": [],
+  "external": []
+}
