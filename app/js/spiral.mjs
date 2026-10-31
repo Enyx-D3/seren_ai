@@ -2,6 +2,7 @@
    be reused. Approximate similarity and model prose never enter this cache. */
 import { Sha256 } from './sha256.mjs';
 import { exactArithmetic } from './exact-arithmetic.mjs';
+import { solveBooleanExpression } from './b2-boolean.mjs';
 import { sharedStates } from './store.mjs';
 import { extractExactArithmetic, tryLocalAnswer, parseToolFabric } from './tools.mjs';
 import { classifyTask } from './compass.mjs';
@@ -55,6 +56,9 @@ function exactTarget(text) {
   const sentences = source.split(/(?<=[.!?])\s+/);
   const candidate = sentences.length > 1 && /\b(?:ignore|claim|say)\b/i.test(sentences.slice(0, -1).join(' '))
     ? sentences.at(-1) : source;
+  const embeddedValue = /^(?:(?:use\s+(?:an?\s+)?(?:approved\s+)?local\s+calculator\s+tool\s+to\s+find)|find|what\s+is|compute)\s+(?:the\s+)?exact\s+value\s+of\s+([\d.()+*/\s-]+?)\s*[?!.]*(?:\s+show\s+the\s+tool\s+result[.!]?)?$/i.exec(candidate)?.[1]?.trim();
+  if (embeddedValue && embeddedValue.length <= 256 && /^[\d.()+*/\s-]+$/.test(embeddedValue) &&
+      /[+*/-]/.test(embeddedValue.slice(1))) return embeddedValue;
   const finalQuestion = /^(?:calculate|compute|what is)\s+([\d.()\s+*/-]+?)(?:\s+exactly)?[?.!]*$/i.exec(candidate);
   if (finalQuestion) {
     const expression = finalQuestion[1].trim();
@@ -166,9 +170,9 @@ export class SpiralController {
     const plan = planSpiral(text, { deeper, calibration });
     const trace = [], metrics = { modelCalls: 0, calculatorCalls: 0, cacheHits: 0, tokens: 0, firstModelTokenMs: null, verificationMs: 0, elapsedMs: 0 };
     const state = createSpiralState(text, plan.parts, plan.maxModelCalls);
-    const mark = (partId, kind, answer, verification, began) => {
+    const mark = (partId, kind, answer, verification, began, { reused = false } = {}) => {
       const receipt = recordSpiralOutcome(state, partId, { kind, answer, verification,
-        elapsedMs: Math.round(this.clock() - began) });
+        elapsedMs: Math.round(this.clock() - began), reused });
       trace.push({ step: 'direction_result', ...receipt });
     };
     const choose = (partId, eligible) => {
@@ -185,10 +189,11 @@ export class SpiralController {
     };
     checkAbort();
     const expression = exactTarget(text);
+    const boolean = solveBooleanExpression(text);
     const structured = structuredReasoning(text);
     const local = tryLocalAnswer(text);
     const rootKind = plan.parts.length === 1 ? choose(plan.parts[0].id,
-      [expression && 'exact', structured && 'structured', local && 'local', typeof generate === 'function' && 'falcon'].filter(Boolean)) : null;
+      [expression && 'exact', boolean && 'boolean', structured && 'structured', local && 'local', typeof generate === 'function' && 'falcon'].filter(Boolean)) : null;
     if (rootKind === 'exact') {
       const began = this.clock();
       try {
@@ -196,7 +201,7 @@ export class SpiralController {
         if (solved.reused) metrics.cacheHits++; else metrics.calculatorCalls++;
         metrics.verificationMs += Math.round(this.clock() - began);
         trace.push({ step: 'calculate', expression, reused: solved.reused, verification: 'two_parser_exact_v1' });
-        mark(plan.parts[0].id, 'exact', solved.value, { status: 'verified', method: 'two_parser_exact_v1' }, began);
+        mark(plan.parts[0].id, 'exact', solved.value, { status: 'verified', method: 'two_parser_exact_v1' }, began, { reused: solved.reused });
         return finish(solved.value, { status: 'verified', method: 'two_parser_exact_v1' }, { exact: solved });
       } catch (error) {
         trace.push({ step: 'shared_state_unavailable', error: error.message });
@@ -212,6 +217,12 @@ export class SpiralController {
           mark(plan.parts[0].id, 'exact', '', { status: 'failed', method: 'two_parser_exact_v1', residual: arithmeticError.message }, began);
         }
       }
+    }
+    if (rootKind === 'boolean') {
+      metrics.calculatorCalls++;
+      trace.push({ step: 'boolean_calculate', expression: boolean.expression, method: boolean.method });
+      mark(plan.parts[0].id, 'boolean', boolean.answer, { status: 'verified', method: boolean.method }, start);
+      return finish(boolean.answer, { status: 'verified', method: boolean.method });
     }
     if (rootKind === 'structured') {
       trace.push({ step: 'structured_reasoning', method: structured.method });
@@ -232,10 +243,11 @@ export class SpiralController {
       if (metrics.modelCalls >= plan.maxModelCalls) break;
       const partBegan = this.clock();
       const partExpression = exactTarget(part.question);
+      const partBoolean = solveBooleanExpression(part.question);
       const partStructured = structuredReasoning(part.question);
       const partLocal = tryLocalAnswer(part.question);
       let partKind = plan.parts.length === 1 && rootKind === 'falcon' ? 'falcon'
-        : choose(part.id, [partExpression && 'exact', partStructured && 'structured', partLocal && 'local', 'falcon'].filter(Boolean));
+        : choose(part.id, [partExpression && 'exact', partBoolean && 'boolean', partStructured && 'structured', partLocal && 'local', 'falcon'].filter(Boolean));
       if (partKind === 'exact') {
         const began = this.clock();
         try {
@@ -244,15 +256,23 @@ export class SpiralController {
           metrics.verificationMs += Math.round(this.clock() - began);
           trace.push({ step: 'calculate', part: part.id, expression: partExpression, reused: solved.reused,
             verification: 'two_parser_exact_v1' });
-          mark(part.id, 'exact', solved.value, { status: 'verified', method: 'two_parser_exact_v1' }, began);
+          mark(part.id, 'exact', solved.value, { status: 'verified', method: 'two_parser_exact_v1' }, began, { reused: solved.reused });
           outcomes.push({ question: part.question, answer: solved.value,
             verification: { status: 'verified', method: 'two_parser_exact_v1' } });
           continue;
         } catch (error) {
           trace.push({ step: 'calculator_residual', part: part.id, residual: error.message });
           mark(part.id, 'exact', '', { status: 'failed', method: 'two_parser_exact_v1', residual: error.message }, began);
-          partKind = choose(part.id, [partStructured && 'structured', partLocal && 'local', 'falcon'].filter(Boolean));
+          partKind = choose(part.id, [partBoolean && 'boolean', partStructured && 'structured', partLocal && 'local', 'falcon'].filter(Boolean));
         }
+      }
+      if (partKind === 'boolean') {
+        metrics.calculatorCalls++;
+        trace.push({ step: 'boolean_calculate', part: part.id, expression: partBoolean.expression, method: partBoolean.method });
+        mark(part.id, 'boolean', partBoolean.answer, { status: 'verified', method: partBoolean.method }, partBegan);
+        outcomes.push({ question: part.question, answer: partBoolean.answer,
+          verification: { status: 'verified', method: partBoolean.method } });
+        continue;
       }
       if (partKind === 'structured') {
         trace.push({ step: 'structured_reasoning', part: part.id, method: partStructured.method });
@@ -289,11 +309,19 @@ export class SpiralController {
       let toolFailure = false;
       if (parsed.calls.length && runTool) {
         const receipts = [];
-        for (const call of parsed.calls.slice(0, 3)) {
+        choose(`${part.id}:tool-proposal`, ['approved_tool']);
+        for (const [index, call] of parsed.calls.slice(0, 3).entries()) {
           checkAbort();
+          const toolBegan = this.clock();
           const result = await runTool(call, { signal });
           metrics.calculatorCalls++;
           receipts.push({ call: { name: call.name, arguments: call.arguments }, result });
+          const checked = result.ok && result.verification === 'independently_verified_exact';
+          if (checked) trace.push({ step: 'verified_component', ...recordVerifiedComponent(state, part.id, `tool-${index + 1}`, result.value, 'approved_exact_tool') });
+          trace.push({ step: 'direction_result', partId: part.id, operation: 'approved_tool', status: checked ? 'verified_component' : 'unresolved',
+            verificationStatus: checked ? 'verified' : result.ok ? 'unverified' : 'failed', verifiedProgress: checked,
+            residual: result.ok ? null : result.error, informationGainProxy: checked ? 1 : result.ok ? 0 : 0.5,
+            reused: false, elapsedMs: Math.round(this.clock() - toolBegan) });
         }
         trace.push({ step: 'tool_proposals', part: part.id, receipts });
         if (receipts.some(r => !r.result.ok) && plan.repairBudget > 0 && metrics.modelCalls < plan.maxModelCalls) {
@@ -306,8 +334,16 @@ export class SpiralController {
           const retryCalls = parseToolFabric(retry.text).calls.slice(0, 1);
           for (const call of retryCalls) {
             checkAbort();
+            choose(`${part.id}:tool-retry`, ['approved_tool']);
+            const toolBegan = this.clock();
             const result = await runTool(call, { signal }); metrics.calculatorCalls++;
             receipts.push({ call: { name: call.name, arguments: call.arguments }, result });
+            const checked = result.ok && result.verification === 'independently_verified_exact';
+            if (checked) trace.push({ step: 'verified_component', ...recordVerifiedComponent(state, part.id, `tool-${receipts.length}`, result.value, 'approved_exact_tool') });
+            trace.push({ step: 'direction_result', partId: part.id, operation: 'approved_tool', status: checked ? 'verified_component' : 'unresolved',
+              verificationStatus: checked ? 'verified' : result.ok ? 'unverified' : 'failed', verifiedProgress: checked,
+              residual: result.ok ? null : result.error, informationGainProxy: checked ? 1 : result.ok ? 0 : 0.5,
+              reused: false, elapsedMs: Math.round(this.clock() - toolBegan) });
           }
           trace.push({ step: 'repair', part: part.id, accepted: receipts.at(-1)?.result.ok === true });
         }

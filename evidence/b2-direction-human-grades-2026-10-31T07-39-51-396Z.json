@@ -1,0 +1,68 @@
+{
+  "alpaca-plan-450": {
+    "response1": {
+      "score": null,
+      "errors": ""
+    },
+    "response2": {
+      "score": null,
+      "errors": ""
+    },
+    "preferred": null
+  },
+  "alpaca-plan-576": {
+    "response1": {
+      "score": null,
+      "errors": ""
+    },
+    "response2": {
+      "score": null,
+      "errors": ""
+    },
+    "preferred": null
+  },
+  "alpaca-plan-721": {
+    "response1": {
+      "score": null,
+      "errors": ""
+    },
+    "response2": {
+      "score": null,
+      "errors": ""
+    },
+    "preferred": null
+  },
+  "alpaca-chat-6": {
+    "response1": {
+      "score": null,
+      "errors": ""
+    },
+    "response2": {
+      "score": null,
+      "errors": ""
+    },
+    "preferred": null
+  },
+  "alpaca-chat-17": {
+    "response1": {
+      "score": null,
+      "errors": ""
+    },
+    "response2": {
+      "score": null,
+      "errors": ""
+    },
+    "preferred": null
+  },
+  "alpaca-chat-315": {
+    "response1": {
+      "score": null,
+      "errors": ""
+    },
+    "response2": {
+      "score": null,
+      "errors": ""
+    },
+    "preferred": null
+  }
+}

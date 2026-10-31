@@ -1,10 +1,12 @@
 /* B2 task classifier. route() is a compatibility helper for historical
    receipts; live orchestration happens only in SpiralController. */
+import { solveBooleanExpression } from './b2-boolean.mjs';
 export const COMPASS_POLICY_VERSION = 'compass-conservative-1';
 export const SPECIALISTS = ['falcon_instruct'];
 
 export function classifyTask(text) {
   const value = String(text || '');
+  if (solveBooleanExpression(value)) return 'logic';
   if (/\b(?:contradiction|contradict|inconsistent)\b|can both statements be true/i.test(value)) return 'contradiction';
   if (/\bhow many\b[\s\S]*\b(?:some|unknown|unspecified)\b|\b(?:not enough|insufficient) information\b/i.test(value)) return 'incomplete_information';
   if (/\b(?:plan|schedule|itinerary|roadmap)\b/i.test(value)) return 'planning';

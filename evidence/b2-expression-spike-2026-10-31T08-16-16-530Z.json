@@ -1,0 +1,28 @@
+{
+  "rows": [
+    {
+      "prompt": "Return only one arithmetic expression using numbers from this question, no words: There are 5 boxes with 4 apples in each box. How many apples are there?",
+      "output": "5 * 4 = 20",
+      "status": "complete",
+      "tokens": 10,
+      "elapsedMs": 1991
+    },
+    {
+      "prompt": "Return only one arithmetic expression using numbers from this question, no words: A shop has 3 packs of 8 pens and sells 5 pens. How many pens remain?",
+      "output": "5",
+      "status": "complete",
+      "tokens": 1,
+      "elapsedMs": 982
+    },
+    {
+      "prompt": "Return only one arithmetic expression using numbers from this question, no words: A ticket costs 12 dollars. Four friends buy one ticket each. What is their total cost?",
+      "output": "The total cost is 12 dollars.",
+      "status": "complete",
+      "tokens": 9,
+      "elapsedMs": 1133
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "purpose": "Development spike only; not held-out evidence."
+}

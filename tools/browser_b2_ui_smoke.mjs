@@ -1,5 +1,6 @@
 import { chromium } from 'playwright';
 import { writeFile } from 'node:fs/promises';
+import { SPIRAL_POLICY } from '../app/js/spiral.mjs';
 
 const baseUrl = process.env.B2_BASE_URL || 'http://127.0.0.1:8799/';
 const browser = await chromium.launch({ headless: true });
@@ -27,6 +28,7 @@ try {
   await page.waitForFunction(() => document.querySelector('#heroStatus')?.textContent.includes('Falcon Instruct ready'));
   await context.setOffline(true);
   const logic = await ask('If all cats are mammals and Mira is a cat, is Mira a mammal? Answer yes or no.');
+  const boolean = await ask('not (True and False) or False is Answer True or False.');
   const chat = await ask('Say hello in one short sentence.');
   const plan = await ask('Plan a two-step morning backup; then list one risk.');
   const evidence = await page.evaluate(async () => {
@@ -37,11 +39,14 @@ try {
       verification: m.meta?.spiral_verification, metrics: m.meta?.spiral_metrics })),
       calibration: await kv.get('spiral_calibration_v2') };
   });
-  const result = { baseUrl, rows, math, logic, chat, plan, evidence, errors, external,
-    passed: rows === 1 && math.trim() === '323' && /^yes\b/i.test(logic) && chat.length > 0 && /\b(?:copy|files?|storage|drive|restore|archive)\b/i.test(plan) && evidence.answers.length === 4 &&
-      evidence.answers.every(x => x.model === 'falcon_instruct' && x.status === 'done' && x.policy === 'b2-controller-2') &&
-      evidence.answers[2].metrics.modelCalls === 1 && evidence.answers[3].metrics.modelCalls >= 1 &&
+  const result = { baseUrl, rows, math, logic, boolean, chat, plan, evidence, errors, external,
+    passed: rows === 1 && math.trim() === '323' && /^yes\b/i.test(logic) && boolean.trim() === 'True' &&
+      chat.length > 0 && /\b(?:copy|files?|storage|drive|restore|archive)\b/i.test(plan) && evidence.answers.length === 5 &&
+      evidence.answers.every(x => x.model === 'falcon_instruct' && x.status === 'done' && x.policy === SPIRAL_POLICY) &&
+      evidence.answers[2].metrics.modelCalls === 0 && evidence.answers[2].metrics.calculatorCalls === 1 &&
+      evidence.answers[3].metrics.modelCalls === 1 && evidence.answers[4].metrics.modelCalls >= 1 &&
       evidence.calibration.arithmetic.runs >= 1 && evidence.calibration.conversation.runs >= 1 &&
+      evidence.calibration.logic.operations.boolean.verifiedSuccesses >= 1 &&
       evidence.calibration.arithmetic.verifiedModelSuccesses === 0 && evidence.calibration.conversation.modelRuns >= 1 &&
       errors.length === 0 && external.length === 0 };
   const path = `evidence/b2-ui-smoke-${new Date().toISOString().slice(0, 10)}.json`;

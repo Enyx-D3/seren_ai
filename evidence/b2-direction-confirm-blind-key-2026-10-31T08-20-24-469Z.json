@@ -1,0 +1,26 @@
+{
+  "alpaca-plan-223": [
+    "falcon_alone",
+    "falcon_plus_b2"
+  ],
+  "alpaca-plan-384": [
+    "falcon_alone",
+    "falcon_plus_b2"
+  ],
+  "alpaca-plan-586": [
+    "falcon_alone",
+    "falcon_plus_b2"
+  ],
+  "alpaca-chat-38": [
+    "falcon_plus_b2",
+    "falcon_alone"
+  ],
+  "alpaca-chat-87": [
+    "falcon_plus_b2",
+    "falcon_alone"
+  ],
+  "alpaca-chat-166": [
+    "falcon_alone",
+    "falcon_plus_b2"
+  ]
+}

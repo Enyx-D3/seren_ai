@@ -10,7 +10,7 @@
     "prepare:runtime": "node tools/prepare_runtime.mjs",
     "build:web": "npm run prepare:runtime && node tools/build_web.mjs",
     "build:web:local-models": "npm run prepare:runtime && node tools/build_web.mjs --include-local-models",
-    "test": "node tools/module_selftest.mjs && node tools/b2_selftest.mjs && node tools/b2_direction_selftest.mjs",
+    "test": "node tools/module_selftest.mjs && node tools/b2_selftest.mjs && node tools/b2_direction_selftest.mjs && node tools/b2_boolean_selftest.mjs",
     "test:tools": "npm test && node tools/browser_tool_safety_smoke.mjs && node tools/browser_b2_ui_smoke.mjs",
     "test:spiral": "npm run test:b2",
     "test:b2": "npm test && node tools/browser_b2_benchmark.mjs && node tools/browser_b2_ui_smoke.mjs && node tools/browser_b2_lazy_load_smoke.mjs",

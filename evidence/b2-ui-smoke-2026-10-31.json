@@ -1,16 +1,17 @@
 {
-  "baseUrl": "http://127.0.0.1:8811/",
+  "baseUrl": "http://127.0.0.1:8812/",
   "rows": 1,
   "math": "323",
   "logic": "Yes. Mira is a cat, and all cats are mammals.",
-  "chat": "Hello, my good friend!",
-  "plan": "Two-Step Morning Backup: Copy files from your computer to a secure email account.\n\nRisk: At least 2 steps, including a password, and ensure the email address is secure.",
+  "boolean": "True",
+  "chat": "Hello, how's it going?",
+  "plan": "Morning Backup Plan:\n\nBackup Files: Copy all essential files to a secure location.\nStep-by-Step:\n100% Effort: Ensure all files are copied.\n100% Risk: Avoid unauthorized access.\n\nRisk: File Access Risk",
   "evidence": {
     "answers": [
       {
         "model": "falcon_instruct",
         "status": "done",
-        "policy": "b2-controller-2",
+        "policy": "b2-controller-3",
         "verification": {
           "status": "verified",
           "method": "two_parser_exact_v1"
@@ -21,14 +22,14 @@
           "cacheHits": 0,
           "tokens": 0,
           "firstModelTokenMs": null,
-          "verificationMs": 11,
-          "elapsedMs": 12
+          "verificationMs": 6,
+          "elapsedMs": 8
         }
       },
       {
         "model": "falcon_instruct",
         "status": "done",
-        "policy": "b2-controller-2",
+        "policy": "b2-controller-3",
         "verification": {
           "status": "verified",
           "method": "bounded_syllogism_v1"
@@ -40,13 +41,31 @@
           "tokens": 0,
           "firstModelTokenMs": null,
           "verificationMs": 0,
-          "elapsedMs": 1
+          "elapsedMs": 0
         }
       },
       {
         "model": "falcon_instruct",
         "status": "done",
-        "policy": "b2-controller-2",
+        "policy": "b2-controller-3",
+        "verification": {
+          "status": "verified",
+          "method": "dual_boolean_expression_v1"
+        },
+        "metrics": {
+          "modelCalls": 0,
+          "calculatorCalls": 1,
+          "cacheHits": 0,
+          "tokens": 0,
+          "firstModelTokenMs": null,
+          "verificationMs": 0,
+          "elapsedMs": 0
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-3",
         "verification": {
           "status": "unverified",
           "method": "none",
@@ -61,16 +80,16 @@
           "modelCalls": 1,
           "calculatorCalls": 0,
           "cacheHits": 0,
-          "tokens": 6,
-          "firstModelTokenMs": 3460,
+          "tokens": 8,
+          "firstModelTokenMs": 2005,
           "verificationMs": 0,
-          "elapsedMs": 5965
+          "elapsedMs": 3750
         }
       },
       {
         "model": "falcon_instruct",
         "status": "done",
-        "policy": "b2-controller-2",
+        "policy": "b2-controller-3",
         "verification": {
           "status": "unverified",
           "method": "none",
@@ -85,10 +104,10 @@
           "modelCalls": 1,
           "calculatorCalls": 0,
           "cacheHits": 0,
-          "tokens": 41,
-          "firstModelTokenMs": 3039,
+          "tokens": 72,
+          "firstModelTokenMs": 2841,
           "verificationMs": 0,
-          "elapsedMs": 4434
+          "elapsedMs": 3940
         }
       }
     ],
@@ -100,30 +119,58 @@
         "unverified": 0,
         "modelCalls": 0,
         "calculatorCalls": 1,
-        "elapsedMs": 12,
+        "elapsedMs": 8,
         "repairs": 0,
         "verifiedModelSuccesses": 0,
         "verifiedModelFailures": 0,
         "modelRuns": 0,
         "modelElapsedMs": 0,
         "schemaVersion": 2,
-        "updatedAt": 1793419547605
+        "operations": {
+          "exact": {
+            "runs": 1,
+            "verifiedSuccesses": 1,
+            "verifiedFailures": 0,
+            "elapsedMs": 6,
+            "informationGainSum": 1,
+            "cacheHits": 0
+          }
+        },
+        "updatedAt": 1793439033611
       },
       "logic": {
-        "runs": 1,
-        "verifiedSuccesses": 1,
+        "runs": 2,
+        "verifiedSuccesses": 2,
         "verifiedFailures": 0,
         "unverified": 0,
         "modelCalls": 0,
-        "calculatorCalls": 0,
-        "elapsedMs": 1,
+        "calculatorCalls": 1,
+        "elapsedMs": 0,
         "repairs": 0,
         "verifiedModelSuccesses": 0,
         "verifiedModelFailures": 0,
         "modelRuns": 0,
         "modelElapsedMs": 0,
         "schemaVersion": 2,
-        "updatedAt": 1793419548089
+        "operations": {
+          "structured": {
+            "runs": 1,
+            "verifiedSuccesses": 1,
+            "verifiedFailures": 0,
+            "elapsedMs": 0,
+            "informationGainSum": 1,
+            "cacheHits": 0
+          },
+          "boolean": {
+            "runs": 1,
+            "verifiedSuccesses": 1,
+            "verifiedFailures": 0,
+            "elapsedMs": 0,
+            "informationGainSum": 1,
+            "cacheHits": 0
+          }
+        },
+        "updatedAt": 1793439033916
       },
       "conversation": {
         "runs": 1,
@@ -132,14 +179,24 @@
         "unverified": 1,
         "modelCalls": 1,
         "calculatorCalls": 0,
-        "elapsedMs": 5965,
+        "elapsedMs": 3750,
         "repairs": 0,
         "verifiedModelSuccesses": 0,
         "verifiedModelFailures": 0,
         "modelRuns": 1,
-        "modelElapsedMs": 5965,
+        "modelElapsedMs": 3750,
         "schemaVersion": 2,
-        "updatedAt": 1793419554168
+        "operations": {
+          "falcon": {
+            "runs": 1,
+            "verifiedSuccesses": 0,
+            "verifiedFailures": 0,
+            "elapsedMs": 3750,
+            "informationGainSum": 0,
+            "cacheHits": 0
+          }
+        },
+        "updatedAt": 1793439037732
       },
       "planning": {
         "runs": 1,
@@ -148,14 +205,24 @@
         "unverified": 1,
         "modelCalls": 1,
         "calculatorCalls": 0,
-        "elapsedMs": 4434,
+        "elapsedMs": 3940,
         "repairs": 0,
         "verifiedModelSuccesses": 0,
         "verifiedModelFailures": 0,
         "modelRuns": 1,
-        "modelElapsedMs": 4434,
+        "modelElapsedMs": 3940,
         "schemaVersion": 2,
-        "updatedAt": 1793419558697
+        "operations": {
+          "falcon": {
+            "runs": 1,
+            "verifiedSuccesses": 0,
+            "verifiedFailures": 0,
+            "elapsedMs": 3940,
+            "informationGainSum": 0,
+            "cacheHits": 0
+          }
+        },
+        "updatedAt": 1793439041741
       }
     }
   },

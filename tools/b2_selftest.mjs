@@ -23,6 +23,8 @@ assert.equal(modelCalibrationOutcome({ metrics: { modelCalls: 1 }, verification:
 assert.equal(modelCalibrationOutcome({ metrics: { modelCalls: 2 }, verification: { status: 'unverified' },
   trace: [{ step: 'brake', method: 'partial_exact_component' }] }), 'failure');
 assert.equal(verifySpiralCandidate('17*19', '323').status, 'verified');
+assert.equal(verifySpiralCandidate('Use an approved local calculator tool to find the exact value of (3*7)+(4*5). Show the tool result.', '41').status, 'verified');
+assert.equal(verifySpiralCandidate('Find the exact value of 3*4. Also explain why this matters.', '12').status, 'unverified');
 assert.equal(verifySpiralCandidate('17*19', '664').status, 'failed');
 assert.equal(verifySpiralCandidate('17*19', 'The result is 664, not 323.').status, 'failed');
 assert.equal(verifySpiralCandidate('17*19', 'The result is not 323.').status, 'failed');
@@ -35,6 +37,9 @@ assert.deepEqual(planningCoverage('Plan two numbered steps and mention one risk.
 let calls = 0;
 const exact = await controller.run('Calculate 17 * 19', { scope: 'test', generate: async () => { calls++; return { text: 'bad', tokens: 2 }; } });
 assert.equal(exact.answer, '323'); assert.equal(exact.verification.status, 'verified'); assert.equal(calls, 0);
+const embeddedExact = await controller.run('Use an approved local calculator tool to find the exact value of (3*7)+(4*5). Show the tool result.', {
+  scope: 'test', generate: async () => { calls++; return { text: 'bad', tokens: 2 }; } });
+assert.equal(embeddedExact.answer, '41'); assert.equal(embeddedExact.metrics.modelCalls, 0);
 const twoPartMath = await controller.run('Calculate 2+2; then calculate 3*4 exactly.', { scope: 'test',
   generate: async () => { calls++; return { text: 'bad', tokens: 2 }; } });
 assert.match(twoPartMath.answer, /1\. 4/);

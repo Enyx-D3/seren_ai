@@ -429,8 +429,9 @@ async function submit(text, { regen = false } = {}) {
       elapsed_ms: Math.round(performance.now() - run.startedAt),
       spiral_plan: { complexity: result.plan.complexity, parts: result.plan.parts.length, omittedParts: result.plan.omittedParts },
       spiral_metrics: result.metrics, spiral_trace: result.trace, spiral_verification: result.verification,
-      spiral_state: { schemaVersion: result.state.schemaVersion, verifiedFacts: result.state.verifiedFacts,
-        unresolved: result.state.unresolved, residuals: result.state.residuals,
+      spiral_state: { schemaVersion: result.state.schemaVersion, givens: result.state.givens,
+        dependencies: result.state.dependencies, derivations: result.state.derivations,
+        verifiedFacts: result.state.verifiedFacts, unresolved: result.state.unresolved, residuals: result.state.residuals,
         visitedDirections: result.state.visitedDirections },
       ...(result.exact ? { spiral_deltas: result.exact.deltas, spiral_expression: result.trace.find(step => step.step === 'calculate')?.expression,
         shared_state_id: result.exact.stateId || null } : {}) };
@@ -443,11 +444,14 @@ async function submit(text, { regen = false } = {}) {
     const checkedFailure = modelOutcome === 'failure';
     const operations = structuredClone(current.operations || {});
     for (const receipt of result.trace.filter(step => step.step === 'direction_result')) {
-      const profile = operations[receipt.operation] || { runs: 0, verifiedSuccesses: 0, verifiedFailures: 0, elapsedMs: 0 };
+      const profile = operations[receipt.operation] || { runs: 0, verifiedSuccesses: 0, verifiedFailures: 0,
+        elapsedMs: 0, informationGainSum: 0, cacheHits: 0 };
       operations[receipt.operation] = { runs: profile.runs + 1,
         verifiedSuccesses: profile.verifiedSuccesses + Number(receipt.verificationStatus === 'verified'),
         verifiedFailures: profile.verifiedFailures + Number(receipt.verificationStatus === 'failed'),
-        elapsedMs: profile.elapsedMs + (receipt.elapsedMs || 0) };
+        elapsedMs: profile.elapsedMs + (receipt.elapsedMs || 0),
+        informationGainSum: (profile.informationGainSum || 0) + (receipt.informationGainProxy || 0),
+        cacheHits: (profile.cacheHits || 0) + Number(!!receipt.reused) };
     }
     calibration[plan.category] = { ...current, schemaVersion: 2, runs: current.runs + 1,
       operations,

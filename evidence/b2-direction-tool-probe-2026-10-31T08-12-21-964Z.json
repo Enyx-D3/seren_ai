@@ -1,0 +1,170 @@
+{
+  "prompt": "Use an approved local calculator tool to find the exact value of (3*7)+(4*5). Show the tool result.",
+  "result": {
+    "answer": "41",
+    "status": "done",
+    "verification": {
+      "status": "verified",
+      "method": "two_parser_exact_v1"
+    },
+    "trace": [
+      {
+        "step": "direction",
+        "part": "part-1",
+        "chosen": "exact",
+        "candidates": [
+          {
+            "kind": "exact",
+            "status": "verified",
+            "scores": {
+              "goalAttraction": 1,
+              "expectedProgress": 1,
+              "informationGain": 1,
+              "computationalCost": 0.1,
+              "errorRisk": 0.02,
+              "memoryReuse": 0.7
+            },
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "score": 6.56,
+            "safetyTier": 1,
+            "policy": "b2-direction-1-conservative"
+          },
+          {
+            "kind": "falcon",
+            "status": "provisional",
+            "scores": {
+              "goalAttraction": 0.65,
+              "expectedProgress": 0.5,
+              "informationGain": 0.55,
+              "computationalCost": 0.8,
+              "errorRisk": 0.7,
+              "memoryReuse": 0
+            },
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "score": 1.3,
+            "safetyTier": 0,
+            "policy": "b2-direction-1-conservative"
+          }
+        ]
+      },
+      {
+        "step": "calculate",
+        "expression": "(3*7)+(4*5)",
+        "reused": false,
+        "verification": "two_parser_exact_v1"
+      },
+      {
+        "step": "direction_result",
+        "partId": "part-1",
+        "operation": "exact",
+        "status": "verified",
+        "verificationStatus": "verified",
+        "verifiedProgress": true,
+        "derivationId": "derivation-1",
+        "residual": null,
+        "informationGainProxy": 1,
+        "reused": false,
+        "elapsedMs": 3
+      }
+    ],
+    "state": {
+      "schemaVersion": 1,
+      "givens": [
+        {
+          "id": "given-statement-1",
+          "kind": "source_statement",
+          "value": "Use an approved local calculator tool to find the exact value of (3*7)+(4*5).",
+          "sourceOffset": 0,
+          "trust": "user_provided_unverified"
+        },
+        {
+          "id": "given-statement-2",
+          "kind": "source_statement",
+          "value": "Show the tool result.",
+          "sourceOffset": 78,
+          "trust": "user_provided_unverified"
+        },
+        {
+          "id": "given-number-1",
+          "kind": "numeric_literal",
+          "value": "3",
+          "sourceOffset": 66,
+          "trust": "user_provided_unverified"
+        },
+        {
+          "id": "given-number-2",
+          "kind": "numeric_literal",
+          "value": "7",
+          "sourceOffset": 68,
+          "trust": "user_provided_unverified"
+        },
+        {
+          "id": "given-number-3",
+          "kind": "numeric_literal",
+          "value": "4",
+          "sourceOffset": 72,
+          "trust": "user_provided_unverified"
+        },
+        {
+          "id": "given-number-4",
+          "kind": "numeric_literal",
+          "value": "5",
+          "sourceOffset": 74,
+          "trust": "user_provided_unverified"
+        }
+      ],
+      "dependencies": [],
+      "derivations": [
+        {
+          "id": "derivation-1",
+          "partId": "part-1",
+          "operation": "exact",
+          "dependsOn": [],
+          "output": "41",
+          "status": "verified",
+          "method": "two_parser_exact_v1"
+        }
+      ],
+      "verifiedFacts": [
+        {
+          "partId": "part-1",
+          "answer": "41",
+          "method": "two_parser_exact_v1",
+          "operation": "exact"
+        }
+      ],
+      "unresolved": [],
+      "residuals": [],
+      "visitedDirections": [
+        {
+          "partId": "part-1",
+          "kind": "exact",
+          "policy": "b2-direction-1-conservative"
+        }
+      ]
+    },
+    "metrics": {
+      "modelCalls": 0,
+      "calculatorCalls": 1,
+      "cacheHits": 0,
+      "tokens": 0,
+      "firstModelTokenMs": null,
+      "verificationMs": 3,
+      "elapsedMs": 4
+    }
+  },
+  "errors": [],
+  "external": []
+}

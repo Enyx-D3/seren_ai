@@ -1,0 +1,158 @@
+{
+  "prompt": "Use an approved local calculator tool to find the exact value of (3*7)+(4*5). Show the tool result.",
+  "result": {
+    "answer": "[\n  {\"name\": \"exact_arithmetic\", \"description\": \"To find the exact value of \\(3 \\times 7 + 4 \\times 5\\), use the formula \\(3 \\times 7 + 4 \\times 5 = 21 + 20 = 41\\).\", \"parameters\": {\"expression\": \"41\"}}\n  {\"name\": \"calculator\", \"description\": \"The exact value of \\(3 \\times 7 + 4 \\times 5\\) is 21.\", \"parameters\": {\"expression\": \"41\"}}\n]",
+    "status": "done",
+    "verification": {
+      "status": "unverified",
+      "method": "none",
+      "residual": {
+        "unresolved": [
+          "Use an approved local calculator tool to find the exact value of (3*7)+(4*5). Show the tool result."
+        ],
+        "unprocessed": 0
+      }
+    },
+    "trace": [
+      {
+        "step": "direction",
+        "part": "part-1",
+        "chosen": "falcon",
+        "candidates": [
+          {
+            "kind": "falcon",
+            "status": "provisional",
+            "scores": {
+              "goalAttraction": 0.65,
+              "expectedProgress": 0.5,
+              "informationGain": 0.55,
+              "computationalCost": 0.8,
+              "errorRisk": 0.7,
+              "memoryReuse": 0
+            },
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "score": 1.3,
+            "safetyTier": 0,
+            "policy": "b2-direction-1-conservative"
+          }
+        ]
+      },
+      {
+        "step": "hypothesis",
+        "part": "part-1",
+        "candidate": 1,
+        "assumptions": [],
+        "tokens": 147
+      },
+      {
+        "step": "direction_result",
+        "partId": "part-1",
+        "operation": "falcon",
+        "status": "unresolved",
+        "verificationStatus": "unverified",
+        "verifiedProgress": false,
+        "derivationId": "derivation-1",
+        "residual": "No independent checker is available for this claim.",
+        "informationGainProxy": 0,
+        "reused": false,
+        "elapsedMs": 9842
+      }
+    ],
+    "state": {
+      "schemaVersion": 1,
+      "givens": [
+        {
+          "id": "given-statement-1",
+          "kind": "source_statement",
+          "value": "Use an approved local calculator tool to find the exact value of (3*7)+(4*5).",
+          "sourceOffset": 0,
+          "trust": "user_provided_unverified"
+        },
+        {
+          "id": "given-statement-2",
+          "kind": "source_statement",
+          "value": "Show the tool result.",
+          "sourceOffset": 78,
+          "trust": "user_provided_unverified"
+        },
+        {
+          "id": "given-number-1",
+          "kind": "numeric_literal",
+          "value": "3",
+          "sourceOffset": 66,
+          "trust": "user_provided_unverified"
+        },
+        {
+          "id": "given-number-2",
+          "kind": "numeric_literal",
+          "value": "7",
+          "sourceOffset": 68,
+          "trust": "user_provided_unverified"
+        },
+        {
+          "id": "given-number-3",
+          "kind": "numeric_literal",
+          "value": "4",
+          "sourceOffset": 72,
+          "trust": "user_provided_unverified"
+        },
+        {
+          "id": "given-number-4",
+          "kind": "numeric_literal",
+          "value": "5",
+          "sourceOffset": 74,
+          "trust": "user_provided_unverified"
+        }
+      ],
+      "dependencies": [],
+      "derivations": [
+        {
+          "id": "derivation-1",
+          "partId": "part-1",
+          "operation": "falcon",
+          "dependsOn": [],
+          "output": "[\n  {\"name\": \"exact_arithmetic\", \"description\": \"To find the exact value of \\(3 \\times 7 + 4 \\times 5\\), use the formula \\(3 \\times 7 + 4 \\times 5 = 21 + 20 = 41\\).\", \"parameters\": {\"expression\": \"41\"}}\n  {\"name\": \"calculator\", \"description\": \"The exact value of \\(3 \\times 7 + 4 \\times 5\\) is 21.\", \"parameters\": {\"expression\": \"41\"}}\n]",
+          "status": "unverified",
+          "method": "none"
+        }
+      ],
+      "verifiedFacts": [],
+      "unresolved": [
+        "part-1"
+      ],
+      "residuals": [
+        {
+          "partId": "part-1",
+          "operation": "falcon",
+          "reason": "No independent checker is available for this claim.",
+          "fromDerivation": "derivation-1",
+          "resolvedBy": null
+        }
+      ],
+      "visitedDirections": [
+        {
+          "partId": "part-1",
+          "kind": "falcon",
+          "policy": "b2-direction-1-conservative"
+        }
+      ]
+    },
+    "metrics": {
+      "modelCalls": 1,
+      "calculatorCalls": 0,
+      "cacheHits": 0,
+      "tokens": 147,
+      "firstModelTokenMs": 4548,
+      "verificationMs": 0,
+      "elapsedMs": 9844
+    }
+  },
+  "errors": [],
+  "external": []
+}
