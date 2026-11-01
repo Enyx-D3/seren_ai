@@ -1,0 +1,17 @@
+{
+  "purpose": "Locally authored developer calibration only; not independently held out and not P4",
+  "train": [
+    {"id":"tr1","prompt":"Nora has 18 coins. Eli has 7 coins. Nora gives Eli 4 coins. How many coins does Eli have now?","expected":"11"},
+    {"id":"tr2","prompt":"Maya has 20 beads. Omar has 5 beads. Maya gives Omar 3 beads. How many beads does Omar have now?","expected":"8"},
+    {"id":"tr3","prompt":"Tara has 26 cards. Finn has 9 cards. Tara gives Finn 7 cards. How many cards does Tara have now?","expected":"19"},
+    {"id":"tr4","prompt":"There are 7 baskets. Each basket has 6 apples. 5 apples are removed. How many apples remain?","expected":"37"},
+    {"id":"tr5","prompt":"There are 4 trays. Each tray holds 8 cups. 6 cups are added. How many cups are there now?","expected":"38"},
+    {"id":"tr6","prompt":"There are 9 jars. Each jar contains 5 pins. 3 pins are used. How many pins are left?","expected":"42"}
+  ],
+  "later": [
+    {"id":"lt1","prompt":"Asha has 29 shells. Ben has 6 shells. Asha gives Ben 8 shells. How many shells does Ben have now?","expected":"14"},
+    {"id":"lt2","prompt":"Vale has 41 marbles. Mia has 13 marbles. Vale gives Mia 12 marbles. How many marbles does Vale have now?","expected":"29"},
+    {"id":"lt3","prompt":"There are 6 crates. Each crate contains 9 tools. 7 tools are sold. How many tools remain?","expected":"47"},
+    {"id":"lt4","prompt":"There are 10 cartons. Each carton has 4 bulbs. 9 bulbs are added. How many bulbs are there now?","expected":"49"}
+  ]
+}

@@ -1,0 +1,294 @@
+{
+  "source": "working tree based on 63c38a6 plus B2 transfer development patch",
+  "fixturePath": "evidence/b2-shadow-train-development-fixture-2026-11-01.json",
+  "fixtureSha256": "11bd2997e0e73316bd9d440b289a017599580966ac5a71d79814f7e197a0d834",
+  "evaluationStatus": "developer_conditional_arithmetic_only_not_P4",
+  "note": "No Falcon model calls, no cross-domain or intrinsic-model gain. Both paths are exact deterministic; no production promotion.",
+  "training": [
+    {
+      "id": "tr1",
+      "correct": true,
+      "trial": {
+        "policy": "b2-shadow-conditional-arithmetic-1",
+        "status": "conditional_arithmetic_only",
+        "researchOnly": true,
+        "simulatedFault": false,
+        "inputKind": "inventory_transfer",
+        "results": [
+          {
+            "operation": "transfer_direct",
+            "status": "verified_arithmetic",
+            "checkedOutcome": true,
+            "answer": "11",
+            "operations": 1,
+            "elapsedMs": 0.898666999999989,
+            "checker": "independent_exact_expression_comparison"
+          },
+          {
+            "operation": "transfer_conserve",
+            "status": "verified_arithmetic",
+            "checkedOutcome": true,
+            "answer": "11",
+            "operations": 3,
+            "elapsedMs": 0.182707999999991,
+            "checker": "independent_exact_expression_comparison"
+          }
+        ],
+        "semanticInterpretationVerified": false
+      }
+    },
+    {
+      "id": "tr2",
+      "correct": true,
+      "trial": {
+        "policy": "b2-shadow-conditional-arithmetic-1",
+        "status": "conditional_arithmetic_only",
+        "researchOnly": true,
+        "simulatedFault": false,
+        "inputKind": "inventory_transfer",
+        "results": [
+          {
+            "operation": "transfer_direct",
+            "status": "verified_arithmetic",
+            "checkedOutcome": true,
+            "answer": "8",
+            "operations": 1,
+            "elapsedMs": 0.03762500000001978,
+            "checker": "independent_exact_expression_comparison"
+          },
+          {
+            "operation": "transfer_conserve",
+            "status": "verified_arithmetic",
+            "checkedOutcome": true,
+            "answer": "8",
+            "operations": 3,
+            "elapsedMs": 0.05458300000000804,
+            "checker": "independent_exact_expression_comparison"
+          }
+        ],
+        "semanticInterpretationVerified": false
+      }
+    },
+    {
+      "id": "tr3",
+      "correct": true,
+      "trial": {
+        "policy": "b2-shadow-conditional-arithmetic-1",
+        "status": "conditional_arithmetic_only",
+        "researchOnly": true,
+        "simulatedFault": false,
+        "inputKind": "inventory_transfer",
+        "results": [
+          {
+            "operation": "transfer_direct",
+            "status": "verified_arithmetic",
+            "checkedOutcome": true,
+            "answer": "19",
+            "operations": 1,
+            "elapsedMs": 0.04129100000000108,
+            "checker": "independent_exact_expression_comparison"
+          },
+          {
+            "operation": "transfer_conserve",
+            "status": "verified_arithmetic",
+            "checkedOutcome": true,
+            "answer": "19",
+            "operations": 3,
+            "elapsedMs": 0.5667080000000055,
+            "checker": "independent_exact_expression_comparison"
+          }
+        ],
+        "semanticInterpretationVerified": false
+      }
+    },
+    {
+      "id": "tr4",
+      "correct": true,
+      "trial": {
+        "policy": "b2-shadow-conditional-arithmetic-1",
+        "status": "conditional_arithmetic_only",
+        "researchOnly": true,
+        "simulatedFault": false,
+        "inputKind": "grouped_count",
+        "results": [
+          {
+            "operation": "word_multiply",
+            "status": "verified_arithmetic",
+            "checkedOutcome": true,
+            "answer": "37",
+            "operations": 2,
+            "elapsedMs": 0.17229199999999878,
+            "checker": "independent_exact_expression_comparison"
+          },
+          {
+            "operation": "word_repeated",
+            "status": "verified_arithmetic",
+            "checkedOutcome": true,
+            "answer": "37",
+            "operations": 7,
+            "elapsedMs": 0.08545899999998596,
+            "checker": "independent_exact_expression_comparison"
+          }
+        ],
+        "semanticInterpretationVerified": false
+      }
+    },
+    {
+      "id": "tr5",
+      "correct": true,
+      "trial": {
+        "policy": "b2-shadow-conditional-arithmetic-1",
+        "status": "conditional_arithmetic_only",
+        "researchOnly": true,
+        "simulatedFault": false,
+        "inputKind": "grouped_count",
+        "results": [
+          {
+            "operation": "word_multiply",
+            "status": "verified_arithmetic",
+            "checkedOutcome": true,
+            "answer": "38",
+            "operations": 2,
+            "elapsedMs": 0.03499999999999659,
+            "checker": "independent_exact_expression_comparison"
+          },
+          {
+            "operation": "word_repeated",
+            "status": "verified_arithmetic",
+            "checkedOutcome": true,
+            "answer": "38",
+            "operations": 4,
+            "elapsedMs": 0.054541000000000395,
+            "checker": "independent_exact_expression_comparison"
+          }
+        ],
+        "semanticInterpretationVerified": false
+      }
+    },
+    {
+      "id": "tr6",
+      "correct": true,
+      "trial": {
+        "policy": "b2-shadow-conditional-arithmetic-1",
+        "status": "conditional_arithmetic_only",
+        "researchOnly": true,
+        "simulatedFault": false,
+        "inputKind": "grouped_count",
+        "results": [
+          {
+            "operation": "word_multiply",
+            "status": "verified_arithmetic",
+            "checkedOutcome": true,
+            "answer": "42",
+            "operations": 2,
+            "elapsedMs": 0.03370799999999008,
+            "checker": "independent_exact_expression_comparison"
+          },
+          {
+            "operation": "word_repeated",
+            "status": "verified_arithmetic",
+            "checkedOutcome": true,
+            "answer": "42",
+            "operations": 9,
+            "elapsedMs": 0.09741700000000719,
+            "checker": "independent_exact_expression_comparison"
+          }
+        ],
+        "semanticInterpretationVerified": false
+      }
+    }
+  ],
+  "savedProfile": {
+    "shadowOperations": {
+      "transfer_direct": {
+        "runs": 3,
+        "verifiedSuccesses": 3,
+        "verifiedFailures": 0,
+        "uncheckedRuns": 0,
+        "elapsedMs": 0.9775830000000099,
+        "evidenceScope": "conditional_exact_arithmetic_shadow_only"
+      },
+      "transfer_conserve": {
+        "runs": 3,
+        "verifiedSuccesses": 3,
+        "verifiedFailures": 0,
+        "uncheckedRuns": 0,
+        "elapsedMs": 0.8039990000000046,
+        "evidenceScope": "conditional_exact_arithmetic_shadow_only"
+      },
+      "word_multiply": {
+        "runs": 3,
+        "verifiedSuccesses": 3,
+        "verifiedFailures": 0,
+        "uncheckedRuns": 0,
+        "elapsedMs": 0.24099999999998545,
+        "evidenceScope": "conditional_exact_arithmetic_shadow_only"
+      },
+      "word_repeated": {
+        "runs": 3,
+        "verifiedSuccesses": 3,
+        "verifiedFailures": 0,
+        "uncheckedRuns": 0,
+        "elapsedMs": 0.23741699999999355,
+        "evidenceScope": "conditional_exact_arithmetic_shadow_only"
+      }
+    },
+    "shadowTrials": 6,
+    "shadowPolicy": "b2-shadow-conditional-arithmetic-1"
+  },
+  "later": [
+    {
+      "id": "lt1",
+      "expected": "14",
+      "plainAnswer": "14",
+      "magneticAnswer": "14",
+      "baselineChoice": "transfer_direct",
+      "magneticChoice": "transfer_direct",
+      "magneticStatus": "experimental_measured",
+      "baselineCalls": 1,
+      "magneticCalls": 1,
+      "noExtraCallsForEqualCorrectness": true,
+      "passed": true
+    },
+    {
+      "id": "lt2",
+      "expected": "29",
+      "plainAnswer": "29",
+      "magneticAnswer": "29",
+      "baselineChoice": "transfer_direct",
+      "magneticChoice": "transfer_direct",
+      "magneticStatus": "experimental_measured",
+      "baselineCalls": 1,
+      "magneticCalls": 1,
+      "noExtraCallsForEqualCorrectness": true,
+      "passed": true
+    },
+    {
+      "id": "lt3",
+      "expected": "47",
+      "plainAnswer": "47",
+      "magneticAnswer": "47",
+      "baselineChoice": "word_multiply",
+      "magneticChoice": "word_multiply",
+      "magneticStatus": "experimental_measured",
+      "baselineCalls": 2,
+      "magneticCalls": 2,
+      "noExtraCallsForEqualCorrectness": true,
+      "passed": true
+    },
+    {
+      "id": "lt4",
+      "expected": "49",
+      "plainAnswer": "49",
+      "magneticAnswer": "49",
+      "baselineChoice": "word_multiply",
+      "magneticChoice": "word_multiply",
+      "magneticStatus": "experimental_measured",
+      "baselineCalls": 2,
+      "magneticCalls": 2,
+      "noExtraCallsForEqualCorrectness": true,
+      "passed": true
+    }
+  ],
+  "passed": true
+}

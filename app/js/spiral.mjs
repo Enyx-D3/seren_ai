@@ -304,7 +304,7 @@ export class SpiralController {
               `${selected}-prefix-${index + 1}`, receipt.value, receipt.verification, selected) });
           }
           mark(plan.parts[0].id, selected, '', { status: 'failed', method: 'bounded_inventory_transfer_v1',
-            residual: error.message }, began);
+            residual: error.message, independentCheckFailed: error.independentCheckFailed === true }, began);
           selected = choose(plan.parts[0].id, transferPaths.map(row => row.kind),
             Object.fromEntries(transferPaths.map(row => [row.kind, row])));
         }
@@ -347,7 +347,8 @@ export class SpiralController {
             trace.push({ step: 'verified_component', ...recordVerifiedComponent(state, plan.parts[0].id,
               `${selected}-prefix-${index + 1}`, receipt.value, receipt.verification, selected) });
           }
-          mark(plan.parts[0].id, selected, '', { status: 'failed', method: 'bounded_grouped_word_math_v1', residual: error.message }, began);
+          mark(plan.parts[0].id, selected, '', { status: 'failed', method: 'bounded_grouped_word_math_v1',
+            residual: error.message, independentCheckFailed: error.independentCheckFailed === true }, began);
           selected = choose(plan.parts[0].id, wordPaths.map(row => row.kind),
             Object.fromEntries(wordPaths.map(row => [row.kind, row])));
         }

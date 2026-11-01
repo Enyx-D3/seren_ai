@@ -119,13 +119,20 @@ export function rankDirections(eligible, { calibration = null, category = null, 
     return { kind, status: OPERATION_CAPABILITIES[kind], scores, scoreEvidence,
       pathOperations: path?.operations || null, score: Number(score.toFixed(3)), safetyTier, policy: DIRECTION_POLICY };
   }).sort((a, b) => {
-    if (a.kind.startsWith('word_') && b.kind.startsWith('word_') && a.pathOperations && b.pathOperations) {
-      const aRuns = calibration?.[category]?.operations?.[a.kind]?.runs || 0;
-      const bRuns = calibration?.[category]?.operations?.[b.kind]?.runs || 0;
-      // Until both alternatives have measured costs, exact-operation count is
-      // the comparable resource estimate. A smoothed success rate must not
-      // make an unmeasured, more expensive path appear cheaper.
-      if (aRuns < 3 || bRuns < 3) return a.pathOperations - b.pathOperations || b.score - a.score;
+    const pairedExact = a.pathOperations && b.pathOperations &&
+      ((a.kind.startsWith('word_') && b.kind.startsWith('word_')) ||
+        (a.kind.startsWith('transfer_') && b.kind.startsWith('transfer_')));
+    if (pairedExact) {
+      const ap = calibration?.[category]?.operations?.[a.kind] || {};
+      const bp = calibration?.[category]?.operations?.[b.kind] || {};
+      const ac = (ap.verifiedSuccesses || 0) + (ap.verifiedFailures || 0);
+      const bc = (bp.verifiedSuccesses || 0) + (bp.verifiedFailures || 0);
+      // Sparse or similarly reliable evidence cannot justify a more costly
+      // exact route. A checked reliability gap can still trigger redirection.
+      const ar = ((ap.verifiedSuccesses || 0) + 1) / (ac + 2);
+      const br = ((bp.verifiedSuccesses || 0) + 1) / (bc + 2);
+      if (ac < 3 || bc < 3 || Math.abs(ar - br) < 0.1)
+        return a.pathOperations - b.pathOperations || b.score - a.score;
     }
     return b.safetyTier - a.safetyTier || b.score - a.score || ORDER.indexOf(a.kind) - ORDER.indexOf(b.kind);
   });
@@ -165,8 +172,12 @@ export function selectDirection(state, partId, eligible, options = {}) {
   const candidates = rankDirections(eligible, { ...options, visited });
   const experimentalPaths = candidates.filter(row => /^(?:word_|transfer_)/.test(row.kind))
     .map(row => options.candidateEvidence?.[row.kind]).filter(Boolean);
+  // Paired shadow trials are kept separate from live answer outcomes. They
+  // have conditional arithmetic proof, not general semantic correctness.
+  const categoryProfile = options.calibration?.[options.category];
   const magnetic = options.experimentalMagnetic && experimentalPaths.length === 2
-    ? evaluateMagneticPaths(experimentalPaths, options.calibration?.[options.category]) : null;
+    ? evaluateMagneticPaths(experimentalPaths, categoryProfile?.shadowOperations
+      ? { operations: categoryProfile.shadowOperations } : categoryProfile) : null;
   if (magnetic?.recommended) {
     const index = candidates.findIndex(row => row.kind === magnetic.recommended);
     if (index > 0) candidates.unshift(candidates.splice(index, 1)[0]);
@@ -219,7 +230,8 @@ export function recordSpiralOutcome(state, partId, { kind, answer, verification,
     fromDerivation: derivationId, resolvedBy: null });
   const informationGainProxy = checked && !prior ? 1 : verification?.status === 'failed' && verification?.method !== 'none' ? 0.5 : 0;
   const checkedOutcome = checked || (verification?.status === 'failed' &&
-    ['two_parser_exact_v1', 'partial_exact_component', 'dual_boolean_expression_v1', 'two_parser_exact_dependency_v1'].includes(verification.method));
+    (verification.independentCheckFailed === true ||
+      ['two_parser_exact_v1', 'partial_exact_component', 'dual_boolean_expression_v1', 'two_parser_exact_dependency_v1'].includes(verification.method)));
   const after = measureGoalProgress(state);
   return { partId, operation: kind, status: part.status, verificationStatus: verification?.status || 'unverified', verifiedProgress: checked && !prior,
     verificationMethod: verification?.method || 'none',

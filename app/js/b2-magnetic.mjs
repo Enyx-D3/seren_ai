@@ -18,10 +18,15 @@ export function evaluateMagneticPaths(paths, calibration = {}, { minChecked = 3,
     // The prior is deliberately neutral. Failure risk dominates a modest
     // verified computational cost difference; neither guarantees a win.
     const successRate = valid ? (successes + 1) / (checked + 2) : null;
-    const costPenalty = valid ? costWeight * Math.min(1, costMs / 1000) : null;
-    return { kind: path.kind, checked, successRate, costMs, costPenalty,
+    // Sub-millisecond timing is noisy (warmup/JIT/clock resolution). A known
+    // exact-operation count is a conservative lower bound on relative cost;
+    // measured latency can still veto a route if it is materially slower.
+    const normalizedCost = valid ? Math.max(Math.min(1, path.operations / 12), Math.min(1, costMs / 1000)) : null;
+    const costPenalty = valid ? costWeight * normalizedCost : null;
+    return { kind: path.kind, checked, successRate, costMs, pathOperations: path.operations,
+      normalizedCost, costPenalty,
       score: valid ? Number((successRate - costPenalty).toFixed(6)) : null,
-      evidence: valid ? 'independent_checked_outcomes_and_elapsed_ms' : 'insufficient_checked_evidence' };
+      evidence: valid ? 'independent_checked_outcomes_exact_operation_count_and_elapsed_ms' : 'insufficient_checked_evidence' };
   });
   const ready = rows.length >= 2 && rows.every(row => row.score !== null);
   const ranked = ready ? [...rows].sort((a, b) => b.score - a.score || a.costMs - b.costMs || a.kind.localeCompare(b.kind)) : rows;

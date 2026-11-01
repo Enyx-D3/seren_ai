@@ -71,7 +71,11 @@ export function executeWordPath(problem, path, calculate = exactArithmetic, { in
     try {
       const result = calculate(expression);
       const independent = exactArithmetic(expression);
-      if (String(result.text) !== independent.text) throw new Error(`independent mismatch for ${expression}`);
+      if (String(result.text) !== independent.text) {
+        const mismatch = new Error(`independent mismatch for ${expression}`);
+        mismatch.independentCheckFailed = true;
+        throw mismatch;
+      }
       receipts.push({ expression, value: independent.text, verification: 'two_parser_exact_v1' });
       return independent.text;
     } catch (error) {

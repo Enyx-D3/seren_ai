@@ -6,6 +6,7 @@ import { buildChatPrompt } from './prompts.mjs';
 import { extractExactArithmetic, reachableToolsJSON } from './tools.mjs';
 import { runToolProposal } from './tool-runner.mjs';
 import { ExactSpiral, SpiralController, SPIRAL_POLICY, SPIRAL_CALIBRATION_KEY, planSpiral, repairHeartbeat, modelCalibrationOutcome } from './spiral.mjs';
+import { accumulateCheckedDirections } from './b2-calibration-outcomes.mjs';
 import { md } from './md.mjs';
 import { initOrb } from './orb.mjs';
 
@@ -443,18 +444,7 @@ async function submit(text, { regen = false } = {}) {
       verifiedModelSuccesses: 0, verifiedModelFailures: 0, modelRuns: 0, modelElapsedMs: 0 };
     const modelOutcome = modelCalibrationOutcome(result);
     const checkedFailure = modelOutcome === 'failure';
-    const operations = structuredClone(current.operations || {});
-    for (const receipt of result.trace.filter(step => step.step === 'direction_result' && step.operation !== 'final_response')) {
-      const profile = operations[receipt.operation] || { runs: 0, verifiedSuccesses: 0, verifiedFailures: 0,
-        elapsedMs: 0, informationGainSum: 0, cacheHits: 0 };
-      operations[receipt.operation] = { runs: profile.runs + 1,
-        verifiedSuccesses: profile.verifiedSuccesses + Number(receipt.verificationStatus === 'verified'),
-        verifiedFailures: profile.verifiedFailures + Number(receipt.verificationStatus === 'failed' && receipt.checkedOutcome !== false),
-        verifiedComponents: (profile.verifiedComponents || 0) + Number(receipt.componentVerified === true),
-        elapsedMs: profile.elapsedMs + (receipt.elapsedMs || 0),
-        informationGainSum: (profile.informationGainSum || 0) + (receipt.informationGainProxy || 0),
-        cacheHits: (profile.cacheHits || 0) + Number(!!receipt.reused) };
-    }
+    const operations = accumulateCheckedDirections(current.operations, result.trace);
     calibration[plan.category] = { ...current, schemaVersion: 2, runs: current.runs + 1,
       operations,
       verifiedSuccesses: current.verifiedSuccesses + Number(result.verification.status === 'verified'),

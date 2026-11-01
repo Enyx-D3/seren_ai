@@ -76,7 +76,11 @@ export function executeTransferPath(problem, path, calculate = exactArithmetic) 
     try {
       const proposed = calculate(expression);
       const independent = exactArithmetic(expression);
-      if (String(proposed?.text) !== independent.text) throw new Error(`independent mismatch for ${expression}`);
+      if (String(proposed?.text) !== independent.text) {
+        const mismatch = new Error(`independent mismatch for ${expression}`);
+        mismatch.independentCheckFailed = true;
+        throw mismatch;
+      }
       receipts.push({ expression, value: independent.text, verification: 'two_parser_exact_v1' });
       return independent.text;
     } catch (error) {
@@ -96,6 +100,7 @@ export function executeTransferPath(problem, path, calculate = exactArithmetic) 
   // operations; the arithmetic engine itself has two parser implementations.
   if (answer !== exactArithmetic(directExpression).text) {
     const error = new Error('transfer conservation mismatch');
+    error.independentCheckFailed = true;
     error.operationsAttempted = attempted;
     error.verifiedReceipts = [...receipts];
     throw error;
