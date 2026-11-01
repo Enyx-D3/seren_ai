@@ -1,0 +1,35 @@
+{
+  "rows": [
+    {
+      "prompt": "A club has 7 folders with 6 photos in each folder. To find the total photos, choose exactly one operation: add, subtract, multiply, or divide. Reply with only that operation word.",
+      "output": "Addition",
+      "status": "complete",
+      "tokens": 2,
+      "elapsedMs": 1585
+    },
+    {
+      "prompt": "Nina has 18 seeds and gives 4 away. To find the seeds left, choose exactly one operation: add, subtract, multiply, or divide. Reply with only that operation word.",
+      "output": "Addition",
+      "status": "complete",
+      "tokens": 2,
+      "elapsedMs": 892
+    },
+    {
+      "prompt": "Complete Python def count_long(words): return the count of words longer than five characters. Which operation is central: filter, sort, or add? Reply with only that operation word.",
+      "output": "The `count_long` function is a straightforward operation: it returns the count of words longer than five characters.",
+      "status": "complete",
+      "tokens": 24,
+      "elapsedMs": 1304
+    },
+    {
+      "prompt": "Debug Python def triple(x): return x + 3. It should multiply x by 3. Which operation is needed: add, subtract, multiply, or divide? Reply with only that operation word.",
+      "output": "The triple function should be divided by 3. The division operation is needed to divide the result of the addition (",
+      "status": "complete",
+      "tokens": 24,
+      "elapsedMs": 1213
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "purpose": "Development spike only; not held-out evidence."
+}

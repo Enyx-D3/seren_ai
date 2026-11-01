@@ -1,17 +1,18 @@
 {
-  "baseUrl": "http://127.0.0.1:8812/",
+  "baseUrl": "http://127.0.0.1:8799/",
   "rows": 1,
   "math": "323",
   "logic": "Yes. Mira is a cat, and all cats are mammals.",
   "boolean": "True",
+  "dependency": "4\n12",
   "chat": "Hello, how's it going?",
-  "plan": "Morning Backup Plan:\n\nBackup Files: Copy all essential files to a secure location.\nStep-by-Step:\n100% Effort: Ensure all files are copied.\n100% Risk: Avoid unauthorized access.\n\nRisk: File Access Risk",
+  "plan": "Two-Step Morning Backup:\n\nBackup files or data to another location.\n\nRisk: At least 200 KB (Great, it's a bit of a limit).\n\nSteps: 1. Copy files to backup_location.\n\nRisk: Data loss due to corruption.\n\nTime: 20 minutes.",
   "evidence": {
     "answers": [
       {
         "model": "falcon_instruct",
         "status": "done",
-        "policy": "b2-controller-3",
+        "policy": "b2-controller-5",
         "verification": {
           "status": "verified",
           "method": "two_parser_exact_v1"
@@ -22,14 +23,14 @@
           "cacheHits": 0,
           "tokens": 0,
           "firstModelTokenMs": null,
-          "verificationMs": 6,
-          "elapsedMs": 8
+          "verificationMs": 17,
+          "elapsedMs": 20
         }
       },
       {
         "model": "falcon_instruct",
         "status": "done",
-        "policy": "b2-controller-3",
+        "policy": "b2-controller-5",
         "verification": {
           "status": "verified",
           "method": "bounded_syllogism_v1"
@@ -47,7 +48,7 @@
       {
         "model": "falcon_instruct",
         "status": "done",
-        "policy": "b2-controller-3",
+        "policy": "b2-controller-5",
         "verification": {
           "status": "verified",
           "method": "dual_boolean_expression_v1"
@@ -65,7 +66,25 @@
       {
         "model": "falcon_instruct",
         "status": "done",
-        "policy": "b2-controller-3",
+        "policy": "b2-controller-5",
+        "verification": {
+          "status": "verified",
+          "method": "per_part"
+        },
+        "metrics": {
+          "modelCalls": 0,
+          "calculatorCalls": 2,
+          "cacheHits": 0,
+          "tokens": 0,
+          "firstModelTokenMs": null,
+          "verificationMs": 0,
+          "elapsedMs": 1
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-5",
         "verification": {
           "status": "unverified",
           "method": "none",
@@ -81,15 +100,15 @@
           "calculatorCalls": 0,
           "cacheHits": 0,
           "tokens": 8,
-          "firstModelTokenMs": 2005,
+          "firstModelTokenMs": 4496,
           "verificationMs": 0,
-          "elapsedMs": 3750
+          "elapsedMs": 7023
         }
       },
       {
         "model": "falcon_instruct",
         "status": "done",
-        "policy": "b2-controller-3",
+        "policy": "b2-controller-5",
         "verification": {
           "status": "unverified",
           "method": "none",
@@ -104,22 +123,22 @@
           "modelCalls": 1,
           "calculatorCalls": 0,
           "cacheHits": 0,
-          "tokens": 72,
-          "firstModelTokenMs": 2841,
+          "tokens": 79,
+          "firstModelTokenMs": 4157,
           "verificationMs": 0,
-          "elapsedMs": 3940
+          "elapsedMs": 6678
         }
       }
     ],
     "calibration": {
       "arithmetic": {
-        "runs": 1,
-        "verifiedSuccesses": 1,
+        "runs": 2,
+        "verifiedSuccesses": 2,
         "verifiedFailures": 0,
         "unverified": 0,
         "modelCalls": 0,
-        "calculatorCalls": 1,
-        "elapsedMs": 8,
+        "calculatorCalls": 3,
+        "elapsedMs": 21,
         "repairs": 0,
         "verifiedModelSuccesses": 0,
         "verifiedModelFailures": 0,
@@ -128,15 +147,36 @@
         "schemaVersion": 2,
         "operations": {
           "exact": {
+            "runs": 2,
+            "verifiedSuccesses": 2,
+            "verifiedFailures": 0,
+            "verifiedComponents": 0,
+            "elapsedMs": 17,
+            "informationGainSum": 2,
+            "cacheHits": 0
+          },
+          "dependent_exact": {
             "runs": 1,
             "verifiedSuccesses": 1,
             "verifiedFailures": 0,
-            "elapsedMs": 6,
+            "verifiedComponents": 0,
+            "elapsedMs": 0,
             "informationGainSum": 1,
             "cacheHits": 0
           }
         },
-        "updatedAt": 1793439033611
+        "tokens": 0,
+        "cacheHits": 0,
+        "repairResidualResolutions": 0,
+        "repairNumericAlignments": 0,
+        "repairSurfaceAlignments": 0,
+        "repairNoProgress": 0,
+        "failurePatterns": {},
+        "inputKnowledge": {
+          "statedFactsObserved": 5,
+          "missingVerifierCount": 1
+        },
+        "updatedAt": 1793459086793
       },
       "logic": {
         "runs": 2,
@@ -157,6 +197,7 @@
             "runs": 1,
             "verifiedSuccesses": 1,
             "verifiedFailures": 0,
+            "verifiedComponents": 0,
             "elapsedMs": 0,
             "informationGainSum": 1,
             "cacheHits": 0
@@ -165,12 +206,24 @@
             "runs": 1,
             "verifiedSuccesses": 1,
             "verifiedFailures": 0,
+            "verifiedComponents": 0,
             "elapsedMs": 0,
             "informationGainSum": 1,
             "cacheHits": 0
           }
         },
-        "updatedAt": 1793439033916
+        "tokens": 0,
+        "cacheHits": 0,
+        "repairResidualResolutions": 0,
+        "repairNumericAlignments": 0,
+        "repairSurfaceAlignments": 0,
+        "repairNoProgress": 0,
+        "failurePatterns": {},
+        "inputKnowledge": {
+          "statedFactsObserved": 1,
+          "missingVerifierCount": 0
+        },
+        "updatedAt": 1793459086701
       },
       "conversation": {
         "runs": 1,
@@ -179,24 +232,36 @@
         "unverified": 1,
         "modelCalls": 1,
         "calculatorCalls": 0,
-        "elapsedMs": 3750,
+        "elapsedMs": 7023,
         "repairs": 0,
         "verifiedModelSuccesses": 0,
         "verifiedModelFailures": 0,
         "modelRuns": 1,
-        "modelElapsedMs": 3750,
+        "modelElapsedMs": 7023,
         "schemaVersion": 2,
         "operations": {
           "falcon": {
             "runs": 1,
             "verifiedSuccesses": 0,
             "verifiedFailures": 0,
-            "elapsedMs": 3750,
+            "verifiedComponents": 0,
+            "elapsedMs": 7023,
             "informationGainSum": 0,
             "cacheHits": 0
           }
         },
-        "updatedAt": 1793439037732
+        "tokens": 8,
+        "cacheHits": 0,
+        "repairResidualResolutions": 0,
+        "repairNumericAlignments": 0,
+        "repairSurfaceAlignments": 0,
+        "repairNoProgress": 0,
+        "failurePatterns": {},
+        "inputKnowledge": {
+          "statedFactsObserved": 1,
+          "missingVerifierCount": 1
+        },
+        "updatedAt": 1793459093903
       },
       "planning": {
         "runs": 1,
@@ -205,24 +270,36 @@
         "unverified": 1,
         "modelCalls": 1,
         "calculatorCalls": 0,
-        "elapsedMs": 3940,
+        "elapsedMs": 6678,
         "repairs": 0,
         "verifiedModelSuccesses": 0,
         "verifiedModelFailures": 0,
         "modelRuns": 1,
-        "modelElapsedMs": 3940,
+        "modelElapsedMs": 6678,
         "schemaVersion": 2,
         "operations": {
           "falcon": {
             "runs": 1,
             "verifiedSuccesses": 0,
             "verifiedFailures": 0,
-            "elapsedMs": 3940,
+            "verifiedComponents": 0,
+            "elapsedMs": 6677,
             "informationGainSum": 0,
             "cacheHits": 0
           }
         },
-        "updatedAt": 1793439041741
+        "tokens": 79,
+        "cacheHits": 0,
+        "repairResidualResolutions": 0,
+        "repairNumericAlignments": 0,
+        "repairSurfaceAlignments": 0,
+        "repairNoProgress": 0,
+        "failurePatterns": {},
+        "inputKnowledge": {
+          "statedFactsObserved": 0,
+          "missingVerifierCount": 1
+        },
+        "updatedAt": 1793459100658
       }
     }
   },

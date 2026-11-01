@@ -1,0 +1,12 @@
+{
+  "protocol": "b2-word-math-first-slice-confirm-v1",
+  "frozenBeforeFirstRun": true,
+  "notes": "New prompts written after plural normalization repair, before any confirmation run. Human-authored local confirmation, not an externally prepared benchmark.",
+  "cases": [
+    { "id": "c1", "prompt": "There are 9 cartons. Each carton has 8 bulbs. 15 bulbs are removed. How many bulbs remain?", "expected": "57" },
+    { "id": "c2", "prompt": "A desk has 3 boxes with 27 cards in each. 6 cards are received. How many cards are there now?", "expected": "87" },
+    { "id": "c3", "prompt": "There are 12 baskets. Each basket holds 5 pears. 4 pears are sold. How many pears are left?", "expected": "56" },
+    { "id": "c4", "prompt": "The storeroom has 10 jars with 13 screws in each. 17 screws are used. How many screws remain?", "expected": "113" },
+    { "id": "c5", "prompt": "There are 6 crates. Each crate holds 8 lamps. Some lamps are missing. How many lamps remain?", "expectedParse": false }
+  ]
+}

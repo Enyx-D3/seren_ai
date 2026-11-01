@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 2,
+  "originalFileSha256": {
+    "raw": "2f94855e18624d9787b46ed48ee2b5534f576f7342b04613ab0e40420ad71147",
+    "packet": "455ad5c38584b29f3ecd2b4fb7bb04b5adc83ba6316b41df0f701189850c29c3",
+    "mapping": "6ce3c5bf5b1a5ca2031dd0a6c5c7ccd880abb81b9fec1eb3cd8bc582570f6d3b",
+    "fixture": "333e956e222a5c9543adf80f17cbd0563ea241fd051ea170f83aa6ae8053b482"
+  },
+  "summary": {
+    "totalPairs": 8,
+    "rawByteIdentical": 7,
+    "renderedTextIdentical": 8,
+    "packetMatchesRaw": 8,
+    "packetRenderedIdentical": 8,
+    "promptBytesIdentical": 8,
+    "allOneCallPerArm": true,
+    "noGenerationErrors": true
+  },
+  "cases": [
+    {
+      "id": "alpaca-plan-582",
+      "rawByteIdentical": true,
+      "renderedTextIdentical": true,
+      "packetAnswersIdentical": true,
+      "exportMatchesRaw": true,
+      "promptBytesIdentical": true,
+      "rawAnswerLengths": [
+        552,
+        552
+      ],
+      "modelCalls": [
+        1,
+        1
+      ],
+      "generationErrors": [
+        null,
+        null
+      ],
+      "b2TraceSteps": [
+        "direction",
+        "hypothesis",
+        "direction_result"
+      ]
+    },
+    {
+      "id": "alpaca-plan-248",
+      "rawByteIdentical": false,
+      "renderedTextIdentical": true,
+      "packetAnswersIdentical": true,
+      "exportMatchesRaw": true,
+      "promptBytesIdentical": true,
+      "rawAnswerLengths": [
+        606,
+        605
+      ],
+      "modelCalls": [
+        1,
+        1
+      ],
+      "generationErrors": [
+        null,
+        null
+      ],
+      "b2TraceSteps": [
+        "direction",
+        "hypothesis",
+        "direction_result"
+      ]
+    },
+    {
+      "id": "alpaca-plan-551",
+      "rawByteIdentical": true,
+      "renderedTextIdentical": true,
+      "packetAnswersIdentical": true,
+      "exportMatchesRaw": true,
+      "promptBytesIdentical": true,
+      "rawAnswerLengths": [
+        465,
+        465
+      ],
+      "modelCalls": [
+        1,
+        1
+      ],
+      "generationErrors": [
+        null,
+        null
+      ],
+      "b2TraceSteps": [
+        "direction",
+        "hypothesis",
+        "direction_result"
+      ]
+    },
+    {
+      "id": "alpaca-plan-472",
+      "rawByteIdentical": true,
+      "renderedTextIdentical": true,
+      "packetAnswersIdentical": true,
+      "exportMatchesRaw": true,
+      "promptBytesIdentical": true,
+      "rawAnswerLengths": [
+        497,
+        497
+      ],
+      "modelCalls": [
+        1,
+        1
+      ],
+      "generationErrors": [
+        null,
+        null
+      ],
+      "b2TraceSteps": [
+        "direction",
+        "hypothesis",
+        "direction_result"
+      ]
+    },
+    {
+      "id": "alpaca-chat-88",
+      "rawByteIdentical": true,
+      "renderedTextIdentical": true,
+      "packetAnswersIdentical": true,
+      "exportMatchesRaw": true,
+      "promptBytesIdentical": true,
+      "rawAnswerLengths": [
+        345,
+        345
+      ],
+      "modelCalls": [
+        1,
+        1
+      ],
+      "generationErrors": [
+        null,
+        null
+      ],
+      "b2TraceSteps": [
+        "direction",
+        "hypothesis",
+        "direction_result"
+      ]
+    },
+    {
+      "id": "alpaca-chat-177",
+      "rawByteIdentical": true,
+      "renderedTextIdentical": true,
+      "packetAnswersIdentical": true,
+      "exportMatchesRaw": true,
+      "promptBytesIdentical": true,
+      "rawAnswerLengths": [
+        655,
+        655
+      ],
+      "modelCalls": [
+        1,
+        1
+      ],
+      "generationErrors": [
+        null,
+        null
+      ],
+      "b2TraceSteps": [
+        "direction",
+        "hypothesis",
+        "direction_result"
+      ]
+    },
+    {
+      "id": "alpaca-chat-69",
+      "rawByteIdentical": true,
+      "renderedTextIdentical": true,
+      "packetAnswersIdentical": true,
+      "exportMatchesRaw": true,
+      "promptBytesIdentical": true,
+      "rawAnswerLengths": [
+        434,
+        434
+      ],
+      "modelCalls": [
+        1,
+        1
+      ],
+      "generationErrors": [
+        null,
+        null
+      ],
+      "b2TraceSteps": [
+        "direction",
+        "hypothesis",
+        "direction_result"
+      ]
+    },
+    {
+      "id": "alpaca-chat-422",
+      "rawByteIdentical": true,
+      "renderedTextIdentical": true,
+      "packetAnswersIdentical": true,
+      "exportMatchesRaw": true,
+      "promptBytesIdentical": true,
+      "rawAnswerLengths": [
+        613,
+        613
+      ],
+      "modelCalls": [
+        1,
+        1
+      ],
+      "generationErrors": [
+        null,
+        null
+      ],
+      "b2TraceSteps": [
+        "direction",
+        "hypothesis",
+        "direction_result"
+      ]
+    }
+  ],
+  "conclusion": "Original packet reproduces raw outputs. Identical rendered answers arose from equivalent prompts and one same-model generation per arm; no output-copy or export-duplication path found. Raw evidence lacks per-generation prompt hashes and request IDs, so future evaluations must record them."
+}

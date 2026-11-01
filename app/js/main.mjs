@@ -430,6 +430,7 @@ async function submit(text, { regen = false } = {}) {
       spiral_plan: { complexity: result.plan.complexity, parts: result.plan.parts.length, omittedParts: result.plan.omittedParts },
       spiral_metrics: result.metrics, spiral_trace: result.trace, spiral_verification: result.verification,
       spiral_state: { schemaVersion: result.state.schemaVersion, givens: result.state.givens,
+        graph: result.state.graph,
         dependencies: result.state.dependencies, derivations: result.state.derivations,
         verifiedFacts: result.state.verifiedFacts, unresolved: result.state.unresolved, residuals: result.state.residuals,
         visitedDirections: result.state.visitedDirections },
@@ -443,12 +444,13 @@ async function submit(text, { regen = false } = {}) {
     const modelOutcome = modelCalibrationOutcome(result);
     const checkedFailure = modelOutcome === 'failure';
     const operations = structuredClone(current.operations || {});
-    for (const receipt of result.trace.filter(step => step.step === 'direction_result')) {
+    for (const receipt of result.trace.filter(step => step.step === 'direction_result' && step.operation !== 'final_response')) {
       const profile = operations[receipt.operation] || { runs: 0, verifiedSuccesses: 0, verifiedFailures: 0,
         elapsedMs: 0, informationGainSum: 0, cacheHits: 0 };
       operations[receipt.operation] = { runs: profile.runs + 1,
         verifiedSuccesses: profile.verifiedSuccesses + Number(receipt.verificationStatus === 'verified'),
-        verifiedFailures: profile.verifiedFailures + Number(receipt.verificationStatus === 'failed'),
+        verifiedFailures: profile.verifiedFailures + Number(receipt.verificationStatus === 'failed' && receipt.checkedOutcome !== false),
+        verifiedComponents: (profile.verifiedComponents || 0) + Number(receipt.componentVerified === true),
         elapsedMs: profile.elapsedMs + (receipt.elapsedMs || 0),
         informationGainSum: (profile.informationGainSum || 0) + (receipt.informationGainProxy || 0),
         cacheHits: (profile.cacheHits || 0) + Number(!!receipt.reused) };
@@ -463,9 +465,23 @@ async function submit(text, { regen = false } = {}) {
       modelElapsedMs: (current.modelElapsedMs || 0) + (result.metrics.modelCalls > 0 ? result.metrics.elapsedMs : 0),
       unverified: current.unverified + Number(result.verification.status === 'unverified'),
       modelCalls: current.modelCalls + result.metrics.modelCalls,
+      tokens: (current.tokens || 0) + result.metrics.tokens,
       calculatorCalls: current.calculatorCalls + result.metrics.calculatorCalls,
+      cacheHits: (current.cacheHits || 0) + result.metrics.cacheHits,
       elapsedMs: current.elapsedMs + result.metrics.elapsedMs,
       repairs: current.repairs + result.trace.filter(step => step.step === 'repair').length,
+      repairResidualResolutions: (current.repairResidualResolutions || 0) +
+        result.trace.filter(step => step.step === 'repair' && step.residualResolved === true).length,
+      repairNumericAlignments: (current.repairNumericAlignments || 0) +
+        result.trace.filter(step => step.step === 'repair' && step.numericAligned === true).length,
+      repairSurfaceAlignments: (current.repairSurfaceAlignments || 0) +
+        result.trace.filter(step => step.step === 'repair' && step.surfaceAligned === true).length,
+      repairNoProgress: (current.repairNoProgress || 0) + result.trace.filter(step => step.step === 'no_progress').length,
+      failurePatterns: result.trace.filter(step => step.step === 'direction_result' && step.verificationStatus === 'failed')
+        .reduce((map, step) => { const key = String(step.verificationMethod || 'checked_failure').slice(0, 80);
+          map[key] = (map[key] || 0) + 1; return map; }, { ...(current.failurePatterns || {}) }),
+      inputKnowledge: { statedFactsObserved: (current.inputKnowledge?.statedFactsObserved || 0) + result.state.givens.length,
+        missingVerifierCount: (current.inputKnowledge?.missingVerifierCount || 0) + result.state.missingKnowledge.length },
       updatedAt: Date.now() };
     await kv.set(SPIRAL_CALIBRATION_KEY, calibration).catch(() => {});
     await exactSpiral.flush({ onlyPending: true }).catch(() => {});

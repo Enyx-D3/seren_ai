@@ -1,5 +1,9 @@
 # UI_Spec — Preserve Seren 7, Connect Real Local Intelligence
 
+**B2 progress presentation contract:** Run details should display the goal, checked task count, remaining requirements, verified components, selected operation, actual model/calculator cost and the latest residual. `Verified` applies to a whole answer only when every required part has an independent applicable receipt; a checked component must be labeled partial. A failed or unverified operation must appear as unresolved, and a no-progress stop must be clear. Do not animate or label inner/outer spirals, Level 3, B2CCP or reverse search as active before browser execution evidence. The current UI is only partially aligned with this target; preserve its existing layout and interaction vocabulary.
+
+The grouped word-math path uses the existing chat answer and Run details, with actual `word_multiply`/`word_repeated` direction and calculator receipts in stored trace. It adds no new visible animation or selector. A parser rejection must retain the ordinary provisional response label.
+
 **ADR-002/ADR-003 active UI:** Settings shows one verified Falcon Instruct weight. Auto is the B2 Spiral controller; Think deeper expands a bounded state/direction/repair budget. Run details should show selected operation and actual score evidence, established versus unresolved work, inference/calculator calls, verification status and limits. A missing evidence field stays unknown; no fictitious “magnetic” activity is shown.
 
 **Version:** 1.1 Web-only · **Source:** uploaded `Seren 7(1).html` (~78 KB, 1,160 lines) · **Status:** partial browser implementation; release UI unverified. Current evidence: `CHECKPOINT_LOG.md`.

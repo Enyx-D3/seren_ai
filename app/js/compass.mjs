@@ -1,6 +1,7 @@
 /* B2 task classifier. route() is a compatibility helper for historical
    receipts; live orchestration happens only in SpiralController. */
 import { solveBooleanExpression } from './b2-boolean.mjs';
+import { extractGroundedSemantics } from './b2-grounded-semantics.mjs';
 export const COMPASS_POLICY_VERSION = 'compass-conservative-1';
 export const SPECIALISTS = ['falcon_instruct'];
 
@@ -13,6 +14,10 @@ export function classifyTask(text) {
   if (/\b(?:if all|therefore|entails|implies)\b/i.test(value)) return 'logic';
   if (/\b(?:tool|calculator|unit_convert|exact_arithmetic|solve_linear)\b/i.test(value)) return 'tool';
   if (/```|\b(?:code|function|javascript|typescript|python|regex|sql|html|css|bug|compile)\b/i.test(value)) return 'code';
+  const grounded = extractGroundedSemantics(value, 'arithmetic');
+  if (grounded.quantities.length >= 2 && grounded.unknown && grounded.relations.some(row =>
+    ['add', 'subtract', 'multiply_or_divide', 'aggregate', 'subtract_or_compare'].includes(row.operationHint)))
+    return 'arithmetic';
   if (/\b(?:calculate|compute|math|sum|product|plus|minus|times|divided by)\b|\d\s*[+*\-/]\s*\d/i.test(value)) return 'arithmetic';
   if (/\b(?:why|reason|prove|derive|logic|step by step)\b/i.test(value)) return 'reasoning';
   return 'conversation';

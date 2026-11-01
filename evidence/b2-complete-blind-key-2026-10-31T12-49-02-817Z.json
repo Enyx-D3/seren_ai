@@ -1,0 +1,34 @@
+{
+  "alpaca-plan-582": [
+    "falcon_alone",
+    "falcon_plus_b2"
+  ],
+  "alpaca-plan-248": [
+    "falcon_plus_b2",
+    "falcon_alone"
+  ],
+  "alpaca-plan-551": [
+    "falcon_plus_b2",
+    "falcon_alone"
+  ],
+  "alpaca-plan-472": [
+    "falcon_plus_b2",
+    "falcon_alone"
+  ],
+  "alpaca-chat-88": [
+    "falcon_alone",
+    "falcon_plus_b2"
+  ],
+  "alpaca-chat-177": [
+    "falcon_alone",
+    "falcon_plus_b2"
+  ],
+  "alpaca-chat-69": [
+    "falcon_plus_b2",
+    "falcon_alone"
+  ],
+  "alpaca-chat-422": [
+    "falcon_plus_b2",
+    "falcon_alone"
+  ]
+}

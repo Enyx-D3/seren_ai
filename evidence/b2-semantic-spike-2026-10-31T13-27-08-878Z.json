@@ -1,0 +1,35 @@
+{
+  "rows": [
+    {
+      "prompt": "Read: A shop has 3 packs of 8 pens and sells 5 pens. How many pens remain? Return only JSON: {\"facts\":[{\"quote\":\"exact source words\",\"meaning\":\"brief\"}],\"relations\":[{\"quote\":\"exact source words\",\"operation\":\"multiply|subtract|add|divide\"}],\"unknown\":\"exact question words\"}.",
+      "output": "{\"facts\":[{\"quote\":\"exact source words\",\"meaning\":\"pens\"},\"relations\":[{\"quote\":\"exact source words\",\"operation\":\"multiply\",\"number\":\"8\"},\"quote\":\"exact source words\",\"meaning\":\"pens\",\"price\":\"5\"}},\n{\"facts\":{\"quote\":\"exact source words\",\"meaning\":\"pens\"},\"relations\":{\"quote\":\"exact source words\",\"operation\":\"multiply\",\"number\":\"8\"}],\"unknown\":\"exact question words\"}",
+      "status": "complete",
+      "tokens": 95,
+      "elapsedMs": 8411
+    },
+    {
+      "prompt": "Read: Mira has 14 coins. She gives 6 coins to Leo, then receives 3 coins. How many coins does Mira have now? Return only JSON: {\"facts\":[{\"quote\":\"exact source words\",\"meaning\":\"brief\"}],\"relations\":[{\"quote\":\"exact source words\",\"operation\":\"multiply|subtract|add|divide\"}],\"unknown\":\"exact question words\"}.",
+      "output": "{\"facts\":{\"quote\":\"Mira has 14 coins. She gives 6 coins to Leo, then receives 3 coins. How many coins does Mira have now?\"}, {\"relation\":\"fact\",\"meaning\":\"given\",\"relation_info\":\"given\",\"relation_description\":\"given\",\"relation_description_value\":{\"quote\":\"exact source words\",\"relation_description_value\":{\"meaning\":\"given\",\"opposite\": \"add\", \"main_operation\": '+', \"target_opposite\": 'subtract', \"subtraction_opposite\": 'add'}}]}",
+      "status": "complete",
+      "tokens": 126,
+      "elapsedMs": 12377
+    },
+    {
+      "prompt": "Read: Complete this Python function: def total_even(items): Return the sum of even integers in items. Return only JSON: {\"facts\":[{\"quote\":\"exact source words\",\"meaning\":\"brief\"}],\"relations\":[{\"quote\":\"exact source words\",\"operation\":\"filter|sum|sort|count\"}],\"unknown\":\"exact requested output words\"}.",
+      "output": "Here's the Python function I'll provide:\n\n```python\ndef total_even(items):\n    # **facts**\n    # **quote**: Exact source words\n    # **meaning**: brief**\n    # **relations**: Exact source words for filter, sum, sort, and count operations\n    return {\"facts\": {\"quote\": \"exact source words\", \"meaning\": \"brief\", \"relations\": {\"quote\": \"exact source words\", \"operation\": \"filter|sum|sort|count\"}}},",
+      "status": "complete",
+      "tokens": 128,
+      "elapsedMs": 10570
+    },
+    {
+      "prompt": "Read: Debug this Python function: def double(x): return x + 2. It should multiply x by 2. Return only JSON: {\"facts\":[{\"quote\":\"exact source words\",\"meaning\":\"brief\"}],\"relations\":[{\"quote\":\"exact source words\",\"operation\":\"multiply|subtract|add|divide\"}],\"unknown\":\"exact requested output words\"}.",
+      "output": "{\"facts\":[{\"quote\":\"exact source words\",\"meaning\":\"brief\"},\"relations\":[{\"quote\":\"exact source words\",\"operation\":\"multiply|subtract|add|divide\"},\"unknown\":\"exact requested output words\"}}]",
+      "status": "complete",
+      "tokens": 47,
+      "elapsedMs": 12566
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "purpose": "Development spike only; not held-out evidence."
+}

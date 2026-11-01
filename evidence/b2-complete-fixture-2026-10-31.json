@@ -1,0 +1,349 @@
+{
+  "schemaVersion": 1,
+  "frozenBeforeModelRun": "2026-10-31T12:42:44.696Z",
+  "selectionSeed": "seren-b2-complete-reasoning-2026-10-31-v1",
+  "scope": "31-case independent same-Falcon comparison; generated arithmetic and explicit dependent operations are system-level tests, not intrinsic model-accuracy tests. Public-source pretraining exposure is possible. Eight semantic pairs require blinded human review.",
+  "excludedFixturePaths": [
+    "evidence/b2-v2-public-fixture-2026-10-31.json",
+    "evidence/b2-v2-confirm-fixture-2026-10-31.json",
+    "evidence/b2-direction-fixture-2026-10-31.json",
+    "evidence/b2-direction-fixture-v2-2026-10-31.json",
+    "evidence/b2-direction-confirm-fixture-2026-10-31.json",
+    "evidence/b2-direction-third-fixture-2026-10-31.json"
+  ],
+  "sourceUrls": {
+    "gsm8k": "https://github.com/openai/grade-school-math/blob/master/grade_school_math/data/test.jsonl",
+    "bbhBoolean": "https://github.com/suzgunmirac/BIG-Bench-Hard/blob/main/bbh/boolean_expressions.json",
+    "bbhFallacies": "https://github.com/suzgunmirac/BIG-Bench-Hard/blob/main/bbh/formal_fallacies.json",
+    "humanEval": "https://github.com/openai/human-eval/blob/master/data/HumanEval.jsonl.gz",
+    "alpacaEval": "https://huggingface.co/datasets/tatsu-lab/alpaca_eval/blob/main/alpaca_eval.json"
+  },
+  "sourceSha256": {
+    "gsm8k": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14",
+    "bbhBoolean": "ea6c754ec005e2d3f2d085d349a740f593b5764f32ea4638ffed4cfc0061b12a",
+    "bbhFallacies": "4c1adb664821157faade1d4153685403afcc02648f3c180a608a18f17f589629",
+    "humanEval": "b796127e635a67f93fb35c04f4cb03cf06f38c8072ee7cee8833d7bee06979ef",
+    "alpacaEval": "d92b92c51e8f1962a21193abe74e6f727c2bc8286035f4041505ff38a7c3ae51"
+  },
+  "fixtures": [
+    {
+      "id": "generated-arithmetic-1",
+      "category": "arithmetic",
+      "prompt": "Calculate (13*42)+(22-67) exactly.",
+      "checker": {
+        "kind": "number",
+        "expected": "501",
+        "source": "dual_exact_arithmetic_v1"
+      }
+    },
+    {
+      "id": "generated-arithmetic-2",
+      "category": "arithmetic",
+      "prompt": "Calculate (58*84)+(52-37) exactly.",
+      "checker": {
+        "kind": "number",
+        "expected": "4887",
+        "source": "dual_exact_arithmetic_v1"
+      }
+    },
+    {
+      "id": "generated-arithmetic-3",
+      "category": "arithmetic",
+      "prompt": "Calculate (28*96)+(24-13) exactly.",
+      "checker": {
+        "kind": "number",
+        "expected": "2699",
+        "source": "dual_exact_arithmetic_v1"
+      }
+    },
+    {
+      "id": "generated-arithmetic-4",
+      "category": "arithmetic",
+      "prompt": "Calculate (93*25)+(52-34) exactly.",
+      "checker": {
+        "kind": "number",
+        "expected": "2343",
+        "source": "dual_exact_arithmetic_v1"
+      }
+    },
+    {
+      "id": "gsm8k-605",
+      "category": "mathematical_word_problem",
+      "prompt": "For four hours, Patrick sold 15 cups of lemonade per hour at a price of $0.50 per cup.  In the next two hours, he sold 10 cups of lemonade per hour at a price of $0.60 per cup.  How much money did Patrick earn, in dollars, from selling lemonade for 6 hours?\nGive the final numeric answer.",
+      "checker": {
+        "kind": "number",
+        "expected": "42",
+        "source": "published_gsm8k_test"
+      }
+    },
+    {
+      "id": "gsm8k-13",
+      "category": "mathematical_word_problem",
+      "prompt": "Melanie is a door-to-door saleswoman. She sold a third of her vacuum cleaners at the green house, 2 more to the red house, and half of what was left at the orange house. If Melanie has 5 vacuum cleaners left, how many did she start with?\nGive the final numeric answer.",
+      "checker": {
+        "kind": "number",
+        "expected": "18",
+        "source": "published_gsm8k_test"
+      }
+    },
+    {
+      "id": "gsm8k-71",
+      "category": "mathematical_word_problem",
+      "prompt": "Kelian has two recipes for preparing dishes, one having 20 instructions and the second one having twice as many instructions as the first one. How many instructions does Kelian have to read to prepare the two dishes?\nGive the final numeric answer.",
+      "checker": {
+        "kind": "number",
+        "expected": "60",
+        "source": "published_gsm8k_test"
+      }
+    },
+    {
+      "id": "gsm8k-30",
+      "category": "mathematical_word_problem",
+      "prompt": "Darrell and Allen's ages are in the ratio of 7:11. If their total age now is 162, calculate Allen's age 10 years from now.\nGive the final numeric answer.",
+      "checker": {
+        "kind": "number",
+        "expected": "109",
+        "source": "published_gsm8k_test"
+      }
+    },
+    {
+      "id": "generated-multistep-1",
+      "category": "multistep",
+      "prompt": "Calculate 63+10; then multiply that result by 4.",
+      "checker": {
+        "kind": "number",
+        "expected": "292",
+        "source": "dual_exact_arithmetic_v1"
+      }
+    },
+    {
+      "id": "generated-multistep-2",
+      "category": "multistep",
+      "prompt": "Calculate 73+18; then add 3 to that result.",
+      "checker": {
+        "kind": "number",
+        "expected": "94",
+        "source": "dual_exact_arithmetic_v1"
+      }
+    },
+    {
+      "id": "generated-multistep-3",
+      "category": "multistep",
+      "prompt": "Calculate 31+6; then multiply that result by 8.",
+      "checker": {
+        "kind": "number",
+        "expected": "296",
+        "source": "dual_exact_arithmetic_v1"
+      }
+    },
+    {
+      "id": "generated-multistep-4",
+      "category": "multistep",
+      "prompt": "Calculate 60+7; then add 5 to that result.",
+      "checker": {
+        "kind": "number",
+        "expected": "72",
+        "source": "dual_exact_arithmetic_v1"
+      }
+    },
+    {
+      "id": "bbh-boolean-117",
+      "category": "logic",
+      "prompt": "False or False and False or not True is Answer True or False.",
+      "checker": {
+        "kind": "choice",
+        "expected": "False",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    },
+    {
+      "id": "bbh-boolean-152",
+      "category": "logic",
+      "prompt": "( not ( False ) and False ) is Answer True or False.",
+      "checker": {
+        "kind": "choice",
+        "expected": "False",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    },
+    {
+      "id": "bbh-boolean-164",
+      "category": "logic",
+      "prompt": "not False or not ( not False ) is Answer True or False.",
+      "checker": {
+        "kind": "choice",
+        "expected": "True",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    },
+    {
+      "id": "bbh-fallacy-220",
+      "category": "contradiction_detection",
+      "prompt": "\"Here comes a perfectly valid argument: To begin with, whatever is not an ingredient of MAVA-WHITE is an ingredient of PRO LONGLASH. Moreover, not being an ingredient of Brow Powder Duo is sufficient for not being an ingredient of PRO LONGLASH. We may conclude that being an ingredient of Brow Powder Duo is necessary for not being an ingredient of MAVA-WHITE.\"\nIs the argument, given the explicitly stated premises, deductively valid or invalid?\nOptions:\n- valid \n- invalid\nAnswer valid or invalid.",
+      "checker": {
+        "kind": "choice",
+        "expected": "valid",
+        "options": [
+          "valid",
+          "invalid"
+        ]
+      }
+    },
+    {
+      "id": "bbh-fallacy-43",
+      "category": "contradiction_detection",
+      "prompt": "\"Is Fred a fan of Liverpool? Are supporters of Real Madrid devotees of PSG? In European football, it is sometimes difficult to keep track of the mutual admiration and dislike. The following argument seeks to clarify some such relations: No member of ŠK Slovan Bratislava is a follower of OGC Nice. Whoever is a member of ŠK Slovan Bratislava is not a devotee of Royal Antwerp FC. Every member of ŠK Slovan Bratislava is a devotee of Royal Antwerp FC or a backer of FC Zenit or a follower of OGC Nice. Therefore, being a backer of FC Zenit is necessary for being a member of ŠK Slovan Bratislava.\"\nIs the argument, given the explicitly stated premises, deductively valid or invalid?\nOptions:\n- valid \n- invalid\nAnswer valid or invalid.",
+      "checker": {
+        "kind": "choice",
+        "expected": "valid",
+        "options": [
+          "valid",
+          "invalid"
+        ]
+      }
+    },
+    {
+      "id": "bbh-fallacy-241",
+      "category": "contradiction_detection",
+      "prompt": "\"Is Fred a cousin of Robert? Is Joe related to Bob? In large families, it is sometimes difficult to keep track of all one's relatives. The following argument seeks to clarify some such relations: First premise: Everyone who is both an ancestor of Leslie and a close friend of Fernando is not a great-grandfather of Perry. So, necessarily, not being a great-grandfather of Perry is sufficient for being an ancestor of Leslie and a close friend of Fernando.\"\nIs the argument, given the explicitly stated premises, deductively valid or invalid?\nOptions:\n- valid \n- invalid\nAnswer valid or invalid.",
+      "checker": {
+        "kind": "choice",
+        "expected": "invalid",
+        "options": [
+          "valid",
+          "invalid"
+        ]
+      }
+    },
+    {
+      "id": "bbh-fallacy-74",
+      "category": "contradiction_detection",
+      "prompt": "\"Is Titanium oxide an ingredient of my washing power? Which chemicals does my perfume contain? It is really difficult to keep track of all chemicals one is regularly exposed to. The following argument seeks to clarify some such relations: Every ingredient of Hawaiian Punch is not an ingredient of Ice Queen Anyone? or not an ingredient of Exfoliating Balm. Everything that is an ingredient of Black Shadow is an ingredient of Hawaiian Punch, too. In consequence, every ingredient of Black Shadow is an ingredient of Exfoliating Balm and an ingredient of Ice Queen Anyone?.\"\nIs the argument, given the explicitly stated premises, deductively valid or invalid?\nOptions:\n- valid \n- invalid\nAnswer valid or invalid.",
+      "checker": {
+        "kind": "choice",
+        "expected": "invalid",
+        "options": [
+          "valid",
+          "invalid"
+        ]
+      }
+    },
+    {
+      "id": "humaneval-146",
+      "category": "coding",
+      "prompt": "Complete this Python function. Return code only.\n\n\ndef specialFilter(nums):\n    \"\"\"Write a function that takes an array of numbers as input and returns \n    the number of elements in the array that are greater than 10 and both \n    first and last digits of a number are odd (1, 3, 5, 7, 9).\n    For example:\n    specialFilter([15, -73, 14, -15]) => 1 \n    specialFilter([33, -2, -3, 45, 21, 109]) => 2\n    \"\"\"\n",
+      "checker": {
+        "kind": "python",
+        "entryPoint": "specialFilter",
+        "prefix": "\ndef specialFilter(nums):\n    \"\"\"Write a function that takes an array of numbers as input and returns \n    the number of elements in the array that are greater than 10 and both \n    first and last digits of a number are odd (1, 3, 5, 7, 9).\n    For example:\n    specialFilter([15, -73, 14, -15]) => 1 \n    specialFilter([33, -2, -3, 45, 21, 109]) => 2\n    \"\"\"\n",
+        "tests": "def check(candidate):\n\n    # Check some simple cases\n    assert candidate([5, -2, 1, -5]) == 0  \n    assert candidate([15, -73, 14, -15]) == 1\n    assert candidate([33, -2, -3, 45, 21, 109]) == 2\n    assert candidate([43, -12, 93, 125, 121, 109]) == 4\n    assert candidate([71, -2, -33, 75, 21, 19]) == 3\n\n\n    # Check some edge cases that are easy to work out by hand.\n    assert candidate([1]) == 0              \n    assert candidate([]) == 0                   \n\n"
+      }
+    },
+    {
+      "id": "humaneval-85",
+      "category": "coding",
+      "prompt": "Complete this Python function. Return code only.\n\n\ndef add(lst):\n    \"\"\"Given a non-empty list of integers lst. add the even elements that are at odd indices..\n\n\n    Examples:\n        add([4, 2, 6, 7]) ==> 2 \n    \"\"\"\n",
+      "checker": {
+        "kind": "python",
+        "entryPoint": "add",
+        "prefix": "\ndef add(lst):\n    \"\"\"Given a non-empty list of integers lst. add the even elements that are at odd indices..\n\n\n    Examples:\n        add([4, 2, 6, 7]) ==> 2 \n    \"\"\"\n",
+        "tests": "def check(candidate):\n\n    # Check some simple cases\n    assert candidate([4, 88]) == 88\n    assert candidate([4, 5, 6, 7, 2, 122]) == 122\n    assert candidate([4, 0, 6, 7]) == 0\n    assert candidate([4, 4, 6, 8]) == 12\n\n    # Check some edge cases that are easy to work out by hand.\n    \n"
+      }
+    },
+    {
+      "id": "humaneval-17",
+      "category": "coding",
+      "prompt": "Complete this Python function. Return code only.\n\nfrom typing import List\n\n\ndef parse_music(music_string: str) -> List[int]:\n    \"\"\" Input to this function is a string representing musical notes in a special ASCII format.\n    Your task is to parse this string and return list of integers corresponding to how many beats does each\n    not last.\n\n    Here is a legend:\n    'o' - whole note, lasts four beats\n    'o|' - half note, lasts two beats\n    '.|' - quater note, lasts one beat\n\n    >>> parse_music('o o| .| o| o| .| .| .| .| o o')\n    [4, 2, 1, 2, 2, 1, 1, 1, 1, 4, 4]\n    \"\"\"\n",
+      "checker": {
+        "kind": "python",
+        "entryPoint": "parse_music",
+        "prefix": "from typing import List\n\n\ndef parse_music(music_string: str) -> List[int]:\n    \"\"\" Input to this function is a string representing musical notes in a special ASCII format.\n    Your task is to parse this string and return list of integers corresponding to how many beats does each\n    not last.\n\n    Here is a legend:\n    'o' - whole note, lasts four beats\n    'o|' - half note, lasts two beats\n    '.|' - quater note, lasts one beat\n\n    >>> parse_music('o o| .| o| o| .| .| .| .| o o')\n    [4, 2, 1, 2, 2, 1, 1, 1, 1, 4, 4]\n    \"\"\"\n",
+        "tests": "\n\nMETADATA = {\n    'author': 'jt',\n    'dataset': 'test'\n}\n\n\ndef check(candidate):\n    assert candidate('') == []\n    assert candidate('o o o o') == [4, 4, 4, 4]\n    assert candidate('.| .| .| .|') == [1, 1, 1, 1]\n    assert candidate('o| o| .| .| o o o o') == [2, 2, 1, 1, 4, 4, 4, 4]\n    assert candidate('o| .| o| .| o o| o o|') == [2, 1, 2, 1, 4, 2, 4, 2]\n"
+      }
+    },
+    {
+      "id": "humaneval-4",
+      "category": "coding",
+      "prompt": "Complete this Python function. Return code only.\n\nfrom typing import List\n\n\ndef mean_absolute_deviation(numbers: List[float]) -> float:\n    \"\"\" For a given list of input numbers, calculate Mean Absolute Deviation\n    around the mean of this dataset.\n    Mean Absolute Deviation is the average absolute difference between each\n    element and a centerpoint (mean in this case):\n    MAD = average | x - x_mean |\n    >>> mean_absolute_deviation([1.0, 2.0, 3.0, 4.0])\n    1.0\n    \"\"\"\n",
+      "checker": {
+        "kind": "python",
+        "entryPoint": "mean_absolute_deviation",
+        "prefix": "from typing import List\n\n\ndef mean_absolute_deviation(numbers: List[float]) -> float:\n    \"\"\" For a given list of input numbers, calculate Mean Absolute Deviation\n    around the mean of this dataset.\n    Mean Absolute Deviation is the average absolute difference between each\n    element and a centerpoint (mean in this case):\n    MAD = average | x - x_mean |\n    >>> mean_absolute_deviation([1.0, 2.0, 3.0, 4.0])\n    1.0\n    \"\"\"\n",
+        "tests": "\n\nMETADATA = {\n    'author': 'jt',\n    'dataset': 'test'\n}\n\n\ndef check(candidate):\n    assert abs(candidate([1.0, 2.0, 3.0]) - 2.0/3.0) < 1e-6\n    assert abs(candidate([1.0, 2.0, 3.0, 4.0]) - 1.0) < 1e-6\n    assert abs(candidate([1.0, 2.0, 3.0, 4.0, 5.0]) - 6.0/5.0) < 1e-6\n\n"
+      }
+    },
+    {
+      "id": "alpaca-plan-582",
+      "category": "planning",
+      "prompt": "You can easily make your holidays more eco-friendly by following these simple steps:",
+      "checker": {
+        "kind": "human"
+      }
+    },
+    {
+      "id": "alpaca-plan-248",
+      "category": "planning",
+      "prompt": "I am trying to create an economic management book on the impact of AI technology development on the content industry and how to prepare, plan, and actually apply AI technology, apps, and tools that can be used depending on the type of content from the perspective of companies and individuals. Please provide a table of contents for the 50-listed book and a brief description of each table of contents.\nAnswer in English.",
+      "checker": {
+        "kind": "human"
+      }
+    },
+    {
+      "id": "alpaca-plan-551",
+      "category": "planning",
+      "prompt": "One or more jobs can be run automatically by a workflow. The workflows are defined in the repository as YAML files and will run if an event occurs in the repository, as well as manually, or on a certain schedule.\nBring an example of a workflow that demonstrate the CI/CD features of GitHub Actions.",
+      "checker": {
+        "kind": "human"
+      }
+    },
+    {
+      "id": "alpaca-plan-472",
+      "category": "planning",
+      "prompt": "I've recently started playing the turn-based strategy game Into the Breach. I have read online that the game is considered to have 'perfect information'. What is meant by 'perfect information' in this context?",
+      "checker": {
+        "kind": "human"
+      }
+    },
+    {
+      "id": "alpaca-chat-88",
+      "category": "ordinary_conversation",
+      "prompt": "What is kevlar made out of?",
+      "checker": {
+        "kind": "human"
+      }
+    },
+    {
+      "id": "alpaca-chat-177",
+      "category": "ordinary_conversation",
+      "prompt": "Draft a ministerial speech outlining the top five benefits that innovation brings to the Australian economy",
+      "checker": {
+        "kind": "human"
+      }
+    },
+    {
+      "id": "alpaca-chat-69",
+      "category": "ordinary_conversation",
+      "prompt": "Can you tell me a very easy to way clean a showerhead?",
+      "checker": {
+        "kind": "human"
+      }
+    },
+    {
+      "id": "alpaca-chat-422",
+      "category": "ordinary_conversation",
+      "prompt": "Explain how it might be possible to host a large learning model on an average computer. Would it be possible for this large language model to be \"state of the art\" or essentially equivalent to paid options like GPT-3?",
+      "checker": {
+        "kind": "human"
+      }
+    }
+  ]
+}

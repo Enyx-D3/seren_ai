@@ -1,0 +1,236 @@
+{
+  "environment": "macOS arm64 Playwright Chromium offline CPU WebAssembly",
+  "rows": [
+    {
+      "prompt": "Plan exactly three numbered steps for organizing a community library donation and mention one risk.",
+      "answer": "Step 1: Gather essential items\n- Collect bookshelves, bins, and shelves for donations.\n\nRisk: This step is risky as it involves collecting items that may be valuable or difficult to arrange, potentially leading to overproduction or waste.\n\nStep 2: Create a donation basket\n- Arrange shelves to display bookshelves and bins, ensuring they are easily accessible and visible.\n\nRisk: This step requires careful planning to avoid overcrowding or improper organization, which could result in a crowded donation pile.\n\nStep 3: Secure storage\n- Place don",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Plan exactly three numbered steps for organizing a community library donation and mention one risk."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 128,
+        "firstModelTokenMs": 3328,
+        "verificationMs": 0,
+        "elapsedMs": 9554
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 128
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 9549
+        }
+      ]
+    },
+    {
+      "prompt": "Plan exactly two numbered steps for backing up family photos offline and mention one risk.",
+      "answer": "Step 1: Backup your computer\n- Use a secure backup software to protect your computer's files and backups.\n\nRisk: This step involves high-risk actions, such as leaving your computer unattended or using compromised software, which can compromise your data and security.\n\nStep 2: Create a secure cloud storage account\n- Set up a cloud storage account with encryption for your photos and backups.\n\nRisk: This step requires careful consideration to avoid unauthorized access or data breaches, especially if you're using cloud storage.",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Plan exactly two numbered steps for backing up family photos offline and mention one risk."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 113,
+        "firstModelTokenMs": 4658,
+        "verificationMs": 0,
+        "elapsedMs": 8344
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 113
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 8344
+        }
+      ]
+    },
+    {
+      "prompt": "Plan exactly three numbered steps for preparing a neighborhood garden and mention one risk.",
+      "answer": "Step 1: Gather plants\n- Collect fresh flowers and herbs from your garden.\n\nRisk: This step involves risky activities, such as damaging plants or using tools that could harm your garden, increasing the likelihood of unsuccessful gardening efforts.\n\nStep 2: Prepare tools\n- Gather gardening tools and attach screws securely.\n\nRisk: This step requires careful planning to avoid damaging tools or using unsuitable materials, which could lead to unsuccessful garden maintenance.\n\nStep 3: Organize and mulch\n- Dig a row of mulch and attach screws, ensuring proper spacing and spacing",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Plan exactly three numbered steps for preparing a neighborhood garden and mention one risk."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 128,
+        "firstModelTokenMs": 5408,
+        "verificationMs": 0,
+        "elapsedMs": 11195
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 128
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 11195
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "purpose": "Development repair probe; surface constraint checks are not semantic correctness."
+}

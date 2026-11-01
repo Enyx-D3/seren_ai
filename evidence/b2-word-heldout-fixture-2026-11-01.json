@@ -1,0 +1,13 @@
+{
+  "protocol": "b2-word-math-first-slice-v1",
+  "frozenBeforeFirstRun": true,
+  "notes": "New prompts written after parser and development self-test. Human-authored local development holdout; not an external independent benchmark.",
+  "cases": [
+    { "id": "w1", "prompt": "There are 8 bins. Each bin holds 14 clips. 19 clips are used. How many clips remain?", "expected": "93", "operation": "subtract" },
+    { "id": "w2", "prompt": "A cabinet has 4 drawers with 23 buttons in each. 9 buttons are added. How many buttons are there now?", "expected": "101", "operation": "add" },
+    { "id": "w3", "prompt": "There are 7 pouches. Each pouch contains 11 beads. 12 beads are given away. How many beads are left?", "expected": "65", "operation": "subtract" },
+    { "id": "w4", "prompt": "The shelf has 6 jars. Each jar has 17 marbles. 13 marbles are received. How many marbles are there now?", "expected": "115", "operation": "add" },
+    { "id": "n1", "prompt": "There are 5 trays. Each crate holds 12 muffins. 7 muffins are sold. How many muffins remain?", "expectedParse": false },
+    { "id": "n2", "prompt": "There are 5 trays. Each tray holds 12 muffins. 7 apples are sold. How many muffins remain?", "expectedParse": false }
+  ]
+}

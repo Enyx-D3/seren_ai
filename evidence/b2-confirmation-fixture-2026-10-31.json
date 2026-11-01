@@ -1,0 +1,350 @@
+{
+  "schemaVersion": 1,
+  "frozenBeforeModelRun": "2026-10-31T15:02:12.436Z",
+  "selectionSeed": "seren-b2-independent-confirmation-2026-10-31-v1",
+  "scope": "31-case untouched confirmation fixture. Do not run until prior eight-pair human grades are received. Generated arithmetic and explicit dependent operations are system-level tests, not intrinsic model-accuracy tests. Public-source pretraining exposure is possible. Eight new semantic pairs require blinded human review.",
+  "excludedFixturePaths": [
+    "evidence/b2-v2-public-fixture-2026-10-31.json",
+    "evidence/b2-v2-confirm-fixture-2026-10-31.json",
+    "evidence/b2-direction-fixture-2026-10-31.json",
+    "evidence/b2-direction-fixture-v2-2026-10-31.json",
+    "evidence/b2-direction-confirm-fixture-2026-10-31.json",
+    "evidence/b2-direction-third-fixture-2026-10-31.json",
+    "evidence/b2-complete-fixture-2026-10-31.json"
+  ],
+  "sourceUrls": {
+    "gsm8k": "https://github.com/openai/grade-school-math/blob/master/grade_school_math/data/test.jsonl",
+    "bbhBoolean": "https://github.com/suzgunmirac/BIG-Bench-Hard/blob/main/bbh/boolean_expressions.json",
+    "bbhFallacies": "https://github.com/suzgunmirac/BIG-Bench-Hard/blob/main/bbh/formal_fallacies.json",
+    "humanEval": "https://github.com/openai/human-eval/blob/master/data/HumanEval.jsonl.gz",
+    "alpacaEval": "https://huggingface.co/datasets/tatsu-lab/alpaca_eval/blob/main/alpaca_eval.json"
+  },
+  "sourceSha256": {
+    "gsm8k": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14",
+    "bbhBoolean": "ea6c754ec005e2d3f2d085d349a740f593b5764f32ea4638ffed4cfc0061b12a",
+    "bbhFallacies": "4c1adb664821157faade1d4153685403afcc02648f3c180a608a18f17f589629",
+    "humanEval": "b796127e635a67f93fb35c04f4cb03cf06f38c8072ee7cee8833d7bee06979ef",
+    "alpacaEval": "d92b92c51e8f1962a21193abe74e6f727c2bc8286035f4041505ff38a7c3ae51"
+  },
+  "fixtures": [
+    {
+      "id": "confirm-generated-arithmetic-1",
+      "category": "arithmetic",
+      "prompt": "Calculate (14*49)+(93-15) exactly.",
+      "checker": {
+        "kind": "number",
+        "expected": "764",
+        "source": "dual_exact_arithmetic_v1"
+      }
+    },
+    {
+      "id": "confirm-generated-arithmetic-2",
+      "category": "arithmetic",
+      "prompt": "Calculate (29*56)+(67-88) exactly.",
+      "checker": {
+        "kind": "number",
+        "expected": "1603",
+        "source": "dual_exact_arithmetic_v1"
+      }
+    },
+    {
+      "id": "confirm-generated-arithmetic-3",
+      "category": "arithmetic",
+      "prompt": "Calculate (37*85)+(33-85) exactly.",
+      "checker": {
+        "kind": "number",
+        "expected": "3093",
+        "source": "dual_exact_arithmetic_v1"
+      }
+    },
+    {
+      "id": "confirm-generated-arithmetic-4",
+      "category": "arithmetic",
+      "prompt": "Calculate (97*75)+(57-49) exactly.",
+      "checker": {
+        "kind": "number",
+        "expected": "7283",
+        "source": "dual_exact_arithmetic_v1"
+      }
+    },
+    {
+      "id": "gsm8k-328",
+      "category": "mathematical_word_problem",
+      "prompt": "The cell-phone recharges at the rate of 1 percentage-point of charge per 3 minutes. Now, the phone is at 60% charged. How long will it take to fully charge, in hours?\nGive the final numeric answer.",
+      "checker": {
+        "kind": "number",
+        "expected": "2",
+        "source": "published_gsm8k_test"
+      }
+    },
+    {
+      "id": "gsm8k-617",
+      "category": "mathematical_word_problem",
+      "prompt": "Prince is a butcher. He sells 15kg of meat every hour he works, and he works 10 hours a day. His friend Bill gives him a bull that weighs 750kg. How many days will it take Prince to sell the meat from Bill's bull?\nGive the final numeric answer.",
+      "checker": {
+        "kind": "number",
+        "expected": "5",
+        "source": "published_gsm8k_test"
+      }
+    },
+    {
+      "id": "gsm8k-23",
+      "category": "mathematical_word_problem",
+      "prompt": "A candle melts by 2 centimeters every hour that it burns. How many centimeters shorter will a candle be after burning from 1:00 PM to 5:00 PM?\nGive the final numeric answer.",
+      "checker": {
+        "kind": "number",
+        "expected": "8",
+        "source": "published_gsm8k_test"
+      }
+    },
+    {
+      "id": "gsm8k-496",
+      "category": "mathematical_word_problem",
+      "prompt": "Brett is 14 years old. In four years his sister Angela will be three times as old as he is now. How old is Angela right now?\nGive the final numeric answer.",
+      "checker": {
+        "kind": "number",
+        "expected": "38",
+        "source": "published_gsm8k_test"
+      }
+    },
+    {
+      "id": "confirm-generated-multistep-1",
+      "category": "multistep",
+      "prompt": "Calculate 51+18; then multiply that result by 5.",
+      "checker": {
+        "kind": "number",
+        "expected": "345",
+        "source": "dual_exact_arithmetic_v1"
+      }
+    },
+    {
+      "id": "confirm-generated-multistep-2",
+      "category": "multistep",
+      "prompt": "Calculate 68+12; then add 8 to that result.",
+      "checker": {
+        "kind": "number",
+        "expected": "88",
+        "source": "dual_exact_arithmetic_v1"
+      }
+    },
+    {
+      "id": "confirm-generated-multistep-3",
+      "category": "multistep",
+      "prompt": "Calculate 55+4; then multiply that result by 2.",
+      "checker": {
+        "kind": "number",
+        "expected": "118",
+        "source": "dual_exact_arithmetic_v1"
+      }
+    },
+    {
+      "id": "confirm-generated-multistep-4",
+      "category": "multistep",
+      "prompt": "Calculate 29+7; then add 8 to that result.",
+      "checker": {
+        "kind": "number",
+        "expected": "44",
+        "source": "dual_exact_arithmetic_v1"
+      }
+    },
+    {
+      "id": "bbh-boolean-90",
+      "category": "logic",
+      "prompt": "not False and False and False or False is Answer True or False.",
+      "checker": {
+        "kind": "choice",
+        "expected": "False",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    },
+    {
+      "id": "bbh-boolean-15",
+      "category": "logic",
+      "prompt": "not not not ( True and False ) is Answer True or False.",
+      "checker": {
+        "kind": "choice",
+        "expected": "True",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    },
+    {
+      "id": "bbh-boolean-2",
+      "category": "logic",
+      "prompt": "not True or False or ( False ) is Answer True or False.",
+      "checker": {
+        "kind": "choice",
+        "expected": "False",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    },
+    {
+      "id": "bbh-fallacy-93",
+      "category": "contradiction_detection",
+      "prompt": "\"Here comes a perfectly valid argument: First premise: Being a friend of Kilmarnock FC is sufficient for not being an admirer of The New Saints FC. Second premise: It is false that Maximo is an admirer of The New Saints FC. We may conclude that it is false that Maximo is a friend of Kilmarnock FC.\"\nIs the argument, given the explicitly stated premises, deductively valid or invalid?\nOptions:\n- valid \n- invalid\nAnswer valid or invalid.",
+      "checker": {
+        "kind": "choice",
+        "expected": "invalid",
+        "options": [
+          "valid",
+          "invalid"
+        ]
+      }
+    },
+    {
+      "id": "bbh-fallacy-163",
+      "category": "contradiction_detection",
+      "prompt": "\"Consumer research aims at understanding whether users of some products also tend to consume other ones, or not. The following argument seeks to clarify some such relations: To start with, every loyal buyer of Paul Mitchell soap is a loyal buyer of Natural Bar soap or, otherwise, neither a loyal buyer of Natural Bar soap nor an occasional purchaser of Cetaphil soap. Now, being an occasional purchaser of Cetaphil soap is necessary for being a loyal buyer of Paul Mitchell soap. In consequence, being a loyal buyer of Paul Mitchell soap is sufficient for being a loyal buyer of Natural Bar soap.\"\nIs the argument, given the explicitly stated premises, deductively valid or invalid?\nOptions:\n- valid \n- invalid\nAnswer valid or invalid.",
+      "checker": {
+        "kind": "choice",
+        "expected": "valid",
+        "options": [
+          "valid",
+          "invalid"
+        ]
+      }
+    },
+    {
+      "id": "bbh-fallacy-32",
+      "category": "contradiction_detection",
+      "prompt": "\"Is Fred a fan of Liverpool? Are supporters of Real Madrid devotees of PSG? In European football, it is sometimes difficult to keep track of the mutual admiration and dislike. The following argument seeks to clarify some such relations: First, everyone who is both an opponent to Real Sociedad de Fútbol and an ex-fan of Beşiktaş JK is a follower of Liverpool FC, too. Second, being an admirer of HŠK Zrinjski is sufficient for not being an opponent to Real Sociedad de Fútbol. Third, whoever is an admirer of HŠK Zrinjski is not an ex-fan of Beşiktaş JK. In consequence, every admirer of HŠK Zrinjski is a follower of Liverpool FC.\"\nIs the argument, given the explicitly stated premises, deductively valid or invalid?\nOptions:\n- valid \n- invalid\nAnswer valid or invalid.",
+      "checker": {
+        "kind": "choice",
+        "expected": "invalid",
+        "options": [
+          "valid",
+          "invalid"
+        ]
+      }
+    },
+    {
+      "id": "bbh-fallacy-203",
+      "category": "contradiction_detection",
+      "prompt": "\"It is not always easy to grasp who is consuming which products. The following argument pertains to this question: Whoever is an occasional purchaser of Eucalyptus soap is not a loyal buyer of Shield soap. No occasional purchaser of Colgate-Palmolive soap is a loyal buyer of Shield soap. Every regular user of Bliss soap is an occasional purchaser of Eucalyptus soap or an occasional purchaser of Colgate-Palmolive soap. Therefore, no regular user of Bliss soap is a loyal buyer of Shield soap.\"\nIs the argument, given the explicitly stated premises, deductively valid or invalid?\nOptions:\n- valid \n- invalid\nAnswer valid or invalid.",
+      "checker": {
+        "kind": "choice",
+        "expected": "valid",
+        "options": [
+          "valid",
+          "invalid"
+        ]
+      }
+    },
+    {
+      "id": "humaneval-61",
+      "category": "coding",
+      "prompt": "Complete this Python function. Return code only.\n\n\n\ndef correct_bracketing(brackets: str):\n    \"\"\" brackets is a string of \"(\" and \")\".\n    return True if every opening bracket has a corresponding closing bracket.\n\n    >>> correct_bracketing(\"(\")\n    False\n    >>> correct_bracketing(\"()\")\n    True\n    >>> correct_bracketing(\"(()())\")\n    True\n    >>> correct_bracketing(\")(()\")\n    False\n    \"\"\"\n",
+      "checker": {
+        "kind": "python",
+        "entryPoint": "correct_bracketing",
+        "prefix": "\n\ndef correct_bracketing(brackets: str):\n    \"\"\" brackets is a string of \"(\" and \")\".\n    return True if every opening bracket has a corresponding closing bracket.\n\n    >>> correct_bracketing(\"(\")\n    False\n    >>> correct_bracketing(\"()\")\n    True\n    >>> correct_bracketing(\"(()())\")\n    True\n    >>> correct_bracketing(\")(()\")\n    False\n    \"\"\"\n",
+        "tests": "\n\nMETADATA = {}\n\n\ndef check(candidate):\n    assert candidate(\"()\")\n    assert candidate(\"(()())\")\n    assert candidate(\"()()(()())()\")\n    assert candidate(\"()()((()()())())(()()(()))\")\n    assert not candidate(\"((()())))\")\n    assert not candidate(\")(()\")\n    assert not candidate(\"(\")\n    assert not candidate(\"((((\")\n    assert not candidate(\")\")\n    assert not candidate(\"(()\")\n    assert not candidate(\"()()(()())())(()\")\n    assert not candidate(\"()()(()())()))()\")\n\n"
+      }
+    },
+    {
+      "id": "humaneval-24",
+      "category": "coding",
+      "prompt": "Complete this Python function. Return code only.\n\n\n\ndef largest_divisor(n: int) -> int:\n    \"\"\" For a given number n, find the largest number that divides n evenly, smaller than n\n    >>> largest_divisor(15)\n    5\n    \"\"\"\n",
+      "checker": {
+        "kind": "python",
+        "entryPoint": "largest_divisor",
+        "prefix": "\n\ndef largest_divisor(n: int) -> int:\n    \"\"\" For a given number n, find the largest number that divides n evenly, smaller than n\n    >>> largest_divisor(15)\n    5\n    \"\"\"\n",
+        "tests": "\n\nMETADATA = {\n    'author': 'jt',\n    'dataset': 'test'\n}\n\n\ndef check(candidate):\n    assert candidate(3) == 1\n    assert candidate(7) == 1\n    assert candidate(10) == 5\n    assert candidate(100) == 50\n    assert candidate(49) == 7\n"
+      }
+    },
+    {
+      "id": "humaneval-31",
+      "category": "coding",
+      "prompt": "Complete this Python function. Return code only.\n\n\n\ndef is_prime(n):\n    \"\"\"Return true if a given number is prime, and false otherwise.\n    >>> is_prime(6)\n    False\n    >>> is_prime(101)\n    True\n    >>> is_prime(11)\n    True\n    >>> is_prime(13441)\n    True\n    >>> is_prime(61)\n    True\n    >>> is_prime(4)\n    False\n    >>> is_prime(1)\n    False\n    \"\"\"\n",
+      "checker": {
+        "kind": "python",
+        "entryPoint": "is_prime",
+        "prefix": "\n\ndef is_prime(n):\n    \"\"\"Return true if a given number is prime, and false otherwise.\n    >>> is_prime(6)\n    False\n    >>> is_prime(101)\n    True\n    >>> is_prime(11)\n    True\n    >>> is_prime(13441)\n    True\n    >>> is_prime(61)\n    True\n    >>> is_prime(4)\n    False\n    >>> is_prime(1)\n    False\n    \"\"\"\n",
+        "tests": "\n\nMETADATA = {}\n\n\ndef check(candidate):\n    assert candidate(6) == False\n    assert candidate(101) == True\n    assert candidate(11) == True\n    assert candidate(13441) == True\n    assert candidate(61) == True\n    assert candidate(4) == False\n    assert candidate(1) == False\n    assert candidate(5) == True\n    assert candidate(11) == True\n    assert candidate(17) == True\n    assert candidate(5 * 17) == False\n    assert candidate(11 * 7) == False\n    assert candidate(13441 * 19) == False\n\n"
+      }
+    },
+    {
+      "id": "humaneval-57",
+      "category": "coding",
+      "prompt": "Complete this Python function. Return code only.\n\n\n\ndef monotonic(l: list):\n    \"\"\"Return True is list elements are monotonically increasing or decreasing.\n    >>> monotonic([1, 2, 4, 20])\n    True\n    >>> monotonic([1, 20, 4, 10])\n    False\n    >>> monotonic([4, 1, 0, -10])\n    True\n    \"\"\"\n",
+      "checker": {
+        "kind": "python",
+        "entryPoint": "monotonic",
+        "prefix": "\n\ndef monotonic(l: list):\n    \"\"\"Return True is list elements are monotonically increasing or decreasing.\n    >>> monotonic([1, 2, 4, 20])\n    True\n    >>> monotonic([1, 20, 4, 10])\n    False\n    >>> monotonic([4, 1, 0, -10])\n    True\n    \"\"\"\n",
+        "tests": "\n\nMETADATA = {}\n\n\ndef check(candidate):\n    assert candidate([1, 2, 4, 10]) == True\n    assert candidate([1, 2, 4, 20]) == True\n    assert candidate([1, 20, 4, 10]) == False\n    assert candidate([4, 1, 0, -10]) == True\n    assert candidate([4, 1, 1, 0]) == True\n    assert candidate([1, 2, 3, 2, 5, 60]) == False\n    assert candidate([1, 2, 3, 4, 5, 60]) == True\n    assert candidate([9, 9, 9, 9]) == True\n\n"
+      }
+    },
+    {
+      "id": "alpaca-plan-325",
+      "category": "planning",
+      "prompt": "I live in New Zealand. Given the regulations here, would it be possible for me to own an operational fighter jet? If so, what steps would I need to take to be qualified to fly it?",
+      "checker": {
+        "kind": "human"
+      }
+    },
+    {
+      "id": "confirm-synthetic-plan-1",
+      "category": "planning",
+      "prompt": "Create a practical three-step plan for a neighborhood bicycle safety workshop. Include one risk and a way to reduce it.",
+      "checker": {
+        "kind": "human"
+      }
+    },
+    {
+      "id": "confirm-synthetic-plan-2",
+      "category": "planning",
+      "prompt": "Plan how a community kitchen should hand over volunteer shifts on a busy weekend. Include responsibilities, one failure risk, and a check that the handoff worked.",
+      "checker": {
+        "kind": "human"
+      }
+    },
+    {
+      "id": "confirm-synthetic-plan-3",
+      "category": "planning",
+      "prompt": "Create a short plan for maintaining a shared calendar for a local sports club. Address conflicting bookings and one privacy risk.",
+      "checker": {
+        "kind": "human"
+      }
+    },
+    {
+      "id": "alpaca-chat-514",
+      "category": "ordinary_conversation",
+      "prompt": "You should find a few LATEX templates appropriate for the task at hand and list the links to them.\n\nHomework Assignment",
+      "checker": {
+        "kind": "human"
+      }
+    },
+    {
+      "id": "alpaca-chat-252",
+      "category": "ordinary_conversation",
+      "prompt": "explain TypeScript and Duck Typing",
+      "checker": {
+        "kind": "human"
+      }
+    },
+    {
+      "id": "alpaca-chat-76",
+      "category": "ordinary_conversation",
+      "prompt": "I like to host guests at my home from time to time, and I am gathering  recipes of different dishes and drinks to keep things interesting. I am interested in trying some Uruguayan dishes. Can you give me a recipe for Vitel toné?",
+      "checker": {
+        "kind": "human"
+      }
+    },
+    {
+      "id": "alpaca-chat-773",
+      "category": "ordinary_conversation",
+      "prompt": "How many times has the Earth orbited the Sun since the beginning of life? Try to explain your answer. Your explanation should take the reader through your reasoning step-by-step.",
+      "checker": {
+        "kind": "human"
+      }
+    }
+  ]
+}

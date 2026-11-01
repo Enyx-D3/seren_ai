@@ -1,5 +1,11 @@
 # AppFlow — Seren 7 Local AI Journeys
 
+**Target Compass cycle:** On Send, set an explicit goal and acceptance requirements; gather only source-grounded givens; build dependency-ready candidate paths; compare predicted verified progress, information gain, error risk and measured resource cost; execute one eligible operation; record its independent verifier receipt and goal-progress delta; retain established nodes; repair only the unresolved residual or stop. A bounded branch may explore another path, then merge only independently compatible states. Current implementation has a forward path and limited repair; reverse deduction, general branching and merging remain proposed. Run details must report actual events, including `no_verified_advance`, without portraying provisional text as success.
+
+**Implemented bounded branch:** For recognized grouped-count questions, source spans establish group count, items per group, and the add/remove count. Compass compares multiplication plus change with bounded repeated addition plus change, chooses the lower estimated operation count, and logs both candidates. If its selected path fails an independent calculation check, it records the residual and selects the other path. Any verified initial total is retained and reused. Unrecognized wording goes through the existing provisional Falcon path; no fact is invented.
+
+For a checked numeric mismatch in an explanation request, Think deeper can ask the same Falcon to correct only the expression's numeric result while withholding the expected answer. The checked numeric component is preserved. A matching repaired number remains partial until the requested explanation has its own independent validation; failed repairs brake and surface the checked number separately.
+
 **ADR-002/ADR-003 active flow:** Every send enters B2 Spiral. It maintains established facts and unresolved residuals, selects a feasible operation through B2 Compass, verifies progress, and chooses a new direction only when productive. The sole language model is Falcon Instruct. The original specialist model routes are historical research, not fallback paths.
 
 **Version:** 1.1 Web-only · **Status:** specified; partially implemented. Current checkpoint evidence: `CHECKPOINT_LOG.md`.

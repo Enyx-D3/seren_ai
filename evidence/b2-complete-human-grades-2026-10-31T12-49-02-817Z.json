@@ -1,0 +1,90 @@
+{
+  "alpaca-plan-582": {
+    "response1": {
+      "score": null,
+      "errors": ""
+    },
+    "response2": {
+      "score": null,
+      "errors": ""
+    },
+    "preferred": null
+  },
+  "alpaca-plan-248": {
+    "response1": {
+      "score": null,
+      "errors": ""
+    },
+    "response2": {
+      "score": null,
+      "errors": ""
+    },
+    "preferred": null
+  },
+  "alpaca-plan-551": {
+    "response1": {
+      "score": null,
+      "errors": ""
+    },
+    "response2": {
+      "score": null,
+      "errors": ""
+    },
+    "preferred": null
+  },
+  "alpaca-plan-472": {
+    "response1": {
+      "score": null,
+      "errors": ""
+    },
+    "response2": {
+      "score": null,
+      "errors": ""
+    },
+    "preferred": null
+  },
+  "alpaca-chat-88": {
+    "response1": {
+      "score": null,
+      "errors": ""
+    },
+    "response2": {
+      "score": null,
+      "errors": ""
+    },
+    "preferred": null
+  },
+  "alpaca-chat-177": {
+    "response1": {
+      "score": null,
+      "errors": ""
+    },
+    "response2": {
+      "score": null,
+      "errors": ""
+    },
+    "preferred": null
+  },
+  "alpaca-chat-69": {
+    "response1": {
+      "score": null,
+      "errors": ""
+    },
+    "response2": {
+      "score": null,
+      "errors": ""
+    },
+    "preferred": null
+  },
+  "alpaca-chat-422": {
+    "response1": {
+      "score": null,
+      "errors": ""
+    },
+    "response2": {
+      "score": null,
+      "errors": ""
+    },
+    "preferred": null
+  }
+}

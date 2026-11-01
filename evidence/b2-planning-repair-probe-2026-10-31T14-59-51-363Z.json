@@ -1,0 +1,384 @@
+{
+  "environment": "macOS arm64 Playwright Chromium offline CPU WebAssembly",
+  "rows": [
+    {
+      "prompt": "Plan exactly 3 numbered steps for preserving local oral-history recordings, including metadata, a second storage copy, a way to test playback, and one concrete risk.",
+      "answer": "**Step 1:** Create a detailed metadata record for each recording, including timestamps, location, and subject, to ensure consistency and facilitate quick access.\n\n**Step 2:** Utilize a secondary storage copy to store the original audio files, ensuring high availability and minimizing data redundancy.\n\n**Step 3:** Conduct a test playback experiment by playing back a small portion of the audio file, comparing the recorded sounds to known reference points to assess playback reliability.\n\n**Risk:** This step involves potential data loss due to the secondary storage copy, necessitating robust backup strategies.",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Plan exactly 3 numbered steps for preserving local oral-history recordings, including metadata, a second storage copy, a way to test playback, and one concrete risk."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 122,
+        "firstModelTokenMs": 2852,
+        "verificationMs": 0,
+        "elapsedMs": 8767
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 122
+        },
+        {
+          "step": "verified_component",
+          "partId": "part-1",
+          "component": "step_count",
+          "answer": "3",
+          "method": "surface_step_count_v1",
+          "newFact": true,
+          "scope": "selected_answer_structural_only"
+        },
+        {
+          "step": "verified_component",
+          "partId": "part-1",
+          "component": "risk_mention",
+          "answer": "present",
+          "method": "surface_risk_mention_v1",
+          "newFact": true,
+          "scope": "selected_answer_structural_only"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-3",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 8764
+        }
+      ]
+    },
+    {
+      "prompt": "Plan exactly 3 numbered steps for cataloging donated historical letters offline, including labels, safe storage, a retrieval check, and one concrete risk.",
+      "answer": "**Step 1:** Develop a catalogue of historical letters with clear labels, including subject, date, and location, to facilitate easy retrieval.\n\n**Step 2:** Store the catalogue in a secure, offline environment, using a reputable storage medium like a digital hard drive, to minimize data loss.\n\n**Step 3:** Implement a retrieval check feature that periodically verifies the letter's location and date, ensuring that the catalogue remains accessible and up-to-date.\n\n**Risk:** This step involves a potential risk of data loss if the catalogue is not properly secured,",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Plan exactly 3 numbered steps for cataloging donated historical letters offline, including labels, safe storage, a retrieval check, and one concrete risk."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 128,
+        "firstModelTokenMs": 3549,
+        "verificationMs": 0,
+        "elapsedMs": 7527
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 128
+        },
+        {
+          "step": "verified_component",
+          "partId": "part-1",
+          "component": "step_count",
+          "answer": "3",
+          "method": "surface_step_count_v1",
+          "newFact": true,
+          "scope": "selected_answer_structural_only"
+        },
+        {
+          "step": "verified_component",
+          "partId": "part-1",
+          "component": "risk_mention",
+          "answer": "present",
+          "method": "surface_risk_mention_v1",
+          "newFact": true,
+          "scope": "selected_answer_structural_only"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-3",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 7526
+        }
+      ]
+    },
+    {
+      "prompt": "Plan exactly 3 numbered steps for organizing a neighborhood seed library, including intake, labeling, distribution, and one concrete risk.",
+      "answer": "**Step 1:** Conduct a thorough intake survey to identify potential recipients, categorizing them based on their interests and preferences.\n\n**Step 2:** Create detailed labels for each participant, including subject, date, and location, to facilitate easy navigation and reference.\n\n**Step 3:** Distribute the seed library to the identified participants, ensuring that each participant receives a unique and relevant item, and that the library is accessible via a secure, offline platform.\n\n**Risk:** This step involves a potential risk of incomplete or inaccessible items, necessitating careful planning and coordination.",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Plan exactly 3 numbered steps for organizing a neighborhood seed library, including intake, labeling, distribution, and one concrete risk."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 120,
+        "firstModelTokenMs": 5452,
+        "verificationMs": 0,
+        "elapsedMs": 10741
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 120
+        },
+        {
+          "step": "verified_component",
+          "partId": "part-1",
+          "component": "step_count",
+          "answer": "3",
+          "method": "surface_step_count_v1",
+          "newFact": true,
+          "scope": "selected_answer_structural_only"
+        },
+        {
+          "step": "verified_component",
+          "partId": "part-1",
+          "component": "risk_mention",
+          "answer": "present",
+          "method": "surface_risk_mention_v1",
+          "newFact": true,
+          "scope": "selected_answer_structural_only"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-3",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 10741
+        }
+      ]
+    },
+    {
+      "prompt": "Plan exactly 3 numbered steps for moving a school science archive to an offline drive, including inventory, copy, restore check, and one concrete risk.",
+      "answer": "**Step 1:** Develop a comprehensive inventory plan, including items for each school science area, with a clear list of subject, date, and location.\n\n**Step 2:** Create a backup copy of the archive, ensuring it is stored securely and easily accessible for restoration.\n\n**Step 3:** Perform a restore check on the copy, verifying that all items are correctly sourced and that the archive is ready for offline use.\n\n**Risk:** This step involves a potential risk of incomplete or damaged items, requiring careful planning and backup strategies.",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Plan exactly 3 numbered steps for moving a school science archive to an offline drive, including inventory, copy, restore check, and one concrete risk."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 113,
+        "firstModelTokenMs": 9293,
+        "verificationMs": 0,
+        "elapsedMs": 15478
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0,
+                "computationalCost": 0.9010333333333334,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "local_outcome_proxy:3",
+                "computationalCost": "local_elapsed_ms:3",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "local_cache_hits:3"
+              },
+              "score": 0.649,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 113
+        },
+        {
+          "step": "verified_component",
+          "partId": "part-1",
+          "component": "step_count",
+          "answer": "3",
+          "method": "surface_step_count_v1",
+          "newFact": true,
+          "scope": "selected_answer_structural_only"
+        },
+        {
+          "step": "verified_component",
+          "partId": "part-1",
+          "component": "risk_mention",
+          "answer": "present",
+          "method": "surface_risk_mention_v1",
+          "newFact": true,
+          "scope": "selected_answer_structural_only"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-3",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 15478
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "purpose": "Development repair probe; surface constraint checks are not semantic correctness."
+}

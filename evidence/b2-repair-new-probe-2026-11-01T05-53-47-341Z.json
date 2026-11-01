@@ -1,0 +1,1031 @@
+{
+  "environment": "macOS arm64 Playwright Chromium offline CPU WebAssembly",
+  "rows": [
+    {
+      "prompt": "A catalog says computing 47 * 36 exactly gives 1682. Check the claim. Compute 47 * 36 exactly and end with the correct numeric result.",
+      "answer": "The exact numeric result is 1692. I could not verify the explanation.",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "A catalog says computing 47 * 36 exactly gives 1682. Check the claim. Compute 47 * 36 exactly and end with the correct numeric result."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 2,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 42,
+        "firstModelTokenMs": 2109,
+        "verificationMs": 1,
+        "elapsedMs": 5205
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 14
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "failed",
+          "verifiedProgress": false,
+          "verificationMethod": "partial_exact_component",
+          "derivationId": "derivation-1",
+          "residual": "The final numeric result should be 1692; the candidate ended with 1682.",
+          "informationGainProxy": 0.5,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 3932,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 1,
+              "completion": 0,
+              "complete": false
+            },
+            "verifiedDelta": 0,
+            "componentDelta": 0,
+            "residualDelta": 1,
+            "outcome": "no_verified_advance"
+          }
+        },
+        {
+          "step": "residual",
+          "part": "part-1",
+          "residual": "The final numeric result should be 1692; the candidate ended with 1682."
+        },
+        {
+          "step": "direction",
+          "part": "part-1:residual-1",
+          "chosen": "calculator_component",
+          "candidates": [
+            {
+              "kind": "calculator_component",
+              "status": "verified_partial",
+              "scores": {
+                "goalAttraction": 0.8,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.1,
+                "errorRisk": 0.02,
+                "memoryReuse": 0.2
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 5.46,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon_repair",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.6,
+                "expectedProgress": 0.35,
+                "informationGain": 0.45,
+                "computationalCost": 0.8,
+                "errorRisk": 0.75,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 0.65,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "brake_partial",
+              "status": "bounded_stop",
+              "scores": {
+                "goalAttraction": 0.1,
+                "expectedProgress": 0,
+                "informationGain": 0,
+                "computationalCost": 0,
+                "errorRisk": 0,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 0.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "verified_component",
+          "partId": "part-1",
+          "component": "numeric_result",
+          "answer": "1692",
+          "method": "partial_exact_component",
+          "newFact": true,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 1,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 1,
+              "openResiduals": 1,
+              "completion": 0,
+              "complete": false
+            },
+            "verifiedDelta": 0,
+            "componentDelta": 1,
+            "residualDelta": 0,
+            "outcome": "no_verified_advance"
+          }
+        },
+        {
+          "step": "direction",
+          "part": "part-1:residual-1",
+          "chosen": "falcon_repair",
+          "candidates": [
+            {
+              "kind": "falcon_repair",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.6,
+                "expectedProgress": 0.35,
+                "informationGain": 0.45,
+                "computationalCost": 0.8,
+                "errorRisk": 0.75,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 0.65,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "brake_partial",
+              "status": "bounded_stop",
+              "scores": {
+                "goalAttraction": 0.1,
+                "expectedProgress": 0,
+                "informationGain": 0,
+                "computationalCost": 0,
+                "errorRisk": 0,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 0.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "targeted_numeric_repair",
+          "part": "part-1",
+          "expression": "47 * 36",
+          "expectedValueWithheld": true,
+          "preservedVerifiedComponents": [
+            "numeric_result"
+          ]
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1:residual-1",
+          "operation": "falcon_repair",
+          "status": "unresolved",
+          "verificationStatus": "failed",
+          "verificationMethod": "partial_exact_component",
+          "verifiedProgress": false,
+          "componentVerified": false,
+          "checkedOutcome": true,
+          "informationGainProxy": 0,
+          "residual": "The final numeric result should be 1692; the candidate ended with 1680 and asserted a conflicting result.",
+          "reused": false,
+          "elapsedMs": 1271
+        },
+        {
+          "step": "repair",
+          "part": "part-1",
+          "candidate": 2,
+          "candidateText": "The correct answer is 1680. The earlier claim was inconsistent, and the numeric result was 1680.",
+          "verification": "failed",
+          "residualResolved": false,
+          "numericAligned": false,
+          "booleanAligned": false,
+          "surfaceAligned": false
+        },
+        {
+          "step": "brake",
+          "part": "part-1",
+          "method": "partial_exact_component",
+          "residual": "The final numeric result should be 1692; the candidate ended with 1680 and asserted a conflicting result."
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "final_response",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "partial_exact_component",
+          "derivationId": "derivation-3",
+          "residual": "The numeric result is independently checked; the explanation remains unverified.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 5204,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 1,
+              "openResiduals": 1,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 1,
+              "openResiduals": 2,
+              "completion": 0,
+              "complete": false
+            },
+            "verifiedDelta": 0,
+            "componentDelta": 0,
+            "residualDelta": 1,
+            "outcome": "no_verified_advance"
+          }
+        }
+      ]
+    },
+    {
+      "prompt": "A receipt says computing 26 * 39 exactly gives 1004. Check the claim. Compute 26 * 39 exactly and end with the correct numeric result.",
+      "answer": "The exact numeric result is 1014. I could not verify the explanation.",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "A receipt says computing 26 * 39 exactly gives 1004. Check the claim. Compute 26 * 39 exactly and end with the correct numeric result."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 2,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 25,
+        "firstModelTokenMs": 1501,
+        "verificationMs": 0,
+        "elapsedMs": 2968
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 11
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "failed",
+          "verifiedProgress": false,
+          "verificationMethod": "partial_exact_component",
+          "derivationId": "derivation-1",
+          "residual": "The final numeric result should be 1014; the candidate ended with 1050 and asserted a conflicting result.",
+          "informationGainProxy": 0.5,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 1697,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 1,
+              "completion": 0,
+              "complete": false
+            },
+            "verifiedDelta": 0,
+            "componentDelta": 0,
+            "residualDelta": 1,
+            "outcome": "no_verified_advance"
+          }
+        },
+        {
+          "step": "residual",
+          "part": "part-1",
+          "residual": "The final numeric result should be 1014; the candidate ended with 1050 and asserted a conflicting result."
+        },
+        {
+          "step": "direction",
+          "part": "part-1:residual-1",
+          "chosen": "calculator_component",
+          "candidates": [
+            {
+              "kind": "calculator_component",
+              "status": "verified_partial",
+              "scores": {
+                "goalAttraction": 0.8,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.1,
+                "errorRisk": 0.02,
+                "memoryReuse": 0.2
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 5.46,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon_repair",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.6,
+                "expectedProgress": 0.35,
+                "informationGain": 0.45,
+                "computationalCost": 0.8,
+                "errorRisk": 0.75,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 0.65,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "brake_partial",
+              "status": "bounded_stop",
+              "scores": {
+                "goalAttraction": 0.1,
+                "expectedProgress": 0,
+                "informationGain": 0,
+                "computationalCost": 0,
+                "errorRisk": 0,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 0.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "verified_component",
+          "partId": "part-1",
+          "component": "numeric_result",
+          "answer": "1014",
+          "method": "partial_exact_component",
+          "newFact": true,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 1,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 1,
+              "openResiduals": 1,
+              "completion": 0,
+              "complete": false
+            },
+            "verifiedDelta": 0,
+            "componentDelta": 1,
+            "residualDelta": 0,
+            "outcome": "no_verified_advance"
+          }
+        },
+        {
+          "step": "direction",
+          "part": "part-1:residual-1",
+          "chosen": "falcon_repair",
+          "candidates": [
+            {
+              "kind": "falcon_repair",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.6,
+                "expectedProgress": 0.35,
+                "informationGain": 0.45,
+                "computationalCost": 0.8,
+                "errorRisk": 0.75,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 0.65,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "brake_partial",
+              "status": "bounded_stop",
+              "scores": {
+                "goalAttraction": 0.1,
+                "expectedProgress": 0,
+                "informationGain": 0,
+                "computationalCost": 0,
+                "errorRisk": 0,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 0.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "targeted_numeric_repair",
+          "part": "part-1",
+          "expression": "26 * 39",
+          "expectedValueWithheld": true,
+          "preservedVerifiedComponents": [
+            "numeric_result"
+          ]
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1:residual-1",
+          "operation": "falcon_repair",
+          "status": "unresolved",
+          "verificationStatus": "failed",
+          "verificationMethod": "partial_exact_component",
+          "verifiedProgress": false,
+          "componentVerified": false,
+          "checkedOutcome": true,
+          "informationGainProxy": 0,
+          "residual": "The final numeric result should be 1014; the candidate ended with 1084 and asserted a conflicting result.",
+          "reused": false,
+          "elapsedMs": 1270
+        },
+        {
+          "step": "repair",
+          "part": "part-1",
+          "candidate": 2,
+          "candidateText": "26 * 39 = 1084",
+          "verification": "failed",
+          "residualResolved": false,
+          "numericAligned": false,
+          "booleanAligned": false,
+          "surfaceAligned": false
+        },
+        {
+          "step": "brake",
+          "part": "part-1",
+          "method": "partial_exact_component",
+          "residual": "The final numeric result should be 1014; the candidate ended with 1084 and asserted a conflicting result."
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "final_response",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "partial_exact_component",
+          "derivationId": "derivation-3",
+          "residual": "The numeric result is independently checked; the explanation remains unverified.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 2967,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 1,
+              "openResiduals": 1,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 1,
+              "openResiduals": 2,
+              "completion": 0,
+              "complete": false
+            },
+            "verifiedDelta": 0,
+            "componentDelta": 0,
+            "residualDelta": 1,
+            "outcome": "no_verified_advance"
+          }
+        }
+      ]
+    },
+    {
+      "prompt": "A card says computing 34 * 27 exactly gives 908. Check the claim. Compute 34 * 27 exactly and end with the correct numeric result.",
+      "answer": "The exact numeric result is 918. I could not verify the explanation.",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "A card says computing 34 * 27 exactly gives 908. Check the claim. Compute 34 * 27 exactly and end with the correct numeric result."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 2,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 31,
+        "firstModelTokenMs": 1864,
+        "verificationMs": 0,
+        "elapsedMs": 3220
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 18
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "failed",
+          "verifiedProgress": false,
+          "verificationMethod": "partial_exact_component",
+          "derivationId": "derivation-1",
+          "residual": "The final numeric result should be 918; the candidate ended with 2458 and asserted a conflicting result.",
+          "informationGainProxy": 0.5,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 2160,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 1,
+              "completion": 0,
+              "complete": false
+            },
+            "verifiedDelta": 0,
+            "componentDelta": 0,
+            "residualDelta": 1,
+            "outcome": "no_verified_advance"
+          }
+        },
+        {
+          "step": "residual",
+          "part": "part-1",
+          "residual": "The final numeric result should be 918; the candidate ended with 2458 and asserted a conflicting result."
+        },
+        {
+          "step": "direction",
+          "part": "part-1:residual-1",
+          "chosen": "calculator_component",
+          "candidates": [
+            {
+              "kind": "calculator_component",
+              "status": "verified_partial",
+              "scores": {
+                "goalAttraction": 0.8,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.1,
+                "errorRisk": 0.02,
+                "memoryReuse": 0.2
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 5.46,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon_repair",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.6,
+                "expectedProgress": 0.35,
+                "informationGain": 0.45,
+                "computationalCost": 0.8,
+                "errorRisk": 0.75,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 0.65,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "brake_partial",
+              "status": "bounded_stop",
+              "scores": {
+                "goalAttraction": 0.1,
+                "expectedProgress": 0,
+                "informationGain": 0,
+                "computationalCost": 0,
+                "errorRisk": 0,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 0.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "verified_component",
+          "partId": "part-1",
+          "component": "numeric_result",
+          "answer": "918",
+          "method": "partial_exact_component",
+          "newFact": true,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 1,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 1,
+              "openResiduals": 1,
+              "completion": 0,
+              "complete": false
+            },
+            "verifiedDelta": 0,
+            "componentDelta": 1,
+            "residualDelta": 0,
+            "outcome": "no_verified_advance"
+          }
+        },
+        {
+          "step": "direction",
+          "part": "part-1:residual-1",
+          "chosen": "falcon_repair",
+          "candidates": [
+            {
+              "kind": "falcon_repair",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.6,
+                "expectedProgress": 0.35,
+                "informationGain": 0.45,
+                "computationalCost": 0.8,
+                "errorRisk": 0.75,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 0.65,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "brake_partial",
+              "status": "bounded_stop",
+              "scores": {
+                "goalAttraction": 0.1,
+                "expectedProgress": 0,
+                "informationGain": 0,
+                "computationalCost": 0,
+                "errorRisk": 0,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 0.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "targeted_numeric_repair",
+          "part": "part-1",
+          "expression": "34 * 27",
+          "expectedValueWithheld": true,
+          "preservedVerifiedComponents": [
+            "numeric_result"
+          ]
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1:residual-1",
+          "operation": "falcon_repair",
+          "status": "unresolved",
+          "verificationStatus": "failed",
+          "verificationMethod": "partial_exact_component",
+          "verifiedProgress": false,
+          "componentVerified": false,
+          "checkedOutcome": true,
+          "informationGainProxy": 0,
+          "residual": "The final numeric result should be 918; the candidate ended with 908.",
+          "reused": false,
+          "elapsedMs": 1059
+        },
+        {
+          "step": "repair",
+          "part": "part-1",
+          "candidate": 2,
+          "candidateText": "34 * 27 equals 908.",
+          "verification": "failed",
+          "residualResolved": false,
+          "numericAligned": false,
+          "booleanAligned": false,
+          "surfaceAligned": false
+        },
+        {
+          "step": "brake",
+          "part": "part-1",
+          "method": "partial_exact_component",
+          "residual": "The final numeric result should be 918; the candidate ended with 908."
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "final_response",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "partial_exact_component",
+          "derivationId": "derivation-3",
+          "residual": "The numeric result is independently checked; the explanation remains unverified.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 3220,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 1,
+              "openResiduals": 1,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 1,
+              "openResiduals": 2,
+              "completion": 0,
+              "complete": false
+            },
+            "verifiedDelta": 0,
+            "componentDelta": 0,
+            "residualDelta": 1,
+            "outcome": "no_verified_advance"
+          }
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "purpose": "New development problems, not from frozen confirmation. Falcon-led repair is distinct from calculator substitution."
+}

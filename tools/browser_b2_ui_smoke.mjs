@@ -16,10 +16,17 @@ try {
     const before = await page.locator('.msg-ai').count();
     await page.locator('#prompt').fill(prompt);
     await page.locator('#sendBtn').click();
-    await page.waitForFunction(n => {
-      const rows = [...document.querySelectorAll('.msg-ai')];
-      return rows.length > n && rows.at(-1).querySelector('.m-status')?.textContent !== 'Writing locally…';
-    }, before, { timeout: 120000 });
+    try {
+      await page.waitForFunction(n => {
+        const rows = [...document.querySelectorAll('.msg-ai')];
+        return rows.length > n && rows.at(-1).querySelector('.m-status')?.textContent !== 'Writing locally…';
+      }, before, { timeout: 120000 });
+    } catch (error) {
+      const detail = await page.evaluate(() => ({ hero: document.querySelector('#heroStatus')?.textContent,
+        messages: [...document.querySelectorAll('.msg-ai')].map(row => ({ status: row.querySelector('.m-status')?.textContent,
+          text: row.querySelector('.prose')?.textContent?.slice(0, 120) })) }));
+      throw new Error(`${error.message}; prompt=${prompt}; detail=${JSON.stringify(detail)}; pageErrors=${JSON.stringify(errors)}`);
+    }
     return await page.locator('.msg-ai .prose').last().innerText();
   }
   const math = await ask('Calculate 17 * 19 exactly.');
@@ -29,6 +36,7 @@ try {
   await context.setOffline(true);
   const logic = await ask('If all cats are mammals and Mira is a cat, is Mira a mammal? Answer yes or no.');
   const boolean = await ask('not (True and False) or False is Answer True or False.');
+  const dependency = await ask('Calculate 2+2; then multiply that result by 3');
   const chat = await ask('Say hello in one short sentence.');
   const plan = await ask('Plan a two-step morning backup; then list one risk.');
   const evidence = await page.evaluate(async () => {
@@ -39,14 +47,17 @@ try {
       verification: m.meta?.spiral_verification, metrics: m.meta?.spiral_metrics })),
       calibration: await kv.get('spiral_calibration_v2') };
   });
-  const result = { baseUrl, rows, math, logic, boolean, chat, plan, evidence, errors, external,
+  const result = { baseUrl, rows, math, logic, boolean, dependency, chat, plan, evidence, errors, external,
     passed: rows === 1 && math.trim() === '323' && /^yes\b/i.test(logic) && boolean.trim() === 'True' &&
-      chat.length > 0 && /\b(?:copy|files?|storage|drive|restore|archive)\b/i.test(plan) && evidence.answers.length === 5 &&
+      /^4\s+12$/.test(dependency.trim()) && chat.length > 0 &&
+      /\b(?:copy|files?|storage|drive|restore|archive)\b/i.test(plan) && evidence.answers.length === 6 &&
       evidence.answers.every(x => x.model === 'falcon_instruct' && x.status === 'done' && x.policy === SPIRAL_POLICY) &&
       evidence.answers[2].metrics.modelCalls === 0 && evidence.answers[2].metrics.calculatorCalls === 1 &&
-      evidence.answers[3].metrics.modelCalls === 1 && evidence.answers[4].metrics.modelCalls >= 1 &&
-      evidence.calibration.arithmetic.runs >= 1 && evidence.calibration.conversation.runs >= 1 &&
+      evidence.answers[3].metrics.modelCalls === 0 && evidence.answers[3].metrics.calculatorCalls === 2 &&
+      evidence.answers[4].metrics.modelCalls === 1 && evidence.answers[5].metrics.modelCalls >= 1 &&
+      evidence.calibration.arithmetic.runs >= 2 && evidence.calibration.conversation.runs >= 1 &&
       evidence.calibration.logic.operations.boolean.verifiedSuccesses >= 1 &&
+      evidence.calibration.arithmetic.operations.dependent_exact.verifiedSuccesses >= 1 &&
       evidence.calibration.arithmetic.verifiedModelSuccesses === 0 && evidence.calibration.conversation.modelRuns >= 1 &&
       errors.length === 0 && external.length === 0 };
   const path = `evidence/b2-ui-smoke-${new Date().toISOString().slice(0, 10)}.json`;

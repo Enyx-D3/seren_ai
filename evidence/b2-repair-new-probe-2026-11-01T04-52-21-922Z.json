@@ -1,0 +1,443 @@
+{
+  "environment": "macOS arm64 Playwright Chromium offline CPU WebAssembly",
+  "rows": [
+    {
+      "prompt": "A catalog says computing 47 * 36 exactly gives 1682. Check the claim. Compute 47 * 36 exactly and end with the correct numeric result.",
+      "answer": "The exact numeric result is 1692. I could not verify the explanation.",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "A catalog says computing 47 * 36 exactly gives 1682. Check the claim. Compute 47 * 36 exactly and end with the correct numeric result."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 14,
+        "firstModelTokenMs": 1381,
+        "verificationMs": 1,
+        "elapsedMs": 3046
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 14
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "failed",
+          "verifiedProgress": false,
+          "verificationMethod": "partial_exact_component",
+          "derivationId": "derivation-1",
+          "residual": "The final numeric result should be 1692; the candidate ended with 1682.",
+          "informationGainProxy": 0.5,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 3045,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 1,
+              "completion": 0,
+              "complete": false
+            },
+            "verifiedDelta": 0,
+            "componentDelta": 0,
+            "residualDelta": 1,
+            "outcome": "no_verified_advance"
+          }
+        },
+        {
+          "step": "brake",
+          "part": "part-1",
+          "method": "partial_exact_component",
+          "residual": "The final numeric result should be 1692; the candidate ended with 1682."
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "final_response",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "partial_exact_component",
+          "derivationId": "derivation-2",
+          "residual": "The numeric result is independently checked; the explanation remains unverified.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 3045,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 1,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 2,
+              "completion": 0,
+              "complete": false
+            },
+            "verifiedDelta": 0,
+            "componentDelta": 0,
+            "residualDelta": 1,
+            "outcome": "no_verified_advance"
+          }
+        }
+      ]
+    },
+    {
+      "prompt": "A receipt says computing 26 * 39 exactly gives 1004. Check the claim. Compute 26 * 39 exactly and end with the correct numeric result.",
+      "answer": "The exact numeric result is 1014. I could not verify the explanation.",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "A receipt says computing 26 * 39 exactly gives 1004. Check the claim. Compute 26 * 39 exactly and end with the correct numeric result."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 11,
+        "firstModelTokenMs": 1220,
+        "verificationMs": 0,
+        "elapsedMs": 1377
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 11
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "failed",
+          "verifiedProgress": false,
+          "verificationMethod": "partial_exact_component",
+          "derivationId": "derivation-1",
+          "residual": "The final numeric result should be 1014; the candidate ended with 8544 and asserted a conflicting result.",
+          "informationGainProxy": 0.5,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 1376,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 1,
+              "completion": 0,
+              "complete": false
+            },
+            "verifiedDelta": 0,
+            "componentDelta": 0,
+            "residualDelta": 1,
+            "outcome": "no_verified_advance"
+          }
+        },
+        {
+          "step": "brake",
+          "part": "part-1",
+          "method": "partial_exact_component",
+          "residual": "The final numeric result should be 1014; the candidate ended with 8544 and asserted a conflicting result."
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "final_response",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "partial_exact_component",
+          "derivationId": "derivation-2",
+          "residual": "The numeric result is independently checked; the explanation remains unverified.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 1376,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 1,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 2,
+              "completion": 0,
+              "complete": false
+            },
+            "verifiedDelta": 0,
+            "componentDelta": 0,
+            "residualDelta": 1,
+            "outcome": "no_verified_advance"
+          }
+        }
+      ]
+    },
+    {
+      "prompt": "A card says computing 34 * 27 exactly gives 908. Check the claim. Compute 34 * 27 exactly and end with the correct numeric result.",
+      "answer": "The exact numeric result is 918. I could not verify the explanation.",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "A card says computing 34 * 27 exactly gives 908. Check the claim. Compute 34 * 27 exactly and end with the correct numeric result."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 18,
+        "firstModelTokenMs": 1530,
+        "verificationMs": 0,
+        "elapsedMs": 1790
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 18
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "failed",
+          "verifiedProgress": false,
+          "verificationMethod": "partial_exact_component",
+          "derivationId": "derivation-1",
+          "residual": "The final numeric result should be 918; the candidate ended with 2458 and asserted a conflicting result.",
+          "informationGainProxy": 0.5,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 1790,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 1,
+              "completion": 0,
+              "complete": false
+            },
+            "verifiedDelta": 0,
+            "componentDelta": 0,
+            "residualDelta": 1,
+            "outcome": "no_verified_advance"
+          }
+        },
+        {
+          "step": "brake",
+          "part": "part-1",
+          "method": "partial_exact_component",
+          "residual": "The final numeric result should be 918; the candidate ended with 2458 and asserted a conflicting result."
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "final_response",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "partial_exact_component",
+          "derivationId": "derivation-2",
+          "residual": "The numeric result is independently checked; the explanation remains unverified.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 1790,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 1,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 2,
+              "completion": 0,
+              "complete": false
+            },
+            "verifiedDelta": 0,
+            "componentDelta": 0,
+            "residualDelta": 1,
+            "outcome": "no_verified_advance"
+          }
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "purpose": "New development problems, not from frozen confirmation. Falcon-led repair is distinct from calculator substitution."
+}

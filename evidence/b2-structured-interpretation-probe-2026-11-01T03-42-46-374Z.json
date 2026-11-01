@@ -1,0 +1,636 @@
+{
+  "environment": "macOS arm64 Playwright Chromium offline CPU WebAssembly",
+  "rows": [
+    {
+      "prompt": "A club has 7 folders with 6 photos in each folder and removes 5 duplicates. How many photos remain?",
+      "answer": "Let's break down the problem step by step:\n\n1. The club has 7 folders with 6 photos in each folder.\n2. The problem states that the photos are removed, so we need to calculate the total number of photos.\n\n7 folders * 6 photos per folder = 42 photos\n\n3. The problem also mentions removing 5 duplicates. Since each photo is a duplicate, we need to account for this removal.\n\n4. Subtract the 5 duplicates from the total: 42 photos - 5 duplicates = 37 photos\n\nSo, there are 37 photos remaining in the club.",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "A club has 7 folders with 6 photos in each folder and removes 5 duplicates. How many photos remain?"
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 3,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 333,
+        "firstModelTokenMs": 2156,
+        "verificationMs": 0,
+        "elapsedMs": 11270
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "direction",
+          "part": "part-1:interpret",
+          "chosen": "structured_interpretation",
+          "candidates": [
+            {
+              "kind": "structured_interpretation",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.55,
+                "expectedProgress": 0.35,
+                "informationGain": 0.4,
+                "computationalCost": 0.8,
+                "errorRisk": 0.75,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 0.45,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1:interpret",
+          "operation": "structured_interpretation",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verificationMethod": "lexical_fallback",
+          "verifiedProgress": false,
+          "checkedOutcome": false,
+          "schemaValid": false,
+          "attempts": [
+            {
+              "status": "rejected",
+              "format": "json",
+              "error": "invalid_json",
+              "tokens": 160,
+              "ttftMs": 2156
+            },
+            {
+              "status": "rejected",
+              "format": "span_lines",
+              "error": "invalid_span_line",
+              "tokens": 34,
+              "ttftMs": 1543
+            }
+          ],
+          "informationGainProxy": 0,
+          "reused": false,
+          "elapsedMs": 8549
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 139
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 11268
+        }
+      ],
+      "modelInterpretation": {
+        "kind": "lexical_fallback",
+        "attempts": [
+          {
+            "status": "rejected",
+            "format": "json",
+            "error": "invalid_json",
+            "tokens": 160,
+            "ttftMs": 2156
+          },
+          {
+            "status": "rejected",
+            "format": "span_lines",
+            "error": "invalid_span_line",
+            "tokens": 34,
+            "ttftMs": 1543
+          }
+        ],
+        "status": "unverified"
+      },
+      "modelSpanNodes": [],
+      "verifiedFacts": []
+    },
+    {
+      "prompt": "Nina starts with 18 seeds, gives 4 seeds to Omar, and receives 9 more. How many seeds does Nina have now?",
+      "answer": "Let's analyze the sequence of events:\n\n1. Nina starts with 18 seeds.\n2. She gives 4 seeds to Omar, so she now has 18 - 4 = 14 seeds.\n3. Omar receives 9 more seeds, so Nina now has 14 + 9 = 23 seeds.\n\nThus, Nina now has 23 seeds.",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Nina starts with 18 seeds, gives 4 seeds to Omar, and receives 9 more. How many seeds does Nina have now?"
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 3,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 362,
+        "firstModelTokenMs": 1334,
+        "verificationMs": 0,
+        "elapsedMs": 9923
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "direction",
+          "part": "part-1:interpret",
+          "chosen": "structured_interpretation",
+          "candidates": [
+            {
+              "kind": "structured_interpretation",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.55,
+                "expectedProgress": 0.35,
+                "informationGain": 0.4,
+                "computationalCost": 0.8,
+                "errorRisk": 0.75,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 0.45,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1:interpret",
+          "operation": "structured_interpretation",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verificationMethod": "lexical_fallback",
+          "verifiedProgress": false,
+          "checkedOutcome": false,
+          "schemaValid": false,
+          "attempts": [
+            {
+              "status": "rejected",
+              "format": "json",
+              "error": "invalid_json",
+              "tokens": 160,
+              "ttftMs": 1334
+            },
+            {
+              "status": "rejected",
+              "format": "span_lines",
+              "error": "invalid_span_line",
+              "tokens": 109,
+              "ttftMs": 1301
+            }
+          ],
+          "informationGainProxy": 0,
+          "reused": false,
+          "elapsedMs": 6823
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 93
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 9922
+        }
+      ],
+      "modelInterpretation": {
+        "kind": "lexical_fallback",
+        "attempts": [
+          {
+            "status": "rejected",
+            "format": "json",
+            "error": "invalid_json",
+            "tokens": 160,
+            "ttftMs": 1334
+          },
+          {
+            "status": "rejected",
+            "format": "span_lines",
+            "error": "invalid_span_line",
+            "tokens": 109,
+            "ttftMs": 1301
+          }
+        ],
+        "status": "unverified"
+      },
+      "modelSpanNodes": [],
+      "verifiedFacts": []
+    },
+    {
+      "prompt": "Complete this Python function: def count_long(words): Return the count of words longer than five characters.",
+      "answer": "Here's a Python function that accomplishes this task:\n\n```python\ndef count_long(words):\n    return len(words) > 5\n\n# Example usage:\nwords = [\"apple\", \"ball\", \"banana\", \"cheese\", \"fish\"]\nprint(count_long(words))  # Output: 4\n\nwords = [\"apple\", \"ball\", \"banana\", \"cheese\", \"fish\"]\nprint(count_long(words))  # Output: 5\n```\n\nThis function uses the `len` function to count the number of characters in each word and checks if it's longer than five characters. The example usage demonstrates this with both a list of words and a list of numbers.",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Complete this Python function: def count_long(words): Return the count of words longer than five characters."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 3,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 442,
+        "firstModelTokenMs": 1313,
+        "verificationMs": 0,
+        "elapsedMs": 12669
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "direction",
+          "part": "part-1:interpret",
+          "chosen": "structured_interpretation",
+          "candidates": [
+            {
+              "kind": "structured_interpretation",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.55,
+                "expectedProgress": 0.35,
+                "informationGain": 0.4,
+                "computationalCost": 0.8,
+                "errorRisk": 0.75,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 0.45,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1:interpret",
+          "operation": "structured_interpretation",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verificationMethod": "lexical_fallback",
+          "verifiedProgress": false,
+          "checkedOutcome": false,
+          "schemaValid": false,
+          "attempts": [
+            {
+              "status": "rejected",
+              "format": "json",
+              "error": "invalid_json",
+              "tokens": 160,
+              "ttftMs": 1313
+            },
+            {
+              "status": "rejected",
+              "format": "span_lines",
+              "error": "invalid_span_line",
+              "tokens": 112,
+              "ttftMs": 1327
+            }
+          ],
+          "informationGainProxy": 0,
+          "reused": false,
+          "elapsedMs": 6736
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 170
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 12668
+        }
+      ],
+      "modelInterpretation": {
+        "kind": "lexical_fallback",
+        "attempts": [
+          {
+            "status": "rejected",
+            "format": "json",
+            "error": "invalid_json",
+            "tokens": 160,
+            "ttftMs": 1313
+          },
+          {
+            "status": "rejected",
+            "format": "span_lines",
+            "error": "invalid_span_line",
+            "tokens": 112,
+            "ttftMs": 1327
+          }
+        ],
+        "status": "unverified"
+      },
+      "modelSpanNodes": [],
+      "verifiedFacts": []
+    },
+    {
+      "prompt": "Debug this Python function: def triple(x): return x + 3. It should multiply x by 3.",
+      "answer": "To debug this function, let's break it down step by step:\n\n1. The function is defined as `def triple(x):`. This is correct.\n\n2. The function takes an argument `x`, which is a variable.\n\n3. The function is intended to return `x` multiplied by 3.\n\nLet's test it:\n\n```python\n# Test the function\nx = 2\nprint(triple(x))  => Output: 6\n\n# Test with a non-zero value\nx = 5\nprint(triple(x))  => Output: 15\n\n# Test with an empty list\nx = []\nprint(triple(x)) => Output: 0\n\n# Test with a list that's too short\nx = [1, 2, 3]\nprint(",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Debug this Python function: def triple(x): return x + 3. It should multiply x by 3."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 3,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 412,
+        "firstModelTokenMs": 1451,
+        "verificationMs": 0,
+        "elapsedMs": 16000
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "direction",
+          "part": "part-1:interpret",
+          "chosen": "structured_interpretation",
+          "candidates": [
+            {
+              "kind": "structured_interpretation",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.55,
+                "expectedProgress": 0.35,
+                "informationGain": 0.4,
+                "computationalCost": 0.8,
+                "errorRisk": 0.75,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 0.45,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1:interpret",
+          "operation": "structured_interpretation",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verificationMethod": "lexical_fallback",
+          "verifiedProgress": false,
+          "checkedOutcome": false,
+          "schemaValid": false,
+          "attempts": [
+            {
+              "status": "rejected",
+              "format": "json",
+              "error": "ungrounded_fact",
+              "tokens": 158,
+              "ttftMs": 1451
+            },
+            {
+              "status": "rejected",
+              "format": "span_lines",
+              "error": "invalid_span_line",
+              "tokens": 62,
+              "ttftMs": 1544
+            }
+          ],
+          "informationGainProxy": 0,
+          "reused": false,
+          "elapsedMs": 7056
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 192
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 16000
+        }
+      ],
+      "modelInterpretation": {
+        "kind": "lexical_fallback",
+        "attempts": [
+          {
+            "status": "rejected",
+            "format": "json",
+            "error": "ungrounded_fact",
+            "tokens": 158,
+            "ttftMs": 1451
+          },
+          {
+            "status": "rejected",
+            "format": "span_lines",
+            "error": "invalid_span_line",
+            "tokens": 62,
+            "ttftMs": 1544
+          }
+        ],
+        "status": "unverified"
+      },
+      "modelSpanNodes": [],
+      "verifiedFacts": []
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "purpose": "Development structured interpretation probe. Source-grounded model spans remain provisional."
+}

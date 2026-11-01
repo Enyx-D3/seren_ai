@@ -3,6 +3,10 @@
 import { Sha256 } from './sha256.mjs';
 import { exactArithmetic } from './exact-arithmetic.mjs';
 import { solveBooleanExpression } from './b2-boolean.mjs';
+import { parseDependentArithmetic, solveDependentArithmetic } from './b2-dependent-arithmetic.mjs';
+import { parseGroupedWordMath, candidateWordPaths, executeWordPath } from './b2-word-math.mjs';
+import { explicitPartDependencies, readyPartIds } from './b2-problem-graph.mjs';
+import { interpretProblemWithFalcon } from './b2-structured-interpretation.mjs';
 import { sharedStates } from './store.mjs';
 import { extractExactArithmetic, tryLocalAnswer, parseToolFabric } from './tools.mjs';
 import { classifyTask } from './compass.mjs';
@@ -22,12 +26,12 @@ const checksum = value => {
 
 /* B2 owns the turn. The exact-state engine below remains a verified subsystem.
    Model prose is a hypothesis; only deterministic checks may promote a fact. */
-export const SPIRAL_POLICY = 'b2-controller-3';
+export const SPIRAL_POLICY = 'b2-controller-6';
 export const SPIRAL_CALIBRATION_KEY = 'spiral_calibration_v2';
 const MAX_PARTS = 3;
 const MAX_CALLS = 4;
 
-export function planSpiral(text, { deeper = false, calibration = null } = {}) {
+export function planSpiral(text, { deeper = false, calibration = null, experimentalInterpretation = false } = {}) {
   const source = String(text || '').trim();
   const category = classifyTask(source);
   // Only explicit command boundaries create independent tasks. Newlines inside
@@ -40,13 +44,24 @@ export function planSpiral(text, { deeper = false, calibration = null } = {}) {
   const checkedRuns = (observed?.verifiedModelFailures || 0) + (observed?.verifiedModelSuccesses || 0);
   const repairBudget = complexity === 'complex' || category === 'tool'
     ? (checkedRuns >= 3 && observed.verifiedModelFailures > observed.verifiedModelSuccesses ? 2 : 1) : 0;
+  // Live Falcon failed the grounded format on all observed development cases.
+  // Keep the bounded parser testable in shadow without adding two failed calls
+  // to ordinary browser turns.
+  const interpretationBudget = experimentalInterpretation && deeper &&
+    ['code', 'arithmetic'].includes(category) && !exactTarget(source) && source.length <= 2000 ? 2 : 0;
   // Planning decomposition is held in shadow: tiny-model subtask prompts
   // regressed on the fixed and held-out cases. Keep one hypothesis + repair.
   const split = complexity === 'complex' && category !== 'planning' ? clauses : [source];
   const parts = split.slice(0, MAX_PARTS);
-  return { policy: SPIRAL_POLICY, category, complexity, maxModelCalls: Math.min(MAX_CALLS, 1 + (parts.length > 1 ? parts.length : 0) + repairBudget),
-    repairBudget, omittedParts: Math.max(0, split.length - parts.length), parts: parts.map((question, index) => ({ id: `part-${index + 1}`, question,
-      dependsOn: index ? [`part-${index}`] : [], completeWhen: 'answer recorded and check status assigned' })) };
+  const dependencies = explicitPartDependencies(parts);
+  return { policy: SPIRAL_POLICY, category, complexity, maxModelCalls: Math.min(MAX_CALLS, 1 + (parts.length > 1 ? parts.length : 0) + repairBudget + interpretationBudget),
+    repairBudget, interpretationBudget, omittedParts: Math.max(0, split.length - parts.length), parts: parts.map((question, index) => ({ id: `part-${index + 1}`, question,
+      category: classifyTask(question), dependsOn: dependencies[index], orderAfter: index ? [`part-${index}`] : [],
+      candidateOperations: [exactTarget(question) && 'exact', dependencies[index].length && parseDependentArithmetic(question) && 'dependent_exact',
+        ...candidateWordPaths(parseGroupedWordMath(question)).map(path => path.kind),
+        solveBooleanExpression(question) && 'boolean',
+        structuredReasoning(question) && 'structured', tryLocalAnswer(question) && 'local', 'falcon'].filter(Boolean),
+      completeWhen: 'answer recorded and check status assigned' })) };
 }
 
 function exactTarget(text) {
@@ -68,6 +83,11 @@ function exactTarget(text) {
   if (!match) return null;
   const expression = match[1].trim().replace(/\\([+*/-])/g, '$1');
   return expression.length <= 256 && /^[\d.()\s+*/-]+$/.test(expression) && /[+*/-]/.test(expression.slice(1)) ? expression : null;
+}
+
+function embeddedBooleanTarget(text) {
+  const match = /\bBoolean expression:\s*([()A-Za-z\s]{3,256})[.!?](?:\s|$)/i.exec(String(text || ''));
+  return match ? solveBooleanExpression(match[1].trim()) : null;
 }
 
 // Narrow, explicit logical contracts. These do not claim to solve free-form
@@ -117,15 +137,30 @@ export function verifySpiralCandidate(question, candidate) {
   if (embedded) {
     try {
       const expected = exactArithmetic(embedded[1].trim()).text;
-      const claims = [...String(candidate || '').matchAll(/(?<![\w.])-?\d[\d,]*(?:\.\d+)?(?:\/\d+)?(?![\w.])/g)]
+      const prose = String(candidate || '');
+      const claims = [...prose.matchAll(/(?<![\w.])-?\d[\d,]*(?:\.\d+)?(?:\/\d+)?(?!\w|\.\d)/g)]
         .map(match => match[0].replaceAll(',', ''));
       const observed = claims.at(-1) || null;
-      return observed === expected
+      const resultClaims = [...prose.matchAll(/(?:correct\s+(?:answer|result)|(?:the\s+)?(?:answer|result)\s+is|=)\s*[:=]?\s*(-?\d[\d,]*(?:\.\d+)?)/gi)]
+        .map(match => match[1].replaceAll(',', ''));
+      const conflictingResult = resultClaims.some(value => value !== expected);
+      const negatesExpected = new RegExp(`\\b(?:not|isn't|is not|wrong|incorrect)\\s+${expected.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i').test(prose) ||
+        new RegExp(`\\b${expected.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b[^.!?\n]{0,35}\\b(?:wrong|incorrect)\\b`, 'i').test(prose);
+      return observed === expected && !conflictingResult && !negatesExpected
         ? { status: 'unverified', method: 'partial_exact_component', componentVerified: true,
           residual: 'The final calculation matches, but the explanation is not independently verified.' }
         : { status: 'failed', method: 'partial_exact_component', expected,
-          residual: `The final numeric result should be ${expected}; the candidate ended with ${observed ?? 'no number'}.` };
+          residual: `The final numeric result should be ${expected}; the candidate ended with ${observed ?? 'no number'}${conflictingResult ? ' and asserted a conflicting result' : ''}${negatesExpected ? ' and negated the correct result' : ''}.` };
     } catch { /* unsupported expression keeps the whole answer provisional */ }
+  }
+  const embeddedBoolean = embeddedBooleanTarget(question);
+  if (embeddedBoolean) {
+    const choice = /(?:^|\n)\s*Final choice:\s*(True|False)\s*[.!]?\s*$/i.exec(String(candidate || ''))?.[1] || null;
+    return choice?.toLowerCase() === embeddedBoolean.answer.toLowerCase()
+      ? { status: 'unverified', method: 'partial_boolean_component', componentVerified: true,
+        residual: 'The final Boolean choice is independently checked; the explanation is not.' }
+      : { status: 'failed', method: 'partial_boolean_component',
+        residual: 'The final Boolean choice is absent or conflicts with independent evaluation. Re-evaluate the expression; do not assume the earlier choice is correct.' };
   }
   if (/\bbackup\b/i.test(question) && !/\b(?:copy|files?|storage|drive|restore|archive)\b/i.test(String(candidate || '')))
     return { status: 'failed', method: 'topic_coverage_heuristic_v1',
@@ -137,10 +172,14 @@ export function verifySpiralCandidate(question, candidate) {
 // a semantic verifier and must never promote a plan to verified.
 export function planningCoverage(question, candidate) {
   const request = String(question || ''), answer = String(candidate || '');
-  const countWord = /\b(?:plan|give|list|outline)\s+(?:a\s+)?(one|two|three|\d+)[-\s]+(?:numbered\s+)?steps?\b/i.exec(request)?.[1]
+  const countWord = /\b(?:plan|give|list|outline)\s+(?:a\s+)?(?:exactly\s+)?(one|two|three|\d+)[-\s]+(?:numbered\s+)?steps?\b/i.exec(request)?.[1]
     || /\b(?:with|in)\s+(one|two|three|\d+)\s+(?:numbered\s+)?steps?\b/i.exec(request)?.[1];
   const requested = { one: 1, two: 2, three: 3 }[countWord?.toLowerCase()] || Number(countWord) || null;
-  const stepCount = (answer.match(/^\s*(?:[-*]\s+)?(?:\*\*)?(?:\d+[.):]|step\s+\d+[.:])\s*\S/gim) || []).length;
+  const stepCount = answer.split('\n').filter(line => {
+    const match = /^\s*(?:[-*]\s+)?(?:\*\*)?(?:\d+[.):]|step\s+\d+[.:])\s*(?:\*\*)?\s*(.*)$/i.exec(line);
+    const content = match?.[1]?.replace(/^\*+/, '').trim() || '';
+    return content.length > 3 && !/^risk\b/i.test(content);
+  }).length;
   const checks = [
     { name: 'step_count', applicable: requested !== null, passed: requested !== null && stepCount === requested },
     { name: 'risk_mention', applicable: /\brisk\b/i.test(request), passed: /\brisk\b/i.test(answer) },
@@ -148,26 +187,40 @@ export function planningCoverage(question, candidate) {
   ];
   return { score: checks.filter(check => check.applicable && check.passed).length,
     unmet: checks.filter(check => check.applicable && !check.passed).map(check => check.name),
+    requestedSteps: requested, observedSteps: stepCount,
+    checked: checks.filter(check => check.applicable),
     method: 'surface_constraint_coverage_v1', status: 'unverified' };
+}
+
+export function appendFalconPlanStep(draft, proposal, stepNumber) {
+  const current = String(draft || '').trim();
+  const lines = String(proposal || '').trim().split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+  if (!current || lines.length !== 1 || !Number.isInteger(stepNumber) || stepNumber < 2 || stepNumber > 8)
+    return null;
+  const line = lines[0].replace(/^\*\*(.*?)\*\*$/, '$1');
+  const match = /^(?:Step\s+(\d+)\s*[:.]|(\d+)[.):])\s*(.{8,200})$/i.exec(line);
+  if (!match || Number(match[1] || match[2]) !== stepNumber || /^risk\b/i.test(match[3])) return null;
+  return `${current}\n\nStep ${stepNumber}: ${match[3].trim()}`;
 }
 
 export function modelCalibrationOutcome(result) {
   if (!result?.metrics?.modelCalls) return null;
   const calculatorRescue = result.outcomes?.some(outcome => outcome.verification?.repairedByCalculator);
   const checkedFailure = result.trace?.some(step =>
-    (step.step === 'brake' && ['two_parser_exact_v1', 'partial_exact_component'].includes(step.method)) ||
+    (step.step === 'brake' && ['two_parser_exact_v1', 'partial_exact_component', 'partial_boolean_component'].includes(step.method)) ||
     (step.step === 'tool_proposals' && step.receipts?.some(receipt => !receipt.result.ok)));
   if (checkedFailure || calculatorRescue) return 'failure';
   return result.verification?.status === 'verified' ? 'success' : null;
 }
 
 export class SpiralController {
-  constructor({ exact = new ExactSpiral(), clock = () => performance.now() } = {}) {
-    this.exact = exact; this.clock = clock;
+  constructor({ exact = new ExactSpiral(), clock = () => performance.now(), wordCalculate = exactArithmetic } = {}) {
+    this.exact = exact; this.clock = clock; this.wordCalculate = wordCalculate;
   }
-  async run(text, { scope, turns = [], deeper = false, calibration = null, generate, runTool, signal, onToken } = {}) {
+  async run(text, { scope, turns = [], deeper = false, calibration = null,
+    experimentalInterpretation = false, generate, runTool, signal, onToken } = {}) {
     const start = this.clock();
-    const plan = planSpiral(text, { deeper, calibration });
+    const plan = planSpiral(text, { deeper, calibration, experimentalInterpretation });
     const trace = [], metrics = { modelCalls: 0, calculatorCalls: 0, cacheHits: 0, tokens: 0, firstModelTokenMs: null, verificationMs: 0, elapsedMs: 0 };
     const state = createSpiralState(text, plan.parts, plan.maxModelCalls);
     const mark = (partId, kind, answer, verification, began, { reused = false } = {}) => {
@@ -175,10 +228,10 @@ export class SpiralController {
         elapsedMs: Math.round(this.clock() - began), reused });
       trace.push({ step: 'direction_result', ...receipt });
     };
-    const choose = (partId, eligible) => {
-      const decision = selectDirection(state, partId, eligible, { calibration, category: plan.category });
+    const choose = (partId, eligible, candidateEvidence = {}) => {
+      const decision = selectDirection(state, partId, eligible, { calibration, category: plan.category, candidateEvidence });
       trace.push({ step: 'direction', part: partId, chosen: decision.chosen?.kind || null,
-        candidates: decision.candidates });
+        candidates: decision.candidates, selectionReason: decision.selectionReason });
       return decision.chosen?.kind || null;
     };
     const checkAbort = () => { if (signal?.aborted) throw new DOMException('Stopped', 'AbortError'); };
@@ -189,11 +242,68 @@ export class SpiralController {
     };
     checkAbort();
     const expression = exactTarget(text);
+    const wordProblem = plan.parts.length === 1 ? parseGroupedWordMath(text) : null;
+    const wordPaths = candidateWordPaths(wordProblem);
+    if (wordProblem) {
+      state.graph.nodes.push(...wordProblem.quantities.map(row => ({ id: `word:${row.role}`, type: 'source_quantity',
+        ...row, status: 'assumed_input', provenance: 'user_input' })));
+      state.graph.nodes.push({ id: 'word:initial_total', type: 'derived_unknown', status: 'unresolved' });
+      state.graph.nodes.push({ id: 'word:final_item_count', type: 'required_unknown', status: 'unresolved',
+        sourceOffset: wordProblem.unknown.sourceOffset, quote: wordProblem.unknown.quote });
+      state.graph.edges.push(...wordProblem.dependencies.map(edge => ({ from: `word:${edge.from}`, to: `word:${edge.to}`, relation: 'source_grounded_dependency' })));
+      trace.push({ step: 'grounded_word_problem', quantities: wordProblem.quantities,
+        unknown: wordProblem.unknown, dependencies: wordProblem.dependencies,
+        assumptions: wordProblem.assumptions, status: wordProblem.status });
+    }
     const boolean = solveBooleanExpression(text);
     const structured = structuredReasoning(text);
     const local = tryLocalAnswer(text);
     const rootKind = plan.parts.length === 1 ? choose(plan.parts[0].id,
-      [expression && 'exact', boolean && 'boolean', structured && 'structured', local && 'local', typeof generate === 'function' && 'falcon'].filter(Boolean)) : null;
+      [expression && 'exact', ...wordPaths.map(path => path.kind), boolean && 'boolean', structured && 'structured', local && 'local', typeof generate === 'function' && 'falcon'].filter(Boolean),
+      Object.fromEntries(wordPaths.map(path => [path.kind, path]))) : null;
+    if (rootKind?.startsWith('word_')) {
+      let selected = rootKind;
+      let verifiedInitial = null;
+      while (selected?.startsWith('word_')) {
+        const path = wordPaths.find(row => row.kind === selected);
+        const began = this.clock();
+        try {
+          const result = executeWordPath(wordProblem, path, this.wordCalculate, { initialTotal: verifiedInitial });
+          metrics.calculatorCalls += result.receipts.length;
+          metrics.verificationMs += Math.round(this.clock() - began);
+          trace.push({ step: 'word_path_result', selected, receipts: result.receipts,
+            reusedInitial: verifiedInitial !== null, elapsedMs: Math.round(this.clock() - began),
+            elapsedMsPrecise: Number((this.clock() - began).toFixed(3)), verification: result.method });
+          trace.push({ step: 'verified_component', ...recordVerifiedComponent(state, plan.parts[0].id,
+            'initial_total', result.initialTotal, 'two_parser_exact_v1', selected) });
+          Object.assign(state.graph.nodes.find(node => node.id === 'word:initial_total'),
+            { status: 'verified', value: result.initialTotal, method: 'two_parser_exact_v1' });
+          mark(plan.parts[0].id, selected, result.answer, { status: 'verified', method: result.method }, began);
+          Object.assign(state.graph.nodes.find(node => node.id === 'word:final_item_count'),
+            { status: 'verified', value: result.answer, method: result.method });
+          return finish(result.answer, { status: 'verified', method: result.method }, { wordProblem });
+        } catch (error) {
+          metrics.calculatorCalls += error.operationsAttempted || 0;
+          metrics.verificationMs += Math.round(this.clock() - began);
+          trace.push({ step: 'word_path_failure', selected, residual: error.message,
+            elapsedMs: Math.round(this.clock() - began), elapsedMsPrecise: Number((this.clock() - began).toFixed(3)),
+            verifiedReceipts: error.verifiedReceipts || [] });
+          if (error.verifiedInitialTotal !== null && error.verifiedInitialTotal !== undefined) {
+            verifiedInitial = error.verifiedInitialTotal;
+            trace.push({ step: 'verified_component', ...recordVerifiedComponent(state, plan.parts[0].id,
+              'initial_total', verifiedInitial, 'two_parser_exact_v1', selected) });
+            Object.assign(state.graph.nodes.find(node => node.id === 'word:initial_total'),
+              { status: 'verified', value: verifiedInitial, method: 'two_parser_exact_v1' });
+          } else for (const [index, receipt] of (error.verifiedReceipts || []).entries()) {
+            trace.push({ step: 'verified_component', ...recordVerifiedComponent(state, plan.parts[0].id,
+              `${selected}-prefix-${index + 1}`, receipt.value, receipt.verification, selected) });
+          }
+          mark(plan.parts[0].id, selected, '', { status: 'failed', method: 'bounded_grouped_word_math_v1', residual: error.message }, began);
+          selected = choose(plan.parts[0].id, wordPaths.map(row => row.kind),
+            Object.fromEntries(wordPaths.map(row => [row.kind, row])));
+        }
+      }
+    }
     if (rootKind === 'exact') {
       const began = this.clock();
       try {
@@ -241,13 +351,44 @@ export class SpiralController {
     for (const part of plan.parts) {
       checkAbort();
       if (metrics.modelCalls >= plan.maxModelCalls) break;
+      if (!readyPartIds(state.graph).includes(part.id)) {
+        const residual = `A required earlier result is not verified: ${part.dependsOn.join(', ')}.`;
+        trace.push({ step: 'dependency_blocked', part: part.id, residual });
+        const answer = 'I could not verify the required earlier result for this step.';
+        const verification = { status: 'unverified', method: 'dependency_blocked', residual };
+        mark(part.id, 'blocked', answer, verification, this.clock());
+        outcomes.push({ question: part.question, answer, verification });
+        continue;
+      }
       const partBegan = this.clock();
       const partExpression = exactTarget(part.question);
+      const dependentSpec = part.dependsOn.length ? parseDependentArithmetic(part.question) : null;
       const partBoolean = solveBooleanExpression(part.question);
       const partStructured = structuredReasoning(part.question);
       const partLocal = tryLocalAnswer(part.question);
       let partKind = plan.parts.length === 1 && rootKind === 'falcon' ? 'falcon'
-        : choose(part.id, [partExpression && 'exact', partBoolean && 'boolean', partStructured && 'structured', partLocal && 'local', 'falcon'].filter(Boolean));
+        : choose(part.id, [partExpression && 'exact', dependentSpec && 'dependent_exact', partBoolean && 'boolean',
+          partStructured && 'structured', partLocal && 'local', 'falcon'].filter(Boolean));
+      if (partKind === 'dependent_exact') {
+        const began = this.clock();
+        try {
+          const parent = state.verifiedFacts.find(fact => fact.partId === part.dependsOn[0]);
+          const solved = solveDependentArithmetic(dependentSpec, parent?.answer);
+          metrics.calculatorCalls++;
+          metrics.verificationMs += Math.round(this.clock() - began);
+          trace.push({ step: 'dependent_calculate', part: part.id, dependsOn: part.dependsOn[0],
+            expression: solved.expression, method: solved.method });
+          mark(part.id, 'dependent_exact', solved.answer, { status: 'verified', method: solved.method }, began);
+          outcomes.push({ question: part.question, answer: solved.answer,
+            verification: { status: 'verified', method: solved.method } });
+          continue;
+        } catch (error) {
+          trace.push({ step: 'dependency_residual', part: part.id, residual: error.message });
+          mark(part.id, 'dependent_exact', '', { status: 'failed', method: 'two_parser_exact_dependency_v1',
+            residual: error.message }, began);
+          partKind = choose(part.id, ['falcon']);
+        }
+      }
       if (partKind === 'exact') {
         const began = this.clock();
         try {
@@ -288,6 +429,36 @@ export class SpiralController {
         mark(part.id, 'local', partLocal.answer, verification, partBegan);
         outcomes.push({ question: part.question, answer: partLocal.answer, verification });
         continue;
+      }
+      if (partKind === 'falcon' && plan.interpretationBudget > 0 && plan.parts.length === 1 &&
+          metrics.modelCalls + 2 < plan.maxModelCalls) {
+        const operationId = `${part.id}:interpret`;
+        choose(operationId, ['structured_interpretation']);
+        const interpretationStarted = this.clock();
+        const interpreted = await interpretProblemWithFalcon(part.question, part.category, generate,
+          { signal, maxAttempts: 2 });
+        metrics.modelCalls += interpreted.modelCalls;
+        metrics.tokens += interpreted.tokens;
+        if (metrics.firstModelTokenMs === null)
+          metrics.firstModelTokenMs = interpreted.attempts.find(row => row.ttftMs !== null)?.ttftMs ?? null;
+        state.graph.modelInterpretation = { kind: interpreted.kind,
+          attempts: interpreted.attempts, status: 'unverified' };
+        if (interpreted.kind === 'model_grounded_provisional') {
+          for (const [index, node] of [...interpreted.interpretation.facts,
+            ...interpreted.interpretation.relations,
+            ...(interpreted.interpretation.unknown ? [interpreted.interpretation.unknown] : [])].entries()) {
+            const groundedNode = { ...node, id: `${part.id}:model-span-${index + 1}` };
+            state.graph.nodes.push(groundedNode);
+            state.graph.edges.push({ from: groundedNode.id, to: part.id,
+              relation: 'proposes_unverified_interpretation' });
+          }
+        }
+        trace.push({ step: 'direction_result', partId: operationId,
+          operation: 'structured_interpretation', status: 'unresolved', verificationStatus: 'unverified',
+          verificationMethod: interpreted.kind === 'model_grounded_provisional' ? 'schema_and_source_spans' : 'lexical_fallback',
+          verifiedProgress: false, checkedOutcome: false, schemaValid: interpreted.kind === 'model_grounded_provisional',
+          attempts: interpreted.attempts, informationGainProxy: 0, reused: false,
+          elapsedMs: Math.round(this.clock() - interpretationStarted) });
       }
       let task = plan.parts.length > 1
         ? `${part.question}\nKeep the original user request in mind: ${text}\n${state.verifiedFacts.length ? `Previously verified facts: ${state.verifiedFacts.map(fact => `${fact.partId}=${fact.answer}`).join('; ')}\n` : ''}Answer this part directly and stay on its subject.`
@@ -371,31 +542,75 @@ export class SpiralController {
           ? { status: 'unverified', method: 'tool_result_only', residual: 'The local tool result was checked, but it does not verify the whole answer to this request.' }
           : assess(answer);
       metrics.verificationMs += Math.round(this.clock() - began);
-      if (verification.status === 'failed') mark(part.id, 'falcon', answer, verification, partBegan);
+      if (verification.method === 'surface_constraint_coverage_v2') {
+        const coverage = planningCoverage(part.question, answer);
+        for (const check of coverage.checked.filter(row => row.passed)) {
+          trace.push({ step: 'checked_surface_component', part: part.id, candidate: 1,
+            component: check.name, value: check.name === 'step_count' ? String(coverage.observedSteps) : 'present',
+            method: `surface_${check.name}_v1`, scope: 'candidate_only' });
+        }
+      }
+      const hypothesisMarked = verification.status === 'failed';
+      if (hypothesisMarked) mark(part.id, 'falcon', answer, verification, partBegan);
       let repairs = 0;
       while (verification.status === 'failed' && repairs < plan.repairBudget && metrics.modelCalls < plan.maxModelCalls) {
         trace.push({ step: 'residual', part: part.id, residual: verification.residual });
         const residualId = `${part.id}:residual-${repairs + 1}`;
         let repairKind = choose(residualId, [verification.expected !== undefined &&
-          !state.verifiedFacts.some(fact => fact.partId === `${part.id}:numeric_result`) && 'calculator_component', 'falcon_repair'].filter(Boolean));
+          !state.verifiedFacts.some(fact => fact.partId === `${part.id}:numeric_result`) && 'calculator_component',
+          'falcon_repair', 'brake_partial'].filter(Boolean));
         if (repairKind === 'calculator_component') {
           const fact = recordVerifiedComponent(state, part.id, 'numeric_result', verification.expected, verification.method);
           trace.push({ step: 'verified_component', ...fact });
-          repairKind = choose(residualId, ['falcon_repair']);
+          repairKind = choose(residualId, ['falcon_repair', 'brake_partial']);
+        }
+        if (repairKind === 'brake_partial') {
+          trace.push({ step: 'calibrated_brake', part: part.id, reason: 'checked local repair failures outweigh expected progress' });
+          break;
         }
         if (repairKind !== 'falcon_repair') break;
+        const repairSourceMethod = verification.method;
+        const repairUnmet = Array.isArray(verification.unmet) ? [...verification.unmet] : [];
         const verifiedContext = state.verifiedFacts.filter(fact => fact.partId.startsWith(`${part.id}:`))
           .map(fact => `${fact.component || 'numeric result'}=${fact.answer}`).join('; ');
-        const repairRequest = verification.method === 'surface_constraint_coverage_v2'
-          ? `Answer this request directly: ${part.question}\nCorrect only these missing constraints: ${verification.unmet.join(', ')}. Return the revised answer.`
+        const preservedSurface = trace.filter(step => step.step === 'checked_surface_component' && step.part === part.id)
+          .map(step => ({ step_count: 'the correct number of numbered steps',
+            risk_mention: 'the concrete risk already mentioned',
+            backup_topic: 'the requested backup topic' })[step.component] || 'the already satisfied requirement').join('; ');
+        const missingSurface = repairUnmet.map(name => ({ step_count: 'the requested number of numbered steps',
+          risk_mention: 'one concrete risk', backup_topic: 'the requested backup topic' })[name] || name).join(', ');
+        const priorDraft = answer;
+        const draftCoverage = repairSourceMethod === 'surface_constraint_coverage_v2'
+          ? planningCoverage(part.question, priorDraft) : null;
+        const appendStepNumber = repairUnmet.length === 1 && repairUnmet[0] === 'step_count' &&
+          draftCoverage?.requestedSteps === draftCoverage?.observedSteps + 1
+          ? draftCoverage.requestedSteps : null;
+        const numericRepairExpression = repairSourceMethod === 'partial_exact_component'
+          ? /\b(?:compute|calculate|computing|calculating)\s+([\d.()+*/\s-]+?)\s+exactly\b/i.exec(part.question)?.[1]?.trim()
+          : null;
+        const repairRequest = appendStepNumber
+          ? `Original request: ${part.question}\nCurrent draft:\n${priorDraft.slice(0, 1200)}\nAdd only the missing numbered Step ${appendStepNumber} with a concrete action. Do not repeat or alter prior steps or risk. Return one line beginning "Step ${appendStepNumber}:".`
+          : verification.method === 'surface_constraint_coverage_v2'
+          ? `Answer this request directly: ${part.question}\nCorrect only these missing requirements: ${missingSurface}.${preservedSurface ? ` Keep ${preservedSurface}.` : ''} Return the revised answer without commentary about the checks.`
           : verification.method === 'topic_coverage_heuristic_v1' && /\bbackup\b/i.test(part.question)
           ? `Answer this request directly: ${part.question}\nGive concrete steps for copying files or data to a second location and one risk. Stay on topic.`
+          : numericRepairExpression
+          ? `Compute ${numericRepairExpression} exactly. The earlier numeric claim was inconsistent. Correct only the numeric result. Return one line with just the final number.`
           : `${part.question}\nCheck found: ${verification.residual}${verifiedContext ? ` Verified fact: ${verifiedContext}. Do not recalculate it.` : ''} Correct only this discrepancy. Return the answer.`;
+        if (numericRepairExpression) trace.push({ step: 'targeted_numeric_repair', part: part.id,
+          expression: numericRepairExpression, expectedValueWithheld: true,
+          preservedVerifiedComponents: state.verifiedFacts.filter(fact => fact.partId.startsWith(`${part.id}:`)).map(fact => fact.component) });
+        const repairBegan = this.clock();
         const corrected = await generate({ turns: [{ role: 'user', content: repairRequest }],
-          maxTokens: 128, signal });
+          maxTokens: appendStepNumber ? 64 : 128, signal });
         metrics.modelCalls++; metrics.tokens += corrected.tokens || 0;
         repairs++;
-        const nextAnswer = String(corrected.text || '').trim();
+        const rawRepair = String(corrected.text || '').trim();
+        const patched = appendStepNumber ? appendFalconPlanStep(priorDraft, rawRepair, appendStepNumber) : null;
+        if (appendStepNumber) trace.push({ step: 'repair_patch', part: part.id,
+          operation: 'append_missing_step', accepted: !!patched, requestedStep: appendStepNumber,
+          preservedDraft: true });
+        const nextAnswer = appendStepNumber ? (patched || priorDraft) : rawRepair;
         if (attemptedAnswers.has(nextAnswer)) {
           trace.push({ step: 'no_progress', part: part.id, residual: 'The model repeated a previously failed candidate.' });
           break;
@@ -407,13 +622,35 @@ export class SpiralController {
           if (score > bestPlanningScore) { bestPlanning = nextAnswer; bestPlanningScore = score; }
         }
         verification = assess(answer);
+        const repairedCoverage = repairSourceMethod === 'surface_constraint_coverage_v2'
+          ? planningCoverage(part.question, answer) : null;
+        const repairedComponents = repairedCoverage ? repairUnmet.filter(name =>
+          name === 'step_count' && !repairedCoverage.unmet.includes(name)) : [];
+        if (repairedComponents.length) for (const component of repairedComponents)
+          trace.push({ step: 'checked_surface_component', part: part.id,
+            candidate: attemptedAnswers.size, component,
+            value: component === 'step_count' ? String(repairedCoverage.observedSteps) : 'present',
+            method: `surface_${component}_v1`, scope: 'candidate_only' });
+        trace.push({ step: 'direction_result', partId: residualId, operation: 'falcon_repair',
+          status: verification.status === 'verified' ? 'verified' : 'unresolved',
+          verificationStatus: verification.status, verificationMethod: verification.method,
+          verifiedProgress: verification.status === 'verified',
+          componentVerified: repairedComponents.length > 0,
+          checkedOutcome: verification.status === 'verified' || repairedComponents.length > 0 ||
+            (verification.status === 'failed' && ['two_parser_exact_v1', 'partial_exact_component', 'partial_boolean_component'].includes(verification.method)),
+          informationGainProxy: verification.status === 'verified' ? 1 : repairedComponents.length > 0 ? 0.5 : 0,
+          residual: verification.residual || null, reused: false, elapsedMs: Math.round(this.clock() - repairBegan) });
         trace.push({ step: 'repair', part: part.id, candidate: attemptedAnswers.size,
-          verification: verification.status, residualResolved: verification.status !== 'failed' });
+          candidateText: rawRepair.slice(0, 256),
+          verification: verification.status, residualResolved: verification.status === 'verified',
+          numericAligned: verification.method === 'partial_exact_component' && verification.componentVerified === true,
+          booleanAligned: verification.method === 'partial_boolean_component' && verification.componentVerified === true,
+          surfaceAligned: repairSourceMethod === 'surface_constraint_coverage_v2' &&
+            repairedCoverage?.unmet.length === 0 });
         if (verification.status === 'failed' && verification.method === 'two_parser_exact_v1' && verification.expected !== undefined) {
           answer = verification.expected;
           verification = { status: 'verified', method: 'two_parser_exact_v1', repairedByCalculator: true };
         }
-        if (verification.status === 'failed') mark(part.id, 'falcon', answer, verification, partBegan);
       }
       if (verification.status === 'failed') {
         trace.push({ step: 'brake', part: part.id, method: verification.method, residual: verification.residual });
@@ -425,6 +662,10 @@ export class SpiralController {
           answer = `The exact numeric result is ${verification.expected}. I could not verify the explanation.`;
           verification = { status: 'unverified', method: 'partial_exact_component', componentVerified: true,
             residual: 'The numeric result is independently checked; the explanation remains unverified.' };
+        } else if (verification.method === 'partial_boolean_component') {
+          answer = 'I could not verify Falcon’s final Boolean choice or explanation within the local reasoning budget.';
+          verification = { status: 'unverified', method: 'budget_exhausted_boolean',
+            residual: 'The Boolean explanation and choice remain unverified in this model-led path.' };
         } else {
           answer = 'I could not verify an on-topic answer within the local reasoning budget. Please rephrase or add detail.';
           verification = { status: 'unverified', method: 'budget_exhausted', residual: verification.residual };
@@ -448,7 +689,16 @@ export class SpiralController {
             residual: 'Plan structure was checked; practical correctness remains unverified.' };
         }
       }
-      mark(part.id, 'falcon', answer, verification, partBegan);
+      if (plan.category === 'planning' && deeper) {
+        const finalCoverage = planningCoverage(part.question, answer);
+        for (const check of finalCoverage.checked.filter(row => row.passed)) {
+          const fact = recordVerifiedComponent(state, part.id, check.name,
+            check.name === 'step_count' ? String(finalCoverage.observedSteps) : 'present',
+            `surface_${check.name}_v1`, 'surface_check');
+          trace.push({ step: 'verified_component', ...fact, scope: 'selected_answer_structural_only' });
+        }
+      }
+      mark(part.id, hypothesisMarked || repairs > 0 ? 'final_response' : 'falcon', answer, verification, partBegan);
       outcomes.push({ question: part.question, answer, verification });
     }
     const complete = outcomes.length === plan.parts.length && plan.omittedParts === 0;

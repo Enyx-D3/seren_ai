@@ -1,0 +1,12 @@
+{
+  "protocol": "b2-word-math-final-source-fresh-v1",
+  "frozenBeforeFirstRun": true,
+  "notes": "Locally authored fresh questions after the final parser/Compass changes; no further product code changes are allowed before first evaluation. Not externally prepared.",
+  "cases": [
+    { "id": "f1", "prompt": "There are 11 baskets. Each basket contains 9 plums. 16 plums are removed. How many plums remain?", "expected": "83" },
+    { "id": "f2", "prompt": "A cart has 2 boxes with 45 nails in each. 7 nails are added. How many nails are there now?", "expected": "97" },
+    { "id": "f3", "prompt": "The cupboard has 7 tins. Each tin holds 13 crackers. 20 crackers are used. How many crackers are left?", "expected": "71" },
+    { "id": "f4", "prompt": "There are 4 crates. Each crate has 18 bottles. 5 bottles are received. How many bottles are there now?", "expected": "77" },
+    { "id": "f5", "prompt": "There are 4 crates. Each crate has 18 bottles. Several bottles are missing. How many bottles remain?", "expectedParse": false }
+  ]
+}

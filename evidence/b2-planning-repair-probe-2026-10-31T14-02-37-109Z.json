@@ -1,0 +1,708 @@
+{
+  "environment": "macOS arm64 Playwright Chromium offline CPU WebAssembly",
+  "rows": [
+    {
+      "prompt": "Plan exactly three numbered steps for organizing a community library donation and mention one risk.",
+      "answer": "Step 1: Gather essential items\n- Collect bookshelves, bins, and shelves for donations.\n\nRisk: This step involves potential risks, such as uneven distribution or missing items, which could lead to confusion among donors.\n\nStep 2: Create a donation page\n- Design a visually appealing and user-friendly page with clear sections for information, items, and contact details.\n\nRisk: This step is risky, as it requires careful planning and attention to detail to ensure donations are accessible and easily accessible.\n\nStep 3: Prominently display donated books\n- Place a",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Plan exactly three numbered steps for organizing a community library donation and mention one risk."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 128,
+        "firstModelTokenMs": 2698,
+        "verificationMs": 0,
+        "elapsedMs": 8521
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 128
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 8517
+        }
+      ]
+    },
+    {
+      "prompt": "Plan exactly two numbered steps for backing up family photos offline and mention one risk.",
+      "answer": "Step 1: Backup your computer\n- Use a secure backup software to transfer your computer's backup files to an external drive.\n\nRisk: This step involves potential risks, such as data loss or corruption, which can be difficult to restore from a backup.\n\nStep 2: Create a secure cloud storage account\n- Set up a cloud storage account with a password and securely store your photos online.\n\nRisk: This step is risky, as it requires additional security measures to protect the cloud storage data.",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Plan exactly two numbered steps for backing up family photos offline and mention one risk."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 105,
+        "firstModelTokenMs": 3486,
+        "verificationMs": 0,
+        "elapsedMs": 6918
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 105
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 6918
+        }
+      ]
+    },
+    {
+      "prompt": "Plan exactly three numbered steps for preparing a neighborhood garden and mention one risk.",
+      "answer": "Step 1: Gather materials\n- Collect fresh flowers, compost, and soil for your garden.\n\nRisk: This step involves potential risks, such as uneven planting or soil compaction, which can affect the success of your garden.\n\nStep 2: Prepare the garden beds\n- Dig in the soil, ensuring each bed is well-drilled and evenly sized.\n\nRisk: This step is risky, as improperly prepared beds can lead to a less aesthetically pleasing garden.\n\nStep 3: Plant seeds and mulch\n- Plant seeds in the ground and mulch around the base",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Plan exactly three numbered steps for preparing a neighborhood garden and mention one risk."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 128,
+        "firstModelTokenMs": 4713,
+        "verificationMs": 0,
+        "elapsedMs": 9926
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 128
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 9926
+        }
+      ]
+    },
+    {
+      "prompt": "Plan exactly 4 numbered steps for cataloging a small offline museum archive and mention one risk.",
+      "answer": "Step 1: Define the purpose and scope of the museum archive\nStep 2: Create a database structure for cataloging\nStep 3: Implement a system for managing and retrieving items\nStep 4: Incorporate a risk management strategy to ensure accessibility and security\n\n**Risk Mention:** Present\n\n**Step Count:** 4\n\n**Risk Section:**\n\n* **Risk:** **Present**, as it involves maintaining and managing a digital archive, which can be risky due to the physical nature of the items.\n\n**Risk Mention:** Present",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Plan exactly 4 numbered steps for cataloging a small offline museum archive and mention one risk."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 2,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 245,
+        "firstModelTokenMs": 6335,
+        "verificationMs": 0,
+        "elapsedMs": 17797
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0,
+                "computationalCost": 0.8453666666666666,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "local_outcome_proxy:3",
+                "computationalCost": "local_elapsed_ms:3",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "local_cache_hits:3"
+              },
+              "score": 0.705,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 128
+        },
+        {
+          "step": "checked_surface_component",
+          "part": "part-1",
+          "candidate": 1,
+          "component": "risk_mention",
+          "value": "present",
+          "method": "surface_risk_mention_v1",
+          "scope": "candidate_only"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "failed",
+          "verifiedProgress": false,
+          "verificationMethod": "surface_constraint_coverage_v2",
+          "derivationId": "derivation-1",
+          "residual": "Unmet explicit plan constraints: step_count",
+          "informationGainProxy": 0.5,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 12400
+        },
+        {
+          "step": "residual",
+          "part": "part-1",
+          "residual": "Unmet explicit plan constraints: step_count"
+        },
+        {
+          "step": "direction",
+          "part": "part-1:residual-1",
+          "chosen": "falcon_repair",
+          "candidates": [
+            {
+              "kind": "falcon_repair",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.6,
+                "expectedProgress": 0.35,
+                "informationGain": 0.45,
+                "computationalCost": 0.8,
+                "errorRisk": 0.75,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 0.65,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "brake_partial",
+              "status": "bounded_stop",
+              "scores": {
+                "goalAttraction": 0.1,
+                "expectedProgress": 0,
+                "informationGain": 0,
+                "computationalCost": 0,
+                "errorRisk": 0,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 0.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "verified_component",
+          "partId": "part-1",
+          "component": "step_count",
+          "answer": "4",
+          "method": "surface_step_count_v1",
+          "newFact": true,
+          "scope": "structural_only"
+        },
+        {
+          "step": "verified_component",
+          "partId": "part-1",
+          "component": "risk_mention",
+          "answer": "present",
+          "method": "surface_risk_mention_v1",
+          "newFact": true,
+          "scope": "structural_only"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1:residual-1",
+          "operation": "falcon_repair",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verificationMethod": "none",
+          "verifiedProgress": false,
+          "componentVerified": true,
+          "checkedOutcome": true,
+          "informationGainProxy": 0.5,
+          "residual": "No independent checker is available for this claim.",
+          "reused": false,
+          "elapsedMs": 5396
+        },
+        {
+          "step": "repair",
+          "part": "part-1",
+          "candidate": 2,
+          "verification": "unverified",
+          "residualResolved": false,
+          "numericAligned": false,
+          "surfaceAligned": true
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "final_response",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-4",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 17796
+        }
+      ]
+    },
+    {
+      "prompt": "Plan exactly 4 numbered steps for training volunteers to sort donated books and mention one risk.",
+      "answer": "Step 1: Begin by ensuring that you have a sufficient number of volunteers to sort donated books.\n\nStep 2: Assign each volunteer to a specific category, such as \"Books for Donation.\"\n\nStep 3: Assemble the books into categories, ensuring that each category is unique and clearly labeled.\n\nStep 4: To mitigate potential risks, consider implementing a risk-based approach by listing the risk as \"Present.\" This approach helps maintain accountability and ensures that the donations are handled responsibly.",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Plan exactly 4 numbered steps for training volunteers to sort donated books and mention one risk."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 2,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 235,
+        "firstModelTokenMs": 7678,
+        "verificationMs": 0,
+        "elapsedMs": 18548
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.125,
+                "computationalCost": 0.944025,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "local_outcome_proxy:4",
+                "computationalCost": "local_elapsed_ms:4",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "local_cache_hits:4"
+              },
+              "score": 0.731,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 128
+        },
+        {
+          "step": "checked_surface_component",
+          "part": "part-1",
+          "candidate": 1,
+          "component": "risk_mention",
+          "value": "present",
+          "method": "surface_risk_mention_v1",
+          "scope": "candidate_only"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "failed",
+          "verifiedProgress": false,
+          "verificationMethod": "surface_constraint_coverage_v2",
+          "derivationId": "derivation-1",
+          "residual": "Unmet explicit plan constraints: step_count",
+          "informationGainProxy": 0.5,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 13607
+        },
+        {
+          "step": "residual",
+          "part": "part-1",
+          "residual": "Unmet explicit plan constraints: step_count"
+        },
+        {
+          "step": "direction",
+          "part": "part-1:residual-1",
+          "chosen": "falcon_repair",
+          "candidates": [
+            {
+              "kind": "falcon_repair",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.6,
+                "expectedProgress": 0.35,
+                "informationGain": 0.45,
+                "computationalCost": 0.8,
+                "errorRisk": 0.75,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 0.65,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "brake_partial",
+              "status": "bounded_stop",
+              "scores": {
+                "goalAttraction": 0.1,
+                "expectedProgress": 0,
+                "informationGain": 0,
+                "computationalCost": 0,
+                "errorRisk": 0,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 0.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "verified_component",
+          "partId": "part-1",
+          "component": "step_count",
+          "answer": "4",
+          "method": "surface_step_count_v1",
+          "newFact": true,
+          "scope": "structural_only"
+        },
+        {
+          "step": "verified_component",
+          "partId": "part-1",
+          "component": "risk_mention",
+          "answer": "present",
+          "method": "surface_risk_mention_v1",
+          "newFact": true,
+          "scope": "structural_only"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1:residual-1",
+          "operation": "falcon_repair",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verificationMethod": "none",
+          "verifiedProgress": false,
+          "componentVerified": true,
+          "checkedOutcome": true,
+          "informationGainProxy": 0.5,
+          "residual": "No independent checker is available for this claim.",
+          "reused": false,
+          "elapsedMs": 4939
+        },
+        {
+          "step": "repair",
+          "part": "part-1",
+          "candidate": 2,
+          "verification": "unverified",
+          "residualResolved": false,
+          "numericAligned": false,
+          "surfaceAligned": true
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "final_response",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-4",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 18547
+        }
+      ]
+    },
+    {
+      "prompt": "Plan exactly 3 numbered steps for moving an offline photo collection to a new drive and mention one risk.",
+      "answer": "Step 1: Acquire a new drive for the photo collection\n- Purchase a dedicated drive from your local library or online platform.\n\nRisk: This step involves potential risks, such as technical issues or obsolecption, which could hinder the successful transfer of the photo collection.\n\nStep 2: Create a digital archive using a cloud storage service\n- Set up a secure online archive with a password and access controls.\n\nRisk: This step is risky, as it requires robust security measures to protect the digital archive data.\n\nStep 3: Finalize the archive setup\n\n**Risk Mention:** Present",
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Plan exactly 3 numbered steps for moving an offline photo collection to a new drive and mention one risk."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 126,
+        "firstModelTokenMs": 10663,
+        "verificationMs": 0,
+        "elapsedMs": 17723
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.2,
+                "computationalCost": 1,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "local_outcome_proxy:5",
+                "computationalCost": "local_elapsed_ms:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "local_cache_hits:5"
+              },
+              "score": 0.75,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 126
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 17722
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "purpose": "Development repair probe; surface constraint checks are not semantic correctness."
+}

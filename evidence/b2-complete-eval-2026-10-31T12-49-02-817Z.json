@@ -1,0 +1,4325 @@
+{
+  "generatedAt": "2026-10-31T12-49-02-817Z",
+  "fixturePath": "evidence/b2-complete-fixture-2026-10-31.json",
+  "fixtureSha256": "333e956e222a5c9543adf80f17cbd0563ea241fd051ea170f83aa6ae8053b482",
+  "sourceSha256": {
+    "controller": "58f70684509703ed6503468b3da1d8f7c1a093e11c03c718f75cad93e8c3c9f4",
+    "prompts": "09df9284b19db6daf9d3826093bde84f221ed1322a51a32de44ca2aa9f08c5be",
+    "worker": "2738e3784f959ab6b06c742926b640931f3e65c82de5c9347e4ae12548bf2a9f",
+    "model": "e7d655345a876ecb073ea86f5ce68e412b99090c34a6bde8a2982bc48afb2612"
+  },
+  "model": "Falcon-H1-Tiny-90M-Instruct-Q4_K_M.gguf",
+  "temperature": 0.2,
+  "maxTokensPerCall": 128,
+  "order": "AB on even fixture indices, BA on odd indices",
+  "environment": "macOS arm64 / Playwright Chromium / CPU WebAssembly",
+  "limits": "Public benchmark may be present in model pretraining. Process-tree RSS includes harness. Semantic cases require blinded human grades. The restricted Python checker rejects unsupported generated syntax.",
+  "summary": {
+    "falcon_alone": {
+      "checkedPassed": 7,
+      "checkedFailed": 16,
+      "pendingHuman": 8,
+      "byCategory": {
+        "arithmetic": {
+          "passed": 1,
+          "failed": 3,
+          "pendingHuman": 0
+        },
+        "mathematical_word_problem": {
+          "passed": 0,
+          "failed": 4,
+          "pendingHuman": 0
+        },
+        "multistep": {
+          "passed": 4,
+          "failed": 0,
+          "pendingHuman": 0
+        },
+        "logic": {
+          "passed": 0,
+          "failed": 3,
+          "pendingHuman": 0
+        },
+        "contradiction_detection": {
+          "passed": 2,
+          "failed": 2,
+          "pendingHuman": 0
+        },
+        "coding": {
+          "passed": 0,
+          "failed": 4,
+          "pendingHuman": 0
+        },
+        "planning": {
+          "passed": 0,
+          "failed": 0,
+          "pendingHuman": 4
+        },
+        "ordinary_conversation": {
+          "passed": 0,
+          "failed": 0,
+          "pendingHuman": 4
+        }
+      },
+      "b2Verified": 0,
+      "b2Unverified": 0,
+      "falseVerified": 0,
+      "repairAttempts": 0,
+      "repairSuccesses": 0,
+      "repairResidualResolutions": 0,
+      "totalMs": 169153,
+      "p50Ms": 5410,
+      "p95Ms": 9091,
+      "tokens": 2203,
+      "modelCalls": 31,
+      "calculatorCalls": 0,
+      "cacheHits": 0,
+      "peakProcessTreeRssKiB": 1107920
+    },
+    "falcon_plus_b2": {
+      "checkedPassed": 13,
+      "checkedFailed": 10,
+      "pendingHuman": 8,
+      "byCategory": {
+        "arithmetic": {
+          "passed": 4,
+          "failed": 0,
+          "pendingHuman": 0
+        },
+        "mathematical_word_problem": {
+          "passed": 0,
+          "failed": 4,
+          "pendingHuman": 0
+        },
+        "multistep": {
+          "passed": 4,
+          "failed": 0,
+          "pendingHuman": 0
+        },
+        "logic": {
+          "passed": 3,
+          "failed": 0,
+          "pendingHuman": 0
+        },
+        "contradiction_detection": {
+          "passed": 2,
+          "failed": 2,
+          "pendingHuman": 0
+        },
+        "coding": {
+          "passed": 0,
+          "failed": 4,
+          "pendingHuman": 0
+        },
+        "planning": {
+          "passed": 0,
+          "failed": 0,
+          "pendingHuman": 4
+        },
+        "ordinary_conversation": {
+          "passed": 0,
+          "failed": 0,
+          "pendingHuman": 4
+        }
+      },
+      "b2Verified": 11,
+      "b2Unverified": 20,
+      "falseVerified": 0,
+      "repairAttempts": 0,
+      "repairSuccesses": 0,
+      "repairResidualResolutions": 0,
+      "totalMs": 116922,
+      "p50Ms": 3948,
+      "p95Ms": 8433,
+      "tokens": 1530,
+      "modelCalls": 20,
+      "calculatorCalls": 15,
+      "cacheHits": 0,
+      "peakProcessTreeRssKiB": 757488
+    }
+  },
+  "falseVerified": [],
+  "errors": [],
+  "external": [],
+  "rows": [
+    {
+      "id": "generated-arithmetic-1",
+      "category": "arithmetic",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "Let's break down the calculation step by step:\n\nFirst, calculate 13 times 42:\n\n13 times 42 is 546\n\nNext, subtract 67 from 22:\n\n22 - 67 = -45\n\nNow, add the two results together:\n\n546 + (-45) = 546 - 45 = 501\n\nSo, the final answer is 501.",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 110,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 3448.625
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 10570,
+      "browserProcessTreePeakRssKiB": 1107920,
+      "check": {
+        "status": "passed",
+        "method": "published_final_number",
+        "expected": "501",
+        "observed": "501"
+      }
+    },
+    {
+      "id": "generated-arithmetic-1",
+      "category": "arithmetic",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "501",
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 6,
+        "elapsedMs": 13
+      },
+      "verification": {
+        "status": "verified",
+        "method": "two_parser_exact_v1"
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "exact",
+          "candidates": [
+            {
+              "kind": "exact",
+              "status": "verified",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.1,
+                "errorRisk": 0.02,
+                "memoryReuse": 0.7
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 6.56,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "calculate",
+          "expression": "(13*42)+(22-67)",
+          "reused": false,
+          "verification": "two_parser_exact_v1"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "exact",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "two_parser_exact_v1",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 6
+        }
+      ],
+      "error": null,
+      "elapsedMs": 14,
+      "browserProcessTreePeakRssKiB": 757472,
+      "check": {
+        "status": "passed",
+        "method": "published_final_number",
+        "expected": "501",
+        "observed": "501"
+      }
+    },
+    {
+      "id": "generated-arithmetic-2",
+      "category": "arithmetic",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "4887",
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 1,
+        "elapsedMs": 1
+      },
+      "verification": {
+        "status": "verified",
+        "method": "two_parser_exact_v1"
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "exact",
+          "candidates": [
+            {
+              "kind": "exact",
+              "status": "verified",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.1,
+                "errorRisk": 0.02,
+                "memoryReuse": 0.7
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 6.56,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "calculate",
+          "expression": "(58*84)+(52-37)",
+          "reused": false,
+          "verification": "two_parser_exact_v1"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "exact",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "two_parser_exact_v1",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 1
+        }
+      ],
+      "error": null,
+      "elapsedMs": 1,
+      "browserProcessTreePeakRssKiB": 757488,
+      "check": {
+        "status": "passed",
+        "method": "published_final_number",
+        "expected": "4887",
+        "observed": "4887"
+      }
+    },
+    {
+      "id": "generated-arithmetic-2",
+      "category": "arithmetic",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "Let's break down the calculation step by step:\n\n1. Calculate 58 times 84: 58 * 84 = 4832\n\n2. Calculate 52 minus 37: 52 - 37 = 15\n\n3. Add the two results together: 4832 + 15 = 4847\n\nSo, the answer is 4847.",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 101,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 2427.4449999928474
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 6921,
+      "browserProcessTreePeakRssKiB": 777232,
+      "check": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "4887",
+        "observed": "4847"
+      }
+    },
+    {
+      "id": "generated-arithmetic-3",
+      "category": "arithmetic",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "To calculate (28*96) + (24 - 13), follow these steps:\n\n1. Calculate 28*96: 28*96 = 2592\n\n2. Add 24 and 13: 2592 + 13 = 2605\n\nSo, (28*96) + (24 - 13) = 2605.",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 110,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 1983.6050000041723
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 5882,
+      "browserProcessTreePeakRssKiB": 633408,
+      "check": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "2699",
+        "observed": "2605"
+      }
+    },
+    {
+      "id": "generated-arithmetic-3",
+      "category": "arithmetic",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "2699",
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 1,
+        "elapsedMs": 2
+      },
+      "verification": {
+        "status": "verified",
+        "method": "two_parser_exact_v1"
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "exact",
+          "candidates": [
+            {
+              "kind": "exact",
+              "status": "verified",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.1,
+                "errorRisk": 0.02,
+                "memoryReuse": 0.7
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 6.56,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "calculate",
+          "expression": "(28*96)+(24-13)",
+          "reused": false,
+          "verification": "two_parser_exact_v1"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "exact",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "two_parser_exact_v1",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 1
+        }
+      ],
+      "error": null,
+      "elapsedMs": 2,
+      "browserProcessTreePeakRssKiB": 634688,
+      "check": {
+        "status": "passed",
+        "method": "published_final_number",
+        "expected": "2699",
+        "observed": "2699"
+      }
+    },
+    {
+      "id": "generated-arithmetic-4",
+      "category": "arithmetic",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "2343",
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 1,
+        "elapsedMs": 1
+      },
+      "verification": {
+        "status": "verified",
+        "method": "two_parser_exact_v1"
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "exact",
+          "candidates": [
+            {
+              "kind": "exact",
+              "status": "verified",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.1,
+                "errorRisk": 0.02,
+                "memoryReuse": 0.7
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 6.56,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "calculate",
+          "expression": "(93*25)+(52-34)",
+          "reused": false,
+          "verification": "two_parser_exact_v1"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "exact",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "two_parser_exact_v1",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 1
+        }
+      ],
+      "error": null,
+      "elapsedMs": 1,
+      "browserProcessTreePeakRssKiB": 635584,
+      "check": {
+        "status": "passed",
+        "method": "published_final_number",
+        "expected": "2343",
+        "observed": "2343"
+      }
+    },
+    {
+      "id": "generated-arithmetic-4",
+      "category": "arithmetic",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "To calculate (93*25) + (52-34), follow these steps:\n\n1. First, calculate 93*25: 93*25 = 2325\n\n2. Then, add 52 and 34: 52 + 34 = 86\n\n3. Now, add the two results together: 2325 + 86 = 2411\n\nSo, (93*25) + (52-34) =",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 128,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 2302.675000011921
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 7099,
+      "browserProcessTreePeakRssKiB": 638432,
+      "check": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "2343",
+        "observed": "34"
+      }
+    },
+    {
+      "id": "gsm8k-605",
+      "category": "mathematical_word_problem",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "Patrick earned $30.00 by selling lemonade for 6 hours, with each hour's worth of $0.50.",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 33,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 2861.0250000059605
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 4149,
+      "browserProcessTreePeakRssKiB": 627344,
+      "check": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "42",
+        "observed": "0.50"
+      }
+    },
+    {
+      "id": "gsm8k-605",
+      "category": "mathematical_word_problem",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "Patrick earned $30.00 by selling lemonade for 6 hours, with each hour's worth of $0.50.",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 33,
+        "firstModelTokenMs": 3136.8999999910593,
+        "verificationMs": 0,
+        "elapsedMs": 4613
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "For four hours, Patrick sold 15 cups of lemonade per hour at a price of $0.50 per cup.  In the next two hours, he sold 10 cups of lemonade per hour at a price of $0.60 per cup.  How much money did Patrick earn, in dollars, from selling lemonade for 6 hours?\nGive the final numeric answer."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 33
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 4612
+        }
+      ],
+      "error": null,
+      "elapsedMs": 4613,
+      "browserProcessTreePeakRssKiB": 633712,
+      "check": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "42",
+        "observed": "0.50"
+      }
+    },
+    {
+      "id": "gsm8k-13",
+      "category": "mathematical_word_problem",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "5",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 1,
+        "firstModelTokenMs": 2636.4900000095367,
+        "verificationMs": 0,
+        "elapsedMs": 2663
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Melanie is a door-to-door saleswoman. She sold a third of her vacuum cleaners at the green house, 2 more to the red house, and half of what was left at the orange house. If Melanie has 5 vacuum cleaners left, how many did she start with?\nGive the final numeric answer."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 1
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 2663
+        }
+      ],
+      "error": null,
+      "elapsedMs": 2663,
+      "browserProcessTreePeakRssKiB": 635280,
+      "check": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "18",
+        "observed": "5"
+      }
+    },
+    {
+      "id": "gsm8k-13",
+      "category": "mathematical_word_problem",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "5",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 2774.119999989867
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 2800,
+      "browserProcessTreePeakRssKiB": 633376,
+      "check": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "18",
+        "observed": "5"
+      }
+    },
+    {
+      "id": "gsm8k-71",
+      "category": "mathematical_word_problem",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "Kelian has to read 40 instructions to prepare the two dishes.",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 15,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 2762.3350000083447
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 3213,
+      "browserProcessTreePeakRssKiB": 626640,
+      "check": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "60",
+        "observed": "40"
+      }
+    },
+    {
+      "id": "gsm8k-71",
+      "category": "mathematical_word_problem",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "Kelian has to read 40 instructions to prepare the two dishes.",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 15,
+        "firstModelTokenMs": 2635.5,
+        "verificationMs": 0,
+        "elapsedMs": 3057
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Kelian has two recipes for preparing dishes, one having 20 instructions and the second one having twice as many instructions as the first one. How many instructions does Kelian have to read to prepare the two dishes?\nGive the final numeric answer."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 15
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 3057
+        }
+      ],
+      "error": null,
+      "elapsedMs": 3057,
+      "browserProcessTreePeakRssKiB": 603088,
+      "check": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "60",
+        "observed": "40"
+      }
+    },
+    {
+      "id": "gsm8k-30",
+      "category": "mathematical_word_problem",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "Darrell's current age is 7 * 11 = 77 years. Now, Allen's age is 162 - 77 = 85 years. In 10 years, Allen's age will be 85 + 10 = 95 years.",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 72,
+        "firstModelTokenMs": 2707.045000001788,
+        "verificationMs": 0,
+        "elapsedMs": 5176
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Darrell and Allen's ages are in the ratio of 7:11. If their total age now is 162, calculate Allen's age 10 years from now.\nGive the final numeric answer."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 72
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 5175
+        }
+      ],
+      "error": null,
+      "elapsedMs": 5176,
+      "browserProcessTreePeakRssKiB": 617120,
+      "check": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "109",
+        "observed": "95"
+      }
+    },
+    {
+      "id": "gsm8k-30",
+      "category": "mathematical_word_problem",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "Darrell's current age is 7 * 11 = 77 years. Now, Allen's age is 162 - 77 = 85 years. In 10 years, Allen's age will be 85 + 10 = 95 years.",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 72,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 2935.2400000095367
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 5526,
+      "browserProcessTreePeakRssKiB": 625536,
+      "check": {
+        "status": "failed",
+        "method": "published_final_number",
+        "expected": "109",
+        "observed": "95"
+      }
+    },
+    {
+      "id": "generated-multistep-1",
+      "category": "multistep",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "Let's break down the problem:\n\n1. Calculate 63 + 10: 63 + 10 = 73\n\n2. Multiply the result by 4: 73 * 4 = 292\n\nSo, 63 + 10 equals 73, and 73 * 4 equals 292.",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 87,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 2116.560000002384
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 5384,
+      "browserProcessTreePeakRssKiB": 612016,
+      "check": {
+        "status": "passed",
+        "method": "published_final_number",
+        "expected": "292",
+        "observed": "292"
+      }
+    },
+    {
+      "id": "generated-multistep-1",
+      "category": "multistep",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "1. 73\n\n2. 292",
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 2,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 8,
+        "elapsedMs": 9
+      },
+      "verification": {
+        "status": "verified",
+        "method": "per_part"
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "exact",
+          "candidates": [
+            {
+              "kind": "exact",
+              "status": "verified",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.1,
+                "errorRisk": 0.02,
+                "memoryReuse": 0.7
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 6.56,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "local",
+              "status": "bounded",
+              "scores": {
+                "goalAttraction": 0.85,
+                "expectedProgress": 0.8,
+                "informationGain": 0.75,
+                "computationalCost": 0.08,
+                "errorRisk": 0.2,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 4.42,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "calculate",
+          "part": "part-1",
+          "expression": "63+10",
+          "reused": false,
+          "verification": "two_parser_exact_v1"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "exact",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "two_parser_exact_v1",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 8
+        },
+        {
+          "step": "direction",
+          "part": "part-2",
+          "chosen": "dependent_exact",
+          "candidates": [
+            {
+              "kind": "dependent_exact",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.1,
+                "errorRisk": 0.02,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 5.86,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "dependent_calculate",
+          "part": "part-2",
+          "dependsOn": "part-1",
+          "expression": "(73)*(4)",
+          "method": "two_parser_exact_dependency_v1"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-2",
+          "operation": "dependent_exact",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "two_parser_exact_dependency_v1",
+          "derivationId": "derivation-2",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 0
+        }
+      ],
+      "error": null,
+      "elapsedMs": 9,
+      "browserProcessTreePeakRssKiB": 612208,
+      "check": {
+        "status": "passed",
+        "method": "published_final_number",
+        "expected": "292",
+        "observed": "292"
+      }
+    },
+    {
+      "id": "generated-multistep-2",
+      "category": "multistep",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "1. 91\n\n2. 94",
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 2,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 2,
+        "elapsedMs": 2
+      },
+      "verification": {
+        "status": "verified",
+        "method": "per_part"
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "exact",
+          "candidates": [
+            {
+              "kind": "exact",
+              "status": "verified",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.1,
+                "errorRisk": 0.02,
+                "memoryReuse": 0.7
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 6.56,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "local",
+              "status": "bounded",
+              "scores": {
+                "goalAttraction": 0.85,
+                "expectedProgress": 0.8,
+                "informationGain": 0.75,
+                "computationalCost": 0.08,
+                "errorRisk": 0.2,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 4.42,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "calculate",
+          "part": "part-1",
+          "expression": "73+18",
+          "reused": false,
+          "verification": "two_parser_exact_v1"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "exact",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "two_parser_exact_v1",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 2
+        },
+        {
+          "step": "direction",
+          "part": "part-2",
+          "chosen": "dependent_exact",
+          "candidates": [
+            {
+              "kind": "dependent_exact",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.1,
+                "errorRisk": 0.02,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 5.86,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "dependent_calculate",
+          "part": "part-2",
+          "dependsOn": "part-1",
+          "expression": "(91)+(3)",
+          "method": "two_parser_exact_dependency_v1"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-2",
+          "operation": "dependent_exact",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "two_parser_exact_dependency_v1",
+          "derivationId": "derivation-2",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 0
+        }
+      ],
+      "error": null,
+      "elapsedMs": 2,
+      "browserProcessTreePeakRssKiB": 613504,
+      "check": {
+        "status": "passed",
+        "method": "published_final_number",
+        "expected": "94",
+        "observed": "94"
+      }
+    },
+    {
+      "id": "generated-multistep-2",
+      "category": "multistep",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "73 + 18 = 91\n\nNow, add 3 to 91: 91 + 3 = 94\n\nSo, 73 + 18 + 3 = 94.",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 56,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 2045.1050000041723
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 3646,
+      "browserProcessTreePeakRssKiB": 613616,
+      "check": {
+        "status": "passed",
+        "method": "published_final_number",
+        "expected": "94",
+        "observed": "94"
+      }
+    },
+    {
+      "id": "generated-multistep-3",
+      "category": "multistep",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "Let's break down the problem step by step:\n\n1. Calculate 31 + 6: 31 + 6 = 37\n\n2. Multiply the result by 8: 37 * 8 = 296\n\nSo, the result is 296.",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 69,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 2153.770000010729
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 4040,
+      "browserProcessTreePeakRssKiB": 608800,
+      "check": {
+        "status": "passed",
+        "method": "published_final_number",
+        "expected": "296",
+        "observed": "296"
+      }
+    },
+    {
+      "id": "generated-multistep-3",
+      "category": "multistep",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "1. 37\n\n2. 296",
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 2,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 1,
+        "elapsedMs": 2
+      },
+      "verification": {
+        "status": "verified",
+        "method": "per_part"
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "exact",
+          "candidates": [
+            {
+              "kind": "exact",
+              "status": "verified",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.1,
+                "errorRisk": 0.02,
+                "memoryReuse": 0.7
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 6.56,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "local",
+              "status": "bounded",
+              "scores": {
+                "goalAttraction": 0.85,
+                "expectedProgress": 0.8,
+                "informationGain": 0.75,
+                "computationalCost": 0.08,
+                "errorRisk": 0.2,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 4.42,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "calculate",
+          "part": "part-1",
+          "expression": "31+6",
+          "reused": false,
+          "verification": "two_parser_exact_v1"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "exact",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "two_parser_exact_v1",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 1
+        },
+        {
+          "step": "direction",
+          "part": "part-2",
+          "chosen": "dependent_exact",
+          "candidates": [
+            {
+              "kind": "dependent_exact",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.1,
+                "errorRisk": 0.02,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 5.86,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "dependent_calculate",
+          "part": "part-2",
+          "dependsOn": "part-1",
+          "expression": "(37)*(8)",
+          "method": "two_parser_exact_dependency_v1"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-2",
+          "operation": "dependent_exact",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "two_parser_exact_dependency_v1",
+          "derivationId": "derivation-2",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 0
+        }
+      ],
+      "error": null,
+      "elapsedMs": 2,
+      "browserProcessTreePeakRssKiB": 609872,
+      "check": {
+        "status": "passed",
+        "method": "published_final_number",
+        "expected": "296",
+        "observed": "296"
+      }
+    },
+    {
+      "id": "generated-multistep-4",
+      "category": "multistep",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "1. 67\n\n2. 72",
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 2,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 1,
+        "elapsedMs": 1
+      },
+      "verification": {
+        "status": "verified",
+        "method": "per_part"
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "exact",
+          "candidates": [
+            {
+              "kind": "exact",
+              "status": "verified",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.1,
+                "errorRisk": 0.02,
+                "memoryReuse": 0.7
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 6.56,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "local",
+              "status": "bounded",
+              "scores": {
+                "goalAttraction": 0.85,
+                "expectedProgress": 0.8,
+                "informationGain": 0.75,
+                "computationalCost": 0.08,
+                "errorRisk": 0.2,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 4.42,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "calculate",
+          "part": "part-1",
+          "expression": "60+7",
+          "reused": false,
+          "verification": "two_parser_exact_v1"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "exact",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "two_parser_exact_v1",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 1
+        },
+        {
+          "step": "direction",
+          "part": "part-2",
+          "chosen": "dependent_exact",
+          "candidates": [
+            {
+              "kind": "dependent_exact",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.1,
+                "errorRisk": 0.02,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 5.86,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "dependent_calculate",
+          "part": "part-2",
+          "dependsOn": "part-1",
+          "expression": "(67)+(5)",
+          "method": "two_parser_exact_dependency_v1"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-2",
+          "operation": "dependent_exact",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "two_parser_exact_dependency_v1",
+          "derivationId": "derivation-2",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 0
+        }
+      ],
+      "error": null,
+      "elapsedMs": 1,
+      "browserProcessTreePeakRssKiB": 610160,
+      "check": {
+        "status": "passed",
+        "method": "published_final_number",
+        "expected": "72",
+        "observed": "72"
+      }
+    },
+    {
+      "id": "generated-multistep-4",
+      "category": "multistep",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "60 + 7 equals 67. Now, add 5 to 67: 67 + 5 = 72. So, 60 + 7 + 5 equals 72.",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 52,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 2035.1050000041723
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 3670,
+      "browserProcessTreePeakRssKiB": 612320,
+      "check": {
+        "status": "passed",
+        "method": "published_final_number",
+        "expected": "72",
+        "observed": "72"
+      }
+    },
+    {
+      "id": "bbh-boolean-117",
+      "category": "logic",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "False. False is not a valid answer to the question about \"True or False.\"",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 18,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 2420.2450000047684
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 2902,
+      "browserProcessTreePeakRssKiB": 613552,
+      "check": {
+        "status": "failed",
+        "method": "unambiguous_published_choice",
+        "expected": "False",
+        "observed": null
+      }
+    },
+    {
+      "id": "bbh-boolean-117",
+      "category": "logic",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "False",
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 1
+      },
+      "verification": {
+        "status": "verified",
+        "method": "dual_boolean_expression_v1"
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "boolean",
+          "candidates": [
+            {
+              "kind": "boolean",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.05,
+                "errorRisk": 0.02,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 5.91,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "boolean_calculate",
+          "expression": "False or False and False or not True",
+          "method": "dual_boolean_expression_v1"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "boolean",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "dual_boolean_expression_v1",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 1
+        }
+      ],
+      "error": null,
+      "elapsedMs": 1,
+      "browserProcessTreePeakRssKiB": 604240,
+      "check": {
+        "status": "passed",
+        "method": "unambiguous_published_choice",
+        "expected": "False",
+        "observed": "False"
+      }
+    },
+    {
+      "id": "bbh-boolean-152",
+      "category": "logic",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "False",
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 0
+      },
+      "verification": {
+        "status": "verified",
+        "method": "dual_boolean_expression_v1"
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "boolean",
+          "candidates": [
+            {
+              "kind": "boolean",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.05,
+                "errorRisk": 0.02,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 5.91,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "boolean_calculate",
+          "expression": "( not ( False ) and False )",
+          "method": "dual_boolean_expression_v1"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "boolean",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "dual_boolean_expression_v1",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 0
+        }
+      ],
+      "error": null,
+      "elapsedMs": 0,
+      "browserProcessTreePeakRssKiB": 608160,
+      "check": {
+        "status": "passed",
+        "method": "unambiguous_published_choice",
+        "expected": "False",
+        "observed": "False"
+      }
+    },
+    {
+      "id": "bbh-boolean-152",
+      "category": "logic",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "True.",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 2,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 2068.344999998808
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 2125,
+      "browserProcessTreePeakRssKiB": 608160,
+      "check": {
+        "status": "failed",
+        "method": "unambiguous_published_choice",
+        "expected": "False",
+        "observed": "True"
+      }
+    },
+    {
+      "id": "bbh-boolean-164",
+      "category": "logic",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "True. The phrase \"Not False or Not\" is an abbreviation that translates to \"Not False\" in English. It is used to indicate that something is not certain or not certain, similar to the phrase \"Not True\" in logic or mathematics.",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 54,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 3339.810000002384
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 5410,
+      "browserProcessTreePeakRssKiB": 599696,
+      "check": {
+        "status": "failed",
+        "method": "unambiguous_published_choice",
+        "expected": "True",
+        "observed": null
+      }
+    },
+    {
+      "id": "bbh-boolean-164",
+      "category": "logic",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "True",
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 0
+      },
+      "verification": {
+        "status": "verified",
+        "method": "dual_boolean_expression_v1"
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "boolean",
+          "candidates": [
+            {
+              "kind": "boolean",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.05,
+                "errorRisk": 0.02,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 5.91,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "boolean_calculate",
+          "expression": "not False or not ( not False )",
+          "method": "dual_boolean_expression_v1"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "boolean",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "dual_boolean_expression_v1",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 0
+        }
+      ],
+      "error": null,
+      "elapsedMs": 0,
+      "browserProcessTreePeakRssKiB": 590288,
+      "check": {
+        "status": "passed",
+        "method": "unambiguous_published_choice",
+        "expected": "True",
+        "observed": "True"
+      }
+    },
+    {
+      "id": "bbh-fallacy-220",
+      "category": "contradiction_detection",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "valid",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 1,
+        "firstModelTokenMs": 4373.705000013113,
+        "verificationMs": 0,
+        "elapsedMs": 4445
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "\"Here comes a perfectly valid argument: To begin with, whatever is not an ingredient of MAVA-WHITE is an ingredient of PRO LONGLASH. Moreover, not being an ingredient of Brow Powder Duo is sufficient for not being an ingredient of PRO LONGLASH. We may conclude that being an ingredient of Brow Powder Duo is necessary for not being an ingredient of MAVA-WHITE.\"\nIs the argument, given the explicitly stated premises, deductively valid or invalid?\nOptions:\n- valid \n- invalid\nAnswer valid or invalid."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 1
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 4444
+        }
+      ],
+      "error": null,
+      "elapsedMs": 4445,
+      "browserProcessTreePeakRssKiB": 589776,
+      "check": {
+        "status": "passed",
+        "method": "unambiguous_published_choice",
+        "expected": "valid",
+        "observed": "valid"
+      }
+    },
+    {
+      "id": "bbh-fallacy-220",
+      "category": "contradiction_detection",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "valid",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 4304.969999998808
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 4366,
+      "browserProcessTreePeakRssKiB": 594432,
+      "check": {
+        "status": "passed",
+        "method": "unambiguous_published_choice",
+        "expected": "valid",
+        "observed": "valid"
+      }
+    },
+    {
+      "id": "bbh-fallacy-43",
+      "category": "contradiction_detection",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "valid",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 5107.844999998808
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 5155,
+      "browserProcessTreePeakRssKiB": 587888,
+      "check": {
+        "status": "passed",
+        "method": "unambiguous_published_choice",
+        "expected": "valid",
+        "observed": "valid"
+      }
+    },
+    {
+      "id": "bbh-fallacy-43",
+      "category": "contradiction_detection",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "valid",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 1,
+        "firstModelTokenMs": 4305.975000008941,
+        "verificationMs": 0,
+        "elapsedMs": 4343
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "\"Is Fred a fan of Liverpool? Are supporters of Real Madrid devotees of PSG? In European football, it is sometimes difficult to keep track of the mutual admiration and dislike. The following argument seeks to clarify some such relations: No member of ŠK Slovan Bratislava is a follower of OGC Nice. Whoever is a member of ŠK Slovan Bratislava is not a devotee of Royal Antwerp FC. Every member of ŠK Slovan Bratislava is a devotee of Royal Antwerp FC or a backer of FC Zenit or a follower of OGC Nice. Therefore, being a backer of FC Zenit is necessary for being a member of ŠK Slovan Bratislava.\"\nIs the argument, given the explicitly stated premises, deductively valid or invalid?\nOptions:\n- valid \n- invalid\nAnswer valid or invalid."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 1
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 4340
+        }
+      ],
+      "error": null,
+      "elapsedMs": 4343,
+      "browserProcessTreePeakRssKiB": 588336,
+      "check": {
+        "status": "passed",
+        "method": "unambiguous_published_choice",
+        "expected": "valid",
+        "observed": "valid"
+      }
+    },
+    {
+      "id": "bbh-fallacy-241",
+      "category": "contradiction_detection",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "valid",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 1,
+        "firstModelTokenMs": 3805.2100000083447,
+        "verificationMs": 0,
+        "elapsedMs": 3855
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "\"Is Fred a cousin of Robert? Is Joe related to Bob? In large families, it is sometimes difficult to keep track of all one's relatives. The following argument seeks to clarify some such relations: First premise: Everyone who is both an ancestor of Leslie and a close friend of Fernando is not a great-grandfather of Perry. So, necessarily, not being a great-grandfather of Perry is sufficient for being an ancestor of Leslie and a close friend of Fernando.\"\nIs the argument, given the explicitly stated premises, deductively valid or invalid?\nOptions:\n- valid \n- invalid\nAnswer valid or invalid."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 1
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 3854
+        }
+      ],
+      "error": null,
+      "elapsedMs": 3855,
+      "browserProcessTreePeakRssKiB": 588160,
+      "check": {
+        "status": "failed",
+        "method": "unambiguous_published_choice",
+        "expected": "invalid",
+        "observed": "valid"
+      }
+    },
+    {
+      "id": "bbh-fallacy-241",
+      "category": "contradiction_detection",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "valid",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 3682.2250000089407
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 3720,
+      "browserProcessTreePeakRssKiB": 590112,
+      "check": {
+        "status": "failed",
+        "method": "unambiguous_published_choice",
+        "expected": "invalid",
+        "observed": "valid"
+      }
+    },
+    {
+      "id": "bbh-fallacy-74",
+      "category": "contradiction_detection",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "valid",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 3808.494999989867
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 3847,
+      "browserProcessTreePeakRssKiB": 592400,
+      "check": {
+        "status": "failed",
+        "method": "unambiguous_published_choice",
+        "expected": "invalid",
+        "observed": "valid"
+      }
+    },
+    {
+      "id": "bbh-fallacy-74",
+      "category": "contradiction_detection",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "valid",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 1,
+        "firstModelTokenMs": 3670.9449999928474,
+        "verificationMs": 0,
+        "elapsedMs": 3712
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "\"Is Titanium oxide an ingredient of my washing power? Which chemicals does my perfume contain? It is really difficult to keep track of all chemicals one is regularly exposed to. The following argument seeks to clarify some such relations: Every ingredient of Hawaiian Punch is not an ingredient of Ice Queen Anyone? or not an ingredient of Exfoliating Balm. Everything that is an ingredient of Black Shadow is an ingredient of Hawaiian Punch, too. In consequence, every ingredient of Black Shadow is an ingredient of Exfoliating Balm and an ingredient of Ice Queen Anyone?.\"\nIs the argument, given the explicitly stated premises, deductively valid or invalid?\nOptions:\n- valid \n- invalid\nAnswer valid or invalid."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 1
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 3711
+        }
+      ],
+      "error": null,
+      "elapsedMs": 3712,
+      "browserProcessTreePeakRssKiB": 589728,
+      "check": {
+        "status": "failed",
+        "method": "unambiguous_published_choice",
+        "expected": "invalid",
+        "observed": "valid"
+      }
+    },
+    {
+      "id": "humaneval-146",
+      "category": "coding",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "This function uses a simple for loop to iterate through each number in the list. It checks if each number is greater than 10 and both its first and last digits are odd (1, 3, 5, 7, 9). If a number meets these conditions, the function returns the count of such numbers. The function is straightforward and works for the given examples provided.",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 80,
+        "firstModelTokenMs": 3558.359999999404,
+        "verificationMs": 0,
+        "elapsedMs": 6634
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Complete this Python function. Return code only.\n\n\ndef specialFilter(nums):\n    \"\"\"Write a function that takes an array of numbers as input and returns \n    the number of elements in the array that are greater than 10 and both \n    first and last digits of a number are odd (1, 3, 5, 7, 9).\n    For example:\n    specialFilter([15, -73, 14, -15]) => 1 \n    specialFilter([33, -2, -3, 45, 21, 109]) => 2\n    \"\"\""
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 80
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 6634
+        }
+      ],
+      "error": null,
+      "elapsedMs": 6634,
+      "browserProcessTreePeakRssKiB": 597696,
+      "check": {
+        "status": "failed",
+        "reason": "SyntaxError",
+        "detail": "invalid syntax (<unknown>, line 10)"
+      }
+    },
+    {
+      "id": "humaneval-146",
+      "category": "coding",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "This function uses Python's built-in `any` function to check if each number in the array is greater than 10 and both the first and last digits are odd. The `any` function returns `True` only if the condition is `True`, and `False` otherwise. Therefore, the function will return the length of the list (which is the count of elements that satisfy the condition) as the output.",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 93,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 3571.1599999964237
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 6874,
+      "browserProcessTreePeakRssKiB": 622848,
+      "check": {
+        "status": "failed",
+        "reason": "SyntaxError",
+        "detail": "invalid syntax (<unknown>, line 10)"
+      }
+    },
+    {
+      "id": "humaneval-85",
+      "category": "coding",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "2",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 2624.4249999970198
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 2655,
+      "browserProcessTreePeakRssKiB": 622240,
+      "check": {
+        "status": "failed",
+        "reason": "AssertionError",
+        "detail": ""
+      }
+    },
+    {
+      "id": "humaneval-85",
+      "category": "coding",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "The function `add` is correctly implemented in Python as follows:\n\n```python\ndef add(lst):\n    \"\"\"\n    Given a non-empty list of integers, add the even elements that are at odd indices.\n\n    Examples:\n        add([4, 2, 6, 7]) ==> 2\n    \"\"\"\n    return [el + 2 for el in lst if ord(el) % 2 == 1]\n\n# Example usage:\nprint(add([4, 2, 6, 7]))  # Output: [",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 128,
+        "firstModelTokenMs": 2644.0900000035763,
+        "verificationMs": 0,
+        "elapsedMs": 7478
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Complete this Python function. Return code only.\n\n\ndef add(lst):\n    \"\"\"Given a non-empty list of integers lst. add the even elements that are at odd indices..\n\n\n    Examples:\n        add([4, 2, 6, 7]) ==> 2 \n    \"\"\""
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 128
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 7477
+        }
+      ],
+      "error": null,
+      "elapsedMs": 7478,
+      "browserProcessTreePeakRssKiB": 623296,
+      "check": {
+        "status": "failed",
+        "reason": "ValueError",
+        "detail": "unclosed code fence"
+      }
+    },
+    {
+      "id": "humaneval-17",
+      "category": "coding",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "The function `parse_music` is designed to parse a string of musical notes in ASCII format and return a list of integers representing the number of beats for each note. Here's how you can use it:\n\n```python\ndef parse_music(music_string: str) -> List[int]:\n    \"\"\"\n    Parses a musical note string and returns a list of integers representing the number of beats.\n\n    Args:\n        music_string (str): A string representing musical notes in ASCII format.\n\n    Returns:\n    List[int]: A list of integers corresponding to",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 128,
+        "firstModelTokenMs": 4183.489999994636,
+        "verificationMs": 0,
+        "elapsedMs": 9087
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Complete this Python function. Return code only.\n\nfrom typing import List\n\n\ndef parse_music(music_string: str) -> List[int]:\n    \"\"\" Input to this function is a string representing musical notes in a special ASCII format.\n    Your task is to parse this string and return list of integers corresponding to how many beats does each\n    not last.\n\n    Here is a legend:\n    'o' - whole note, lasts four beats\n    'o|' - half note, lasts two beats\n    '.|' - quater note, lasts one beat\n\n    >>> parse_music('o o| .| o| o| .| .| .| .| o o')\n    [4, 2, 1, 2, 2, 1, 1, 1, 1, 4, 4]\n    \"\"\""
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 128
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 9087
+        }
+      ],
+      "error": null,
+      "elapsedMs": 9087,
+      "browserProcessTreePeakRssKiB": 624528,
+      "check": {
+        "status": "failed",
+        "reason": "ValueError",
+        "detail": "unclosed code fence"
+      }
+    },
+    {
+      "id": "humaneval-17",
+      "category": "coding",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "The function `parse_music` is designed to parse a string of musical notes in ASCII format. It returns a list of integers, each representing the number of beats for each note. Here's how you can use it:\n\n```python\ndef parse_music(music_string: str) -> List[int]:\n    \"\"\"\n    Parses a string representing musical notes in ASCII format.\n\n    Returns a list of integers corresponding to the number of beats each note lasts.\n\n    Example:\n    >>> parse_music('o o| .| o| o| .| .|",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 128,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 4078.185000002384
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 9091,
+      "browserProcessTreePeakRssKiB": 613376,
+      "check": {
+        "status": "failed",
+        "reason": "ValueError",
+        "detail": "unclosed code fence"
+      }
+    },
+    {
+      "id": "humaneval-4",
+      "category": "coding",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "Your function should be straightforward. Here's how you can do it:\n\n```python\ndef mean_absolute_deviation(numbers: List[float]) -> float:\n    \"\"\"\n    Calculates Mean Absolute Deviation for a list of numbers.\n    The formula is: MAD = |Σx - Σx_mean| / ||x_mean - μ||\n    where Σx is the sum of all numbers, μ is the mean, and ||x_mean - μ|| is the absolute deviation.\n    >>> mean_absolute_deviation",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 128,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 3584.7749999910593
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 9455,
+      "browserProcessTreePeakRssKiB": 613696,
+      "check": {
+        "status": "failed",
+        "reason": "ValueError",
+        "detail": "unclosed code fence"
+      }
+    },
+    {
+      "id": "humaneval-4",
+      "category": "coding",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "The function `mean_absolute_deviation` is defined to calculate Mean Absolute Deviation (MAD) for a list of floating-point numbers. Here's how you can use it:\n\n```python\ndef mean_absolute_deviation(numbers: List[float]) -> float:\n    \"\"\"\n    Calculates Mean Absolute Deviation for a list of floating-point numbers.\n    \n    Args:\n        numbers (List[float]): A list of floating-point numbers.\n    \n    Returns:\n        float: The Mean Absolute Deviation.\n    \"\"\"\n    total",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 128,
+        "firstModelTokenMs": 3388.8999999910593,
+        "verificationMs": 0,
+        "elapsedMs": 8433
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Complete this Python function. Return code only.\n\nfrom typing import List\n\n\ndef mean_absolute_deviation(numbers: List[float]) -> float:\n    \"\"\" For a given list of input numbers, calculate Mean Absolute Deviation\n    around the mean of this dataset.\n    Mean Absolute Deviation is the average absolute difference between each\n    element and a centerpoint (mean in this case):\n    MAD = average | x - x_mean |\n    >>> mean_absolute_deviation([1.0, 2.0, 3.0, 4.0])\n    1.0\n    \"\"\""
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 128
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 8433
+        }
+      ],
+      "error": null,
+      "elapsedMs": 8433,
+      "browserProcessTreePeakRssKiB": 611936,
+      "check": {
+        "status": "failed",
+        "reason": "ValueError",
+        "detail": "unclosed code fence"
+      }
+    },
+    {
+      "id": "alpaca-plan-582",
+      "category": "planning",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "1. **Reduce, Reuse, and Recycle**: Instead of throwing away old electronics, consider repurposing them into new ones. For example, turn old light bulbs into a lightweight table lamp.\n\n2. **Use Clothes Wisely**: Choose to throw out non-recyclable items like paper and plastic bags. Opt for reusable items like water bottles and containers to minimize waste.\n\n3. **Conserve Energy**: Use energy-efficient appliances and avoid unnecessary cooking. Opt for lightweight dishes and cooking pads to reduce energy consumption.\n\n4. **Support Local Businesses**:",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 128,
+        "firstModelTokenMs": 2018.625,
+        "verificationMs": 0,
+        "elapsedMs": 6067
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "You can easily make your holidays more eco-friendly by following these simple steps:"
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 128
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 6067
+        }
+      ],
+      "error": null,
+      "elapsedMs": 6067,
+      "browserProcessTreePeakRssKiB": 615504,
+      "check": {
+        "status": "pending_human"
+      }
+    },
+    {
+      "id": "alpaca-plan-582",
+      "category": "planning",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "1. **Reduce, Reuse, and Recycle**: Instead of throwing away old electronics, consider repurposing them into new ones. For example, turn old light bulbs into a lightweight table lamp.\n\n2. **Use Clothes Wisely**: Choose to throw out non-recyclable items like paper and plastic bags. Opt for reusable items like water bottles and containers to minimize waste.\n\n3. **Conserve Energy**: Use energy-efficient appliances and avoid unnecessary cooking. Opt for lightweight dishes and cooking pads to reduce energy consumption.\n\n4. **Support Local Businesses**:",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 128,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 2089.704999998212
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 6123,
+      "browserProcessTreePeakRssKiB": 615632,
+      "check": {
+        "status": "pending_human"
+      }
+    },
+    {
+      "id": "alpaca-plan-248",
+      "category": "planning",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "**Table of Contents for Economic Management Book on AI Technology Development in the Content Industry**\n\n| **Table of Contents** | **Description**                                                                 |\n|---|---|---|\n| **1. AI in Content Creation: An Overview** | Discover how AI is transforming content creation, from algorithmic composition to automated editing and content generation. |\n| **2. AI in Content Management Systems:** Advancements and Challenges** | Explore the advancements in AI-driven content management systems, such as AI-powered workflow automation and data integration. |\n| ",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 128,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 2974.515000000596
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 8123,
+      "browserProcessTreePeakRssKiB": 615056,
+      "check": {
+        "status": "pending_human"
+      }
+    },
+    {
+      "id": "alpaca-plan-248",
+      "category": "planning",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "**Table of Contents for Economic Management Book on AI Technology Development in the Content Industry**\n\n| **Table of Contents** | **Description**                                                                 |\n|---|---|---|\n| **1. AI in Content Creation: An Overview** | Discover how AI is transforming content creation, from algorithmic composition to automated editing and content generation. |\n| **2. AI in Content Management Systems:** Advancements and Challenges** | Explore the advancements in AI-driven content management systems, such as AI-powered workflow automation and data integration. |\n|",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 128,
+        "firstModelTokenMs": 2688.8049999922514,
+        "verificationMs": 0,
+        "elapsedMs": 7529
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "I am trying to create an economic management book on the impact of AI technology development on the content industry and how to prepare, plan, and actually apply AI technology, apps, and tools that can be used depending on the type of content from the perspective of companies and individuals. Please provide a table of contents for the 50-listed book and a brief description of each table of contents.\nAnswer in English."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 128
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 7529
+        }
+      ],
+      "error": null,
+      "elapsedMs": 7529,
+      "browserProcessTreePeakRssKiB": 617488,
+      "check": {
+        "status": "pending_human"
+      }
+    },
+    {
+      "id": "alpaca-plan-551",
+      "category": "planning",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "GitHub Actions provides a robust CI/CD feature that automatically runs jobs in workflows. Here's an example of a workflow that demonstrates its capabilities:\n\n```yaml\n- name: GitHub Actions Workflow Example\n  environment:\n    name:\n      include: [artifactName]\n\n  schedule:\n    interval: daily\n\n  actions:\n  - name: Run a CI/CD job\n    file: |\n      run |\n        with echo \"Running the job in daily mode.\"\"\n\n  - name: Schedule a task\n    schedule:\n      interval:",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 128,
+        "firstModelTokenMs": 2615.220000013709,
+        "verificationMs": 0,
+        "elapsedMs": 9559
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "One or more jobs can be run automatically by a workflow. The workflows are defined in the repository as YAML files and will run if an event occurs in the repository, as well as manually, or on a certain schedule.\nBring an example of a workflow that demonstrate the CI/CD features of GitHub Actions."
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 128
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 9559
+        }
+      ],
+      "error": null,
+      "elapsedMs": 9559,
+      "browserProcessTreePeakRssKiB": 618512,
+      "check": {
+        "status": "pending_human"
+      }
+    },
+    {
+      "id": "alpaca-plan-551",
+      "category": "planning",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "GitHub Actions provides a robust CI/CD feature that automatically runs jobs in workflows. Here's an example of a workflow that demonstrates its capabilities:\n\n```yaml\n- name: GitHub Actions Workflow Example\n  environment:\n    name:\n      include: [artifactName]\n\n  schedule:\n    interval: daily\n\n  actions:\n  - name: Run a CI/CD job\n    file: |\n      run |\n        with echo \"Running the job in daily mode.\"\"\n\n  - name: Schedule a task\n    schedule:\n      interval:",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 128,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 2774.339999988675
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 7232,
+      "browserProcessTreePeakRssKiB": 597424,
+      "check": {
+        "status": "pending_human"
+      }
+    },
+    {
+      "id": "alpaca-plan-472",
+      "category": "planning",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "In the context of 'Perfect Information' in 'Into the Breach', it refers to the game's ability to provide players with accurate and detailed information about its objectives, strategies, and outcomes. Players can choose to play as either a 'perfect player' or a 'perfect adversary', each with its own approach and strategies based on the game's strengths. The term emphasizes the game's focus on providing accurate and reliable information, which is crucial for its success in competitive gameplay.",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 109,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 2389.484999999404
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 6250,
+      "browserProcessTreePeakRssKiB": 601008,
+      "check": {
+        "status": "pending_human"
+      }
+    },
+    {
+      "id": "alpaca-plan-472",
+      "category": "planning",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "In the context of 'Perfect Information' in 'Into the Breach', it refers to the game's ability to provide players with accurate and detailed information about its objectives, strategies, and outcomes. Players can choose to play as either a 'perfect player' or a 'perfect adversary', each with its own approach and strategies based on the game's strengths. The term emphasizes the game's focus on providing accurate and reliable information, which is crucial for its success in competitive gameplay.",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 109,
+        "firstModelTokenMs": 2351.2699999958277,
+        "verificationMs": 0,
+        "elapsedMs": 6131
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "I've recently started playing the turn-based strategy game Into the Breach. I have read online that the game is considered to have 'perfect information'. What is meant by 'perfect information' in this context?"
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 109
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 6131
+        }
+      ],
+      "error": null,
+      "elapsedMs": 6131,
+      "browserProcessTreePeakRssKiB": 612384,
+      "check": {
+        "status": "pending_human"
+      }
+    },
+    {
+      "id": "alpaca-chat-88",
+      "category": "ordinary_conversation",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "Kevlar is a material made from a mixture of iron and aluminum. It is typically used in applications where a high-temperature resistance is required, such as in the construction of aircraft wings and metal construction. The alloy composition is designed to withstand extreme temperatures without degrading, making it ideal for these applications.",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 64,
+        "firstModelTokenMs": 2064.954999998212,
+        "verificationMs": 0,
+        "elapsedMs": 3948
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "What is kevlar made out of?"
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 64
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 3948
+        }
+      ],
+      "error": null,
+      "elapsedMs": 3948,
+      "browserProcessTreePeakRssKiB": 615392,
+      "check": {
+        "status": "pending_human"
+      }
+    },
+    {
+      "id": "alpaca-chat-88",
+      "category": "ordinary_conversation",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "Kevlar is a material made from a mixture of iron and aluminum. It is typically used in applications where a high-temperature resistance is required, such as in the construction of aircraft wings and metal construction. The alloy composition is designed to withstand extreme temperatures without degrading, making it ideal for these applications.",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 64,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 1930.5450000017881
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 3592,
+      "browserProcessTreePeakRssKiB": 617280,
+      "check": {
+        "status": "pending_human"
+      }
+    },
+    {
+      "id": "alpaca-chat-177",
+      "category": "ordinary_conversation",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "**Ministerial Speech: The Benefits of Innovation in the Australian Economy**\n\n**Introduction:**\nAs we embark on this journey towards a brighter and more prosperous future, it is crucial to highlight the transformative impact of innovation in the Australian economy. **The key benefits** that innovation brings are as significant as the technological advancements we witness.\n\n**Technology and Innovation:**\n- **Innovation in Technology:** The Australian tech industry has emerged as a cornerstone of economic growth, driving innovation and creating new job opportunities. This is particularly evident in sectors like renewable energy and digital services.",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 128,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 2163.0250000059605
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 6340,
+      "browserProcessTreePeakRssKiB": 618192,
+      "check": {
+        "status": "pending_human"
+      }
+    },
+    {
+      "id": "alpaca-chat-177",
+      "category": "ordinary_conversation",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "**Ministerial Speech: The Benefits of Innovation in the Australian Economy**\n\n**Introduction:**\nAs we embark on this journey towards a brighter and more prosperous future, it is crucial to highlight the transformative impact of innovation in the Australian economy. **The key benefits** that innovation brings are as significant as the technological advancements we witness.\n\n**Technology and Innovation:**\n- **Innovation in Technology:** The Australian tech industry has emerged as a cornerstone of economic growth, driving innovation and creating new job opportunities. This is particularly evident in sectors like renewable energy and digital services.",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 128,
+        "firstModelTokenMs": 2010.780000001192,
+        "verificationMs": 0,
+        "elapsedMs": 6160
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Draft a ministerial speech outlining the top five benefits that innovation brings to the Australian economy"
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 128
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 6160
+        }
+      ],
+      "error": null,
+      "elapsedMs": 6160,
+      "browserProcessTreePeakRssKiB": 617920,
+      "check": {
+        "status": "pending_human"
+      }
+    },
+    {
+      "id": "alpaca-chat-69",
+      "category": "ordinary_conversation",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "Sure! Here's a quick and easy way to clean a showerhead:\n\n1. **Turn it on**: Ensure your showerhead is turned on.\n2. **Open the lid**: Look for the \"Lid\" or \"Shower\" button on the front of the unit.\n3. **Press and release**: Use your fingers to press the button and release it. This will open the lid and remove the air filter.\n4. **Clean with a damp cloth**: Gently wipe the area with a damp cloth to remove any dirt or debris.\n\nThis",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 128,
+        "firstModelTokenMs": 2297.5700000077486,
+        "verificationMs": 0,
+        "elapsedMs": 6575
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Can you tell me a very easy to way clean a showerhead?"
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 128
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 6575
+        }
+      ],
+      "error": null,
+      "elapsedMs": 6575,
+      "browserProcessTreePeakRssKiB": 617536,
+      "check": {
+        "status": "pending_human"
+      }
+    },
+    {
+      "id": "alpaca-chat-69",
+      "category": "ordinary_conversation",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_plus_b2",
+        "falcon_alone"
+      ],
+      "answer": "Sure! Here's a quick and easy way to clean a showerhead:\n\n1. **Turn it on**: Ensure your showerhead is turned on.\n2. **Open the lid**: Look for the \"Lid\" or \"Shower\" button on the front of the unit.\n3. **Press and release**: Use your fingers to press the button and release it. This will open the lid and remove the air filter.\n4. **Clean with a damp cloth**: Gently wipe the area with a damp cloth to remove any dirt or debris.\n\nThis",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 128,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 2044.609999999404
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 6258,
+      "browserProcessTreePeakRssKiB": 623568,
+      "check": {
+        "status": "pending_human"
+      }
+    },
+    {
+      "id": "alpaca-chat-422",
+      "category": "ordinary_conversation",
+      "system": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "To host a large learning model on an average computer, several key factors can make it state-of-the-art:\n\n1. **Hardware Accuracy**: The computer must be capable of handling the computational demands of training large language models. This often involves high-end processors with advanced algorithms like GPT-3, which are optimized for training large datasets.\n\n2. **Data Management**: Efficiently managing and storing large amounts of data is crucial. The system must be optimized for batch processing, ensuring that each training session is processed quickly and efficiently.\n\n3. **Model Size and Complexity**: A",
+      "metrics": {
+        "modelCalls": 1,
+        "tokens": 128,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "firstModelTokenMs": 2270.530000001192
+      },
+      "verification": null,
+      "trace": [],
+      "error": null,
+      "elapsedMs": 6735,
+      "browserProcessTreePeakRssKiB": 627040,
+      "check": {
+        "status": "pending_human"
+      }
+    },
+    {
+      "id": "alpaca-chat-422",
+      "category": "ordinary_conversation",
+      "system": "falcon_plus_b2",
+      "order": [
+        "falcon_alone",
+        "falcon_plus_b2"
+      ],
+      "answer": "To host a large learning model on an average computer, several key factors can make it state-of-the-art:\n\n1. **Hardware Accuracy**: The computer must be capable of handling the computational demands of training large language models. This often involves high-end processors with advanced algorithms like GPT-3, which are optimized for training large datasets.\n\n2. **Data Management**: Efficiently managing and storing large amounts of data is crucial. The system must be optimized for batch processing, ensuring that each training session is processed quickly and efficiently.\n\n3. **Model Size and Complexity**: A",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 128,
+        "firstModelTokenMs": 2465.3650000095367,
+        "verificationMs": 0,
+        "elapsedMs": 7424
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "none",
+        "residual": {
+          "unresolved": [
+            "Explain how it might be possible to host a large learning model on an average computer. Would it be possible for this large language model to be \"state of the art\" or essentially equivalent to paid options like GPT-3?"
+          ],
+          "unprocessed": 0
+        }
+      },
+      "trace": [
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "falcon",
+          "candidates": [
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ]
+        },
+        {
+          "step": "hypothesis",
+          "part": "part-1",
+          "candidate": 1,
+          "assumptions": [],
+          "tokens": 128
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "falcon",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "none",
+          "derivationId": "derivation-1",
+          "residual": "No independent checker is available for this claim.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 7424
+        }
+      ],
+      "error": null,
+      "elapsedMs": 7424,
+      "browserProcessTreePeakRssKiB": 627472,
+      "check": {
+        "status": "pending_human"
+      }
+    }
+  ]
+}

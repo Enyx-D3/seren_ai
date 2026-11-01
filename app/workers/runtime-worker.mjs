@@ -64,7 +64,7 @@ async function cmdLoad(data) {
 }
 
 async function cmdComplete(data) {
-  const { reqId, modelId, prompt, stops, maxTokens, temperature, topP, topK } = data;
+  const { reqId, modelId, prompt, stops, maxTokens, temperature, topP, topK, grammar } = data;
   if (!wllama || loadedModelId !== modelId) {
     throw new Error('model "' + modelId + '" is not loaded in the runtime worker');
   }
@@ -84,6 +84,7 @@ async function cmdComplete(data) {
         temp: Number.isFinite(temperature) ? temperature : 0.8,
         top_p: Number.isFinite(topP) ? topP : 0.95,
         top_k: Number.isFinite(topK) ? topK : 40,
+        ...(typeof grammar === 'string' && grammar.length <= 2048 ? { grammar } : {}),
       },
       abortSignal: ac.signal,
       onNewToken: (token, piece, currentText, opts) => {

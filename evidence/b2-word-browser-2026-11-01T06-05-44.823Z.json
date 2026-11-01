@@ -1,0 +1,3139 @@
+{
+  "fixturePath": "evidence/b2-word-final-fresh-fixture-2026-11-01.json",
+  "fixtureSha256": "237e815a6cb492adc4f18e328e5f0cda836aa6fafe0713dd849caf0108609f30",
+  "baseUrl": "http://127.0.0.1:8799/",
+  "environment": "Playwright Chromium, local app, stored run receipts",
+  "results": [
+    {
+      "id": "f1",
+      "prompt": "There are 11 baskets. Each basket contains 9 plums. 16 plums are removed. How many plums remain?",
+      "expected": "83",
+      "answer": "83",
+      "uiElapsedMs": 167.75012500000003,
+      "verification": {
+        "status": "verified",
+        "method": "bounded_grouped_word_math_v1"
+      },
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 2,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 2
+      },
+      "trace": [
+        {
+          "step": "grounded_word_problem",
+          "quantities": [
+            {
+              "role": "group_count",
+              "value": "11",
+              "quote": "11",
+              "sourceOffset": 10
+            },
+            {
+              "role": "items_per_group",
+              "value": "9",
+              "quote": "9",
+              "sourceOffset": 43
+            },
+            {
+              "role": "change_count",
+              "value": "16",
+              "quote": "16",
+              "sourceOffset": 52
+            }
+          ],
+          "unknown": {
+            "role": "final_item_count",
+            "quote": "How many plums remain?",
+            "sourceOffset": 74
+          },
+          "dependencies": [
+            {
+              "from": "group_count",
+              "to": "initial_total"
+            },
+            {
+              "from": "items_per_group",
+              "to": "initial_total"
+            },
+            {
+              "from": "initial_total",
+              "to": "final_item_count"
+            },
+            {
+              "from": "change_count",
+              "to": "final_item_count"
+            }
+          ],
+          "assumptions": [
+            "Each named group has the stated item count.",
+            "The change applies to the same item unit."
+          ],
+          "status": "source_grounded_interpretation"
+        },
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "word_multiply",
+          "candidates": [
+            {
+              "kind": "word_multiply",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.16666666666666666,
+                "errorRisk": 0.02,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_exact_operations:2",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 2,
+              "score": 5.793,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "word_repeated",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.9166666666666666,
+                "errorRisk": 0.02,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_exact_operations:11",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 11,
+              "score": 5.043,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": null,
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ],
+          "selectionReason": "lower_predicted_exact_operations_until_both_paths_measured"
+        },
+        {
+          "step": "word_path_result",
+          "selected": "word_multiply",
+          "receipts": [
+            {
+              "expression": "11*9",
+              "value": "99",
+              "verification": "two_parser_exact_v1"
+            },
+            {
+              "expression": "99-16",
+              "value": "83",
+              "verification": "two_parser_exact_v1"
+            }
+          ],
+          "reusedInitial": false,
+          "elapsedMs": 0,
+          "elapsedMsPrecise": 0.37,
+          "verification": "bounded_grouped_word_math_v1"
+        },
+        {
+          "step": "verified_component",
+          "partId": "part-1",
+          "component": "initial_total",
+          "answer": "99",
+          "method": "two_parser_exact_v1",
+          "newFact": true,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 1,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "verifiedDelta": 0,
+            "componentDelta": 1,
+            "residualDelta": 0,
+            "outcome": "no_verified_advance"
+          }
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "word_multiply",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "bounded_grouped_word_math_v1",
+          "derivationId": "derivation-2",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 1,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 1,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 1,
+              "unresolved": 0,
+              "verifiedComponents": 1,
+              "openResiduals": 0,
+              "completion": 1,
+              "complete": true
+            },
+            "verifiedDelta": 1,
+            "componentDelta": 0,
+            "residualDelta": 0,
+            "outcome": "verified_advance"
+          }
+        }
+      ],
+      "graph": {
+        "schemaVersion": 2,
+        "truncated": false,
+        "nodes": [
+          {
+            "id": "given-statement-1",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "There are 11 baskets.",
+            "sourceOffset": 0,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-statement-2",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "Each basket contains 9 plums.",
+            "sourceOffset": 22,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-statement-3",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "16 plums are removed.",
+            "sourceOffset": 52,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-1",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "11",
+            "sourceOffset": 10,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-2",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "9",
+            "sourceOffset": 43,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-3",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "16",
+            "sourceOffset": 52,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "semantic-quantity-1",
+            "type": "source_quantity",
+            "quote": "11 baskets",
+            "sourceOffset": 10,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "semantic-quantity-2",
+            "type": "source_quantity",
+            "quote": "9 plums",
+            "sourceOffset": 43,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "semantic-quantity-3",
+            "type": "source_quantity",
+            "quote": "16 plums",
+            "sourceOffset": 52,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "semantic-relation-1",
+            "type": "source_relation",
+            "kind": "per_unit",
+            "cue": "Each",
+            "cueOffset": 22,
+            "quote": "Each basket contains 9 plums",
+            "sourceOffset": 22,
+            "operationHint": "multiply_or_divide",
+            "status": "proposed_from_wording",
+            "provenance": "source_span",
+            "verification": "requires_independent_operation_check"
+          },
+          {
+            "id": "semantic-relation-2",
+            "type": "source_relation",
+            "kind": "remaining",
+            "cue": "remain",
+            "cueOffset": 89,
+            "quote": "How many plums remain",
+            "sourceOffset": 74,
+            "operationHint": "subtract_or_compare",
+            "status": "proposed_from_wording",
+            "provenance": "source_span",
+            "verification": "requires_independent_operation_check"
+          },
+          {
+            "id": "semantic-unknown-1",
+            "type": "source_unknown",
+            "quote": "How many plums remain",
+            "sourceOffset": 74,
+            "status": "unresolved",
+            "provenance": "source_span"
+          },
+          {
+            "id": "part-1",
+            "type": "task",
+            "status": "verified",
+            "question": "There are 11 baskets. Each basket contains 9 plums. 16 plums are removed. How many plums remain?",
+            "intent": {
+              "category": "arithmetic",
+              "action": "are",
+              "source": "There are 11 baskets. Each basket contains 9 plums. 16 plums are removed. How many plums remain?"
+            },
+            "verification": {
+              "needed": "independent_claim_checker",
+              "scope": "each_required_claim"
+            },
+            "dependsOn": [],
+            "orderAfter": [],
+            "verifiedBy": "derivation-2"
+          },
+          {
+            "id": "part-1:unknown",
+            "type": "required_unknown",
+            "status": "verified",
+            "value": "There are 11 baskets. Each basket contains 9 plums. 16 plums are removed. How many plums remain?",
+            "verification": {
+              "needed": "independent_claim_checker",
+              "scope": "each_required_claim"
+            },
+            "verifiedBy": "derivation-2"
+          },
+          {
+            "id": "part-1:operation-word_multiply",
+            "type": "candidate_operation",
+            "kind": "word_multiply",
+            "status": "selected",
+            "score": 5.793,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_exact_operations:2",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "selections": 1
+          },
+          {
+            "id": "part-1:operation-word_repeated",
+            "type": "candidate_operation",
+            "kind": "word_repeated",
+            "status": "eligible_unselected",
+            "score": 5.043,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_exact_operations:11",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "part-1:operation-falcon",
+            "type": "candidate_operation",
+            "kind": "falcon",
+            "status": "eligible_unselected",
+            "score": 1.3,
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "word:group_count",
+            "type": "source_quantity",
+            "role": "group_count",
+            "value": "11",
+            "quote": "11",
+            "sourceOffset": 10,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "word:items_per_group",
+            "type": "source_quantity",
+            "role": "items_per_group",
+            "value": "9",
+            "quote": "9",
+            "sourceOffset": 43,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "word:change_count",
+            "type": "source_quantity",
+            "role": "change_count",
+            "value": "16",
+            "quote": "16",
+            "sourceOffset": 52,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "word:initial_total",
+            "type": "derived_unknown",
+            "status": "verified",
+            "value": "99",
+            "method": "two_parser_exact_v1"
+          },
+          {
+            "id": "word:final_item_count",
+            "type": "required_unknown",
+            "status": "verified",
+            "sourceOffset": 74,
+            "quote": "How many plums remain?",
+            "value": "83",
+            "method": "bounded_grouped_word_math_v1"
+          },
+          {
+            "id": "part-1:initial_total",
+            "type": "verified_component",
+            "partId": "part-1",
+            "component": "initial_total",
+            "value": "99",
+            "method": "two_parser_exact_v1",
+            "status": "verified"
+          },
+          {
+            "id": "derivation-2",
+            "type": "derivation",
+            "partId": "part-1",
+            "operation": "word_multiply",
+            "status": "verified",
+            "verificationMethod": "bounded_grouped_word_math_v1"
+          }
+        ],
+        "edges": [
+          {
+            "from": "part-1",
+            "to": "part-1:unknown",
+            "relation": "requires_result"
+          },
+          {
+            "from": "given-statement-1",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-statement-2",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-statement-3",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-number-1",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-number-2",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-number-3",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "semantic-relation-1",
+            "to": "part-1",
+            "relation": "proposes_operation_hint"
+          },
+          {
+            "from": "semantic-relation-2",
+            "to": "part-1",
+            "relation": "proposes_operation_hint"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-word_multiply",
+            "relation": "may_execute"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-word_repeated",
+            "relation": "may_execute"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-falcon",
+            "relation": "may_execute"
+          },
+          {
+            "from": "word:group_count",
+            "to": "word:initial_total",
+            "relation": "source_grounded_dependency"
+          },
+          {
+            "from": "word:items_per_group",
+            "to": "word:initial_total",
+            "relation": "source_grounded_dependency"
+          },
+          {
+            "from": "word:initial_total",
+            "to": "word:final_item_count",
+            "relation": "source_grounded_dependency"
+          },
+          {
+            "from": "word:change_count",
+            "to": "word:final_item_count",
+            "relation": "source_grounded_dependency"
+          },
+          {
+            "from": "part-1:initial_total",
+            "to": "part-1",
+            "relation": "verified_partial_input"
+          },
+          {
+            "from": "derivation-2",
+            "to": "part-1:unknown",
+            "relation": "verifies"
+          }
+        ],
+        "knownFacts": [
+          {
+            "id": "given-statement-1",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "There are 11 baskets.",
+            "sourceOffset": 0,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-statement-2",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "Each basket contains 9 plums.",
+            "sourceOffset": 22,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-statement-3",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "16 plums are removed.",
+            "sourceOffset": 52,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-1",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "11",
+            "sourceOffset": 10,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-2",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "9",
+            "sourceOffset": 43,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-3",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "16",
+            "sourceOffset": 52,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          }
+        ],
+        "semantic": {
+          "schemaVersion": 1,
+          "quantities": [
+            {
+              "id": "semantic-quantity-1",
+              "type": "source_quantity",
+              "quote": "11 baskets",
+              "sourceOffset": 10,
+              "status": "assumed_input",
+              "provenance": "user_input"
+            },
+            {
+              "id": "semantic-quantity-2",
+              "type": "source_quantity",
+              "quote": "9 plums",
+              "sourceOffset": 43,
+              "status": "assumed_input",
+              "provenance": "user_input"
+            },
+            {
+              "id": "semantic-quantity-3",
+              "type": "source_quantity",
+              "quote": "16 plums",
+              "sourceOffset": 52,
+              "status": "assumed_input",
+              "provenance": "user_input"
+            }
+          ],
+          "signatures": [],
+          "relations": [
+            {
+              "id": "semantic-relation-1",
+              "type": "source_relation",
+              "kind": "per_unit",
+              "cue": "Each",
+              "cueOffset": 22,
+              "quote": "Each basket contains 9 plums",
+              "sourceOffset": 22,
+              "operationHint": "multiply_or_divide",
+              "status": "proposed_from_wording",
+              "provenance": "source_span",
+              "verification": "requires_independent_operation_check"
+            },
+            {
+              "id": "semantic-relation-2",
+              "type": "source_relation",
+              "kind": "remaining",
+              "cue": "remain",
+              "cueOffset": 89,
+              "quote": "How many plums remain",
+              "sourceOffset": 74,
+              "operationHint": "subtract_or_compare",
+              "status": "proposed_from_wording",
+              "provenance": "source_span",
+              "verification": "requires_independent_operation_check"
+            }
+          ],
+          "unknown": {
+            "id": "semantic-unknown-1",
+            "type": "source_unknown",
+            "quote": "How many plums remain",
+            "sourceOffset": 74,
+            "status": "unresolved",
+            "provenance": "source_span"
+          },
+          "limitation": "lexical source hints; operation roles and causal dependencies remain unverified"
+        },
+        "requiredUnknowns": [
+          {
+            "id": "part-1:unknown",
+            "type": "required_unknown",
+            "status": "verified",
+            "value": "There are 11 baskets. Each basket contains 9 plums. 16 plums are removed. How many plums remain?",
+            "verification": {
+              "needed": "independent_claim_checker",
+              "scope": "each_required_claim"
+            },
+            "verifiedBy": "derivation-2"
+          }
+        ],
+        "constraints": [],
+        "candidateOperations": [
+          {
+            "id": "part-1:operation-word_multiply",
+            "type": "candidate_operation",
+            "kind": "word_multiply",
+            "status": "selected",
+            "score": 5.793,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_exact_operations:2",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "selections": 1
+          },
+          {
+            "id": "part-1:operation-word_repeated",
+            "type": "candidate_operation",
+            "kind": "word_repeated",
+            "status": "eligible_unselected",
+            "score": 5.043,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_exact_operations:11",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "part-1:operation-falcon",
+            "type": "candidate_operation",
+            "kind": "falcon",
+            "status": "eligible_unselected",
+            "score": 1.3,
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          }
+        ],
+        "availableKnowledge": [
+          {
+            "kind": "user_stated_inputs",
+            "nodeIds": [
+              "given-statement-1",
+              "given-statement-2",
+              "given-statement-3",
+              "given-number-1",
+              "given-number-2",
+              "given-number-3"
+            ],
+            "verification": "assumed_input"
+          },
+          {
+            "kind": "local_operations",
+            "nodeIds": [
+              "part-1:operation-word_multiply",
+              "part-1:operation-word_repeated"
+            ],
+            "verification": "operation_specific"
+          }
+        ],
+        "missingKnowledge": []
+      },
+      "passed": true
+    },
+    {
+      "id": "f2",
+      "prompt": "A cart has 2 boxes with 45 nails in each. 7 nails are added. How many nails are there now?",
+      "expected": "97",
+      "answer": "97",
+      "uiElapsedMs": 76.49254099999962,
+      "verification": {
+        "status": "verified",
+        "method": "bounded_grouped_word_math_v1"
+      },
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 2,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 0
+      },
+      "trace": [
+        {
+          "step": "grounded_word_problem",
+          "quantities": [
+            {
+              "role": "group_count",
+              "value": "2",
+              "quote": "2",
+              "sourceOffset": 11
+            },
+            {
+              "role": "items_per_group",
+              "value": "45",
+              "quote": "45",
+              "sourceOffset": 24
+            },
+            {
+              "role": "change_count",
+              "value": "7",
+              "quote": "7",
+              "sourceOffset": 42
+            }
+          ],
+          "unknown": {
+            "role": "final_item_count",
+            "quote": "How many nails are there now?",
+            "sourceOffset": 61
+          },
+          "dependencies": [
+            {
+              "from": "group_count",
+              "to": "initial_total"
+            },
+            {
+              "from": "items_per_group",
+              "to": "initial_total"
+            },
+            {
+              "from": "initial_total",
+              "to": "final_item_count"
+            },
+            {
+              "from": "change_count",
+              "to": "final_item_count"
+            }
+          ],
+          "assumptions": [
+            "Each named group has the stated item count.",
+            "The change applies to the same item unit."
+          ],
+          "status": "source_grounded_interpretation"
+        },
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "word_multiply",
+          "candidates": [
+            {
+              "kind": "word_multiply",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.16666666666666666,
+                "errorRisk": 0.02,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_exact_operations:2",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 2,
+              "score": 5.793,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "word_repeated",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.16666666666666666,
+                "errorRisk": 0.02,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_exact_operations:2",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 2,
+              "score": 5.793,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": null,
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ],
+          "selectionReason": "lower_predicted_exact_operations_until_both_paths_measured"
+        },
+        {
+          "step": "word_path_result",
+          "selected": "word_multiply",
+          "receipts": [
+            {
+              "expression": "2*45",
+              "value": "90",
+              "verification": "two_parser_exact_v1"
+            },
+            {
+              "expression": "90+7",
+              "value": "97",
+              "verification": "two_parser_exact_v1"
+            }
+          ],
+          "reusedInitial": false,
+          "elapsedMs": 0,
+          "elapsedMsPrecise": 0.065,
+          "verification": "bounded_grouped_word_math_v1"
+        },
+        {
+          "step": "verified_component",
+          "partId": "part-1",
+          "component": "initial_total",
+          "answer": "90",
+          "method": "two_parser_exact_v1",
+          "newFact": true,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 1,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "verifiedDelta": 0,
+            "componentDelta": 1,
+            "residualDelta": 0,
+            "outcome": "no_verified_advance"
+          }
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "word_multiply",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "bounded_grouped_word_math_v1",
+          "derivationId": "derivation-2",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 0,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 1,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 1,
+              "unresolved": 0,
+              "verifiedComponents": 1,
+              "openResiduals": 0,
+              "completion": 1,
+              "complete": true
+            },
+            "verifiedDelta": 1,
+            "componentDelta": 0,
+            "residualDelta": 0,
+            "outcome": "verified_advance"
+          }
+        }
+      ],
+      "graph": {
+        "schemaVersion": 2,
+        "truncated": false,
+        "nodes": [
+          {
+            "id": "given-statement-1",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "A cart has 2 boxes with 45 nails in each.",
+            "sourceOffset": 0,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-statement-2",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "7 nails are added.",
+            "sourceOffset": 42,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-1",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "2",
+            "sourceOffset": 11,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-2",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "45",
+            "sourceOffset": 24,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-3",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "7",
+            "sourceOffset": 42,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "semantic-quantity-1",
+            "type": "source_quantity",
+            "quote": "2 boxes",
+            "sourceOffset": 11,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "semantic-quantity-2",
+            "type": "source_quantity",
+            "quote": "45 nails",
+            "sourceOffset": 24,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "semantic-quantity-3",
+            "type": "source_quantity",
+            "quote": "7 nails",
+            "sourceOffset": 42,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "semantic-relation-1",
+            "type": "source_relation",
+            "kind": "per_unit",
+            "cue": "each",
+            "cueOffset": 36,
+            "quote": "A cart has 2 boxes with 45 nails in each",
+            "sourceOffset": 0,
+            "operationHint": "multiply_or_divide",
+            "status": "proposed_from_wording",
+            "provenance": "source_span",
+            "verification": "requires_independent_operation_check"
+          },
+          {
+            "id": "semantic-unknown-1",
+            "type": "source_unknown",
+            "quote": "How many nails are there now",
+            "sourceOffset": 61,
+            "status": "unresolved",
+            "provenance": "source_span"
+          },
+          {
+            "id": "part-1",
+            "type": "task",
+            "status": "verified",
+            "question": "A cart has 2 boxes with 45 nails in each. 7 nails are added. How many nails are there now?",
+            "intent": {
+              "category": "arithmetic",
+              "action": "are",
+              "source": "A cart has 2 boxes with 45 nails in each. 7 nails are added. How many nails are there now?"
+            },
+            "verification": {
+              "needed": "independent_claim_checker",
+              "scope": "each_required_claim"
+            },
+            "dependsOn": [],
+            "orderAfter": [],
+            "verifiedBy": "derivation-2"
+          },
+          {
+            "id": "part-1:unknown",
+            "type": "required_unknown",
+            "status": "verified",
+            "value": "A cart has 2 boxes with 45 nails in each. 7 nails are added. How many nails are there now?",
+            "verification": {
+              "needed": "independent_claim_checker",
+              "scope": "each_required_claim"
+            },
+            "verifiedBy": "derivation-2"
+          },
+          {
+            "id": "part-1:operation-word_multiply",
+            "type": "candidate_operation",
+            "kind": "word_multiply",
+            "status": "selected",
+            "score": 5.793,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_exact_operations:2",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "selections": 1
+          },
+          {
+            "id": "part-1:operation-word_repeated",
+            "type": "candidate_operation",
+            "kind": "word_repeated",
+            "status": "eligible_unselected",
+            "score": 5.793,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_exact_operations:2",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "part-1:operation-falcon",
+            "type": "candidate_operation",
+            "kind": "falcon",
+            "status": "eligible_unselected",
+            "score": 1.3,
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "word:group_count",
+            "type": "source_quantity",
+            "role": "group_count",
+            "value": "2",
+            "quote": "2",
+            "sourceOffset": 11,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "word:items_per_group",
+            "type": "source_quantity",
+            "role": "items_per_group",
+            "value": "45",
+            "quote": "45",
+            "sourceOffset": 24,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "word:change_count",
+            "type": "source_quantity",
+            "role": "change_count",
+            "value": "7",
+            "quote": "7",
+            "sourceOffset": 42,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "word:initial_total",
+            "type": "derived_unknown",
+            "status": "verified",
+            "value": "90",
+            "method": "two_parser_exact_v1"
+          },
+          {
+            "id": "word:final_item_count",
+            "type": "required_unknown",
+            "status": "verified",
+            "sourceOffset": 61,
+            "quote": "How many nails are there now?",
+            "value": "97",
+            "method": "bounded_grouped_word_math_v1"
+          },
+          {
+            "id": "part-1:initial_total",
+            "type": "verified_component",
+            "partId": "part-1",
+            "component": "initial_total",
+            "value": "90",
+            "method": "two_parser_exact_v1",
+            "status": "verified"
+          },
+          {
+            "id": "derivation-2",
+            "type": "derivation",
+            "partId": "part-1",
+            "operation": "word_multiply",
+            "status": "verified",
+            "verificationMethod": "bounded_grouped_word_math_v1"
+          }
+        ],
+        "edges": [
+          {
+            "from": "part-1",
+            "to": "part-1:unknown",
+            "relation": "requires_result"
+          },
+          {
+            "from": "given-statement-1",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-statement-2",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-number-1",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-number-2",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-number-3",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "semantic-relation-1",
+            "to": "part-1",
+            "relation": "proposes_operation_hint"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-word_multiply",
+            "relation": "may_execute"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-word_repeated",
+            "relation": "may_execute"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-falcon",
+            "relation": "may_execute"
+          },
+          {
+            "from": "word:group_count",
+            "to": "word:initial_total",
+            "relation": "source_grounded_dependency"
+          },
+          {
+            "from": "word:items_per_group",
+            "to": "word:initial_total",
+            "relation": "source_grounded_dependency"
+          },
+          {
+            "from": "word:initial_total",
+            "to": "word:final_item_count",
+            "relation": "source_grounded_dependency"
+          },
+          {
+            "from": "word:change_count",
+            "to": "word:final_item_count",
+            "relation": "source_grounded_dependency"
+          },
+          {
+            "from": "part-1:initial_total",
+            "to": "part-1",
+            "relation": "verified_partial_input"
+          },
+          {
+            "from": "derivation-2",
+            "to": "part-1:unknown",
+            "relation": "verifies"
+          }
+        ],
+        "knownFacts": [
+          {
+            "id": "given-statement-1",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "A cart has 2 boxes with 45 nails in each.",
+            "sourceOffset": 0,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-statement-2",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "7 nails are added.",
+            "sourceOffset": 42,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-1",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "2",
+            "sourceOffset": 11,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-2",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "45",
+            "sourceOffset": 24,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-3",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "7",
+            "sourceOffset": 42,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          }
+        ],
+        "semantic": {
+          "schemaVersion": 1,
+          "quantities": [
+            {
+              "id": "semantic-quantity-1",
+              "type": "source_quantity",
+              "quote": "2 boxes",
+              "sourceOffset": 11,
+              "status": "assumed_input",
+              "provenance": "user_input"
+            },
+            {
+              "id": "semantic-quantity-2",
+              "type": "source_quantity",
+              "quote": "45 nails",
+              "sourceOffset": 24,
+              "status": "assumed_input",
+              "provenance": "user_input"
+            },
+            {
+              "id": "semantic-quantity-3",
+              "type": "source_quantity",
+              "quote": "7 nails",
+              "sourceOffset": 42,
+              "status": "assumed_input",
+              "provenance": "user_input"
+            }
+          ],
+          "signatures": [],
+          "relations": [
+            {
+              "id": "semantic-relation-1",
+              "type": "source_relation",
+              "kind": "per_unit",
+              "cue": "each",
+              "cueOffset": 36,
+              "quote": "A cart has 2 boxes with 45 nails in each",
+              "sourceOffset": 0,
+              "operationHint": "multiply_or_divide",
+              "status": "proposed_from_wording",
+              "provenance": "source_span",
+              "verification": "requires_independent_operation_check"
+            }
+          ],
+          "unknown": {
+            "id": "semantic-unknown-1",
+            "type": "source_unknown",
+            "quote": "How many nails are there now",
+            "sourceOffset": 61,
+            "status": "unresolved",
+            "provenance": "source_span"
+          },
+          "limitation": "lexical source hints; operation roles and causal dependencies remain unverified"
+        },
+        "requiredUnknowns": [
+          {
+            "id": "part-1:unknown",
+            "type": "required_unknown",
+            "status": "verified",
+            "value": "A cart has 2 boxes with 45 nails in each. 7 nails are added. How many nails are there now?",
+            "verification": {
+              "needed": "independent_claim_checker",
+              "scope": "each_required_claim"
+            },
+            "verifiedBy": "derivation-2"
+          }
+        ],
+        "constraints": [],
+        "candidateOperations": [
+          {
+            "id": "part-1:operation-word_multiply",
+            "type": "candidate_operation",
+            "kind": "word_multiply",
+            "status": "selected",
+            "score": 5.793,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_exact_operations:2",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "selections": 1
+          },
+          {
+            "id": "part-1:operation-word_repeated",
+            "type": "candidate_operation",
+            "kind": "word_repeated",
+            "status": "eligible_unselected",
+            "score": 5.793,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_exact_operations:2",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "part-1:operation-falcon",
+            "type": "candidate_operation",
+            "kind": "falcon",
+            "status": "eligible_unselected",
+            "score": 1.3,
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          }
+        ],
+        "availableKnowledge": [
+          {
+            "kind": "user_stated_inputs",
+            "nodeIds": [
+              "given-statement-1",
+              "given-statement-2",
+              "given-number-1",
+              "given-number-2",
+              "given-number-3"
+            ],
+            "verification": "assumed_input"
+          },
+          {
+            "kind": "local_operations",
+            "nodeIds": [
+              "part-1:operation-word_multiply",
+              "part-1:operation-word_repeated"
+            ],
+            "verification": "operation_specific"
+          }
+        ],
+        "missingKnowledge": []
+      },
+      "passed": true
+    },
+    {
+      "id": "f3",
+      "prompt": "The cupboard has 7 tins. Each tin holds 13 crackers. 20 crackers are used. How many crackers are left?",
+      "expected": "71",
+      "answer": "71",
+      "uiElapsedMs": 59.88616700000057,
+      "verification": {
+        "status": "verified",
+        "method": "bounded_grouped_word_math_v1"
+      },
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 2,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 0
+      },
+      "trace": [
+        {
+          "step": "grounded_word_problem",
+          "quantities": [
+            {
+              "role": "group_count",
+              "value": "7",
+              "quote": "7",
+              "sourceOffset": 17
+            },
+            {
+              "role": "items_per_group",
+              "value": "13",
+              "quote": "13",
+              "sourceOffset": 40
+            },
+            {
+              "role": "change_count",
+              "value": "20",
+              "quote": "20",
+              "sourceOffset": 53
+            }
+          ],
+          "unknown": {
+            "role": "final_item_count",
+            "quote": "How many crackers are left?",
+            "sourceOffset": 75
+          },
+          "dependencies": [
+            {
+              "from": "group_count",
+              "to": "initial_total"
+            },
+            {
+              "from": "items_per_group",
+              "to": "initial_total"
+            },
+            {
+              "from": "initial_total",
+              "to": "final_item_count"
+            },
+            {
+              "from": "change_count",
+              "to": "final_item_count"
+            }
+          ],
+          "assumptions": [
+            "Each named group has the stated item count.",
+            "The change applies to the same item unit."
+          ],
+          "status": "source_grounded_interpretation"
+        },
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "word_multiply",
+          "candidates": [
+            {
+              "kind": "word_multiply",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.16666666666666666,
+                "errorRisk": 0.02,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_exact_operations:2",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 2,
+              "score": 5.793,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "word_repeated",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.5833333333333334,
+                "errorRisk": 0.02,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_exact_operations:7",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 7,
+              "score": 5.377,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": null,
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ],
+          "selectionReason": "lower_predicted_exact_operations_until_both_paths_measured"
+        },
+        {
+          "step": "word_path_result",
+          "selected": "word_multiply",
+          "receipts": [
+            {
+              "expression": "7*13",
+              "value": "91",
+              "verification": "two_parser_exact_v1"
+            },
+            {
+              "expression": "91-20",
+              "value": "71",
+              "verification": "two_parser_exact_v1"
+            }
+          ],
+          "reusedInitial": false,
+          "elapsedMs": 0,
+          "elapsedMsPrecise": 0.045,
+          "verification": "bounded_grouped_word_math_v1"
+        },
+        {
+          "step": "verified_component",
+          "partId": "part-1",
+          "component": "initial_total",
+          "answer": "91",
+          "method": "two_parser_exact_v1",
+          "newFact": true,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 1,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "verifiedDelta": 0,
+            "componentDelta": 1,
+            "residualDelta": 0,
+            "outcome": "no_verified_advance"
+          }
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "word_multiply",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "bounded_grouped_word_math_v1",
+          "derivationId": "derivation-2",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 0,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 1,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 1,
+              "unresolved": 0,
+              "verifiedComponents": 1,
+              "openResiduals": 0,
+              "completion": 1,
+              "complete": true
+            },
+            "verifiedDelta": 1,
+            "componentDelta": 0,
+            "residualDelta": 0,
+            "outcome": "verified_advance"
+          }
+        }
+      ],
+      "graph": {
+        "schemaVersion": 2,
+        "truncated": false,
+        "nodes": [
+          {
+            "id": "given-statement-1",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "The cupboard has 7 tins.",
+            "sourceOffset": 0,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-statement-2",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "Each tin holds 13 crackers.",
+            "sourceOffset": 25,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-statement-3",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "20 crackers are used.",
+            "sourceOffset": 53,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-1",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "7",
+            "sourceOffset": 17,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-2",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "13",
+            "sourceOffset": 40,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-3",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "20",
+            "sourceOffset": 53,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "semantic-quantity-1",
+            "type": "source_quantity",
+            "quote": "7 tins",
+            "sourceOffset": 17,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "semantic-quantity-2",
+            "type": "source_quantity",
+            "quote": "13 crackers",
+            "sourceOffset": 40,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "semantic-quantity-3",
+            "type": "source_quantity",
+            "quote": "20 crackers",
+            "sourceOffset": 53,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "semantic-relation-1",
+            "type": "source_relation",
+            "kind": "per_unit",
+            "cue": "Each",
+            "cueOffset": 25,
+            "quote": "Each tin holds 13 crackers",
+            "sourceOffset": 25,
+            "operationHint": "multiply_or_divide",
+            "status": "proposed_from_wording",
+            "provenance": "source_span",
+            "verification": "requires_independent_operation_check"
+          },
+          {
+            "id": "semantic-relation-2",
+            "type": "source_relation",
+            "kind": "remaining",
+            "cue": "left",
+            "cueOffset": 97,
+            "quote": "How many crackers are left",
+            "sourceOffset": 75,
+            "operationHint": "subtract_or_compare",
+            "status": "proposed_from_wording",
+            "provenance": "source_span",
+            "verification": "requires_independent_operation_check"
+          },
+          {
+            "id": "semantic-unknown-1",
+            "type": "source_unknown",
+            "quote": "How many crackers are left",
+            "sourceOffset": 75,
+            "status": "unresolved",
+            "provenance": "source_span"
+          },
+          {
+            "id": "part-1",
+            "type": "task",
+            "status": "verified",
+            "question": "The cupboard has 7 tins. Each tin holds 13 crackers. 20 crackers are used. How many crackers are left?",
+            "intent": {
+              "category": "arithmetic",
+              "action": "are",
+              "source": "The cupboard has 7 tins. Each tin holds 13 crackers. 20 crackers are used. How many crackers are left?"
+            },
+            "verification": {
+              "needed": "independent_claim_checker",
+              "scope": "each_required_claim"
+            },
+            "dependsOn": [],
+            "orderAfter": [],
+            "verifiedBy": "derivation-2"
+          },
+          {
+            "id": "part-1:unknown",
+            "type": "required_unknown",
+            "status": "verified",
+            "value": "The cupboard has 7 tins. Each tin holds 13 crackers. 20 crackers are used. How many crackers are left?",
+            "verification": {
+              "needed": "independent_claim_checker",
+              "scope": "each_required_claim"
+            },
+            "verifiedBy": "derivation-2"
+          },
+          {
+            "id": "part-1:operation-word_multiply",
+            "type": "candidate_operation",
+            "kind": "word_multiply",
+            "status": "selected",
+            "score": 5.793,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_exact_operations:2",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "selections": 1
+          },
+          {
+            "id": "part-1:operation-word_repeated",
+            "type": "candidate_operation",
+            "kind": "word_repeated",
+            "status": "eligible_unselected",
+            "score": 5.377,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_exact_operations:7",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "part-1:operation-falcon",
+            "type": "candidate_operation",
+            "kind": "falcon",
+            "status": "eligible_unselected",
+            "score": 1.3,
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "word:group_count",
+            "type": "source_quantity",
+            "role": "group_count",
+            "value": "7",
+            "quote": "7",
+            "sourceOffset": 17,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "word:items_per_group",
+            "type": "source_quantity",
+            "role": "items_per_group",
+            "value": "13",
+            "quote": "13",
+            "sourceOffset": 40,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "word:change_count",
+            "type": "source_quantity",
+            "role": "change_count",
+            "value": "20",
+            "quote": "20",
+            "sourceOffset": 53,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "word:initial_total",
+            "type": "derived_unknown",
+            "status": "verified",
+            "value": "91",
+            "method": "two_parser_exact_v1"
+          },
+          {
+            "id": "word:final_item_count",
+            "type": "required_unknown",
+            "status": "verified",
+            "sourceOffset": 75,
+            "quote": "How many crackers are left?",
+            "value": "71",
+            "method": "bounded_grouped_word_math_v1"
+          },
+          {
+            "id": "part-1:initial_total",
+            "type": "verified_component",
+            "partId": "part-1",
+            "component": "initial_total",
+            "value": "91",
+            "method": "two_parser_exact_v1",
+            "status": "verified"
+          },
+          {
+            "id": "derivation-2",
+            "type": "derivation",
+            "partId": "part-1",
+            "operation": "word_multiply",
+            "status": "verified",
+            "verificationMethod": "bounded_grouped_word_math_v1"
+          }
+        ],
+        "edges": [
+          {
+            "from": "part-1",
+            "to": "part-1:unknown",
+            "relation": "requires_result"
+          },
+          {
+            "from": "given-statement-1",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-statement-2",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-statement-3",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-number-1",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-number-2",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-number-3",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "semantic-relation-1",
+            "to": "part-1",
+            "relation": "proposes_operation_hint"
+          },
+          {
+            "from": "semantic-relation-2",
+            "to": "part-1",
+            "relation": "proposes_operation_hint"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-word_multiply",
+            "relation": "may_execute"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-word_repeated",
+            "relation": "may_execute"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-falcon",
+            "relation": "may_execute"
+          },
+          {
+            "from": "word:group_count",
+            "to": "word:initial_total",
+            "relation": "source_grounded_dependency"
+          },
+          {
+            "from": "word:items_per_group",
+            "to": "word:initial_total",
+            "relation": "source_grounded_dependency"
+          },
+          {
+            "from": "word:initial_total",
+            "to": "word:final_item_count",
+            "relation": "source_grounded_dependency"
+          },
+          {
+            "from": "word:change_count",
+            "to": "word:final_item_count",
+            "relation": "source_grounded_dependency"
+          },
+          {
+            "from": "part-1:initial_total",
+            "to": "part-1",
+            "relation": "verified_partial_input"
+          },
+          {
+            "from": "derivation-2",
+            "to": "part-1:unknown",
+            "relation": "verifies"
+          }
+        ],
+        "knownFacts": [
+          {
+            "id": "given-statement-1",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "The cupboard has 7 tins.",
+            "sourceOffset": 0,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-statement-2",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "Each tin holds 13 crackers.",
+            "sourceOffset": 25,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-statement-3",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "20 crackers are used.",
+            "sourceOffset": 53,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-1",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "7",
+            "sourceOffset": 17,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-2",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "13",
+            "sourceOffset": 40,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-3",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "20",
+            "sourceOffset": 53,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          }
+        ],
+        "semantic": {
+          "schemaVersion": 1,
+          "quantities": [
+            {
+              "id": "semantic-quantity-1",
+              "type": "source_quantity",
+              "quote": "7 tins",
+              "sourceOffset": 17,
+              "status": "assumed_input",
+              "provenance": "user_input"
+            },
+            {
+              "id": "semantic-quantity-2",
+              "type": "source_quantity",
+              "quote": "13 crackers",
+              "sourceOffset": 40,
+              "status": "assumed_input",
+              "provenance": "user_input"
+            },
+            {
+              "id": "semantic-quantity-3",
+              "type": "source_quantity",
+              "quote": "20 crackers",
+              "sourceOffset": 53,
+              "status": "assumed_input",
+              "provenance": "user_input"
+            }
+          ],
+          "signatures": [],
+          "relations": [
+            {
+              "id": "semantic-relation-1",
+              "type": "source_relation",
+              "kind": "per_unit",
+              "cue": "Each",
+              "cueOffset": 25,
+              "quote": "Each tin holds 13 crackers",
+              "sourceOffset": 25,
+              "operationHint": "multiply_or_divide",
+              "status": "proposed_from_wording",
+              "provenance": "source_span",
+              "verification": "requires_independent_operation_check"
+            },
+            {
+              "id": "semantic-relation-2",
+              "type": "source_relation",
+              "kind": "remaining",
+              "cue": "left",
+              "cueOffset": 97,
+              "quote": "How many crackers are left",
+              "sourceOffset": 75,
+              "operationHint": "subtract_or_compare",
+              "status": "proposed_from_wording",
+              "provenance": "source_span",
+              "verification": "requires_independent_operation_check"
+            }
+          ],
+          "unknown": {
+            "id": "semantic-unknown-1",
+            "type": "source_unknown",
+            "quote": "How many crackers are left",
+            "sourceOffset": 75,
+            "status": "unresolved",
+            "provenance": "source_span"
+          },
+          "limitation": "lexical source hints; operation roles and causal dependencies remain unverified"
+        },
+        "requiredUnknowns": [
+          {
+            "id": "part-1:unknown",
+            "type": "required_unknown",
+            "status": "verified",
+            "value": "The cupboard has 7 tins. Each tin holds 13 crackers. 20 crackers are used. How many crackers are left?",
+            "verification": {
+              "needed": "independent_claim_checker",
+              "scope": "each_required_claim"
+            },
+            "verifiedBy": "derivation-2"
+          }
+        ],
+        "constraints": [],
+        "candidateOperations": [
+          {
+            "id": "part-1:operation-word_multiply",
+            "type": "candidate_operation",
+            "kind": "word_multiply",
+            "status": "selected",
+            "score": 5.793,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_exact_operations:2",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "selections": 1
+          },
+          {
+            "id": "part-1:operation-word_repeated",
+            "type": "candidate_operation",
+            "kind": "word_repeated",
+            "status": "eligible_unselected",
+            "score": 5.377,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_exact_operations:7",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "part-1:operation-falcon",
+            "type": "candidate_operation",
+            "kind": "falcon",
+            "status": "eligible_unselected",
+            "score": 1.3,
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          }
+        ],
+        "availableKnowledge": [
+          {
+            "kind": "user_stated_inputs",
+            "nodeIds": [
+              "given-statement-1",
+              "given-statement-2",
+              "given-statement-3",
+              "given-number-1",
+              "given-number-2",
+              "given-number-3"
+            ],
+            "verification": "assumed_input"
+          },
+          {
+            "kind": "local_operations",
+            "nodeIds": [
+              "part-1:operation-word_multiply",
+              "part-1:operation-word_repeated"
+            ],
+            "verification": "operation_specific"
+          }
+        ],
+        "missingKnowledge": []
+      },
+      "passed": true
+    },
+    {
+      "id": "f4",
+      "prompt": "There are 4 crates. Each crate has 18 bottles. 5 bottles are received. How many bottles are there now?",
+      "expected": "77",
+      "answer": "77",
+      "uiElapsedMs": 61.21608300000025,
+      "verification": {
+        "status": "verified",
+        "method": "bounded_grouped_word_math_v1"
+      },
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 2,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 0
+      },
+      "trace": [
+        {
+          "step": "grounded_word_problem",
+          "quantities": [
+            {
+              "role": "group_count",
+              "value": "4",
+              "quote": "4",
+              "sourceOffset": 10
+            },
+            {
+              "role": "items_per_group",
+              "value": "18",
+              "quote": "18",
+              "sourceOffset": 35
+            },
+            {
+              "role": "change_count",
+              "value": "5",
+              "quote": "5",
+              "sourceOffset": 47
+            }
+          ],
+          "unknown": {
+            "role": "final_item_count",
+            "quote": "How many bottles are there now?",
+            "sourceOffset": 71
+          },
+          "dependencies": [
+            {
+              "from": "group_count",
+              "to": "initial_total"
+            },
+            {
+              "from": "items_per_group",
+              "to": "initial_total"
+            },
+            {
+              "from": "initial_total",
+              "to": "final_item_count"
+            },
+            {
+              "from": "change_count",
+              "to": "final_item_count"
+            }
+          ],
+          "assumptions": [
+            "Each named group has the stated item count.",
+            "The change applies to the same item unit."
+          ],
+          "status": "source_grounded_interpretation"
+        },
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "word_multiply",
+          "candidates": [
+            {
+              "kind": "word_multiply",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 0.8,
+                "informationGain": 1,
+                "computationalCost": 0.00003333333333333333,
+                "errorRisk": 0.2,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "local_checked_outcomes:3",
+                "informationGain": "local_outcome_proxy:3",
+                "computationalCost": "local_elapsed_ms:3",
+                "errorRisk": "local_checked_outcomes:3",
+                "memoryReuse": "local_cache_hits:3"
+              },
+              "pathOperations": 2,
+              "score": 5.2,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "word_repeated",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.3333333333333333,
+                "errorRisk": 0.02,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_exact_operations:4",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 4,
+              "score": 5.627,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": null,
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ],
+          "selectionReason": "lower_predicted_exact_operations_until_both_paths_measured"
+        },
+        {
+          "step": "word_path_result",
+          "selected": "word_multiply",
+          "receipts": [
+            {
+              "expression": "4*18",
+              "value": "72",
+              "verification": "two_parser_exact_v1"
+            },
+            {
+              "expression": "72+5",
+              "value": "77",
+              "verification": "two_parser_exact_v1"
+            }
+          ],
+          "reusedInitial": false,
+          "elapsedMs": 0,
+          "elapsedMsPrecise": 0.035,
+          "verification": "bounded_grouped_word_math_v1"
+        },
+        {
+          "step": "verified_component",
+          "partId": "part-1",
+          "component": "initial_total",
+          "answer": "72",
+          "method": "two_parser_exact_v1",
+          "newFact": true,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 1,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "verifiedDelta": 0,
+            "componentDelta": 1,
+            "residualDelta": 0,
+            "outcome": "no_verified_advance"
+          }
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "word_multiply",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "bounded_grouped_word_math_v1",
+          "derivationId": "derivation-2",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 0,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 1,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 1,
+              "unresolved": 0,
+              "verifiedComponents": 1,
+              "openResiduals": 0,
+              "completion": 1,
+              "complete": true
+            },
+            "verifiedDelta": 1,
+            "componentDelta": 0,
+            "residualDelta": 0,
+            "outcome": "verified_advance"
+          }
+        }
+      ],
+      "graph": {
+        "schemaVersion": 2,
+        "truncated": false,
+        "nodes": [
+          {
+            "id": "given-statement-1",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "There are 4 crates.",
+            "sourceOffset": 0,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-statement-2",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "Each crate has 18 bottles.",
+            "sourceOffset": 20,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-statement-3",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "5 bottles are received.",
+            "sourceOffset": 47,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-1",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "4",
+            "sourceOffset": 10,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-2",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "18",
+            "sourceOffset": 35,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-3",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "5",
+            "sourceOffset": 47,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "semantic-quantity-1",
+            "type": "source_quantity",
+            "quote": "4 crates",
+            "sourceOffset": 10,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "semantic-quantity-2",
+            "type": "source_quantity",
+            "quote": "18 bottles",
+            "sourceOffset": 35,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "semantic-quantity-3",
+            "type": "source_quantity",
+            "quote": "5 bottles",
+            "sourceOffset": 47,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "semantic-relation-1",
+            "type": "source_relation",
+            "kind": "per_unit",
+            "cue": "Each",
+            "cueOffset": 20,
+            "quote": "Each crate has 18 bottles",
+            "sourceOffset": 20,
+            "operationHint": "multiply_or_divide",
+            "status": "proposed_from_wording",
+            "provenance": "source_span",
+            "verification": "requires_independent_operation_check"
+          },
+          {
+            "id": "semantic-unknown-1",
+            "type": "source_unknown",
+            "quote": "How many bottles are there now",
+            "sourceOffset": 71,
+            "status": "unresolved",
+            "provenance": "source_span"
+          },
+          {
+            "id": "part-1",
+            "type": "task",
+            "status": "verified",
+            "question": "There are 4 crates. Each crate has 18 bottles. 5 bottles are received. How many bottles are there now?",
+            "intent": {
+              "category": "arithmetic",
+              "action": "are",
+              "source": "There are 4 crates. Each crate has 18 bottles. 5 bottles are received. How many bottles are there now?"
+            },
+            "verification": {
+              "needed": "independent_claim_checker",
+              "scope": "each_required_claim"
+            },
+            "dependsOn": [],
+            "orderAfter": [],
+            "verifiedBy": "derivation-2"
+          },
+          {
+            "id": "part-1:unknown",
+            "type": "required_unknown",
+            "status": "verified",
+            "value": "There are 4 crates. Each crate has 18 bottles. 5 bottles are received. How many bottles are there now?",
+            "verification": {
+              "needed": "independent_claim_checker",
+              "scope": "each_required_claim"
+            },
+            "verifiedBy": "derivation-2"
+          },
+          {
+            "id": "part-1:operation-word_multiply",
+            "type": "candidate_operation",
+            "kind": "word_multiply",
+            "status": "selected",
+            "score": 5.2,
+            "scoreEvidence": {
+              "expectedProgress": "local_checked_outcomes:3",
+              "informationGain": "local_outcome_proxy:3",
+              "computationalCost": "local_elapsed_ms:3",
+              "errorRisk": "local_checked_outcomes:3",
+              "memoryReuse": "local_cache_hits:3"
+            },
+            "selections": 1
+          },
+          {
+            "id": "part-1:operation-word_repeated",
+            "type": "candidate_operation",
+            "kind": "word_repeated",
+            "status": "eligible_unselected",
+            "score": 5.627,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_exact_operations:4",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "part-1:operation-falcon",
+            "type": "candidate_operation",
+            "kind": "falcon",
+            "status": "eligible_unselected",
+            "score": 1.3,
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "word:group_count",
+            "type": "source_quantity",
+            "role": "group_count",
+            "value": "4",
+            "quote": "4",
+            "sourceOffset": 10,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "word:items_per_group",
+            "type": "source_quantity",
+            "role": "items_per_group",
+            "value": "18",
+            "quote": "18",
+            "sourceOffset": 35,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "word:change_count",
+            "type": "source_quantity",
+            "role": "change_count",
+            "value": "5",
+            "quote": "5",
+            "sourceOffset": 47,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "word:initial_total",
+            "type": "derived_unknown",
+            "status": "verified",
+            "value": "72",
+            "method": "two_parser_exact_v1"
+          },
+          {
+            "id": "word:final_item_count",
+            "type": "required_unknown",
+            "status": "verified",
+            "sourceOffset": 71,
+            "quote": "How many bottles are there now?",
+            "value": "77",
+            "method": "bounded_grouped_word_math_v1"
+          },
+          {
+            "id": "part-1:initial_total",
+            "type": "verified_component",
+            "partId": "part-1",
+            "component": "initial_total",
+            "value": "72",
+            "method": "two_parser_exact_v1",
+            "status": "verified"
+          },
+          {
+            "id": "derivation-2",
+            "type": "derivation",
+            "partId": "part-1",
+            "operation": "word_multiply",
+            "status": "verified",
+            "verificationMethod": "bounded_grouped_word_math_v1"
+          }
+        ],
+        "edges": [
+          {
+            "from": "part-1",
+            "to": "part-1:unknown",
+            "relation": "requires_result"
+          },
+          {
+            "from": "given-statement-1",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-statement-2",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-statement-3",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-number-1",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-number-2",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-number-3",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "semantic-relation-1",
+            "to": "part-1",
+            "relation": "proposes_operation_hint"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-word_multiply",
+            "relation": "may_execute"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-word_repeated",
+            "relation": "may_execute"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-falcon",
+            "relation": "may_execute"
+          },
+          {
+            "from": "word:group_count",
+            "to": "word:initial_total",
+            "relation": "source_grounded_dependency"
+          },
+          {
+            "from": "word:items_per_group",
+            "to": "word:initial_total",
+            "relation": "source_grounded_dependency"
+          },
+          {
+            "from": "word:initial_total",
+            "to": "word:final_item_count",
+            "relation": "source_grounded_dependency"
+          },
+          {
+            "from": "word:change_count",
+            "to": "word:final_item_count",
+            "relation": "source_grounded_dependency"
+          },
+          {
+            "from": "part-1:initial_total",
+            "to": "part-1",
+            "relation": "verified_partial_input"
+          },
+          {
+            "from": "derivation-2",
+            "to": "part-1:unknown",
+            "relation": "verifies"
+          }
+        ],
+        "knownFacts": [
+          {
+            "id": "given-statement-1",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "There are 4 crates.",
+            "sourceOffset": 0,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-statement-2",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "Each crate has 18 bottles.",
+            "sourceOffset": 20,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-statement-3",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "5 bottles are received.",
+            "sourceOffset": 47,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-1",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "4",
+            "sourceOffset": 10,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-2",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "18",
+            "sourceOffset": 35,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-3",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "5",
+            "sourceOffset": 47,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          }
+        ],
+        "semantic": {
+          "schemaVersion": 1,
+          "quantities": [
+            {
+              "id": "semantic-quantity-1",
+              "type": "source_quantity",
+              "quote": "4 crates",
+              "sourceOffset": 10,
+              "status": "assumed_input",
+              "provenance": "user_input"
+            },
+            {
+              "id": "semantic-quantity-2",
+              "type": "source_quantity",
+              "quote": "18 bottles",
+              "sourceOffset": 35,
+              "status": "assumed_input",
+              "provenance": "user_input"
+            },
+            {
+              "id": "semantic-quantity-3",
+              "type": "source_quantity",
+              "quote": "5 bottles",
+              "sourceOffset": 47,
+              "status": "assumed_input",
+              "provenance": "user_input"
+            }
+          ],
+          "signatures": [],
+          "relations": [
+            {
+              "id": "semantic-relation-1",
+              "type": "source_relation",
+              "kind": "per_unit",
+              "cue": "Each",
+              "cueOffset": 20,
+              "quote": "Each crate has 18 bottles",
+              "sourceOffset": 20,
+              "operationHint": "multiply_or_divide",
+              "status": "proposed_from_wording",
+              "provenance": "source_span",
+              "verification": "requires_independent_operation_check"
+            }
+          ],
+          "unknown": {
+            "id": "semantic-unknown-1",
+            "type": "source_unknown",
+            "quote": "How many bottles are there now",
+            "sourceOffset": 71,
+            "status": "unresolved",
+            "provenance": "source_span"
+          },
+          "limitation": "lexical source hints; operation roles and causal dependencies remain unverified"
+        },
+        "requiredUnknowns": [
+          {
+            "id": "part-1:unknown",
+            "type": "required_unknown",
+            "status": "verified",
+            "value": "There are 4 crates. Each crate has 18 bottles. 5 bottles are received. How many bottles are there now?",
+            "verification": {
+              "needed": "independent_claim_checker",
+              "scope": "each_required_claim"
+            },
+            "verifiedBy": "derivation-2"
+          }
+        ],
+        "constraints": [],
+        "candidateOperations": [
+          {
+            "id": "part-1:operation-word_multiply",
+            "type": "candidate_operation",
+            "kind": "word_multiply",
+            "status": "selected",
+            "score": 5.2,
+            "scoreEvidence": {
+              "expectedProgress": "local_checked_outcomes:3",
+              "informationGain": "local_outcome_proxy:3",
+              "computationalCost": "local_elapsed_ms:3",
+              "errorRisk": "local_checked_outcomes:3",
+              "memoryReuse": "local_cache_hits:3"
+            },
+            "selections": 1
+          },
+          {
+            "id": "part-1:operation-word_repeated",
+            "type": "candidate_operation",
+            "kind": "word_repeated",
+            "status": "eligible_unselected",
+            "score": 5.627,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_exact_operations:4",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "part-1:operation-falcon",
+            "type": "candidate_operation",
+            "kind": "falcon",
+            "status": "eligible_unselected",
+            "score": 1.3,
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          }
+        ],
+        "availableKnowledge": [
+          {
+            "kind": "user_stated_inputs",
+            "nodeIds": [
+              "given-statement-1",
+              "given-statement-2",
+              "given-statement-3",
+              "given-number-1",
+              "given-number-2",
+              "given-number-3"
+            ],
+            "verification": "assumed_input"
+          },
+          {
+            "kind": "local_operations",
+            "nodeIds": [
+              "part-1:operation-word_multiply",
+              "part-1:operation-word_repeated"
+            ],
+            "verification": "operation_specific"
+          }
+        ],
+        "missingKnowledge": []
+      },
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "passed": true
+}
