@@ -2,11 +2,13 @@
    receipts; live orchestration happens only in SpiralController. */
 import { solveBooleanExpression } from './b2-boolean.mjs';
 import { extractGroundedSemantics } from './b2-grounded-semantics.mjs';
+import { parseInventoryTransfer } from './b2-transfer.mjs';
 export const COMPASS_POLICY_VERSION = 'compass-conservative-1';
 export const SPECIALISTS = ['falcon_instruct'];
 
 export function classifyTask(text) {
   const value = String(text || '');
+  if (parseInventoryTransfer(value)) return 'arithmetic';
   if (solveBooleanExpression(value)) return 'logic';
   if (/\b(?:contradiction|contradict|inconsistent)\b|can both statements be true/i.test(value)) return 'contradiction';
   if (/\bhow many\b[\s\S]*\b(?:some|unknown|unspecified)\b|\b(?:not enough|insufficient) information\b/i.test(value)) return 'incomplete_information';

@@ -1,5 +1,7 @@
 # UI_Spec — Preserve Seren 7, Connect Real Local Intelligence
 
+**2026-11-01 development slice:** The bounded inventory-transfer solver uses the existing chat display and Run details. Only real `transfer_direct` / `transfer_conserve` trace events and conditional exact-arithmetic verification may appear; no dedicated Level 3 animation, selector or claimed measured acceleration is authorized. The magnetic route hypothesis is opt-in for development and must not be shown as a shipped capability.
+
 **B2 progress presentation contract:** Run details should display the goal, checked task count, remaining requirements, verified components, selected operation, actual model/calculator cost and the latest residual. `Verified` applies to a whole answer only when every required part has an independent applicable receipt; a checked component must be labeled partial. A failed or unverified operation must appear as unresolved, and a no-progress stop must be clear. Do not animate or label inner/outer spirals, Level 3, B2CCP or reverse search as active before browser execution evidence. The current UI is only partially aligned with this target; preserve its existing layout and interaction vocabulary.
 
 The grouped word-math path uses the existing chat answer and Run details, with actual `word_multiply`/`word_repeated` direction and calculator receipts in stored trace. It adds no new visible animation or selector. A parser rejection must retain the ordinary provisional response label.

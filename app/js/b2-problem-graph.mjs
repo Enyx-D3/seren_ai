@@ -35,6 +35,8 @@ function constraintsFor(question) {
 
 function verificationFor(part) {
   const ops = part.candidateOperations || [];
+  if (ops.some(kind => /^(?:word_|transfer_)/.test(kind)))
+    return { needed: 'dual_exact_arithmetic_on_source_grounded_contract', scope: 'bounded_grammar_only' };
   if (ops.includes('exact')) return { needed: 'two_independent_exact_evaluators', scope: 'full_answer_if_only_expression' };
   if (ops.includes('boolean')) return { needed: 'two_independent_boolean_evaluators', scope: 'full_answer_if_only_expression' };
   if (ops.includes('structured')) return { needed: 'bounded_rule_checker', scope: 'matched_rule_only' };

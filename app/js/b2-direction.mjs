@@ -1,6 +1,7 @@
 /* B2 directional control. Scores are explicit engineering priors until enough
    independently checked local outcomes exist; they are not learned weights. */
 import { buildProblemGraph, updateGraphTask } from './b2-problem-graph.mjs';
+import { evaluateMagneticPaths } from './b2-magnetic.mjs';
 export const DIRECTION_POLICY = 'b2-direction-3-calibrated-repair';
 
 export const OPERATION_CAPABILITIES = Object.freeze({
@@ -8,6 +9,8 @@ export const OPERATION_CAPABILITIES = Object.freeze({
   dependent_exact: 'verified_narrow',
   word_multiply: 'verified_narrow',
   word_repeated: 'verified_narrow',
+  transfer_direct: 'verified_narrow',
+  transfer_conserve: 'verified_narrow',
   boolean: 'verified_narrow',
   structured: 'verified_narrow',
   local: 'bounded',
@@ -18,7 +21,7 @@ export const OPERATION_CAPABILITIES = Object.freeze({
   falcon_repair: 'provisional',
   brake_partial: 'bounded_stop',
   matrix: 'unavailable',
-  psychological: 'unavailable',
+  psychological: 'shadow_experimental',
   virtual: 'unavailable',
   b2ccp: 'unavailable',
 });
@@ -28,6 +31,8 @@ const PRIOR = Object.freeze({
   dependent_exact: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.1, errorRisk: 0.02, memoryReuse: 0 },
   word_multiply: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.1, errorRisk: 0.02, memoryReuse: 0 },
   word_repeated: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.1, errorRisk: 0.02, memoryReuse: 0 },
+  transfer_direct: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.1, errorRisk: 0.02, memoryReuse: 0 },
+  transfer_conserve: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.1, errorRisk: 0.02, memoryReuse: 0 },
   boolean: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.05, errorRisk: 0.02, memoryReuse: 0 },
   structured: { goalAttraction: 1, expectedProgress: 0.95, informationGain: 0.95, computationalCost: 0.05, errorRisk: 0.04, memoryReuse: 0 },
   local: { goalAttraction: 0.85, expectedProgress: 0.8, informationGain: 0.75, computationalCost: 0.08, errorRisk: 0.2, memoryReuse: 0 },
@@ -38,7 +43,7 @@ const PRIOR = Object.freeze({
   falcon_repair: { goalAttraction: 0.6, expectedProgress: 0.35, informationGain: 0.45, computationalCost: 0.8, errorRisk: 0.75, memoryReuse: 0 },
   brake_partial: { goalAttraction: 0.1, expectedProgress: 0, informationGain: 0, computationalCost: 0, errorRisk: 0, memoryReuse: 0 },
 });
-const ORDER = ['exact', 'dependent_exact', 'word_multiply', 'word_repeated', 'boolean', 'structured', 'calculator_component', 'approved_tool', 'local', 'structured_interpretation', 'falcon', 'falcon_repair', 'brake_partial'];
+const ORDER = ['exact', 'dependent_exact', 'word_multiply', 'word_repeated', 'transfer_direct', 'transfer_conserve', 'boolean', 'structured', 'calculator_component', 'approved_tool', 'local', 'structured_interpretation', 'falcon', 'falcon_repair', 'brake_partial'];
 const clamp = value => Math.max(0, Math.min(1, value));
 
 export function createSpiralState(goal, parts, maxModelCalls) {
@@ -158,6 +163,14 @@ export function selectDirection(state, partId, eligible, options = {}) {
   }
   const visited = state.visitedDirections.filter(row => row.partId === partId).map(row => row.kind);
   const candidates = rankDirections(eligible, { ...options, visited });
+  const experimentalPaths = candidates.filter(row => /^(?:word_|transfer_)/.test(row.kind))
+    .map(row => options.candidateEvidence?.[row.kind]).filter(Boolean);
+  const magnetic = options.experimentalMagnetic && experimentalPaths.length === 2
+    ? evaluateMagneticPaths(experimentalPaths, options.calibration?.[options.category]) : null;
+  if (magnetic?.recommended) {
+    const index = candidates.findIndex(row => row.kind === magnetic.recommended);
+    if (index > 0) candidates.unshift(candidates.splice(index, 1)[0]);
+  }
   const chosen = candidates[0] || null;
   for (const candidate of candidates) {
     const id = `${partId}:operation-${candidate.kind}`;
@@ -178,8 +191,9 @@ export function selectDirection(state, partId, eligible, options = {}) {
   const wordCandidates = candidates.filter(row => row.kind.startsWith('word_'));
   const bothMeasured = wordCandidates.length > 1 && wordCandidates.every(row =>
     (options.calibration?.[options.category]?.operations?.[row.kind]?.runs || 0) >= 3);
-  return { chosen, candidates, selectionReason: chosen && wordCandidates.length > 1 && !bothMeasured
-    ? 'lower_predicted_exact_operations_until_both_paths_measured' : chosen ? 'evidence_rank' : 'no_eligible_unvisited_operation' };
+  return { chosen, candidates, magnetic, selectionReason: magnetic?.recommended
+    ? 'experimental_magnetic_checked_route' : chosen && wordCandidates.length > 1 && !bothMeasured
+      ? 'lower_predicted_exact_operations_until_both_paths_measured' : chosen ? 'evidence_rank' : 'no_eligible_unvisited_operation' };
 }
 
 export function recordSpiralOutcome(state, partId, { kind, answer, verification, residual = null, elapsedMs = 0, reused = false } = {}) {

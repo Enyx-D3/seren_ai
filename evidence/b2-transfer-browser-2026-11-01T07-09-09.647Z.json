@@ -1,0 +1,84 @@
+{
+  "baseUrl": "http://127.0.0.1:8799/",
+  "cases": [
+    {
+      "id": "t1",
+      "prompt": "Talia has 23 tickets. Omar has 4 tickets. Talia gives Omar 7 tickets. How many tickets does Omar have now?",
+      "expected": "11",
+      "answer": "11",
+      "verification": {
+        "status": "verified",
+        "method": "bounded_inventory_transfer_v1"
+      },
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 3
+      },
+      "selected": "transfer_direct",
+      "receipts": [
+        {
+          "expression": "4+7",
+          "value": "11",
+          "verification": "two_parser_exact_v1"
+        }
+      ],
+      "graphFinal": {
+        "id": "transfer:target_final",
+        "type": "required_unknown",
+        "status": "verified",
+        "sourceOffset": 70,
+        "quote": "How many tickets does Omar have now?",
+        "value": "11",
+        "method": "bounded_inventory_transfer_v1"
+      },
+      "uiElapsedMs": 143.56666700000005,
+      "passed": true
+    },
+    {
+      "id": "t2",
+      "prompt": "Felix has 14 pencils. Nina has 12 pencils. Felix gives Nina 3 pencils. How many pencils does Felix have now?",
+      "expected": "11",
+      "answer": "11",
+      "verification": {
+        "status": "verified",
+        "method": "bounded_inventory_transfer_v1"
+      },
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 0
+      },
+      "selected": "transfer_direct",
+      "receipts": [
+        {
+          "expression": "14-3",
+          "value": "11",
+          "verification": "two_parser_exact_v1"
+        }
+      ],
+      "graphFinal": {
+        "id": "transfer:target_final",
+        "type": "required_unknown",
+        "status": "verified",
+        "sourceOffset": 71,
+        "quote": "How many pencils does Felix have now?",
+        "value": "11",
+        "method": "bounded_inventory_transfer_v1"
+      },
+      "uiElapsedMs": 100.20800000000008,
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "passed": true
+}

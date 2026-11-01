@@ -5,6 +5,7 @@ import { exactArithmetic } from './exact-arithmetic.mjs';
 import { solveBooleanExpression } from './b2-boolean.mjs';
 import { parseDependentArithmetic, solveDependentArithmetic } from './b2-dependent-arithmetic.mjs';
 import { parseGroupedWordMath, candidateWordPaths, executeWordPath } from './b2-word-math.mjs';
+import { parseInventoryTransfer, candidateTransferPaths, executeTransferPath } from './b2-transfer.mjs';
 import { explicitPartDependencies, readyPartIds } from './b2-problem-graph.mjs';
 import { interpretProblemWithFalcon } from './b2-structured-interpretation.mjs';
 import { sharedStates } from './store.mjs';
@@ -59,6 +60,7 @@ export function planSpiral(text, { deeper = false, calibration = null, experimen
       category: classifyTask(question), dependsOn: dependencies[index], orderAfter: index ? [`part-${index}`] : [],
       candidateOperations: [exactTarget(question) && 'exact', dependencies[index].length && parseDependentArithmetic(question) && 'dependent_exact',
         ...candidateWordPaths(parseGroupedWordMath(question)).map(path => path.kind),
+        ...candidateTransferPaths(parseInventoryTransfer(question)).map(path => path.kind),
         solveBooleanExpression(question) && 'boolean',
         structuredReasoning(question) && 'structured', tryLocalAnswer(question) && 'local', 'falcon'].filter(Boolean),
       completeWhen: 'answer recorded and check status assigned' })) };
@@ -218,7 +220,7 @@ export class SpiralController {
     this.exact = exact; this.clock = clock; this.wordCalculate = wordCalculate;
   }
   async run(text, { scope, turns = [], deeper = false, calibration = null,
-    experimentalInterpretation = false, generate, runTool, signal, onToken } = {}) {
+    experimentalInterpretation = false, experimentalMagnetic = false, generate, runTool, signal, onToken } = {}) {
     const start = this.clock();
     const plan = planSpiral(text, { deeper, calibration, experimentalInterpretation });
     const trace = [], metrics = { modelCalls: 0, calculatorCalls: 0, cacheHits: 0, tokens: 0, firstModelTokenMs: null, verificationMs: 0, elapsedMs: 0 };
@@ -229,9 +231,11 @@ export class SpiralController {
       trace.push({ step: 'direction_result', ...receipt });
     };
     const choose = (partId, eligible, candidateEvidence = {}) => {
-      const decision = selectDirection(state, partId, eligible, { calibration, category: plan.category, candidateEvidence });
+      const decision = selectDirection(state, partId, eligible, { calibration, category: plan.category,
+        candidateEvidence, experimentalMagnetic });
       trace.push({ step: 'direction', part: partId, chosen: decision.chosen?.kind || null,
-        candidates: decision.candidates, selectionReason: decision.selectionReason });
+        candidates: decision.candidates, selectionReason: decision.selectionReason,
+        ...(decision.magnetic ? { magnetic: decision.magnetic } : {}) });
       return decision.chosen?.kind || null;
     };
     const checkAbort = () => { if (signal?.aborted) throw new DOMException('Stopped', 'AbortError'); };
@@ -244,6 +248,8 @@ export class SpiralController {
     const expression = exactTarget(text);
     const wordProblem = plan.parts.length === 1 ? parseGroupedWordMath(text) : null;
     const wordPaths = candidateWordPaths(wordProblem);
+    const transferProblem = plan.parts.length === 1 ? parseInventoryTransfer(text) : null;
+    const transferPaths = candidateTransferPaths(transferProblem);
     if (wordProblem) {
       state.graph.nodes.push(...wordProblem.quantities.map(row => ({ id: `word:${row.role}`, type: 'source_quantity',
         ...row, status: 'assumed_input', provenance: 'user_input' })));
@@ -255,12 +261,55 @@ export class SpiralController {
         unknown: wordProblem.unknown, dependencies: wordProblem.dependencies,
         assumptions: wordProblem.assumptions, status: wordProblem.status });
     }
+    if (transferProblem) {
+      state.graph.nodes.push(...transferProblem.quantities.map(row => ({ id: `transfer:${row.role}`,
+        type: 'source_quantity', ...row, status: 'assumed_input', provenance: 'user_input' })));
+      state.graph.nodes.push({ id: 'transfer:target_final', type: 'required_unknown', status: 'unresolved',
+        sourceOffset: transferProblem.unknown.sourceOffset, quote: transferProblem.unknown.quote });
+      state.graph.edges.push(...transferProblem.dependencies.map(edge => ({ from: `transfer:${edge.from}`,
+        to: `transfer:${edge.to}`, relation: 'source_grounded_transfer_dependency' })));
+      trace.push({ step: 'grounded_transfer_problem', quantities: transferProblem.quantities,
+        names: transferProblem.names, target: transferProblem.target, dependencies: transferProblem.dependencies,
+        status: transferProblem.status, assumptions: 'The stated transfer took place as described.' });
+    }
     const boolean = solveBooleanExpression(text);
     const structured = structuredReasoning(text);
     const local = tryLocalAnswer(text);
     const rootKind = plan.parts.length === 1 ? choose(plan.parts[0].id,
-      [expression && 'exact', ...wordPaths.map(path => path.kind), boolean && 'boolean', structured && 'structured', local && 'local', typeof generate === 'function' && 'falcon'].filter(Boolean),
-      Object.fromEntries(wordPaths.map(path => [path.kind, path]))) : null;
+      [expression && 'exact', ...wordPaths.map(path => path.kind), ...transferPaths.map(path => path.kind),
+        boolean && 'boolean', structured && 'structured', local && 'local', typeof generate === 'function' && 'falcon'].filter(Boolean),
+      Object.fromEntries([...wordPaths, ...transferPaths].map(path => [path.kind, path]))) : null;
+    if (rootKind?.startsWith('transfer_')) {
+      let selected = rootKind;
+      while (selected?.startsWith('transfer_')) {
+        const path = transferPaths.find(row => row.kind === selected);
+        const began = this.clock();
+        try {
+          const result = executeTransferPath(transferProblem, path, this.wordCalculate);
+          metrics.calculatorCalls += result.receipts.length;
+          metrics.verificationMs += Math.round(this.clock() - began);
+          trace.push({ step: 'transfer_path_result', selected, receipts: result.receipts,
+            elapsedMsPrecise: Number((this.clock() - began).toFixed(3)), verification: result.method });
+          mark(plan.parts[0].id, selected, result.answer, { status: 'verified', method: result.method }, began);
+          Object.assign(state.graph.nodes.find(node => node.id === 'transfer:target_final'),
+            { status: 'verified', value: result.answer, method: result.method });
+          return finish(result.answer, { status: 'verified', method: result.method }, { transferProblem });
+        } catch (error) {
+          metrics.calculatorCalls += error.operationsAttempted || 0;
+          metrics.verificationMs += Math.round(this.clock() - began);
+          trace.push({ step: 'transfer_path_failure', selected, residual: error.message,
+            verifiedReceipts: error.verifiedReceipts || [] });
+          for (const [index, receipt] of (error.verifiedReceipts || []).entries()) {
+            trace.push({ step: 'verified_component', ...recordVerifiedComponent(state, plan.parts[0].id,
+              `${selected}-prefix-${index + 1}`, receipt.value, receipt.verification, selected) });
+          }
+          mark(plan.parts[0].id, selected, '', { status: 'failed', method: 'bounded_inventory_transfer_v1',
+            residual: error.message }, began);
+          selected = choose(plan.parts[0].id, transferPaths.map(row => row.kind),
+            Object.fromEntries(transferPaths.map(row => [row.kind, row])));
+        }
+      }
+    }
     if (rootKind?.startsWith('word_')) {
       let selected = rootKind;
       let verifiedInitial = null;

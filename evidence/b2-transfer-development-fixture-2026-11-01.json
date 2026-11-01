@@ -1,0 +1,11 @@
+{
+  "protocol": "locally_authored_transfer_development_not_external_confirmation",
+  "cases": [
+    {"id":"t1","prompt":"Talia has 23 tickets. Omar has 4 tickets. Talia gives Omar 7 tickets. How many tickets does Omar have now?","expected":"11"},
+    {"id":"t2","prompt":"Felix has 14 pencils. Nina has 12 pencils. Felix gives Nina 3 pencils. How many pencils does Felix have now?","expected":"11"},
+    {"id":"t3","prompt":"Carmen has 31 cards. Ravi has 8 cards. Carmen gives Ravi 10 cards. How many cards does Ravi have now?","expected":"18"},
+    {"id":"t4","prompt":"Ben has 10 books. Lia has 5 books. Ben gives Lia 9 books. How many books does Ben have now?","expected":"1"},
+    {"id":"negative-unknown","prompt":"Sara has 10 pens. Mike has 6 pens. Sara gives Mike some pens. How many pens does Mike have now?","expectedParse":false},
+    {"id":"negative-overdraw","prompt":"Sara has 3 pens. Mike has 6 pens. Sara gives Mike 5 pens. How many pens does Mike have now?","expectedParse":false}
+  ]
+}

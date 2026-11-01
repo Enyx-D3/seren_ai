@@ -1,0 +1,79 @@
+{
+  "fixturePath": "evidence/b2-transfer-development-fixture-2026-11-01.json",
+  "fixtureSha256": "7c565184bc578ead5f015b3335b01acf401f7a48e7e65ff97381ff4aa0c6e540",
+  "sourceRevision": "working tree based on 63c38a6",
+  "environment": "Node local deterministic controller; NOT browser or external held-out grading",
+  "results": [
+    {
+      "id": "t1",
+      "expected": "11",
+      "answer": "11",
+      "chosen": "transfer_direct",
+      "graphVerified": true,
+      "verification": "verified",
+      "modelCalls": 0,
+      "calculatorCalls": 1,
+      "elapsedMs": 7.873,
+      "staticDirectMs": 0.579,
+      "alternativeMs": 0.12,
+      "alternativeAnswer": "11",
+      "passed": true
+    },
+    {
+      "id": "t2",
+      "expected": "11",
+      "answer": "11",
+      "chosen": "transfer_direct",
+      "graphVerified": true,
+      "verification": "verified",
+      "modelCalls": 0,
+      "calculatorCalls": 1,
+      "elapsedMs": 1.177,
+      "staticDirectMs": 0.12,
+      "alternativeMs": 0.068,
+      "alternativeAnswer": "11",
+      "passed": true
+    },
+    {
+      "id": "t3",
+      "expected": "18",
+      "answer": "18",
+      "chosen": "transfer_direct",
+      "graphVerified": true,
+      "verification": "verified",
+      "modelCalls": 0,
+      "calculatorCalls": 1,
+      "elapsedMs": 0.414,
+      "staticDirectMs": 0.02,
+      "alternativeMs": 0.035,
+      "alternativeAnswer": "18",
+      "passed": true
+    },
+    {
+      "id": "t4",
+      "expected": "1",
+      "answer": "1",
+      "chosen": "transfer_direct",
+      "graphVerified": true,
+      "verification": "verified",
+      "modelCalls": 0,
+      "calculatorCalls": 1,
+      "elapsedMs": 0.513,
+      "staticDirectMs": 0.024,
+      "alternativeMs": 0.038,
+      "alternativeAnswer": "1",
+      "passed": true
+    },
+    {
+      "id": "negative-unknown",
+      "passed": true,
+      "parserAbstained": true
+    },
+    {
+      "id": "negative-overdraw",
+      "passed": true,
+      "parserAbstained": true
+    }
+  ],
+  "passed": true
+}

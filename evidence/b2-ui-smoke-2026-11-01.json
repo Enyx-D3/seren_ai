@@ -5,8 +5,8 @@
   "logic": "Yes. Mira is a cat, and all cats are mammals.",
   "boolean": "True",
   "dependency": "4\n12",
-  "chat": "Hello, how's everyone feeling today?",
-  "plan": "Morning Backup Plan:\n\nOpen the app and tap on \"Backup.\"\nChoose \"Copy Files\" to copy all files from your local drive to another location.\n\nRisk: Risk: At least 2 steps.\n\nAction: Follow these steps:\n\nStep 1: Copy 100MB of the website files.\nStep 2: Transfer 50GB of data to a cloud storage service.\n\nNote: This plan ensures you have a backup in place for daily tasks.",
+  "chat": "Hello!",
+  "plan": "Morning Backup Plan:\n\nCopy Files: Use a cloud storage service to copy all files to a local backup location.\n\nRisk: File Access: Ensure you have access to the local storage to transfer the files.\n\nSteps: 1. 2-Step: Copy 2 files to the local backup.\n\nRisk: Data Corruption: Regularly check the backup location for any corruption issues.\n\nNote: This plan ensures data is transferred securely and is a priority for daily tasks.",
   "evidence": {
     "answers": [
       {
@@ -23,8 +23,8 @@
           "cacheHits": 0,
           "tokens": 0,
           "firstModelTokenMs": null,
-          "verificationMs": 39,
-          "elapsedMs": 40
+          "verificationMs": 3,
+          "elapsedMs": 5
         }
       },
       {
@@ -99,10 +99,10 @@
           "modelCalls": 1,
           "calculatorCalls": 0,
           "cacheHits": 0,
-          "tokens": 9,
-          "firstModelTokenMs": 1974,
+          "tokens": 2,
+          "firstModelTokenMs": 1817,
           "verificationMs": 0,
-          "elapsedMs": 3619
+          "elapsedMs": 3378
         }
       },
       {
@@ -123,10 +123,10 @@
           "modelCalls": 1,
           "calculatorCalls": 0,
           "cacheHits": 0,
-          "tokens": 120,
-          "firstModelTokenMs": 1644,
+          "tokens": 115,
+          "firstModelTokenMs": 1527,
           "verificationMs": 0,
-          "elapsedMs": 3934
+          "elapsedMs": 3104
         }
       }
     ],
@@ -138,7 +138,7 @@
         "unverified": 0,
         "modelCalls": 0,
         "calculatorCalls": 3,
-        "elapsedMs": 41,
+        "elapsedMs": 6,
         "repairs": 0,
         "verifiedModelSuccesses": 0,
         "verifiedModelFailures": 0,
@@ -151,7 +151,7 @@
             "verifiedSuccesses": 2,
             "verifiedFailures": 0,
             "verifiedComponents": 0,
-            "elapsedMs": 39,
+            "elapsedMs": 3,
             "informationGainSum": 2,
             "cacheHits": 0
           },
@@ -176,7 +176,7 @@
           "statedFactsObserved": 5,
           "missingVerifierCount": 1
         },
-        "updatedAt": 1793512695858
+        "updatedAt": 1793516885834
       },
       "logic": {
         "runs": 2,
@@ -223,7 +223,7 @@
           "statedFactsObserved": 1,
           "missingVerifierCount": 0
         },
-        "updatedAt": 1793512695789
+        "updatedAt": 1793516885764
       },
       "conversation": {
         "runs": 1,
@@ -232,12 +232,12 @@
         "unverified": 1,
         "modelCalls": 1,
         "calculatorCalls": 0,
-        "elapsedMs": 3619,
+        "elapsedMs": 3378,
         "repairs": 0,
         "verifiedModelSuccesses": 0,
         "verifiedModelFailures": 0,
         "modelRuns": 1,
-        "modelElapsedMs": 3619,
+        "modelElapsedMs": 3378,
         "schemaVersion": 2,
         "operations": {
           "falcon": {
@@ -245,12 +245,12 @@
             "verifiedSuccesses": 0,
             "verifiedFailures": 0,
             "verifiedComponents": 0,
-            "elapsedMs": 3619,
+            "elapsedMs": 3377,
             "informationGainSum": 0,
             "cacheHits": 0
           }
         },
-        "tokens": 9,
+        "tokens": 2,
         "cacheHits": 0,
         "repairResidualResolutions": 0,
         "repairNumericAlignments": 0,
@@ -261,7 +261,7 @@
           "statedFactsObserved": 1,
           "missingVerifierCount": 1
         },
-        "updatedAt": 1793512699542
+        "updatedAt": 1793516889278
       },
       "planning": {
         "runs": 1,
@@ -270,12 +270,12 @@
         "unverified": 1,
         "modelCalls": 1,
         "calculatorCalls": 0,
-        "elapsedMs": 3934,
+        "elapsedMs": 3104,
         "repairs": 0,
         "verifiedModelSuccesses": 0,
         "verifiedModelFailures": 0,
         "modelRuns": 1,
-        "modelElapsedMs": 3934,
+        "modelElapsedMs": 3104,
         "schemaVersion": 2,
         "operations": {
           "falcon": {
@@ -283,12 +283,12 @@
             "verifiedSuccesses": 0,
             "verifiedFailures": 0,
             "verifiedComponents": 0,
-            "elapsedMs": 3933,
+            "elapsedMs": 3104,
             "informationGainSum": 0,
             "cacheHits": 0
           }
         },
-        "tokens": 120,
+        "tokens": 115,
         "cacheHits": 0,
         "repairResidualResolutions": 0,
         "repairNumericAlignments": 0,
@@ -299,7 +299,7 @@
           "statedFactsObserved": 0,
           "missingVerifierCount": 1
         },
-        "updatedAt": 1793512703540
+        "updatedAt": 1793516892452
       }
     }
   },
