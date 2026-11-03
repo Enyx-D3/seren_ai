@@ -12,6 +12,10 @@ export const OPERATION_CAPABILITIES = Object.freeze({
   transfer_direct: 'verified_narrow',
   transfer_conserve: 'verified_narrow',
   boolean: 'verified_narrow',
+  logic_direct: 'verified_narrow',
+  logic_enumerate: 'verified_narrow',
+  code_forward_scan: 'verified_partial',
+  code_reverse_scan: 'verified_partial',
   structured: 'verified_narrow',
   local: 'bounded',
   calculator_component: 'verified_partial',
@@ -34,6 +38,10 @@ const PRIOR = Object.freeze({
   transfer_direct: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.1, errorRisk: 0.02, memoryReuse: 0 },
   transfer_conserve: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.1, errorRisk: 0.02, memoryReuse: 0 },
   boolean: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.05, errorRisk: 0.02, memoryReuse: 0 },
+  logic_direct: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.1, errorRisk: 0.03, memoryReuse: 0 },
+  logic_enumerate: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.3, errorRisk: 0.03, memoryReuse: 0 },
+  code_forward_scan: { goalAttraction: 0.7, expectedProgress: 0.4, informationGain: 0.7, computationalCost: 0.1, errorRisk: 0.15, memoryReuse: 0 },
+  code_reverse_scan: { goalAttraction: 0.7, expectedProgress: 0.4, informationGain: 0.7, computationalCost: 0.3, errorRisk: 0.15, memoryReuse: 0 },
   structured: { goalAttraction: 1, expectedProgress: 0.95, informationGain: 0.95, computationalCost: 0.05, errorRisk: 0.04, memoryReuse: 0 },
   local: { goalAttraction: 0.85, expectedProgress: 0.8, informationGain: 0.75, computationalCost: 0.08, errorRisk: 0.2, memoryReuse: 0 },
   calculator_component: { goalAttraction: 0.8, expectedProgress: 1, informationGain: 1, computationalCost: 0.1, errorRisk: 0.02, memoryReuse: 0.2 },
@@ -43,7 +51,7 @@ const PRIOR = Object.freeze({
   falcon_repair: { goalAttraction: 0.6, expectedProgress: 0.35, informationGain: 0.45, computationalCost: 0.8, errorRisk: 0.75, memoryReuse: 0 },
   brake_partial: { goalAttraction: 0.1, expectedProgress: 0, informationGain: 0, computationalCost: 0, errorRisk: 0, memoryReuse: 0 },
 });
-const ORDER = ['exact', 'dependent_exact', 'word_multiply', 'word_repeated', 'transfer_direct', 'transfer_conserve', 'boolean', 'structured', 'calculator_component', 'approved_tool', 'local', 'structured_interpretation', 'falcon', 'falcon_repair', 'brake_partial'];
+const ORDER = ['exact', 'dependent_exact', 'word_multiply', 'word_repeated', 'transfer_direct', 'transfer_conserve', 'boolean', 'logic_direct', 'logic_enumerate', 'code_forward_scan', 'code_reverse_scan', 'structured', 'calculator_component', 'approved_tool', 'local', 'structured_interpretation', 'falcon', 'falcon_repair', 'brake_partial'];
 const clamp = value => Math.max(0, Math.min(1, value));
 
 export function createSpiralState(goal, parts, maxModelCalls) {
@@ -91,11 +99,13 @@ export function rankDirections(eligible, { calibration = null, category = null, 
     const scoreEvidence = { expectedProgress: 'engineering_prior', informationGain: 'engineering_prior',
       computationalCost: 'engineering_prior', errorRisk: 'engineering_prior', memoryReuse: 'engineering_prior' };
     const path = candidateEvidence[kind];
-    if (path?.verification === 'dual_exact_each_step' && Number.isInteger(path.operations) && path.operations > 0) {
-      scores.expectedProgress = 1;
-      scores.computationalCost = clamp(path.operations / 12);
+    if (path?.verification && Number.isInteger(path.operations) && path.operations > 0) {
+      if (path.verification === 'dual_exact_each_step' || path.verification === 'independent_logic') scores.expectedProgress = 1;
+      const pairedMax = path.verification.startsWith('independent_')
+        ? Math.max(...Object.values(candidateEvidence).filter(row => row?.verification === path.verification).map(row => row.operations)) : 12;
+      scores.computationalCost = clamp(path.operations / pairedMax);
       scoreEvidence.expectedProgress = 'eligible_path_checked_contract';
-      scoreEvidence.computationalCost = `predicted_exact_operations:${path.operations}`;
+      scoreEvidence.computationalCost = `predicted_operations:${path.operations}`;
     }
     if (checked >= 3) {
       scores.expectedProgress = clamp(((profile.verifiedSuccesses || 0) + 1) / (checked + 2));

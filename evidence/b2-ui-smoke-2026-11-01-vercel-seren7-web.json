@@ -1,0 +1,315 @@
+{
+  "baseUrl": "https://seren7-web.vercel.app/",
+  "rows": 1,
+  "math": "323",
+  "logic": "Yes. Mira is a cat, and all cats are mammals.",
+  "boolean": "True",
+  "dependency": "4\n12",
+  "chat": "Hello, how's it going?",
+  "plan": "Morning Backup Plan:\n\nBackup Files: Copy all necessary files to a secure location.\nSteps: 100% (200 KB)\n\nRisk: File Access Attack\n\n(1) This involves unauthorized access to the backup files.\n\nSecond Step: 500 KB of data transferred.\n\nRisk: Data Loss or Incompatibility\n\n(2) This risk arises from incorrect permissions in the backup system.",
+  "evidence": {
+    "answers": [
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-6",
+        "verification": {
+          "status": "verified",
+          "method": "two_parser_exact_v1"
+        },
+        "metrics": {
+          "modelCalls": 0,
+          "calculatorCalls": 1,
+          "cacheHits": 0,
+          "tokens": 0,
+          "firstModelTokenMs": null,
+          "verificationMs": 161,
+          "elapsedMs": 168
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-6",
+        "verification": {
+          "status": "verified",
+          "method": "bounded_syllogism_v1"
+        },
+        "metrics": {
+          "modelCalls": 0,
+          "calculatorCalls": 0,
+          "cacheHits": 0,
+          "tokens": 0,
+          "firstModelTokenMs": null,
+          "verificationMs": 0,
+          "elapsedMs": 1
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-6",
+        "verification": {
+          "status": "verified",
+          "method": "dual_boolean_expression_v1"
+        },
+        "metrics": {
+          "modelCalls": 0,
+          "calculatorCalls": 1,
+          "cacheHits": 0,
+          "tokens": 0,
+          "firstModelTokenMs": null,
+          "verificationMs": 0,
+          "elapsedMs": 1
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-6",
+        "verification": {
+          "status": "verified",
+          "method": "per_part"
+        },
+        "metrics": {
+          "modelCalls": 0,
+          "calculatorCalls": 2,
+          "cacheHits": 0,
+          "tokens": 0,
+          "firstModelTokenMs": null,
+          "verificationMs": 1,
+          "elapsedMs": 4
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-6",
+        "verification": {
+          "status": "unverified",
+          "method": "none",
+          "residual": {
+            "unresolved": [
+              "Say hello in one short sentence."
+            ],
+            "unprocessed": 0
+          }
+        },
+        "metrics": {
+          "modelCalls": 1,
+          "calculatorCalls": 0,
+          "cacheHits": 0,
+          "tokens": 8,
+          "firstModelTokenMs": 11473,
+          "verificationMs": 1,
+          "elapsedMs": 17994
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-6",
+        "verification": {
+          "status": "unverified",
+          "method": "none",
+          "residual": {
+            "unresolved": [
+              "Plan a two-step morning backup; then list one risk."
+            ],
+            "unprocessed": 0
+          }
+        },
+        "metrics": {
+          "modelCalls": 1,
+          "calculatorCalls": 0,
+          "cacheHits": 0,
+          "tokens": 100,
+          "firstModelTokenMs": 9574,
+          "verificationMs": 1,
+          "elapsedMs": 34861
+        }
+      }
+    ],
+    "calibration": {
+      "arithmetic": {
+        "runs": 2,
+        "verifiedSuccesses": 2,
+        "verifiedFailures": 0,
+        "unverified": 0,
+        "modelCalls": 0,
+        "calculatorCalls": 3,
+        "elapsedMs": 172,
+        "repairs": 0,
+        "verifiedModelSuccesses": 0,
+        "verifiedModelFailures": 0,
+        "modelRuns": 0,
+        "modelElapsedMs": 0,
+        "schemaVersion": 2,
+        "operations": {
+          "exact": {
+            "runs": 2,
+            "verifiedSuccesses": 2,
+            "verifiedFailures": 0,
+            "uncheckedRuns": 0,
+            "verifiedComponents": 0,
+            "elapsedMs": 163,
+            "informationGainSum": 2,
+            "cacheHits": 0
+          },
+          "dependent_exact": {
+            "runs": 1,
+            "verifiedSuccesses": 1,
+            "verifiedFailures": 0,
+            "uncheckedRuns": 0,
+            "verifiedComponents": 0,
+            "elapsedMs": 0,
+            "informationGainSum": 1,
+            "cacheHits": 0
+          }
+        },
+        "tokens": 0,
+        "cacheHits": 0,
+        "repairResidualResolutions": 0,
+        "repairNumericAlignments": 0,
+        "repairSurfaceAlignments": 0,
+        "repairNoProgress": 0,
+        "failurePatterns": {},
+        "inputKnowledge": {
+          "statedFactsObserved": 5,
+          "missingVerifierCount": 1
+        },
+        "updatedAt": 1793545918190
+      },
+      "logic": {
+        "runs": 2,
+        "verifiedSuccesses": 2,
+        "verifiedFailures": 0,
+        "unverified": 0,
+        "modelCalls": 0,
+        "calculatorCalls": 1,
+        "elapsedMs": 2,
+        "repairs": 0,
+        "verifiedModelSuccesses": 0,
+        "verifiedModelFailures": 0,
+        "modelRuns": 0,
+        "modelElapsedMs": 0,
+        "schemaVersion": 2,
+        "operations": {
+          "structured": {
+            "runs": 1,
+            "verifiedSuccesses": 1,
+            "verifiedFailures": 0,
+            "uncheckedRuns": 0,
+            "verifiedComponents": 0,
+            "elapsedMs": 1,
+            "informationGainSum": 1,
+            "cacheHits": 0
+          },
+          "boolean": {
+            "runs": 1,
+            "verifiedSuccesses": 1,
+            "verifiedFailures": 0,
+            "uncheckedRuns": 0,
+            "verifiedComponents": 0,
+            "elapsedMs": 1,
+            "informationGainSum": 1,
+            "cacheHits": 0
+          }
+        },
+        "tokens": 0,
+        "cacheHits": 0,
+        "repairResidualResolutions": 0,
+        "repairNumericAlignments": 0,
+        "repairSurfaceAlignments": 0,
+        "repairNoProgress": 0,
+        "failurePatterns": {},
+        "inputKnowledge": {
+          "statedFactsObserved": 1,
+          "missingVerifierCount": 0
+        },
+        "updatedAt": 1793545917850
+      },
+      "conversation": {
+        "runs": 1,
+        "verifiedSuccesses": 0,
+        "verifiedFailures": 0,
+        "unverified": 1,
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "elapsedMs": 17994,
+        "repairs": 0,
+        "verifiedModelSuccesses": 0,
+        "verifiedModelFailures": 0,
+        "modelRuns": 1,
+        "modelElapsedMs": 17994,
+        "schemaVersion": 2,
+        "operations": {
+          "falcon": {
+            "runs": 1,
+            "verifiedSuccesses": 0,
+            "verifiedFailures": 0,
+            "uncheckedRuns": 1,
+            "verifiedComponents": 0,
+            "elapsedMs": 17993,
+            "informationGainSum": 0,
+            "cacheHits": 0
+          }
+        },
+        "tokens": 8,
+        "cacheHits": 0,
+        "repairResidualResolutions": 0,
+        "repairNumericAlignments": 0,
+        "repairSurfaceAlignments": 0,
+        "repairNoProgress": 0,
+        "failurePatterns": {},
+        "inputKnowledge": {
+          "statedFactsObserved": 1,
+          "missingVerifierCount": 1
+        },
+        "updatedAt": 1793545936460
+      },
+      "planning": {
+        "runs": 1,
+        "verifiedSuccesses": 0,
+        "verifiedFailures": 0,
+        "unverified": 1,
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "elapsedMs": 34861,
+        "repairs": 0,
+        "verifiedModelSuccesses": 0,
+        "verifiedModelFailures": 0,
+        "modelRuns": 1,
+        "modelElapsedMs": 34861,
+        "schemaVersion": 2,
+        "operations": {
+          "falcon": {
+            "runs": 1,
+            "verifiedSuccesses": 0,
+            "verifiedFailures": 0,
+            "uncheckedRuns": 1,
+            "verifiedComponents": 0,
+            "elapsedMs": 34858,
+            "informationGainSum": 0,
+            "cacheHits": 0
+          }
+        },
+        "tokens": 100,
+        "cacheHits": 0,
+        "repairResidualResolutions": 0,
+        "repairNumericAlignments": 0,
+        "repairSurfaceAlignments": 0,
+        "repairNoProgress": 0,
+        "failurePatterns": {},
+        "inputKnowledge": {
+          "statedFactsObserved": 0,
+          "missingVerifierCount": 1
+        },
+        "updatedAt": 1793545971673
+      }
+    }
+  },
+  "errors": [],
+  "external": [],
+  "passed": true
+}

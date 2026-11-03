@@ -6,6 +6,7 @@ import { solveBooleanExpression } from './b2-boolean.mjs';
 import { parseDependentArithmetic, solveDependentArithmetic } from './b2-dependent-arithmetic.mjs';
 import { parseGroupedWordMath, candidateWordPaths, executeWordPath } from './b2-word-math.mjs';
 import { parseInventoryTransfer, candidateTransferPaths, executeTransferPath } from './b2-transfer.mjs';
+import { interpretCrossDomain, executeCrossDomainPath, verifyCodeRepair } from './b2-cross-domain.mjs';
 import { explicitPartDependencies, readyPartIds } from './b2-problem-graph.mjs';
 import { interpretProblemWithFalcon } from './b2-structured-interpretation.mjs';
 import { sharedStates } from './store.mjs';
@@ -61,6 +62,7 @@ export function planSpiral(text, { deeper = false, calibration = null, experimen
       candidateOperations: [exactTarget(question) && 'exact', dependencies[index].length && parseDependentArithmetic(question) && 'dependent_exact',
         ...candidateWordPaths(parseGroupedWordMath(question)).map(path => path.kind),
         ...candidateTransferPaths(parseInventoryTransfer(question)).map(path => path.kind),
+        ...(interpretCrossDomain(question)?.paths || []).map(path => path.kind),
         solveBooleanExpression(question) && 'boolean',
         structuredReasoning(question) && 'structured', tryLocalAnswer(question) && 'local', 'falcon'].filter(Boolean),
       completeWhen: 'answer recorded and check status assigned' })) };
@@ -216,8 +218,9 @@ export function modelCalibrationOutcome(result) {
 }
 
 export class SpiralController {
-  constructor({ exact = new ExactSpiral(), clock = () => performance.now(), wordCalculate = exactArithmetic } = {}) {
-    this.exact = exact; this.clock = clock; this.wordCalculate = wordCalculate;
+  constructor({ exact = new ExactSpiral(), clock = () => performance.now(), wordCalculate = exactArithmetic,
+    crossExecute = executeCrossDomainPath } = {}) {
+    this.exact = exact; this.clock = clock; this.wordCalculate = wordCalculate; this.crossExecute = crossExecute;
   }
   async run(text, { scope, turns = [], deeper = false, calibration = null,
     experimentalInterpretation = false, experimentalMagnetic = false, generate, runTool, signal, onToken } = {}) {
@@ -250,6 +253,17 @@ export class SpiralController {
     const wordPaths = candidateWordPaths(wordProblem);
     const transferProblem = plan.parts.length === 1 ? parseInventoryTransfer(text) : null;
     const transferPaths = candidateTransferPaths(transferProblem);
+    const crossProblem = plan.parts.length === 1 ? interpretCrossDomain(text) : null;
+    const crossPaths = crossProblem?.paths || [];
+    if (crossProblem) {
+      state.graph.nodes.push(...crossProblem.facts.map(fact => ({ ...fact, type: 'source_fact' })));
+      state.graph.nodes.push({ ...crossProblem.unknown, type: 'required_unknown', status: 'unresolved' });
+      state.graph.edges.push(...crossProblem.dependencies);
+      trace.push({ step: 'cross_domain_interpretation', domain: crossProblem.domain,
+        intent: crossProblem.intent, facts: crossProblem.facts, unknown: crossProblem.unknown,
+        constraints: crossProblem.constraints, dependencies: crossProblem.dependencies,
+        knowledgeGaps: crossProblem.knowledgeGaps, paths: crossPaths, status: 'source_grounded_contract' });
+    }
     if (wordProblem) {
       state.graph.nodes.push(...wordProblem.quantities.map(row => ({ id: `word:${row.role}`, type: 'source_quantity',
         ...row, status: 'assumed_input', provenance: 'user_input' })));
@@ -277,8 +291,72 @@ export class SpiralController {
     const local = tryLocalAnswer(text);
     const rootKind = plan.parts.length === 1 ? choose(plan.parts[0].id,
       [expression && 'exact', ...wordPaths.map(path => path.kind), ...transferPaths.map(path => path.kind),
+        ...crossPaths.map(path => path.kind),
         boolean && 'boolean', structured && 'structured', local && 'local', typeof generate === 'function' && 'falcon'].filter(Boolean),
-      Object.fromEntries([...wordPaths, ...transferPaths].map(path => [path.kind, path]))) : null;
+      Object.fromEntries([...wordPaths, ...transferPaths, ...crossPaths].map(path => [path.kind, path]))) : null;
+    if (rootKind?.startsWith('logic_') || rootKind?.startsWith('code_')) {
+      let selected = rootKind;
+      while (selected?.startsWith('logic_') || selected?.startsWith('code_')) {
+        const began = this.clock();
+        try {
+          const result = this.crossExecute(crossProblem, selected);
+          metrics.calculatorCalls++;
+          metrics.verificationMs += Math.round(this.clock() - began);
+          trace.push({ step: 'cross_domain_operation', selected, receipts: result.receipts,
+            verification: result.verification, residual: result.residual || null });
+          const verification = { status: result.fullAnswerVerified ? 'verified' : 'unverified',
+            method: result.verification, ...(result.residual ? { residual: result.residual } : {}) };
+          if (!result.fullAnswerVerified) trace.push({ step: 'verified_component', ...recordVerifiedComponent(state,
+            plan.parts[0].id, 'delimiter_diagnostic', result.answer, result.verification, selected) });
+          mark(plan.parts[0].id, selected, result.answer, verification, began);
+          if (crossProblem.domain === 'code' && deeper && typeof generate === 'function' && plan.repairBudget > 0 &&
+              metrics.modelCalls < plan.maxModelCalls) {
+            const repairId = `${plan.parts[0].id}:code-residual`;
+            const repairKind = choose(repairId, ['falcon_repair', 'brake_partial']);
+            if (repairKind === 'falcon_repair') {
+              const prompt = `The following JavaScript has one missing closing delimiter. Return only the complete corrected code with exactly one character inserted. Preserve every other character.\n${crossProblem.code}`;
+              const repairBegan = this.clock();
+              let proposal;
+              try {
+                proposal = await generate({ turns: [{ role: 'user', content: prompt }], maxTokens: 128, signal });
+              } catch (repairError) {
+                trace.push({ step: 'falcon_code_repair', residual: result.residual,
+                  preservedComponent: 'delimiter_diagnostic', checkedRepair: { ok: false, reason: repairError.message },
+                  elapsedMs: Math.round(this.clock() - repairBegan) });
+                return finish(result.answer, verification, { crossProblem });
+              }
+              metrics.modelCalls++; metrics.tokens += proposal.tokens || 0;
+              const checkedRepair = verifyCodeRepair(crossProblem, proposal.text, result.verifiedValue);
+              trace.push({ step: 'falcon_code_repair', residual: result.residual,
+                preservedComponent: 'delimiter_diagnostic', proposal: String(proposal.text || '').slice(0, 300),
+                checkedRepair, elapsedMs: Math.round(this.clock() - repairBegan) });
+              if (checkedRepair.ok) {
+                trace.push({ step: 'verified_component', ...recordVerifiedComponent(state,
+                  plan.parts[0].id, 'delimiter_patch', checkedRepair.code,
+                  checkedRepair.verification, 'falcon_repair') });
+                trace.push({ step: 'direction_result', partId: repairId, operation: 'falcon_repair',
+                  status: 'verified_component', verificationStatus: 'unverified', componentVerified: true,
+                  residual: checkedRepair.residual, elapsedMs: Math.round(this.clock() - repairBegan) });
+                return finish(`${result.answer}\n\nChecked delimiter edit:\n\`\`\`js\n${checkedRepair.code}\n\`\`\``,
+                  { status: 'unverified', method: checkedRepair.verification, residual: checkedRepair.residual }, { crossProblem });
+              }
+              trace.push({ step: 'direction_result', partId: repairId, operation: 'falcon_repair',
+                status: 'unresolved', verificationStatus: 'unverified', residual: checkedRepair.reason,
+                elapsedMs: Math.round(this.clock() - repairBegan) });
+            }
+          }
+          state.graph.nodes.find(node => node.id === crossProblem.unknown.id).status =
+            result.fullAnswerVerified ? 'verified' : 'partially_checked';
+          return finish(result.answer, verification, { crossProblem });
+        } catch (error) {
+          trace.push({ step: 'cross_domain_failure', selected, residual: error.message });
+          mark(plan.parts[0].id, selected, '', { status: 'unverified', method: 'cross_domain_operation_failure',
+            residual: error.message }, began);
+          selected = choose(plan.parts[0].id, crossPaths.map(path => path.kind),
+            Object.fromEntries(crossPaths.map(path => [path.kind, path])));
+        }
+      }
+    }
     if (rootKind?.startsWith('transfer_')) {
       let selected = rootKind;
       while (selected?.startsWith('transfer_')) {

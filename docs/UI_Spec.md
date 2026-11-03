@@ -1,5 +1,7 @@
 # UI_Spec — Preserve Seren 7, Connect Real Local Intelligence
 
+**B2 diagnostic status (2026-11-01):** Run details may show `logic_direct`, `logic_enumerate`, `code_forward_scan` or `code_reverse_scan` only after execution. A checked JavaScript delimiter location or patch is partial evidence: the response and run remain `unverified` until independent program-behavior checks exist. Failed Falcon patch proposals do not replace the preserved diagnostic. No visual control is added by this slice.
+
 **Calibration UI boundary (2026-11-01):** The measured shadow trial is a developer-only research API, not an active background agent or a visible improvement label. Retain current UI unchanged. Run details may show checked operation failures but must distinguish a failed independent comparison from an unchecked runtime error; neither justifies displaying a Level 3 animation or a general-intelligence claim.
 
 **2026-11-01 development slice:** The bounded inventory-transfer solver uses the existing chat display and Run details. Only real `transfer_direct` / `transfer_conserve` trace events and conditional exact-arithmetic verification may appear; no dedicated Level 3 animation, selector or claimed measured acceleration is authorized. The magnetic route hypothesis is opt-in for development and must not be shown as a shipped capability.

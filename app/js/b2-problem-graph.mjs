@@ -35,6 +35,10 @@ function constraintsFor(question) {
 
 function verificationFor(part) {
   const ops = part.candidateOperations || [];
+  if (ops.some(kind => kind.startsWith('logic_')))
+    return { needed: 'direct_polarity_and_truth_assignment', scope: 'bounded_two_claim_contract' };
+  if (ops.some(kind => kind.startsWith('code_')))
+    return { needed: 'bidirectional_delimiter_structure', scope: 'diagnostic_component_only' };
   if (ops.some(kind => /^(?:word_|transfer_)/.test(kind)))
     return { needed: 'dual_exact_arithmetic_on_source_grounded_contract', scope: 'bounded_grammar_only' };
   if (ops.includes('exact')) return { needed: 'two_independent_exact_evaluators', scope: 'full_answer_if_only_expression' };

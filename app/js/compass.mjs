@@ -10,7 +10,7 @@ export function classifyTask(text) {
   const value = String(text || '');
   if (parseInventoryTransfer(value)) return 'arithmetic';
   if (solveBooleanExpression(value)) return 'logic';
-  if (/\b(?:contradiction|contradict|inconsistent)\b|can both statements be true/i.test(value)) return 'contradiction';
+  if (/\b(?:contradiction|contradict|contradictory|inconsistent)\b|can both statements be true/i.test(value)) return 'contradiction';
   if (/\bhow many\b[\s\S]*\b(?:some|unknown|unspecified)\b|\b(?:not enough|insufficient) information\b/i.test(value)) return 'incomplete_information';
   if (/\b(?:plan|schedule|itinerary|roadmap)\b/i.test(value)) return 'planning';
   if (/\b(?:if all|therefore|entails|implies)\b/i.test(value)) return 'logic';

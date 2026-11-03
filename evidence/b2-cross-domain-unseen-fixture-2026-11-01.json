@@ -1,0 +1,12 @@
+{
+  "protocol": "b2-cross-domain-unseen-v1",
+  "authoring": "Written after implementation and development selftest, before this fixture was executed. Local authoring is not independent external review.",
+  "cases": [
+    { "id": "word-1", "category": "word_math", "prompt": "There are 5 trays with 7 cookies in each. 4 cookies were removed. How many cookies remain?", "expectedAnswer": "31", "expectedStatus": "verified" },
+    { "id": "logic-1", "category": "logic", "prompt": "Nora is patient. Nora is not patient. Are these statements contradictory?", "expectedAnswer": "Yes", "expectedStatus": "verified" },
+    { "id": "logic-2", "category": "logic", "prompt": "Nora is patient. Ravi is not patient. Are these statements contradictory?", "expectedAnswer": "No", "expectedStatus": "verified" },
+    { "id": "code-1", "category": "code", "prompt": "Debug this JavaScript:\n```js\nfunction square(n) { return n * n;\n```\nFind the syntax error.", "expectedAnswerContains": "expected }", "expectedStatus": "unverified" },
+    { "id": "planning-1", "category": "planning", "prompt": "Plan three safe steps for moving a local photo library to a new disk.", "expectedStatus": "unverified" },
+    { "id": "conversation-1", "category": "conversation", "prompt": "How can I politely decline a weekend invitation?", "expectedStatus": "unverified" }
+  ]
+}

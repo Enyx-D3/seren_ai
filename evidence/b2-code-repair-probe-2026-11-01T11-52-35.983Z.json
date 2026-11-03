@@ -1,0 +1,316 @@
+{
+  "prompt": "Debug this JavaScript:\n```js\nfunction perimeter(w, h) { return 2 * (w + h);\n```\nFind the syntax error.",
+  "answer": "Delimiter issue near source offset 54: expected }.",
+  "verification": {
+    "status": "unverified",
+    "method": "bidirectional_delimiter_structure_v1",
+    "residual": "Only delimiter structure was checked; JavaScript behavior and a complete fix remain unverified."
+  },
+  "metrics": {
+    "modelCalls": 1,
+    "calculatorCalls": 1,
+    "cacheHits": 0,
+    "tokens": 27,
+    "firstModelTokenMs": null,
+    "verificationMs": 1,
+    "elapsedMs": 10062
+  },
+  "trace": [
+    {
+      "step": "cross_domain_interpretation",
+      "domain": "code",
+      "intent": "locate_javascript_delimiter_error",
+      "facts": [
+        {
+          "id": "code-source",
+          "quote": "function perimeter(w, h) { return 2 * (w + h);",
+          "sourceOffset": 29,
+          "provenance": "user_input",
+          "status": "assumed_input"
+        }
+      ],
+      "unknown": {
+        "id": "syntax-diagnostic",
+        "question": "Find a delimiter mismatch in the supplied JavaScript."
+      },
+      "constraints": [
+        "javascript_source",
+        "diagnostic_only"
+      ],
+      "dependencies": [
+        {
+          "from": "code-source",
+          "to": "syntax-diagnostic",
+          "relation": "requires_source"
+        }
+      ],
+      "knowledgeGaps": [
+        "full_program_behavior"
+      ],
+      "paths": [
+        {
+          "kind": "code_forward_scan",
+          "operations": 46,
+          "verification": "independent_code_structure",
+          "steps": [
+            "scan_forward"
+          ]
+        },
+        {
+          "kind": "code_reverse_scan",
+          "operations": 92,
+          "verification": "independent_code_structure",
+          "steps": [
+            "scan_reverse"
+          ]
+        }
+      ],
+      "status": "source_grounded_contract"
+    },
+    {
+      "step": "direction",
+      "part": "part-1",
+      "chosen": "code_forward_scan",
+      "candidates": [
+        {
+          "kind": "code_forward_scan",
+          "status": "verified_partial",
+          "scores": {
+            "goalAttraction": 0.7,
+            "expectedProgress": 0.4,
+            "informationGain": 0.7,
+            "computationalCost": 0.5,
+            "errorRisk": 0.15,
+            "memoryReuse": 0
+          },
+          "scoreEvidence": {
+            "expectedProgress": "eligible_path_checked_contract",
+            "informationGain": "engineering_prior",
+            "computationalCost": "predicted_operations:46",
+            "errorRisk": "engineering_prior",
+            "memoryReuse": "engineering_prior"
+          },
+          "pathOperations": 46,
+          "score": 2.8,
+          "safetyTier": 1,
+          "policy": "b2-direction-3-calibrated-repair"
+        },
+        {
+          "kind": "code_reverse_scan",
+          "status": "verified_partial",
+          "scores": {
+            "goalAttraction": 0.7,
+            "expectedProgress": 0.4,
+            "informationGain": 0.7,
+            "computationalCost": 1,
+            "errorRisk": 0.15,
+            "memoryReuse": 0
+          },
+          "scoreEvidence": {
+            "expectedProgress": "eligible_path_checked_contract",
+            "informationGain": "engineering_prior",
+            "computationalCost": "predicted_operations:92",
+            "errorRisk": "engineering_prior",
+            "memoryReuse": "engineering_prior"
+          },
+          "pathOperations": 92,
+          "score": 2.3,
+          "safetyTier": 1,
+          "policy": "b2-direction-3-calibrated-repair"
+        },
+        {
+          "kind": "falcon",
+          "status": "provisional",
+          "scores": {
+            "goalAttraction": 0.65,
+            "expectedProgress": 0.5,
+            "informationGain": 0.55,
+            "computationalCost": 0.8,
+            "errorRisk": 0.7,
+            "memoryReuse": 0
+          },
+          "scoreEvidence": {
+            "expectedProgress": "engineering_prior",
+            "informationGain": "engineering_prior",
+            "computationalCost": "engineering_prior",
+            "errorRisk": "engineering_prior",
+            "memoryReuse": "engineering_prior"
+          },
+          "pathOperations": null,
+          "score": 1.3,
+          "safetyTier": 0,
+          "policy": "b2-direction-3-calibrated-repair"
+        }
+      ],
+      "selectionReason": "evidence_rank"
+    },
+    {
+      "step": "cross_domain_operation",
+      "selected": "code_forward_scan",
+      "receipts": [
+        {
+          "forward": {
+            "kind": "missing_close",
+            "offset": 25,
+            "expected": "}"
+          },
+          "reverse": {
+            "kind": "missing_close",
+            "offset": 25,
+            "expected": "}"
+          }
+        }
+      ],
+      "verification": "bidirectional_delimiter_structure_v1",
+      "residual": "Only delimiter structure was checked; JavaScript behavior and a complete fix remain unverified."
+    },
+    {
+      "step": "verified_component",
+      "partId": "part-1",
+      "component": "delimiter_diagnostic",
+      "answer": "Delimiter issue near source offset 54: expected }.",
+      "method": "bidirectional_delimiter_structure_v1",
+      "newFact": true,
+      "goalProgress": {
+        "before": {
+          "required": 1,
+          "verified": 0,
+          "unresolved": 1,
+          "verifiedComponents": 0,
+          "openResiduals": 0,
+          "completion": 0,
+          "complete": false
+        },
+        "after": {
+          "required": 1,
+          "verified": 0,
+          "unresolved": 1,
+          "verifiedComponents": 1,
+          "openResiduals": 0,
+          "completion": 0,
+          "complete": false
+        },
+        "verifiedDelta": 0,
+        "componentDelta": 1,
+        "residualDelta": 0,
+        "outcome": "no_verified_advance"
+      }
+    },
+    {
+      "step": "direction_result",
+      "partId": "part-1",
+      "operation": "code_forward_scan",
+      "status": "unresolved",
+      "verificationStatus": "unverified",
+      "verifiedProgress": false,
+      "verificationMethod": "bidirectional_delimiter_structure_v1",
+      "derivationId": "derivation-2",
+      "residual": "Only delimiter structure was checked; JavaScript behavior and a complete fix remain unverified.",
+      "informationGainProxy": 0,
+      "checkedOutcome": false,
+      "reused": false,
+      "elapsedMs": 1,
+      "goalProgress": {
+        "before": {
+          "required": 1,
+          "verified": 0,
+          "unresolved": 1,
+          "verifiedComponents": 1,
+          "openResiduals": 0,
+          "completion": 0,
+          "complete": false
+        },
+        "after": {
+          "required": 1,
+          "verified": 0,
+          "unresolved": 1,
+          "verifiedComponents": 1,
+          "openResiduals": 1,
+          "completion": 0,
+          "complete": false
+        },
+        "verifiedDelta": 0,
+        "componentDelta": 0,
+        "residualDelta": 1,
+        "outcome": "no_verified_advance"
+      }
+    },
+    {
+      "step": "direction",
+      "part": "part-1:code-residual",
+      "chosen": "falcon_repair",
+      "candidates": [
+        {
+          "kind": "falcon_repair",
+          "status": "provisional",
+          "scores": {
+            "goalAttraction": 0.6,
+            "expectedProgress": 0.35,
+            "informationGain": 0.45,
+            "computationalCost": 0.8,
+            "errorRisk": 0.75,
+            "memoryReuse": 0
+          },
+          "scoreEvidence": {
+            "expectedProgress": "engineering_prior",
+            "informationGain": "engineering_prior",
+            "computationalCost": "engineering_prior",
+            "errorRisk": "engineering_prior",
+            "memoryReuse": "engineering_prior"
+          },
+          "pathOperations": null,
+          "score": 0.65,
+          "safetyTier": 0,
+          "policy": "b2-direction-3-calibrated-repair"
+        },
+        {
+          "kind": "brake_partial",
+          "status": "bounded_stop",
+          "scores": {
+            "goalAttraction": 0.1,
+            "expectedProgress": 0,
+            "informationGain": 0,
+            "computationalCost": 0,
+            "errorRisk": 0,
+            "memoryReuse": 0
+          },
+          "scoreEvidence": {
+            "expectedProgress": "engineering_prior",
+            "informationGain": "engineering_prior",
+            "computationalCost": "engineering_prior",
+            "errorRisk": "engineering_prior",
+            "memoryReuse": "engineering_prior"
+          },
+          "pathOperations": null,
+          "score": 0.3,
+          "safetyTier": 0,
+          "policy": "b2-direction-3-calibrated-repair"
+        }
+      ],
+      "selectionReason": "evidence_rank"
+    },
+    {
+      "step": "falcon_code_repair",
+      "residual": "Only delimiter structure was checked; JavaScript behavior and a complete fix remain unverified.",
+      "preservedComponent": "delimiter_diagnostic",
+      "proposal": "```javascript\nconst perimeter = (w, h) => { return w + h; }\n```",
+      "checkedRepair": {
+        "ok": false,
+        "reason": "repair must insert exactly one delimiter"
+      },
+      "elapsedMs": 10054
+    },
+    {
+      "step": "direction_result",
+      "partId": "part-1:code-residual",
+      "operation": "falcon_repair",
+      "status": "unresolved",
+      "verificationStatus": "unverified",
+      "residual": "repair must insert exactly one delimiter",
+      "elapsedMs": 10054
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "note": "Real single-Falcon code repair probe. A checked single delimiter edit remains partial, not full program verification."
+}

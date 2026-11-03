@@ -1,0 +1,2718 @@
+{
+  "fixture": "evidence/b2-cross-domain-unseen-fixture-2026-11-01.json",
+  "sha256": "5fddfa7e7a4c312f5e9916bde0ad4a0313bd8ebf89196c0092b03c6f9f6850ec",
+  "environment": {
+    "runtime": "v22.23.2",
+    "backend": "Node exact operations; no Falcon invoked",
+    "comparison": "B2 operation path only; Falcon-alone comparison pending same-model browser run"
+  },
+  "cases": [
+    {
+      "id": "word-1",
+      "category": "word_math",
+      "prompt": "There are 5 trays with 7 cookies in each. 4 cookies were removed. How many cookies remain?",
+      "expected": {
+        "id": "word-1",
+        "category": "word_math",
+        "prompt": "There are 5 trays with 7 cookies in each. 4 cookies were removed. How many cookies remain?",
+        "expectedAnswer": "31",
+        "expectedStatus": "verified"
+      },
+      "answer": "31",
+      "verification": {
+        "status": "verified",
+        "method": "bounded_grouped_word_math_v1"
+      },
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 2,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 1,
+        "elapsedMs": 12
+      },
+      "elapsedMsPrecise": 13.35575,
+      "route": {
+        "step": "direction",
+        "part": "part-1",
+        "chosen": "word_multiply",
+        "candidates": [
+          {
+            "kind": "word_multiply",
+            "status": "verified_narrow",
+            "scores": {
+              "goalAttraction": 1,
+              "expectedProgress": 1,
+              "informationGain": 1,
+              "computationalCost": 0.16666666666666666,
+              "errorRisk": 0.02,
+              "memoryReuse": 0
+            },
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:2",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "pathOperations": 2,
+            "score": 5.793,
+            "safetyTier": 1,
+            "policy": "b2-direction-3-calibrated-repair"
+          },
+          {
+            "kind": "word_repeated",
+            "status": "verified_narrow",
+            "scores": {
+              "goalAttraction": 1,
+              "expectedProgress": 1,
+              "informationGain": 1,
+              "computationalCost": 0.4166666666666667,
+              "errorRisk": 0.02,
+              "memoryReuse": 0
+            },
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:5",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "pathOperations": 5,
+            "score": 5.543,
+            "safetyTier": 1,
+            "policy": "b2-direction-3-calibrated-repair"
+          },
+          {
+            "kind": "falcon",
+            "status": "provisional",
+            "scores": {
+              "goalAttraction": 0.65,
+              "expectedProgress": 0.5,
+              "informationGain": 0.55,
+              "computationalCost": 0.8,
+              "errorRisk": 0.7,
+              "memoryReuse": 0
+            },
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "pathOperations": null,
+            "score": 1.3,
+            "safetyTier": 0,
+            "policy": "b2-direction-3-calibrated-repair"
+          }
+        ],
+        "selectionReason": "lower_predicted_exact_operations_until_both_paths_measured"
+      },
+      "trace": [
+        {
+          "step": "grounded_word_problem",
+          "quantities": [
+            {
+              "role": "group_count",
+              "value": "5",
+              "quote": "5",
+              "sourceOffset": 10
+            },
+            {
+              "role": "items_per_group",
+              "value": "7",
+              "quote": "7",
+              "sourceOffset": 23
+            },
+            {
+              "role": "change_count",
+              "value": "4",
+              "quote": "4",
+              "sourceOffset": 42
+            }
+          ],
+          "unknown": {
+            "role": "final_item_count",
+            "quote": "How many cookies remain?",
+            "sourceOffset": 66
+          },
+          "dependencies": [
+            {
+              "from": "group_count",
+              "to": "initial_total"
+            },
+            {
+              "from": "items_per_group",
+              "to": "initial_total"
+            },
+            {
+              "from": "initial_total",
+              "to": "final_item_count"
+            },
+            {
+              "from": "change_count",
+              "to": "final_item_count"
+            }
+          ],
+          "assumptions": [
+            "Each named group has the stated item count.",
+            "The change applies to the same item unit."
+          ],
+          "status": "source_grounded_interpretation"
+        },
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "word_multiply",
+          "candidates": [
+            {
+              "kind": "word_multiply",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.16666666666666666,
+                "errorRisk": 0.02,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:2",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 2,
+              "score": 5.793,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "word_repeated",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.4166666666666667,
+                "errorRisk": 0.02,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 5,
+              "score": 5.543,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": null,
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ],
+          "selectionReason": "lower_predicted_exact_operations_until_both_paths_measured"
+        },
+        {
+          "step": "word_path_result",
+          "selected": "word_multiply",
+          "receipts": [
+            {
+              "expression": "5*7",
+              "value": "35",
+              "verification": "two_parser_exact_v1"
+            },
+            {
+              "expression": "35-4",
+              "value": "31",
+              "verification": "two_parser_exact_v1"
+            }
+          ],
+          "reusedInitial": false,
+          "elapsedMs": 1,
+          "elapsedMsPrecise": 0.825,
+          "verification": "bounded_grouped_word_math_v1"
+        },
+        {
+          "step": "verified_component",
+          "partId": "part-1",
+          "component": "initial_total",
+          "answer": "35",
+          "method": "two_parser_exact_v1",
+          "newFact": true,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 1,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "verifiedDelta": 0,
+            "componentDelta": 1,
+            "residualDelta": 0,
+            "outcome": "no_verified_advance"
+          }
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "word_multiply",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "bounded_grouped_word_math_v1",
+          "derivationId": "derivation-2",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 1,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 1,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 1,
+              "unresolved": 0,
+              "verifiedComponents": 1,
+              "openResiduals": 0,
+              "completion": 1,
+              "complete": true
+            },
+            "verifiedDelta": 1,
+            "componentDelta": 0,
+            "residualDelta": 0,
+            "outcome": "verified_advance"
+          }
+        }
+      ],
+      "graph": {
+        "schemaVersion": 2,
+        "truncated": false,
+        "nodes": [
+          {
+            "id": "given-statement-1",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "There are 5 trays with 7 cookies in each.",
+            "sourceOffset": 0,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-statement-2",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "4 cookies were removed.",
+            "sourceOffset": 42,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-1",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "5",
+            "sourceOffset": 10,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-2",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "7",
+            "sourceOffset": 23,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-3",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "4",
+            "sourceOffset": 42,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "semantic-quantity-1",
+            "type": "source_quantity",
+            "quote": "5 trays",
+            "sourceOffset": 10,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "semantic-quantity-2",
+            "type": "source_quantity",
+            "quote": "7 cookies",
+            "sourceOffset": 23,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "semantic-quantity-3",
+            "type": "source_quantity",
+            "quote": "4 cookies",
+            "sourceOffset": 42,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "semantic-relation-1",
+            "type": "source_relation",
+            "kind": "per_unit",
+            "cue": "each",
+            "cueOffset": 36,
+            "quote": "There are 5 trays with 7 cookies in each",
+            "sourceOffset": 0,
+            "operationHint": "multiply_or_divide",
+            "status": "proposed_from_wording",
+            "provenance": "source_span",
+            "verification": "requires_independent_operation_check"
+          },
+          {
+            "id": "semantic-relation-2",
+            "type": "source_relation",
+            "kind": "remaining",
+            "cue": "remain",
+            "cueOffset": 83,
+            "quote": "How many cookies remain",
+            "sourceOffset": 66,
+            "operationHint": "subtract_or_compare",
+            "status": "proposed_from_wording",
+            "provenance": "source_span",
+            "verification": "requires_independent_operation_check"
+          },
+          {
+            "id": "semantic-unknown-1",
+            "type": "source_unknown",
+            "quote": "How many cookies remain",
+            "sourceOffset": 66,
+            "status": "unresolved",
+            "provenance": "source_span"
+          },
+          {
+            "id": "part-1",
+            "type": "task",
+            "status": "verified",
+            "question": "There are 5 trays with 7 cookies in each. 4 cookies were removed. How many cookies remain?",
+            "intent": {
+              "category": "arithmetic",
+              "action": "are",
+              "source": "There are 5 trays with 7 cookies in each. 4 cookies were removed. How many cookies remain?"
+            },
+            "verification": {
+              "needed": "dual_exact_arithmetic_on_source_grounded_contract",
+              "scope": "bounded_grammar_only"
+            },
+            "dependsOn": [],
+            "orderAfter": [],
+            "verifiedBy": "derivation-2"
+          },
+          {
+            "id": "part-1:unknown",
+            "type": "required_unknown",
+            "status": "verified",
+            "value": "There are 5 trays with 7 cookies in each. 4 cookies were removed. How many cookies remain?",
+            "verification": {
+              "needed": "dual_exact_arithmetic_on_source_grounded_contract",
+              "scope": "bounded_grammar_only"
+            },
+            "verifiedBy": "derivation-2"
+          },
+          {
+            "id": "part-1:operation-word_multiply",
+            "type": "candidate_operation",
+            "kind": "word_multiply",
+            "status": "selected",
+            "score": 5.793,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:2",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "selections": 1
+          },
+          {
+            "id": "part-1:operation-word_repeated",
+            "type": "candidate_operation",
+            "kind": "word_repeated",
+            "status": "eligible_unselected",
+            "score": 5.543,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:5",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "part-1:operation-falcon",
+            "type": "candidate_operation",
+            "kind": "falcon",
+            "status": "eligible_unselected",
+            "score": 1.3,
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "word:group_count",
+            "type": "source_quantity",
+            "role": "group_count",
+            "value": "5",
+            "quote": "5",
+            "sourceOffset": 10,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "word:items_per_group",
+            "type": "source_quantity",
+            "role": "items_per_group",
+            "value": "7",
+            "quote": "7",
+            "sourceOffset": 23,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "word:change_count",
+            "type": "source_quantity",
+            "role": "change_count",
+            "value": "4",
+            "quote": "4",
+            "sourceOffset": 42,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "word:initial_total",
+            "type": "derived_unknown",
+            "status": "verified",
+            "value": "35",
+            "method": "two_parser_exact_v1"
+          },
+          {
+            "id": "word:final_item_count",
+            "type": "required_unknown",
+            "status": "verified",
+            "sourceOffset": 66,
+            "quote": "How many cookies remain?",
+            "value": "31",
+            "method": "bounded_grouped_word_math_v1"
+          },
+          {
+            "id": "part-1:initial_total",
+            "type": "verified_component",
+            "partId": "part-1",
+            "component": "initial_total",
+            "value": "35",
+            "method": "two_parser_exact_v1",
+            "status": "verified"
+          },
+          {
+            "id": "derivation-2",
+            "type": "derivation",
+            "partId": "part-1",
+            "operation": "word_multiply",
+            "status": "verified",
+            "verificationMethod": "bounded_grouped_word_math_v1"
+          }
+        ],
+        "edges": [
+          {
+            "from": "part-1",
+            "to": "part-1:unknown",
+            "relation": "requires_result"
+          },
+          {
+            "from": "given-statement-1",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-statement-2",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-number-1",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-number-2",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-number-3",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "semantic-relation-1",
+            "to": "part-1",
+            "relation": "proposes_operation_hint"
+          },
+          {
+            "from": "semantic-relation-2",
+            "to": "part-1",
+            "relation": "proposes_operation_hint"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-word_multiply",
+            "relation": "may_execute"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-word_repeated",
+            "relation": "may_execute"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-falcon",
+            "relation": "may_execute"
+          },
+          {
+            "from": "word:group_count",
+            "to": "word:initial_total",
+            "relation": "source_grounded_dependency"
+          },
+          {
+            "from": "word:items_per_group",
+            "to": "word:initial_total",
+            "relation": "source_grounded_dependency"
+          },
+          {
+            "from": "word:initial_total",
+            "to": "word:final_item_count",
+            "relation": "source_grounded_dependency"
+          },
+          {
+            "from": "word:change_count",
+            "to": "word:final_item_count",
+            "relation": "source_grounded_dependency"
+          },
+          {
+            "from": "part-1:initial_total",
+            "to": "part-1",
+            "relation": "verified_partial_input"
+          },
+          {
+            "from": "derivation-2",
+            "to": "part-1:unknown",
+            "relation": "verifies"
+          }
+        ],
+        "knownFacts": [
+          {
+            "id": "given-statement-1",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "There are 5 trays with 7 cookies in each.",
+            "sourceOffset": 0,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-statement-2",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "4 cookies were removed.",
+            "sourceOffset": 42,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-1",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "5",
+            "sourceOffset": 10,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-2",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "7",
+            "sourceOffset": 23,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-number-3",
+            "type": "given",
+            "kind": "numeric_literal",
+            "value": "4",
+            "sourceOffset": 42,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          }
+        ],
+        "semantic": {
+          "schemaVersion": 1,
+          "quantities": [
+            {
+              "id": "semantic-quantity-1",
+              "type": "source_quantity",
+              "quote": "5 trays",
+              "sourceOffset": 10,
+              "status": "assumed_input",
+              "provenance": "user_input"
+            },
+            {
+              "id": "semantic-quantity-2",
+              "type": "source_quantity",
+              "quote": "7 cookies",
+              "sourceOffset": 23,
+              "status": "assumed_input",
+              "provenance": "user_input"
+            },
+            {
+              "id": "semantic-quantity-3",
+              "type": "source_quantity",
+              "quote": "4 cookies",
+              "sourceOffset": 42,
+              "status": "assumed_input",
+              "provenance": "user_input"
+            }
+          ],
+          "signatures": [],
+          "relations": [
+            {
+              "id": "semantic-relation-1",
+              "type": "source_relation",
+              "kind": "per_unit",
+              "cue": "each",
+              "cueOffset": 36,
+              "quote": "There are 5 trays with 7 cookies in each",
+              "sourceOffset": 0,
+              "operationHint": "multiply_or_divide",
+              "status": "proposed_from_wording",
+              "provenance": "source_span",
+              "verification": "requires_independent_operation_check"
+            },
+            {
+              "id": "semantic-relation-2",
+              "type": "source_relation",
+              "kind": "remaining",
+              "cue": "remain",
+              "cueOffset": 83,
+              "quote": "How many cookies remain",
+              "sourceOffset": 66,
+              "operationHint": "subtract_or_compare",
+              "status": "proposed_from_wording",
+              "provenance": "source_span",
+              "verification": "requires_independent_operation_check"
+            }
+          ],
+          "unknown": {
+            "id": "semantic-unknown-1",
+            "type": "source_unknown",
+            "quote": "How many cookies remain",
+            "sourceOffset": 66,
+            "status": "unresolved",
+            "provenance": "source_span"
+          },
+          "limitation": "lexical source hints; operation roles and causal dependencies remain unverified"
+        },
+        "requiredUnknowns": [
+          {
+            "id": "part-1:unknown",
+            "type": "required_unknown",
+            "status": "verified",
+            "value": "There are 5 trays with 7 cookies in each. 4 cookies were removed. How many cookies remain?",
+            "verification": {
+              "needed": "dual_exact_arithmetic_on_source_grounded_contract",
+              "scope": "bounded_grammar_only"
+            },
+            "verifiedBy": "derivation-2"
+          }
+        ],
+        "constraints": [],
+        "candidateOperations": [
+          {
+            "id": "part-1:operation-word_multiply",
+            "type": "candidate_operation",
+            "kind": "word_multiply",
+            "status": "selected",
+            "score": 5.793,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:2",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "selections": 1
+          },
+          {
+            "id": "part-1:operation-word_repeated",
+            "type": "candidate_operation",
+            "kind": "word_repeated",
+            "status": "eligible_unselected",
+            "score": 5.543,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:5",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "part-1:operation-falcon",
+            "type": "candidate_operation",
+            "kind": "falcon",
+            "status": "eligible_unselected",
+            "score": 1.3,
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          }
+        ],
+        "availableKnowledge": [
+          {
+            "kind": "user_stated_inputs",
+            "nodeIds": [
+              "given-statement-1",
+              "given-statement-2",
+              "given-number-1",
+              "given-number-2",
+              "given-number-3"
+            ],
+            "verification": "assumed_input"
+          },
+          {
+            "kind": "local_operations",
+            "nodeIds": [
+              "part-1:operation-word_multiply",
+              "part-1:operation-word_repeated"
+            ],
+            "verification": "operation_specific"
+          }
+        ],
+        "missingKnowledge": []
+      },
+      "residuals": [],
+      "pass": true
+    },
+    {
+      "id": "logic-1",
+      "category": "logic",
+      "prompt": "Nora is patient. Nora is not patient. Are these statements contradictory?",
+      "expected": {
+        "id": "logic-1",
+        "category": "logic",
+        "prompt": "Nora is patient. Nora is not patient. Are these statements contradictory?",
+        "expectedAnswer": "Yes",
+        "expectedStatus": "verified"
+      },
+      "answer": "Yes, the two stated claims contradict each other.",
+      "verification": {
+        "status": "verified",
+        "method": "direct_polarity_and_truth_assignment_v1"
+      },
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 1
+      },
+      "elapsedMsPrecise": 1.4627920000000003,
+      "route": {
+        "step": "direction",
+        "part": "part-1",
+        "chosen": "logic_direct",
+        "candidates": [
+          {
+            "kind": "logic_direct",
+            "status": "verified_narrow",
+            "scores": {
+              "goalAttraction": 1,
+              "expectedProgress": 1,
+              "informationGain": 1,
+              "computationalCost": 0.25,
+              "errorRisk": 0.03,
+              "memoryReuse": 0
+            },
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:1",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "pathOperations": 1,
+            "score": 5.69,
+            "safetyTier": 1,
+            "policy": "b2-direction-3-calibrated-repair"
+          },
+          {
+            "kind": "logic_enumerate",
+            "status": "verified_narrow",
+            "scores": {
+              "goalAttraction": 1,
+              "expectedProgress": 1,
+              "informationGain": 1,
+              "computationalCost": 1,
+              "errorRisk": 0.03,
+              "memoryReuse": 0
+            },
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:4",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "pathOperations": 4,
+            "score": 4.94,
+            "safetyTier": 1,
+            "policy": "b2-direction-3-calibrated-repair"
+          },
+          {
+            "kind": "falcon",
+            "status": "provisional",
+            "scores": {
+              "goalAttraction": 0.65,
+              "expectedProgress": 0.5,
+              "informationGain": 0.55,
+              "computationalCost": 0.8,
+              "errorRisk": 0.7,
+              "memoryReuse": 0
+            },
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "pathOperations": null,
+            "score": 1.3,
+            "safetyTier": 0,
+            "policy": "b2-direction-3-calibrated-repair"
+          }
+        ],
+        "selectionReason": "evidence_rank"
+      },
+      "trace": [
+        {
+          "step": "cross_domain_interpretation",
+          "domain": "logic",
+          "intent": "detect_contradiction",
+          "facts": [
+            {
+              "id": "fact-1",
+              "subject": "nora",
+              "predicate": "patient",
+              "polarity": true,
+              "quote": "Nora is patient.",
+              "sourceOffset": 0,
+              "provenance": "user_input",
+              "status": "assumed_input"
+            },
+            {
+              "id": "fact-2",
+              "subject": "nora",
+              "predicate": "patient",
+              "polarity": false,
+              "quote": "Nora is not patient.",
+              "sourceOffset": 17,
+              "provenance": "user_input",
+              "status": "assumed_input"
+            }
+          ],
+          "unknown": {
+            "id": "contradiction",
+            "question": "Are these statements contradictory?",
+            "sourceOffset": 38
+          },
+          "constraints": [
+            "same_subject_predicate",
+            "opposite_polarity"
+          ],
+          "dependencies": [
+            {
+              "from": "fact-1",
+              "to": "contradiction",
+              "relation": "requires_stated_fact"
+            },
+            {
+              "from": "fact-2",
+              "to": "contradiction",
+              "relation": "requires_stated_fact"
+            }
+          ],
+          "knowledgeGaps": [],
+          "paths": [
+            {
+              "kind": "logic_direct",
+              "operations": 1,
+              "verification": "independent_logic",
+              "steps": [
+                "compare_propositions"
+              ]
+            },
+            {
+              "kind": "logic_enumerate",
+              "operations": 4,
+              "verification": "independent_logic",
+              "steps": [
+                "enumerate_truth_assignments"
+              ]
+            }
+          ],
+          "status": "source_grounded_contract"
+        },
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "logic_direct",
+          "candidates": [
+            {
+              "kind": "logic_direct",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.25,
+                "errorRisk": 0.03,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:1",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 1,
+              "score": 5.69,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "logic_enumerate",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.03,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:4",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 4,
+              "score": 4.94,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": null,
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ],
+          "selectionReason": "evidence_rank"
+        },
+        {
+          "step": "cross_domain_operation",
+          "selected": "logic_direct",
+          "receipts": [
+            {
+              "direct": true,
+              "enumerated": true,
+              "sameProposition": true
+            }
+          ],
+          "verification": "direct_polarity_and_truth_assignment_v1",
+          "residual": null
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "logic_direct",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "direct_polarity_and_truth_assignment_v1",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 0,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 1,
+              "unresolved": 0,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 1,
+              "complete": true
+            },
+            "verifiedDelta": 1,
+            "componentDelta": 0,
+            "residualDelta": 0,
+            "outcome": "verified_advance"
+          }
+        }
+      ],
+      "graph": {
+        "schemaVersion": 2,
+        "truncated": false,
+        "nodes": [
+          {
+            "id": "given-statement-1",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "Nora is patient.",
+            "sourceOffset": 0,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-statement-2",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "Nora is not patient.",
+            "sourceOffset": 17,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "part-1",
+            "type": "task",
+            "status": "verified",
+            "question": "Nora is patient. Nora is not patient. Are these statements contradictory?",
+            "intent": {
+              "category": "contradiction",
+              "action": "is",
+              "source": "Nora is patient. Nora is not patient. Are these statements contradictory?"
+            },
+            "verification": {
+              "needed": "direct_polarity_and_truth_assignment",
+              "scope": "bounded_two_claim_contract"
+            },
+            "dependsOn": [],
+            "orderAfter": [],
+            "verifiedBy": "derivation-1"
+          },
+          {
+            "id": "part-1:unknown",
+            "type": "required_unknown",
+            "status": "verified",
+            "value": "Nora is patient. Nora is not patient. Are these statements contradictory?",
+            "verification": {
+              "needed": "direct_polarity_and_truth_assignment",
+              "scope": "bounded_two_claim_contract"
+            },
+            "verifiedBy": "derivation-1"
+          },
+          {
+            "id": "part-1:operation-logic_direct",
+            "type": "candidate_operation",
+            "kind": "logic_direct",
+            "status": "selected",
+            "score": 5.69,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:1",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "selections": 1
+          },
+          {
+            "id": "part-1:operation-logic_enumerate",
+            "type": "candidate_operation",
+            "kind": "logic_enumerate",
+            "status": "eligible_unselected",
+            "score": 4.94,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:4",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "part-1:operation-falcon",
+            "type": "candidate_operation",
+            "kind": "falcon",
+            "status": "eligible_unselected",
+            "score": 1.3,
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "fact-1",
+            "subject": "nora",
+            "predicate": "patient",
+            "polarity": true,
+            "quote": "Nora is patient.",
+            "sourceOffset": 0,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "type": "source_fact"
+          },
+          {
+            "id": "fact-2",
+            "subject": "nora",
+            "predicate": "patient",
+            "polarity": false,
+            "quote": "Nora is not patient.",
+            "sourceOffset": 17,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "type": "source_fact"
+          },
+          {
+            "id": "contradiction",
+            "question": "Are these statements contradictory?",
+            "sourceOffset": 38,
+            "type": "required_unknown",
+            "status": "verified"
+          },
+          {
+            "id": "derivation-1",
+            "type": "derivation",
+            "partId": "part-1",
+            "operation": "logic_direct",
+            "status": "verified",
+            "verificationMethod": "direct_polarity_and_truth_assignment_v1"
+          }
+        ],
+        "edges": [
+          {
+            "from": "part-1",
+            "to": "part-1:unknown",
+            "relation": "requires_result"
+          },
+          {
+            "from": "given-statement-1",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-statement-2",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-logic_direct",
+            "relation": "may_execute"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-logic_enumerate",
+            "relation": "may_execute"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-falcon",
+            "relation": "may_execute"
+          },
+          {
+            "from": "fact-1",
+            "to": "contradiction",
+            "relation": "requires_stated_fact"
+          },
+          {
+            "from": "fact-2",
+            "to": "contradiction",
+            "relation": "requires_stated_fact"
+          },
+          {
+            "from": "derivation-1",
+            "to": "part-1:unknown",
+            "relation": "verifies"
+          }
+        ],
+        "knownFacts": [
+          {
+            "id": "given-statement-1",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "Nora is patient.",
+            "sourceOffset": 0,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-statement-2",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "Nora is not patient.",
+            "sourceOffset": 17,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          }
+        ],
+        "semantic": {
+          "schemaVersion": 1,
+          "quantities": [],
+          "signatures": [],
+          "relations": [],
+          "unknown": null,
+          "limitation": "lexical source hints; operation roles and causal dependencies remain unverified"
+        },
+        "requiredUnknowns": [
+          {
+            "id": "part-1:unknown",
+            "type": "required_unknown",
+            "status": "verified",
+            "value": "Nora is patient. Nora is not patient. Are these statements contradictory?",
+            "verification": {
+              "needed": "direct_polarity_and_truth_assignment",
+              "scope": "bounded_two_claim_contract"
+            },
+            "verifiedBy": "derivation-1"
+          }
+        ],
+        "constraints": [],
+        "candidateOperations": [
+          {
+            "id": "part-1:operation-logic_direct",
+            "type": "candidate_operation",
+            "kind": "logic_direct",
+            "status": "selected",
+            "score": 5.69,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:1",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "selections": 1
+          },
+          {
+            "id": "part-1:operation-logic_enumerate",
+            "type": "candidate_operation",
+            "kind": "logic_enumerate",
+            "status": "eligible_unselected",
+            "score": 4.94,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:4",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "part-1:operation-falcon",
+            "type": "candidate_operation",
+            "kind": "falcon",
+            "status": "eligible_unselected",
+            "score": 1.3,
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          }
+        ],
+        "availableKnowledge": [
+          {
+            "kind": "user_stated_inputs",
+            "nodeIds": [
+              "given-statement-1",
+              "given-statement-2"
+            ],
+            "verification": "assumed_input"
+          },
+          {
+            "kind": "local_operations",
+            "nodeIds": [
+              "part-1:operation-logic_direct",
+              "part-1:operation-logic_enumerate"
+            ],
+            "verification": "operation_specific"
+          }
+        ],
+        "missingKnowledge": []
+      },
+      "residuals": [],
+      "pass": true
+    },
+    {
+      "id": "logic-2",
+      "category": "logic",
+      "prompt": "Nora is patient. Ravi is not patient. Are these statements contradictory?",
+      "expected": {
+        "id": "logic-2",
+        "category": "logic",
+        "prompt": "Nora is patient. Ravi is not patient. Are these statements contradictory?",
+        "expectedAnswer": "No",
+        "expectedStatus": "verified"
+      },
+      "answer": "No contradiction follows from these two stated claims.",
+      "verification": {
+        "status": "verified",
+        "method": "direct_polarity_and_truth_assignment_v1"
+      },
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 0
+      },
+      "elapsedMsPrecise": 0.4697919999999982,
+      "route": {
+        "step": "direction",
+        "part": "part-1",
+        "chosen": "logic_direct",
+        "candidates": [
+          {
+            "kind": "logic_direct",
+            "status": "verified_narrow",
+            "scores": {
+              "goalAttraction": 1,
+              "expectedProgress": 1,
+              "informationGain": 1,
+              "computationalCost": 0.25,
+              "errorRisk": 0.03,
+              "memoryReuse": 0
+            },
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:1",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "pathOperations": 1,
+            "score": 5.69,
+            "safetyTier": 1,
+            "policy": "b2-direction-3-calibrated-repair"
+          },
+          {
+            "kind": "logic_enumerate",
+            "status": "verified_narrow",
+            "scores": {
+              "goalAttraction": 1,
+              "expectedProgress": 1,
+              "informationGain": 1,
+              "computationalCost": 1,
+              "errorRisk": 0.03,
+              "memoryReuse": 0
+            },
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:4",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "pathOperations": 4,
+            "score": 4.94,
+            "safetyTier": 1,
+            "policy": "b2-direction-3-calibrated-repair"
+          },
+          {
+            "kind": "falcon",
+            "status": "provisional",
+            "scores": {
+              "goalAttraction": 0.65,
+              "expectedProgress": 0.5,
+              "informationGain": 0.55,
+              "computationalCost": 0.8,
+              "errorRisk": 0.7,
+              "memoryReuse": 0
+            },
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "pathOperations": null,
+            "score": 1.3,
+            "safetyTier": 0,
+            "policy": "b2-direction-3-calibrated-repair"
+          }
+        ],
+        "selectionReason": "evidence_rank"
+      },
+      "trace": [
+        {
+          "step": "cross_domain_interpretation",
+          "domain": "logic",
+          "intent": "detect_contradiction",
+          "facts": [
+            {
+              "id": "fact-1",
+              "subject": "nora",
+              "predicate": "patient",
+              "polarity": true,
+              "quote": "Nora is patient.",
+              "sourceOffset": 0,
+              "provenance": "user_input",
+              "status": "assumed_input"
+            },
+            {
+              "id": "fact-2",
+              "subject": "ravi",
+              "predicate": "patient",
+              "polarity": false,
+              "quote": "Ravi is not patient.",
+              "sourceOffset": 17,
+              "provenance": "user_input",
+              "status": "assumed_input"
+            }
+          ],
+          "unknown": {
+            "id": "contradiction",
+            "question": "Are these statements contradictory?",
+            "sourceOffset": 38
+          },
+          "constraints": [
+            "same_subject_predicate",
+            "opposite_polarity"
+          ],
+          "dependencies": [
+            {
+              "from": "fact-1",
+              "to": "contradiction",
+              "relation": "requires_stated_fact"
+            },
+            {
+              "from": "fact-2",
+              "to": "contradiction",
+              "relation": "requires_stated_fact"
+            }
+          ],
+          "knowledgeGaps": [],
+          "paths": [
+            {
+              "kind": "logic_direct",
+              "operations": 1,
+              "verification": "independent_logic",
+              "steps": [
+                "compare_propositions"
+              ]
+            },
+            {
+              "kind": "logic_enumerate",
+              "operations": 4,
+              "verification": "independent_logic",
+              "steps": [
+                "enumerate_truth_assignments"
+              ]
+            }
+          ],
+          "status": "source_grounded_contract"
+        },
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "logic_direct",
+          "candidates": [
+            {
+              "kind": "logic_direct",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 0.25,
+                "errorRisk": 0.03,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:1",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 1,
+              "score": 5.69,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "logic_enumerate",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.03,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:4",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 4,
+              "score": 4.94,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": null,
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ],
+          "selectionReason": "evidence_rank"
+        },
+        {
+          "step": "cross_domain_operation",
+          "selected": "logic_direct",
+          "receipts": [
+            {
+              "direct": false,
+              "enumerated": false,
+              "sameProposition": false
+            }
+          ],
+          "verification": "direct_polarity_and_truth_assignment_v1",
+          "residual": null
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "logic_direct",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "direct_polarity_and_truth_assignment_v1",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 0,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 1,
+              "unresolved": 0,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 1,
+              "complete": true
+            },
+            "verifiedDelta": 1,
+            "componentDelta": 0,
+            "residualDelta": 0,
+            "outcome": "verified_advance"
+          }
+        }
+      ],
+      "graph": {
+        "schemaVersion": 2,
+        "truncated": false,
+        "nodes": [
+          {
+            "id": "given-statement-1",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "Nora is patient.",
+            "sourceOffset": 0,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-statement-2",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "Ravi is not patient.",
+            "sourceOffset": 17,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "part-1",
+            "type": "task",
+            "status": "verified",
+            "question": "Nora is patient. Ravi is not patient. Are these statements contradictory?",
+            "intent": {
+              "category": "contradiction",
+              "action": "is",
+              "source": "Nora is patient. Ravi is not patient. Are these statements contradictory?"
+            },
+            "verification": {
+              "needed": "direct_polarity_and_truth_assignment",
+              "scope": "bounded_two_claim_contract"
+            },
+            "dependsOn": [],
+            "orderAfter": [],
+            "verifiedBy": "derivation-1"
+          },
+          {
+            "id": "part-1:unknown",
+            "type": "required_unknown",
+            "status": "verified",
+            "value": "Nora is patient. Ravi is not patient. Are these statements contradictory?",
+            "verification": {
+              "needed": "direct_polarity_and_truth_assignment",
+              "scope": "bounded_two_claim_contract"
+            },
+            "verifiedBy": "derivation-1"
+          },
+          {
+            "id": "part-1:operation-logic_direct",
+            "type": "candidate_operation",
+            "kind": "logic_direct",
+            "status": "selected",
+            "score": 5.69,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:1",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "selections": 1
+          },
+          {
+            "id": "part-1:operation-logic_enumerate",
+            "type": "candidate_operation",
+            "kind": "logic_enumerate",
+            "status": "eligible_unselected",
+            "score": 4.94,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:4",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "part-1:operation-falcon",
+            "type": "candidate_operation",
+            "kind": "falcon",
+            "status": "eligible_unselected",
+            "score": 1.3,
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "fact-1",
+            "subject": "nora",
+            "predicate": "patient",
+            "polarity": true,
+            "quote": "Nora is patient.",
+            "sourceOffset": 0,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "type": "source_fact"
+          },
+          {
+            "id": "fact-2",
+            "subject": "ravi",
+            "predicate": "patient",
+            "polarity": false,
+            "quote": "Ravi is not patient.",
+            "sourceOffset": 17,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "type": "source_fact"
+          },
+          {
+            "id": "contradiction",
+            "question": "Are these statements contradictory?",
+            "sourceOffset": 38,
+            "type": "required_unknown",
+            "status": "verified"
+          },
+          {
+            "id": "derivation-1",
+            "type": "derivation",
+            "partId": "part-1",
+            "operation": "logic_direct",
+            "status": "verified",
+            "verificationMethod": "direct_polarity_and_truth_assignment_v1"
+          }
+        ],
+        "edges": [
+          {
+            "from": "part-1",
+            "to": "part-1:unknown",
+            "relation": "requires_result"
+          },
+          {
+            "from": "given-statement-1",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "given-statement-2",
+            "to": "part-1",
+            "relation": "stated_input"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-logic_direct",
+            "relation": "may_execute"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-logic_enumerate",
+            "relation": "may_execute"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-falcon",
+            "relation": "may_execute"
+          },
+          {
+            "from": "fact-1",
+            "to": "contradiction",
+            "relation": "requires_stated_fact"
+          },
+          {
+            "from": "fact-2",
+            "to": "contradiction",
+            "relation": "requires_stated_fact"
+          },
+          {
+            "from": "derivation-1",
+            "to": "part-1:unknown",
+            "relation": "verifies"
+          }
+        ],
+        "knownFacts": [
+          {
+            "id": "given-statement-1",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "Nora is patient.",
+            "sourceOffset": 0,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-statement-2",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "Ravi is not patient.",
+            "sourceOffset": 17,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          }
+        ],
+        "semantic": {
+          "schemaVersion": 1,
+          "quantities": [],
+          "signatures": [],
+          "relations": [],
+          "unknown": null,
+          "limitation": "lexical source hints; operation roles and causal dependencies remain unverified"
+        },
+        "requiredUnknowns": [
+          {
+            "id": "part-1:unknown",
+            "type": "required_unknown",
+            "status": "verified",
+            "value": "Nora is patient. Ravi is not patient. Are these statements contradictory?",
+            "verification": {
+              "needed": "direct_polarity_and_truth_assignment",
+              "scope": "bounded_two_claim_contract"
+            },
+            "verifiedBy": "derivation-1"
+          }
+        ],
+        "constraints": [],
+        "candidateOperations": [
+          {
+            "id": "part-1:operation-logic_direct",
+            "type": "candidate_operation",
+            "kind": "logic_direct",
+            "status": "selected",
+            "score": 5.69,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:1",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "selections": 1
+          },
+          {
+            "id": "part-1:operation-logic_enumerate",
+            "type": "candidate_operation",
+            "kind": "logic_enumerate",
+            "status": "eligible_unselected",
+            "score": 4.94,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:4",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "part-1:operation-falcon",
+            "type": "candidate_operation",
+            "kind": "falcon",
+            "status": "eligible_unselected",
+            "score": 1.3,
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          }
+        ],
+        "availableKnowledge": [
+          {
+            "kind": "user_stated_inputs",
+            "nodeIds": [
+              "given-statement-1",
+              "given-statement-2"
+            ],
+            "verification": "assumed_input"
+          },
+          {
+            "kind": "local_operations",
+            "nodeIds": [
+              "part-1:operation-logic_direct",
+              "part-1:operation-logic_enumerate"
+            ],
+            "verification": "operation_specific"
+          }
+        ],
+        "missingKnowledge": []
+      },
+      "residuals": [],
+      "pass": true
+    },
+    {
+      "id": "code-1",
+      "category": "code",
+      "prompt": "Debug this JavaScript:\n```js\nfunction square(n) { return n * n;\n```\nFind the syntax error.",
+      "expected": {
+        "id": "code-1",
+        "category": "code",
+        "prompt": "Debug this JavaScript:\n```js\nfunction square(n) { return n * n;\n```\nFind the syntax error.",
+        "expectedAnswerContains": "expected }",
+        "expectedStatus": "unverified"
+      },
+      "answer": "Delimiter issue near source offset 48: expected }.",
+      "verification": {
+        "status": "unverified",
+        "method": "bidirectional_delimiter_structure_v1",
+        "residual": "Only delimiter structure was checked; JavaScript behavior and a complete fix remain unverified."
+      },
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 2
+      },
+      "elapsedMsPrecise": 1.7288750000000022,
+      "route": {
+        "step": "direction",
+        "part": "part-1",
+        "chosen": "code_forward_scan",
+        "candidates": [
+          {
+            "kind": "code_forward_scan",
+            "status": "verified_partial",
+            "scores": {
+              "goalAttraction": 0.7,
+              "expectedProgress": 0.4,
+              "informationGain": 0.7,
+              "computationalCost": 0.5,
+              "errorRisk": 0.15,
+              "memoryReuse": 0
+            },
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:34",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "pathOperations": 34,
+            "score": 2.8,
+            "safetyTier": 1,
+            "policy": "b2-direction-3-calibrated-repair"
+          },
+          {
+            "kind": "code_reverse_scan",
+            "status": "verified_partial",
+            "scores": {
+              "goalAttraction": 0.7,
+              "expectedProgress": 0.4,
+              "informationGain": 0.7,
+              "computationalCost": 1,
+              "errorRisk": 0.15,
+              "memoryReuse": 0
+            },
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:68",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "pathOperations": 68,
+            "score": 2.3,
+            "safetyTier": 1,
+            "policy": "b2-direction-3-calibrated-repair"
+          },
+          {
+            "kind": "falcon",
+            "status": "provisional",
+            "scores": {
+              "goalAttraction": 0.65,
+              "expectedProgress": 0.5,
+              "informationGain": 0.55,
+              "computationalCost": 0.8,
+              "errorRisk": 0.7,
+              "memoryReuse": 0
+            },
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "pathOperations": null,
+            "score": 1.3,
+            "safetyTier": 0,
+            "policy": "b2-direction-3-calibrated-repair"
+          }
+        ],
+        "selectionReason": "evidence_rank"
+      },
+      "trace": [
+        {
+          "step": "cross_domain_interpretation",
+          "domain": "code",
+          "intent": "locate_javascript_delimiter_error",
+          "facts": [
+            {
+              "id": "code-source",
+              "quote": "function square(n) { return n * n;",
+              "sourceOffset": 29,
+              "provenance": "user_input",
+              "status": "assumed_input"
+            }
+          ],
+          "unknown": {
+            "id": "syntax-diagnostic",
+            "question": "Find a delimiter mismatch in the supplied JavaScript."
+          },
+          "constraints": [
+            "javascript_source",
+            "diagnostic_only"
+          ],
+          "dependencies": [
+            {
+              "from": "code-source",
+              "to": "syntax-diagnostic",
+              "relation": "requires_source"
+            }
+          ],
+          "knowledgeGaps": [
+            "full_program_behavior"
+          ],
+          "paths": [
+            {
+              "kind": "code_forward_scan",
+              "operations": 34,
+              "verification": "independent_code_structure",
+              "steps": [
+                "scan_forward"
+              ]
+            },
+            {
+              "kind": "code_reverse_scan",
+              "operations": 68,
+              "verification": "independent_code_structure",
+              "steps": [
+                "scan_reverse"
+              ]
+            }
+          ],
+          "status": "source_grounded_contract"
+        },
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "code_forward_scan",
+          "candidates": [
+            {
+              "kind": "code_forward_scan",
+              "status": "verified_partial",
+              "scores": {
+                "goalAttraction": 0.7,
+                "expectedProgress": 0.4,
+                "informationGain": 0.7,
+                "computationalCost": 0.5,
+                "errorRisk": 0.15,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:34",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 34,
+              "score": 2.8,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "code_reverse_scan",
+              "status": "verified_partial",
+              "scores": {
+                "goalAttraction": 0.7,
+                "expectedProgress": 0.4,
+                "informationGain": 0.7,
+                "computationalCost": 1,
+                "errorRisk": 0.15,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:68",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 68,
+              "score": 2.3,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "falcon",
+              "status": "provisional",
+              "scores": {
+                "goalAttraction": 0.65,
+                "expectedProgress": 0.5,
+                "informationGain": 0.55,
+                "computationalCost": 0.8,
+                "errorRisk": 0.7,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "engineering_prior",
+                "informationGain": "engineering_prior",
+                "computationalCost": "engineering_prior",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": null,
+              "score": 1.3,
+              "safetyTier": 0,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ],
+          "selectionReason": "evidence_rank"
+        },
+        {
+          "step": "cross_domain_operation",
+          "selected": "code_forward_scan",
+          "receipts": [
+            {
+              "forward": {
+                "kind": "missing_close",
+                "offset": 19,
+                "expected": "}"
+              },
+              "reverse": {
+                "kind": "missing_close",
+                "offset": 19,
+                "expected": "}"
+              }
+            }
+          ],
+          "verification": "bidirectional_delimiter_structure_v1",
+          "residual": "Only delimiter structure was checked; JavaScript behavior and a complete fix remain unverified."
+        },
+        {
+          "step": "verified_component",
+          "partId": "part-1",
+          "component": "delimiter_diagnostic",
+          "answer": "Delimiter issue near source offset 48: expected }.",
+          "method": "bidirectional_delimiter_structure_v1",
+          "newFact": true,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 1,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "verifiedDelta": 0,
+            "componentDelta": 1,
+            "residualDelta": 0,
+            "outcome": "no_verified_advance"
+          }
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "code_forward_scan",
+          "status": "unresolved",
+          "verificationStatus": "unverified",
+          "verifiedProgress": false,
+          "verificationMethod": "bidirectional_delimiter_structure_v1",
+          "derivationId": "derivation-2",
+          "residual": "Only delimiter structure was checked; JavaScript behavior and a complete fix remain unverified.",
+          "informationGainProxy": 0,
+          "checkedOutcome": false,
+          "reused": false,
+          "elapsedMs": 0,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 1,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 1,
+              "openResiduals": 1,
+              "completion": 0,
+              "complete": false
+            },
+            "verifiedDelta": 0,
+            "componentDelta": 0,
+            "residualDelta": 1,
+            "outcome": "no_verified_advance"
+          }
+        }
+      ],
+      "graph": {
+        "schemaVersion": 2,
+        "truncated": false,
+        "nodes": [
+          {
+            "id": "semantic-signature-1",
+            "type": "source_signature",
+            "quote": "function square(n)",
+            "functionName": "square",
+            "parameters": [
+              "n"
+            ],
+            "sourceOffset": 29,
+            "status": "assumed_input",
+            "provenance": "user_input"
+          },
+          {
+            "id": "semantic-relation-1",
+            "type": "source_relation",
+            "kind": "code_contract",
+            "cue": "return",
+            "cueOffset": 50,
+            "quote": "function square(n) { return n * n;",
+            "sourceOffset": 29,
+            "operationHint": "output_constraint",
+            "status": "proposed_from_wording",
+            "provenance": "source_span",
+            "verification": "requires_independent_operation_check"
+          },
+          {
+            "id": "semantic-unknown-1",
+            "type": "source_unknown",
+            "quote": "return n * n;",
+            "sourceOffset": 50,
+            "status": "unresolved",
+            "provenance": "source_span"
+          },
+          {
+            "id": "part-1",
+            "type": "task",
+            "status": "unresolved",
+            "question": "Debug this JavaScript:\n```js\nfunction square(n) { return n * n;\n```\nFind the syntax error.",
+            "intent": {
+              "category": "code",
+              "action": "debug",
+              "source": "Debug this JavaScript:\n```js\nfunction square(n) { return n * n;\n```\nFind the syntax error."
+            },
+            "verification": {
+              "needed": "bidirectional_delimiter_structure",
+              "scope": "diagnostic_component_only"
+            },
+            "dependsOn": [],
+            "orderAfter": []
+          },
+          {
+            "id": "part-1:unknown",
+            "type": "required_unknown",
+            "status": "unresolved",
+            "value": "Debug this JavaScript:\n```js\nfunction square(n) { return n * n;\n```\nFind the syntax error.",
+            "verification": {
+              "needed": "bidirectional_delimiter_structure",
+              "scope": "diagnostic_component_only"
+            }
+          },
+          {
+            "id": "part-1:operation-code_forward_scan",
+            "type": "candidate_operation",
+            "kind": "code_forward_scan",
+            "status": "selected",
+            "score": 2.8,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:34",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "selections": 1
+          },
+          {
+            "id": "part-1:operation-code_reverse_scan",
+            "type": "candidate_operation",
+            "kind": "code_reverse_scan",
+            "status": "eligible_unselected",
+            "score": 2.3,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:68",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "part-1:operation-falcon",
+            "type": "candidate_operation",
+            "kind": "falcon",
+            "status": "eligible_unselected",
+            "score": 1.3,
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "code-source",
+            "quote": "function square(n) { return n * n;",
+            "sourceOffset": 29,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "type": "source_fact"
+          },
+          {
+            "id": "syntax-diagnostic",
+            "question": "Find a delimiter mismatch in the supplied JavaScript.",
+            "type": "required_unknown",
+            "status": "partially_checked"
+          },
+          {
+            "id": "part-1:delimiter_diagnostic",
+            "type": "verified_component",
+            "partId": "part-1",
+            "component": "delimiter_diagnostic",
+            "value": "Delimiter issue near source offset 48: expected }.",
+            "method": "bidirectional_delimiter_structure_v1",
+            "status": "verified"
+          },
+          {
+            "id": "derivation-2",
+            "type": "derivation",
+            "partId": "part-1",
+            "operation": "code_forward_scan",
+            "status": "unverified",
+            "verificationMethod": "bidirectional_delimiter_structure_v1"
+          }
+        ],
+        "edges": [
+          {
+            "from": "part-1",
+            "to": "part-1:unknown",
+            "relation": "requires_result"
+          },
+          {
+            "from": "semantic-relation-1",
+            "to": "part-1",
+            "relation": "proposes_operation_hint"
+          },
+          {
+            "from": "semantic-signature-1",
+            "to": "part-1",
+            "relation": "stated_code_contract"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-code_forward_scan",
+            "relation": "may_execute"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-code_reverse_scan",
+            "relation": "may_execute"
+          },
+          {
+            "from": "part-1",
+            "to": "part-1:operation-falcon",
+            "relation": "may_execute"
+          },
+          {
+            "from": "code-source",
+            "to": "syntax-diagnostic",
+            "relation": "requires_source"
+          },
+          {
+            "from": "part-1:delimiter_diagnostic",
+            "to": "part-1",
+            "relation": "verified_partial_input"
+          },
+          {
+            "from": "derivation-2",
+            "to": "part-1:unknown",
+            "relation": "proposes"
+          }
+        ],
+        "knownFacts": [],
+        "semantic": {
+          "schemaVersion": 1,
+          "quantities": [],
+          "signatures": [
+            {
+              "id": "semantic-signature-1",
+              "type": "source_signature",
+              "quote": "function square(n)",
+              "functionName": "square",
+              "parameters": [
+                "n"
+              ],
+              "sourceOffset": 29,
+              "status": "assumed_input",
+              "provenance": "user_input"
+            }
+          ],
+          "relations": [
+            {
+              "id": "semantic-relation-1",
+              "type": "source_relation",
+              "kind": "code_contract",
+              "cue": "return",
+              "cueOffset": 50,
+              "quote": "function square(n) { return n * n;",
+              "sourceOffset": 29,
+              "operationHint": "output_constraint",
+              "status": "proposed_from_wording",
+              "provenance": "source_span",
+              "verification": "requires_independent_operation_check"
+            }
+          ],
+          "unknown": {
+            "id": "semantic-unknown-1",
+            "type": "source_unknown",
+            "quote": "return n * n;",
+            "sourceOffset": 50,
+            "status": "unresolved",
+            "provenance": "source_span"
+          },
+          "limitation": "lexical source hints; operation roles and causal dependencies remain unverified"
+        },
+        "requiredUnknowns": [
+          {
+            "id": "part-1:unknown",
+            "type": "required_unknown",
+            "status": "unresolved",
+            "value": "Debug this JavaScript:\n```js\nfunction square(n) { return n * n;\n```\nFind the syntax error.",
+            "verification": {
+              "needed": "bidirectional_delimiter_structure",
+              "scope": "diagnostic_component_only"
+            }
+          }
+        ],
+        "constraints": [],
+        "candidateOperations": [
+          {
+            "id": "part-1:operation-code_forward_scan",
+            "type": "candidate_operation",
+            "kind": "code_forward_scan",
+            "status": "selected",
+            "score": 2.8,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:34",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            },
+            "selections": 1
+          },
+          {
+            "id": "part-1:operation-code_reverse_scan",
+            "type": "candidate_operation",
+            "kind": "code_reverse_scan",
+            "status": "eligible_unselected",
+            "score": 2.3,
+            "scoreEvidence": {
+              "expectedProgress": "eligible_path_checked_contract",
+              "informationGain": "engineering_prior",
+              "computationalCost": "predicted_operations:68",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          },
+          {
+            "id": "part-1:operation-falcon",
+            "type": "candidate_operation",
+            "kind": "falcon",
+            "status": "eligible_unselected",
+            "score": 1.3,
+            "scoreEvidence": {
+              "expectedProgress": "engineering_prior",
+              "informationGain": "engineering_prior",
+              "computationalCost": "engineering_prior",
+              "errorRisk": "engineering_prior",
+              "memoryReuse": "engineering_prior"
+            }
+          }
+        ],
+        "availableKnowledge": [
+          {
+            "kind": "user_stated_inputs",
+            "nodeIds": [],
+            "verification": "assumed_input"
+          },
+          {
+            "kind": "local_operations",
+            "nodeIds": [
+              "part-1:operation-code_forward_scan",
+              "part-1:operation-code_reverse_scan"
+            ],
+            "verification": "operation_specific"
+          }
+        ],
+        "missingKnowledge": []
+      },
+      "residuals": [
+        {
+          "partId": "part-1",
+          "operation": "code_forward_scan",
+          "reason": "Only delimiter structure was checked; JavaScript behavior and a complete fix remain unverified.",
+          "fromDerivation": "derivation-2",
+          "resolvedBy": null
+        }
+      ],
+      "pass": true
+    },
+    {
+      "id": "planning-1",
+      "category": "planning",
+      "status": "pending_blinded_human_and_same_model_comparison"
+    },
+    {
+      "id": "conversation-1",
+      "category": "conversation",
+      "status": "pending_blinded_human_and_same_model_comparison"
+    }
+  ],
+  "objective": {
+    "passed": 4,
+    "total": 4
+  }
+}
