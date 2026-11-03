@@ -1,5 +1,29 @@
 # B2 Spiral architecture traceability — 2026-11-01
 
+## CP023-DOCS — 2026-11-03 V1-main versus V2 handoff traceability overlay
+
+**Source revision correction:** `d2fd6bc` contains `app/js/b2-cross-domain.mjs`, the existing concise `docs/Seren 7 SRS.md`, browser/unseen/A-B evidence and more. Logic and syntax diagnostics are narrow working contracts; independent JS behavioral checking and successful Falcon-led whole repair remain missing.
+**Audit baseline:** GitHub main `d2fd6bc`; review of `main.mjs`, `spiral.mjs`, `compass.mjs`, `joint.mjs`, `tool-runner.mjs`, `AGENTS.md`, ADR-002/003, package tests and SRS. The 2026-11-02 CP010–CP022 handoff is source history only until its unmerged code is supplied/committed and independently replayed. This status table must not overwrite the older historical ledger.
+
+| Requirement | GitHub main source | Main status | V2 proof/remaining gate |
+| --- | --- | --- | --- |
+| B2 begins turn | `app/js/main.mjs`, `spiral.mjs` | bounded controller present | live Stage4 proof-carrying bus absent from main |
+| Grounded semantic state | `b2-grounded-semantics.mjs`, `b2-problem-graph.mjs` | strict word/transfer plus narrow logic/JS delimiter | unseen code/planning natural-language translation |
+| L1 exact math/Boolean | `exact-arithmetic.mjs`, `b2-boolean.mjs`, `b2-word-math.mjs` | independently tested narrow | matrix/extended operators and formal contracts |
+| L2 GraphOS/matrix composition | `b2-dependent-arithmetic.mjs` | strict narrow graph; GraphOS main integration missing | CP015–CP022 replay + live app DAG |
+| L3 Magnetic/elastic policy | `b2-magnetic.mjs`, `b2-direction.mjs`, `joint.mjs` | shadow/conservative; not general | measured unseen dynamic path improvement |
+| Compass + reverse simulation | `compass.mjs`, `b2-direction.mjs` | conservative category/cost selection | true inverse branching and goal residual comparison |
+| Flow Processor | `spiral.mjs`, `tool-runner.mjs` | bounded browser Worker | capability-aware concurrent model/tool resource routing |
+| Falcon competence | `compass.mjs`, `b2-calibration-outcomes.mjs` | one Instruct; narrow checked outcomes | Coder verified GGUF and independent category profiles |
+| R1 state reuse/version | `spiral.mjs`, `store.mjs` | exact scoped reuse | immutable cross-tool GraphOS, source invalidation |
+| Cortex + residual repair | `spiral.mjs`, `b2-direction.mjs` | narrow independent numeric checks | full semantic/model-led repair; no false verification |
+| V2 two-Falcon runtime | `app/js/main.mjs` names only Instruct | not implemented in main | real Chromium dual prototype is external handoff only |
+| TinyLinux/code execution | `tool-runner.mjs` allowlisted Worker | no native sandbox in main | process-kill isolation, permissioned code lane |
+| P4 semantic evaluation | `tools/b2_public_eval.mjs`, receipts | eight identical prior pairs, no comparative win | corrected intervention, human grades, frozen 31 set |
+| UI/offline/mobile release | `app/js/main.mjs`, `orb.mjs`, `store.mjs` | desktop tests reported | physical phone, rotating orb, browser/load/energy gates |
+
+**Promotion rule:** classify every row as IMPLEMENTED_IN_MAIN, EXPERIMENTAL_HANDOFF, PARTIAL, UNVERIFIED or BLOCKED; never claim Stage5 completion from checklist totals. Change source references only after comparing the exact latest Git revision and receipts.
+
 **2026-11-01 executable cross-domain addendum:** `b2-cross-domain.mjs` and `spiral.mjs` now create source-quoted logic/code facts, a required unknown, dependencies, two eligible paths, a scored selection and checked execution. Existing `b2-word-math.mjs` supplies word math. In a local unseen fixture, 4/4 objective expected outcomes passed (three full math/logic outcomes and one partial code diagnostic); the same four ran in browser. A controlled first-path fault rotated logic from comparison to enumeration, and synthetic checked profiles changed a later choice in selftest. These are narrow effects, not a demonstrated broad Level 3 learned policy. A real Falcon code repair changed unrelated source and failed the single-edit verifier; no successful model-led repair or general same-Falcon A/B improvement is shown. Full executable-code verification, planning/conversation grading and mobile hardware acceptance remain open.
 
 **Small A/B evidence added after the slice:** Same one Falcon Worker and settings, counterbalanced order, six locally authored prompts. A v1 logic scorer falsely failed a correct Falcon contradiction answer; raw v1 and failed first v2 rescoring remain preserved. Corrected v2 scores objective math/logic 1/3 Falcon-alone and 3/3 B2. Code is pending human review because Falcon's proposed correction and explanation conflict; planning/conversation output is identical between arms. These results establish only narrow deterministic system-level help, not general model-led reasoning gain.

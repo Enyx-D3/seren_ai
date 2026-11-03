@@ -1,5 +1,16 @@
 # UI_Spec — Preserve Seren 7, Connect Real Local Intelligence
 
+## 2026-11-03 — V2 visual/interaction addendum (CP023-DOCS)
+**Preservation rule:** Original uploaded Seren 7 HTML, animated planet/orb, glass visual identity, layout, sidebar/history, chat/composer/streaming/Stop and accessibility remain the acceptance reference. Do not replace the UI or silently remove orbital rotation. Respect reduced-motion and phone power limits.
+
+**Truthful states:** Run details may show B2 goal, plan branches, Compass's eligible/selected operation, actual Instruct/Coder/model-worker identity, calculator/tool calls, GraphOS reuse/invalidation, verified components, residuals, CPU/RAM/time and terminal reason. Each displayed item must originate from a real event/receipt; no decorative agents or invented progress.
+
+**Visibility and feature flags:** V1 users continue to see only the supported single Instruct model. Experimental Coder, dual-mode and TinyLinux UI controls remain hidden/disabled unless tested and enabled by explicit internal rollout. Never label an external native tool as "browser-local" without deployment and privacy proof; differentiate CPU/WASM, WebGPU, native optional, and unavailable.
+
+**Response badges:** `Verified local result` only for the exact checked proposition; `Partially verified` and `Unverified explanation` must not be collapsed into a single successful green badge. A failed source/search operation is not proof that an item does not exist. User-visible error/fallback language must be specific and actionable.
+
+**UI acceptance:** full keyboard/ARIA, 320–1440px responsive layouts, drawer/long code wrapping, original orb animation and reduced-motion, model missing/corrupt/evicted handling, loading/retry, cancellation, offline local history, safe import/export/delete, dynamic hardware capability labels. Verify screenshot/behavior parity with the original reference and on at least one physical phone before release.
+
 **B2 diagnostic status (2026-11-01):** Run details may show `logic_direct`, `logic_enumerate`, `code_forward_scan` or `code_reverse_scan` only after execution. A checked JavaScript delimiter location or patch is partial evidence: the response and run remain `unverified` until independent program-behavior checks exist. Failed Falcon patch proposals do not replace the preserved diagnostic. No visual control is added by this slice.
 
 **Calibration UI boundary (2026-11-01):** The measured shadow trial is a developer-only research API, not an active background agent or a visible improvement label. Retain current UI unchanged. Run details may show checked operation failures but must distinguish a failed independent comparison from an unchecked runtime error; neither justifies displaying a Level 3 animation or a general-intelligence claim.

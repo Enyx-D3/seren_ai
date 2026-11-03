@@ -1,5 +1,16 @@
 # Universal Agent Engineering Contract — Seren 7
 
+## 2026-11-03 — Owner-authorized Seren 7 V2 research exception (CP023-DOCS)
+
+**V1 status correction:** At `d2fd6bc`, bounded contradiction and JavaScript delimiter checking are already integrated. Preserve those components and their limited receipts; do not describe GitHub main as arithmetic-only.
+**Newest user decision supersedes the older one-Falcon restriction for V2 experiments only.** See `docs/decisions/ADR-004-v2-dual-falcon-experiment.md`. V1's active browser application remains exactly one Falcon Instruct, fully local and recoverable. V2 may experimentally add **one** official 90M Falcon Coder plus capability-checked browser WASM/optional isolated TinyLinux tools. No four-model runtime, Qwen, larger hidden models, external LLMs, mandatory daemon, push or deployment is authorized by this text.
+
+The earlier "Exactly one Falcon" instructions below are preserved as **historical V1 active-runtime constraints** and must not be applied to forbid authorized V2 research. Conversely, a V2 proposal/CP022 handoff is not evidence of a shipped dual-model feature. Mark each capability `ACTIVE_MAIN`, `EXPERIMENTAL_ONLY`, `PARTIAL` or `UNVERIFIED` with its exact source revision.
+
+**Research hierarchy:** B2/MRS controls every request; L1 exact calculators, L2 GraphOS/path composition, L3 measured magnetic Compass/joints, Flow Processor, Falcon Instruct/Coder as candidate generators, R1 shared state, Cortex verifier, and recursive checked calibration are separable proof obligations. Native code tools need killable isolation. Do not equate token speed, simulated FLOPS, source recovery, or checklist count with reasoning quality.
+
+**Current implementation mission:** first reconcile CP022 dev source against GitHub main; next documentation-only CP023 (this change); then guarded live reasoning integration. Keep all six canonical specs, SRS, ADRs, traceability, README and checkpoint ledger synchronized. Do not overwrite the existing dirty worktree or merge/discard uncommitted work. No code changes in this documentation-only patch.
+
 This file is vendor-neutral. Claude, Nemotron, Muse, Codex, Cursor, human engineers, or other agents can consume it. It describes **how to carry out the user's project**, not permission to deploy, send data, install software, or modify external systems without the user's task authorization.
 
 ## Session boot protocol

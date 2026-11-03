@@ -1,5 +1,16 @@
 # Seren 7 — Browser-Only Falcon Instruct + B2 Spiral (Web V1)
 
+## 2026-11-03 Seren 7 V2 documentation checkpoint (CP023-DOCS)
+
+**Current-main correction:** Commit `d2fd6bc` already includes narrow cross-domain B2 logic/JavaScript diagnostics, the existing development SRS `docs/Seren 7 SRS.md`, and limited browser/A-B evidence. The new `docs/SRS.md` is the consolidated V2 requirements master. This does not establish successful full Falcon-led repair.
+The active GitHub-main build at `d2fd6bc` is **V1, one Falcon Instruct**, while the owner-approved next V2 research architecture adds an **optional experimental** Falcon-H1-Tiny-Coder-90M specialist, MRS/GraphOS, Compass/elastic rotating joints, verified WASM/TinyLinux tools and Cortex. This paragraph supersedes older blanket claims that *all* future experiments must exclude Coder; it does **not** change the current running app or permit push/deploy.
+
+Start with `AGENTS.md`, `docs/decisions/ADR-004-v2-dual-falcon-experiment.md`, `docs/SRS.md`, the six canonical specs, `docs/B2_Architecture_Traceability.md`, and `CHECKPOINT_LOG.md`. The V2 CP010–CP022 handoff describes experimental proofs, some still absent from GitHub main. Verify source lineage before declaring a capability implemented.
+
+Local development after checking dependencies and models: `npm test`; `npm run test:browser` (requires working Playwright Chromium); `npm run build:web`; `git diff --check`. Browser/offline and Falcon-dependent probes need the correct GGUF, runtime assets and hardware; do not label a suite PASS merely because a previous machine ran it. The older frozen 31-case P4 confirmation must not be consumed for calibration.
+
+Never send chat content to a cloud inference service, secretly enable native code execution, replace the animated Seren UI, or deploy the experimental V2 runtime by updating docs. Preserve working V1 rollback. All new data/claim controls are proposals until implementation tests and migration checks pass.
+
 **Current cross-domain B2 development (2026-11-01):** A bounded source-grounded logic/code operation contract now joins grouped word math. New local unseen and browser receipts show operation selection for word math, two-claim contradiction and partial JavaScript delimiter diagnosis. A real Falcon code-patch attempt failed its one-edit verifier, so full model-led repair and general reasoning improvement remain open. The new [SRS](docs/Seren%207%20SRS.md) distinguishes implemented, partial, experimental and missing capabilities. No public deployment changed.
 
 **Calibration evidence correction (2026-11-01):** `b2-calibration-outcomes.mjs` now records a failure only when an independent checker confirms it; runtime exceptions remain unchecked. `b2-shadow-trials.mjs` provides explicit developer-only paired arithmetic paths, with separate `shadowOperations` evidence. A six-train/four-later local comparison initially selected more expensive routes based on noisy sub-millisecond timing; the retained negative receipt led to an exact-operation-count cost floor. The rerun kept the cheaper path and identical correctness. This is **not** live self-learning, general reasoning gain or browser persistence evidence. See `CHECKPOINT_LOG.md`.

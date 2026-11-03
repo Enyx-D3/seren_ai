@@ -1,5 +1,24 @@
 # AppFlow — Seren 7 Local AI Journeys
 
+## 2026-11-03 — B2-owned V2 request and recovery flow (CP023-DOCS)
+
+**Now implemented narrowly in main:** source-quoted two-claim contradiction and fenced JavaScript delimiter diagnostics use `b2-cross-domain.mjs`, direct/enumerated or forward/reverse operations, independent component checks and fault rotation. Code location checking is not whole-program verification; the real Falcon repair failed a strict one-edit check.
+**Scope:** target V2 behavior, not all active GitHub-main behavior. Ordinary V1 chat remains on the existing single-Instruct route until a tested feature flag is enabled.
+
+1. **Intake:** assign run ID, user goal, requested output, source spans, facts, unknowns, acceptance criteria, permissions, and hardware/time budget. Explicitly mark unsupported semantic interpretation as provisional.
+2. **GraphOS:** create a versioned typed dependency/state graph; preserve already verified nodes and source identities. Parse or model-produced facts are *hypotheses*, never proof.
+3. **Compass + Level 3:** enumerate eligible direct, Level 1/2 calculator, simulation, retrieval, one/dual-Falcon, verified reuse, clarification and abstention routes; record measured cost and success evidence. Compare independent candidate paths only within budgets; select a route, not the most fluent text.
+4. **Elastic joint:** execute TAP/ROTATE/EXPAND/CONTRACT/REPAIR/VERIFY/BRAKE transitions; detect oscillation and stop without rewriting failure history.
+5. **Flow Processor:** admit operators to actual available browser WASM Workers and (future, separately permissioned) TinyLinux lanes; enforce memory, CPU, timeout, cancellation and isolation. Native timeout must kill the underlying process, not merely return from a JS promise.
+6. **Candidate execution:** Level 1 exact math, Level 2 dependency/composition/GraphOS, retrieval with source coordinates, Instruct interpretation, or Coder-produced bounded program proposal. Coder proposals require a separately permissioned executor and independent tests.
+7. **Cortex/verifier:** independently check calculations, tool effects, semantic translation assumptions, provenance, source versions and claim scope. Record VERIFIED / SUPPORTED_WITH_LIMITATIONS / UNVERIFIED / UNKNOWN / CONFLICTING / REFUTED as applicable. Never elevate model prose from a passed calculator receipt.
+8. **Residual and R1:** merge only compatible independently checked states; invalidate affected downstream nodes on any changed source; keep untouched verified subgraphs; repair *only* the proven missing part.
+9. **Final response:** stream real model text where needed, label exact results separately, show uncertainty/partial outcomes and real run details. Respect Stop and rollback/fallback; retain audit receipts.
+
+**Required paths to verify:** complete exact path with zero model loads; one-Falcon ordinary conversation; two-Falcon sequential/concurrent shadow; supported tool/code success; generated-code rejection; stale-source invalidation; safe stop; cancellation/timeout; offline reload. Internet search must be opt-in, permissioned and source-provenance aware; a mock adapter is not a live Internet acceptance.
+
+**V1 versus V2:** Previous wording that only Instruct may generate applies to the shipped V1 baseline. No dual-worker live path is enabled by this documentation change.
+
 **Bounded cross-domain execution (2026-11-01):** For two explicit `subject is predicate` claims and a contradiction question, B2 records quoted facts and the unknown, chooses direct comparison or truth assignment, then cross-checks both. For fenced JavaScript debugging it selects forward or reverse delimiter scan, retains a checked location as a component and leaves program behavior unresolved. Think Deeper can request a one-edit patch from the same Falcon; a proposal changing any other character is rejected and the checked diagnostic is preserved. The observed real Falcon probe failed this repair check.
 
 **Developer-only calibration flow (not normal chat):** A researcher supplies a strict supported word/transfer question to `runCheckedShadowTrial`, which executes each deterministic path separately, records arithmetic checking and actual elapsed time, and puts clean observations in a `shadowOperations` profile. A JSON round-trip can replay that profile for a future experimental Compass decision. Injected-fault trials are excluded from clean profiles. Ordinary chat does not silently run both paths or activate Level 3, and an unchecked runtime exception is never counted as a verifier failure. Browser persistence of the shadow profile is unproved.

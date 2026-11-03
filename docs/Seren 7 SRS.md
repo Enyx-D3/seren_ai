@@ -1,5 +1,8 @@
 # Seren 7 — Software Requirements Specification
 
+## 2026-11-03 V1 development SRS continuity notice (CP023-DOCS)
+This document accurately describes the bounded V1 development state at GitHub `d2fd6bc`, including narrow cross-domain source-grounded contradiction and JavaScript delimiter diagnosis; it is not the full V2 release specification. New owner-authorized experimental dual-Falcon/GraphOS/TinyLinux requirements and the longer historical SRS are consolidated separately in `docs/SRS.md`. References below to one Instruct and prohibition of Coder are constraints on the active V1 runtime; ADR-004 permits *disabled-by-default V2 research* only. Nothing here promotes the failed real Falcon code repair, small A/B objective results or frozen 31-case set to production acceptance.
+
 **Version:** 2026-11-01 development baseline  
 **Authority:** newest user instruction, `AGENTS.md`, ADR-001/002/003 and six canonical specifications.  
 **Evidence:** `CHECKPOINT_LOG.md`; this SRS describes both accepted behavior and open gates, not a release certificate.

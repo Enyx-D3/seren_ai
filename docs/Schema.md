@@ -1,5 +1,49 @@
 # Schema — Local Seren 7 Data and Event Contracts
 
+## 2026-11-03 — Proposed V2 extension schema (CP023-DOCS; NOT migrated)
+
+**Committed V1 extension:** `meta.spiral_state.graph` schema-v2 may contain `source_fact`, `assumed_input`, `requires_source`, `requires_stated_fact` and `verified_component` for narrow logic/code inspections. Verified diagnostic components do not promote the whole answer; no new IndexedDB migration is approved here.
+The following interfaces are **design contracts only**. The active IndexedDB/OPFS schema and migrations remain unchanged until implementation, browser migration tests and a rollback plan pass. V1 records remain readable.
+
+```ts
+type ClaimStatus = 'VERIFIED'|'SUPPORTED_WITH_LIMITATIONS'|'UNVERIFIED'|'UNKNOWN'|'CONFLICTING'|'NOT_FOUND_WITHIN_SCOPE'|'SOURCE_UNAVAILABLE'|'PARSER_FAILED'|'VERSION_MISMATCH'|'REFUTED';
+type EvidenceReceipt = {
+  id: string; runId: string; sourceId?: string; sourceVersion?: string;
+  inputHash: string; operationId: string; verifierId?: string;
+  assumptions: string[]; dependencyRoots: string[]; status: ClaimStatus;
+  observedMs?: number; cpuMs?: number; peakBytes?: number; checkedOutcome: boolean;
+};
+type ProblemState = {
+  id: string; goal: string; sourceSpans: Array<{sourceId:string,start:number,end:number}>;
+  givens: string[]; unknowns: string[]; constraints: string[];
+  acceptanceCriteria: string[]; verifiedNodeIds: string[]; residualNodeIds: string[];
+  graphRoot: string; version: number; permissionScope: string[]; budgetId: string;
+};
+type StateDelta = {
+  beforeRoot: string; afterRoot: string; changedNodeIds: string[];
+  invalidatedNodeIds: string[]; preservedVerifiedNodeIds: string[];
+  receiptIds: string[]; reason: string; rollbackRoot?: string;
+};
+type OperationCandidate = {
+  id: string; kind: 'L1'|'L2'|'L3'|'FALCON_INSTRUCT'|'FALCON_CODER'|'TOOL'|'SEARCH'|'REUSE'|'CLARIFY'|'STOP';
+  prerequisites: string[]; estimatedTimeMs?: number; estimatedBytes?: number;
+  expectedVerifiedProgress?: number; confidenceLowerBound?: number;
+  verifierId?: string; permit: boolean; policyVersion: string;
+};
+type ModelCompetenceProfile = {
+  modelHash: string; taskCategory: string; sampleCount: number;
+  verifiedSuccesses: number; verifiedFailures: number; uncheckedRuns: number;
+  p50TimeMs?: number; p95TimeMs?: number; lastCalibrationReceiptId?: string;
+};
+type CalibrationOutcome = {
+  candidateId: string; taskCategory: string; checkedOutcome: boolean;
+  success?: boolean; injectedFault: boolean; datasetSplit: 'development'|'heldout'|'frozen';
+  measuredTimeMs?: number; receiptIds: string[]; promoted: boolean;
+};
+```
+
+**Invariants:** no `VERIFIED` without an independent receipt and current source dependencies; no semantic merge on approximate similarity alone; on source mutation revoke affected downstream statuses, not unrelated checked work; never use frozen/test grades to train active routing; store checked failures separately from backend errors; same-model sampled output is not independent confirmation; timestamps and hashes cannot substitute proof. Version every migration, preserve export/erase semantics and reject unknown future schema versions.
+
 **Cross-domain state mapping (2026-11-01):** The existing `meta.spiral_state.graph` schema-v2 snapshot can contain `source_fact` nodes with exact quotes/offsets, a required unknown, `requires_stated_fact` or `requires_source` edges, candidate operations and partial `verified_component` nodes. Logic input claims retain `assumed_input`; their relationship can be checked without treating the claims as external facts. Code delimiter diagnostics and checked single-edit patches are components, while the parent task and `spiral_verification.status` remain `unverified`. No IndexedDB version or store changes. A failed Falcon proposal stays in the bounded trace and never becomes verified.
 
 **2026-11-01 checked-outcome and research-profile addenda:** A `direction_result` receipt's `checkedOutcome` must be `true` before its `verified`/`failed` label affects `operations[kind].verifiedSuccesses`/`verifiedFailures`. An unchecked attempt increments additive `uncheckedRuns`; a caught runtime exception cannot teach error risk. An optional developer-only `shadowOperations[kind]` map stores `runs`, `verifiedSuccesses`, `verifiedFailures`, `uncheckedRuns`, `elapsedMs` and `evidenceScope:conditional_exact_arithmetic_shadow_only`; `shadowTrials` and `shadowPolicy` describe trial provenance. These are JSON profile fields, not a physical database migration. The current evaluation only round-tripped JSON in Node; browser storage/reload is not validated for this research map. Never mix synthetic/injected-fault trial rows into clean shadow observations.

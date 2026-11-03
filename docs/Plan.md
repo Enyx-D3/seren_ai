@@ -1,5 +1,37 @@
 # Plan — Seren 7 Browser-Only B2 Spiral Execution Train
 
+## 2026-11-03 — Combined P0–P4 and Seren V2 14-checkpoint execution plan (CP023-DOCS)
+
+**Evidence at `d2fd6bc`:** locally authored unseen 4/4 objective outcomes across math/logic/partial code diagnosis and matching browser smoke; separate six-case same-Falcon A/B after corrected scoring showed objective math/logic Falcon-alone 1/3 vs B2 3/3, while code needs human review and planning/conversation outputs were identical. This does not satisfy P4. Frozen 31-case set remains unrun.
+**Precedence:** Newest owner V2 instruction proposes Instruct + Coder and TinyLinux tools; V1 single-Instruct remains frozen fallback. CP010–CP022 handoff research is not merged in GitHub main `d2fd6bc`. This is a documentation baseline, not a release acceptance.
+
+| CP | Scope | Evidence status at cutoff | Acceptance/next dependency |
+| --- | --- | --- | --- |
+| 01 | Preserve original Seren 7 model/UI baseline | Existing V1 tested | git/visual/offline rollback snapshot |
+| 02 | Recover MRS/GraphOS/C++/TinyLinux source | Handoff mostly recovered | source hashes/manifests; distinguish missing sources |
+| 03 | Replay simulators with independent oracles | Handoff partial | real native/browser result parity plus negative cases |
+| 04 | One Falcon on compatible WebGPU | Missing | Falcon-H1 measured true GPU inference/fallback |
+| 05 | Two Falcon Instruct/Coder browser workers | Handoff prototype measured; not merged | single/sequential/concurrent real Seren integration |
+| 06 | Hardware-aware mode selection | Partial concept | safe measured memory/latency quality routing |
+| 07 | L1 deterministic calculators | Bounded verified scopes | broader formal contracts with independent checks |
+| 08 | L2 GraphOS/matrix/dependency composition | Handoff experimental | real multi-step request, exact reusable subgraph |
+| 09 | L3 Compass/magnetic elastic joints | Partial/experimental | unseen operation-changing path choices, held-out gain |
+| 10 | R1 shared-state/version rollback | Bounded verified; broad open | stale-source invalidation and sound equivalence |
+| 11 | TinyLinux/WASM Python/C++ tools | Fixed native fixtures; browser lane partial | isolated, killable timeout, permissions, browser-safe fallback |
+| 12 | Cortex, residual repair, recursive calibration | Partial, repair failures | full independent model-led repair and cross-domain gains |
+| 13 | Lighthouse + P4 independent evaluation | Partial | 7 baselines, blind semantic review, sealed confirmation, device stress |
+| 14 | Seren production integration/release | Not approved | complete normal chat path, UX/privacy/security and owner/Shafi sign-off |
+
+**Dependency order:** preserve source and failures → reconcile V1/V2 ADR + typed problem/evidence contracts → opt-in Stage4 GraphOS/Compass/Worker integration → actual path rotation and Cortex checks → safe code/tool lanes → measured dual-Falcon routing → sustained calibration benefits → held-out P1–P4 and Lighthouse acceptance → release approval. Do not rerun successful CP010–CP022 experiments merely to generate another checkpoint; retest only relevant integration/regression boundaries.
+
+**P0–P4 quality gates:** P0 foundation; P1 grounded semantic interpretation must change an executable operation on unseen problems; P2 genuine multidirectional model-led completion/independently verified whole-result residual repair; P3 persisted competence changes later selection with cross-category held-out benefit; P4 independently graded and objective A/B with equal Falcon assets/budgets and meaningful interventions. Eight earlier semantic pairs were identical/non-discriminating; the separate 31-case frozen fixture remains unrun.
+
+**Seven comparison arms:** Instruct alone; Coder alone; historical four-specialist if recovered; V1 single-Falcon Seren; V2 dual Falcon; dual + verified tools; full MRS/B2 GraphOS/Compass/Cortex. Capture accepted-error rate AND coverage, task accuracy, p50/p95 correct latency, real generated TPS, cold/warm model load, RAM, model/tool calls, verified state reuse, source and permission failures. No simulated FLOPS should become a neural inference number.
+
+**Release gates:** original rotating orb/UI and chat CRUD; no remote inference; offline reload; tool sandbox/cancel; correct source/versioned state; physical-phone energy/RAM and multibrowser accessibility; explicit owner approval. No automatic push/deploy.
+
+**Documentation checklist per checkpoint:** PRD, AppFlow, UI_Spec, TRD, Schema, Plan, SRS, architecture traceability, CHECKPOINT_LOG, README, AGENTS and relevant ADR; update only affected meaning, tag implemented versus tested/handoff/proposed, cite versioned receipts and failed experiments.
+
 **2026-11-01 B2 cross-domain checkpoint:** A source-grounded operation contract now reaches existing grouped word math plus bounded contradiction and code-delimiter debugging. The first separately authored local unseen set and real browser smoke checked four objective cases; planning/conversation await human assessment. A real one-model code repair attempt failed single-edit validation. Keep the frozen 31-case fixture untouched. Next: generalize semantic extraction, verify executable code behavior, repeat model-led repair on fresh tasks, then run a controlled same-Falcon A/B comparison with blind subjective review. Do not promote Level 3 from these receipts.
 
 **A/B progress:** A small same-weight, counterbalanced six-case engineering comparison is now recorded. Versioned corrected scoring gave Falcon-alone 1/3 and B2 3/3 for math/logic only; code and two subjective cases per arm remain pending human review. Run a larger independently authored set, establish safe code behavioral checks and obtain blind grades before any promotion.
