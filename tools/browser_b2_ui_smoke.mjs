@@ -3,7 +3,8 @@ import { writeFile } from 'node:fs/promises';
 import { SPIRAL_POLICY } from '../app/js/spiral.mjs';
 
 const baseUrl = process.env.B2_BASE_URL || 'http://127.0.0.1:8799/';
-const browser = await chromium.launch({ headless: true });
+const executablePath = process.env.B2_CHROMIUM_EXECUTABLE_PATH;
+const browser = await chromium.launch({ headless: true, ...(executablePath ? { executablePath } : {}) });
 try {
   const context = await browser.newContext();
   const page = await context.newPage(), errors = [], external = [];

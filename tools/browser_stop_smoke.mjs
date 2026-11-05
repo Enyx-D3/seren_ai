@@ -1,5 +1,6 @@
 import { chromium } from 'playwright';
-const browser = await chromium.launch({ headless: true });
+const executablePath = process.env.B2_CHROMIUM_EXECUTABLE_PATH;
+const browser = await chromium.launch({ headless: true, ...(executablePath ? { executablePath } : {}) });
 const page = await browser.newPage();
 await page.goto('http://127.0.0.1:8799/');
 await page.locator('#settingsBtnTop').click();

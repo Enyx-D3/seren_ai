@@ -152,7 +152,7 @@ const inheritedTool = executeToolCall({ name: 'constructor', arguments: {} });
 t('inherited tool name refused', inheritedTool.ok === false);
 const inheritedArg = executeToolCall({ name: 'now', arguments: JSON.parse('{"__proto__":"ignored"}') });
 t('inherited argument name refused', inheritedArg.ok === false);
-t('whitelist has 5 tools', reachableToolsJSON().length === 5);
+t('whitelist has 6 read-only local tools', reachableToolsJSON().length === 6);
 const exactTool = executeToolCall({ name: 'exact_arithmetic', arguments: { expression: '0.1+0.2' } });
 t('exact tool independently verified result', exactTool.ok && exactTool.value === '3/10');
 const linear = (a, b, c) => executeToolCall({ name: 'solve_linear', arguments: { a, b, c } });

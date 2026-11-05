@@ -1,0 +1,305 @@
+{
+  "checkpoint": "CP027-NODE-REAL-AB",
+  "status": "DIAGNOSTIC_SUBSET",
+  "startedAt": "2026-11-05T06:14:56.940Z",
+  "modelSha256": "e7d655345a876ecb073ea86f5ce68e412b99090c34a6bde8a2982bc48afb2612",
+  "fixtureSha256": "bec2deb71bbd93f03d1aab7b48ae24a97e396a8e65a488610e937a125d7934a4",
+  "sourceHash": "015b331c5b0b61a46f671b0363310d2e0110fc5ce75ee80fb5df25e09a9bc5dd",
+  "maxCases": 4,
+  "maxTokens": 32,
+  "runtime": "Node Worker threads + pinned Wllama single-thread WASM; REAL GGUF, NOT BROWSER",
+  "method": "Alternating AB/BA per case. Falcon-only receives one model call; B2 receives the same source and may invoke bounded model calls or deterministic operations. Independent frozen gold is never passed to either arm.",
+  "caveats": [
+    "This does not pass browser, UI, WebGPU, native TinyLinux or physical-phone gates.",
+    "No matched-call/time speedup claim: some B2 paths avoid or add model calls.",
+    "Process RSS is sampled from Node only and is not comparable to Chromium whole-process memory.",
+    "The locally authored fixture is independent of implementation changes, not externally authored broad reasoning."
+  ],
+  "byArm": {
+    "falcon_alone": {
+      "evaluated": 4,
+      "totalCases": 4,
+      "completeCorrect": 0,
+      "falseVerifications": 0,
+      "modelCalls": 4,
+      "generatedTokens": 113,
+      "calculatorCalls": 0,
+      "totalElapsedMs": 39434.481162,
+      "errors": 0
+    },
+    "b2": {
+      "evaluated": 4,
+      "totalCases": 4,
+      "completeCorrect": 0,
+      "falseVerifications": 0,
+      "modelCalls": 0,
+      "generatedTokens": 0,
+      "calculatorCalls": 0,
+      "totalElapsedMs": 23.641521999998076,
+      "errors": 0
+    }
+  },
+  "comparableTimeToCorrect": {
+    "count": 0,
+    "pairs": []
+  },
+  "fatal": null,
+  "rows": [
+    {
+      "id": "cp026_h001_tidal_launch",
+      "gold": "feasible",
+      "arm": "falcon_alone",
+      "armOrder": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "\"Start patrol\" is a prerequisite for \"Reserve skiff\".",
+      "check": {
+        "id": "cp026_h001_tidal_launch",
+        "gold": "feasible",
+        "outcome": "unsupported_or_unscorable",
+        "correct": false,
+        "claimedVerified": false,
+        "falseVerification": false,
+        "coverage": false
+      },
+      "verification": null,
+      "trace": [],
+      "modelCalls": 1,
+      "generatedTokens": 17,
+      "calculatorCalls": 0,
+      "ttftMs": 9520.483431,
+      "modelElapsedMs": 10497.347899,
+      "elapsedMs": 10498.843954,
+      "peakNodeRssBytes": 2200096768,
+      "error": null
+    },
+    {
+      "id": "cp026_h001_tidal_launch",
+      "gold": "feasible",
+      "arm": "b2",
+      "armOrder": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "check": {
+        "id": "cp026_h001_tidal_launch",
+        "gold": "feasible",
+        "outcome": "abstention",
+        "correct": false,
+        "claimedVerified": false,
+        "falseVerification": false,
+        "coverage": true
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "trace": [],
+      "modelCalls": 0,
+      "generatedTokens": 0,
+      "calculatorCalls": 0,
+      "ttftMs": null,
+      "modelElapsedMs": 0,
+      "elapsedMs": 16.318647999998575,
+      "peakNodeRssBytes": 596238336,
+      "error": null
+    },
+    {
+      "id": "cp026_h002_lab_controls",
+      "gold": "feasible",
+      "arm": "b2",
+      "armOrder": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "check": {
+        "id": "cp026_h002_lab_controls",
+        "gold": "feasible",
+        "outcome": "abstention",
+        "correct": false,
+        "claimedVerified": false,
+        "falseVerification": false,
+        "coverage": true
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "trace": [],
+      "modelCalls": 0,
+      "generatedTokens": 0,
+      "calculatorCalls": 0,
+      "ttftMs": null,
+      "modelElapsedMs": 0,
+      "elapsedMs": 3.7915069999999105,
+      "peakNodeRssBytes": 596762624,
+      "error": null
+    },
+    {
+      "id": "cp026_h002_lab_controls",
+      "gold": "feasible",
+      "arm": "falcon_alone",
+      "armOrder": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "Here's an execution sequence for Clean pipette, Log blank, Load sample, and Read absorbance:\n\n```json\n{\n  \"execution\":",
+      "check": {
+        "id": "cp026_h002_lab_controls",
+        "gold": "feasible",
+        "outcome": "unsupported_or_unscorable",
+        "correct": false,
+        "claimedVerified": false,
+        "falseVerification": false,
+        "coverage": false
+      },
+      "verification": null,
+      "trace": [],
+      "modelCalls": 1,
+      "generatedTokens": 32,
+      "calculatorCalls": 0,
+      "ttftMs": 7383.552062999999,
+      "modelElapsedMs": 9241.203635000002,
+      "elapsedMs": 9241.557685,
+      "peakNodeRssBytes": 598597632,
+      "error": null
+    },
+    {
+      "id": "cp026_h003_podcast_mix",
+      "gold": "feasible",
+      "arm": "falcon_alone",
+      "armOrder": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "To produce a feasible order for our short podcast, follow these steps:\n\n1. **Record Narration**: Begin with \"Record narration",
+      "check": {
+        "id": "cp026_h003_podcast_mix",
+        "gold": "feasible",
+        "outcome": "unsupported_or_unscorable",
+        "correct": false,
+        "claimedVerified": false,
+        "falseVerification": false,
+        "coverage": false
+      },
+      "verification": null,
+      "trace": [],
+      "modelCalls": 1,
+      "generatedTokens": 32,
+      "calculatorCalls": 0,
+      "ttftMs": 7742.838454000001,
+      "modelElapsedMs": 9676.998302,
+      "elapsedMs": 9677.234745999998,
+      "peakNodeRssBytes": 598859776,
+      "error": null
+    },
+    {
+      "id": "cp026_h003_podcast_mix",
+      "gold": "feasible",
+      "arm": "b2",
+      "armOrder": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "check": {
+        "id": "cp026_h003_podcast_mix",
+        "gold": "feasible",
+        "outcome": "abstention",
+        "correct": false,
+        "claimedVerified": false,
+        "falseVerification": false,
+        "coverage": true
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "trace": [],
+      "modelCalls": 0,
+      "generatedTokens": 0,
+      "calculatorCalls": 0,
+      "ttftMs": null,
+      "modelElapsedMs": 0,
+      "elapsedMs": 2.0753310000000056,
+      "peakNodeRssBytes": 598990848,
+      "error": null
+    },
+    {
+      "id": "cp026_h004_garden",
+      "gold": "feasible",
+      "arm": "b2",
+      "armOrder": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "check": {
+        "id": "cp026_h004_garden",
+        "gold": "feasible",
+        "outcome": "abstention",
+        "correct": false,
+        "claimedVerified": false,
+        "falseVerification": false,
+        "coverage": true
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "trace": [],
+      "modelCalls": 0,
+      "generatedTokens": 0,
+      "calculatorCalls": 0,
+      "ttftMs": null,
+      "modelElapsedMs": 0,
+      "elapsedMs": 1.4560359999995853,
+      "peakNodeRssBytes": 599121920,
+      "error": null
+    },
+    {
+      "id": "cp026_h004_garden",
+      "gold": "feasible",
+      "arm": "falcon_alone",
+      "armOrder": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "For the rooftop planter, **Test soil** comes first. Next, **Add compost** is followed by **Sow herbs",
+      "check": {
+        "id": "cp026_h004_garden",
+        "gold": "feasible",
+        "outcome": "unsupported_or_unscorable",
+        "correct": false,
+        "claimedVerified": false,
+        "falseVerification": false,
+        "coverage": false
+      },
+      "verification": null,
+      "trace": [],
+      "modelCalls": 1,
+      "generatedTokens": 32,
+      "calculatorCalls": 0,
+      "ttftMs": 7929.581526000002,
+      "modelElapsedMs": 10016.519591000004,
+      "elapsedMs": 10016.844776999998,
+      "peakNodeRssBytes": 599121920,
+      "error": null
+    }
+  ]
+}

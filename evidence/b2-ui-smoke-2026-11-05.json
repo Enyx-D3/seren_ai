@@ -5,8 +5,8 @@
   "logic": "Yes. Mira is a cat, and all cats are mammals.",
   "boolean": "True",
   "dependency": "4\n12",
-  "chat": "Hello, how's everyone doing today?",
-  "plan": "Morning Backup Plan:\n\nCopy Files: Transfer all necessary files to a secure backup location.\n\nRisk: File Access Restriction\n\nSteps:\n1: Navigate to the backup directory.\n2: Copy the files to the new location.\n\nRisk: Data Loss Risk\n\nTotal: 12\nConclusion: This backup plan ensures data is transferred securely and minimizes risk.",
+  "chat": "Hello, how's it going?",
+  "plan": "Morning Backup Plan:\n\nBackup Files: Copy all necessary files to a secure location.\nSteps: 100% (200 KB)\n\nRisk: File Access Restriction (FAR)\n\nThe backup strategy involves copying files, which is a common practice in many environments. However, ensuring FAR is a priority is crucial to prevent unauthorized access.",
   "evidence": {
     "answers": [
       {
@@ -23,8 +23,8 @@
           "cacheHits": 0,
           "tokens": 0,
           "firstModelTokenMs": null,
-          "verificationMs": 23,
-          "elapsedMs": 26
+          "verificationMs": 8,
+          "elapsedMs": 11
         }
       },
       {
@@ -99,10 +99,10 @@
           "modelCalls": 1,
           "calculatorCalls": 0,
           "cacheHits": 0,
-          "tokens": 9,
-          "firstModelTokenMs": 4327,
+          "tokens": 8,
+          "firstModelTokenMs": 3759,
           "verificationMs": 1,
-          "elapsedMs": 6932
+          "elapsedMs": 6196
         }
       },
       {
@@ -123,10 +123,10 @@
           "modelCalls": 1,
           "calculatorCalls": 0,
           "cacheHits": 0,
-          "tokens": 113,
-          "firstModelTokenMs": 3923,
+          "tokens": 85,
+          "firstModelTokenMs": 3297,
           "verificationMs": 0,
-          "elapsedMs": 8221
+          "elapsedMs": 5767
         }
       }
     ],
@@ -138,7 +138,7 @@
         "unverified": 0,
         "modelCalls": 0,
         "calculatorCalls": 3,
-        "elapsedMs": 27,
+        "elapsedMs": 12,
         "repairs": 0,
         "verifiedModelSuccesses": 0,
         "verifiedModelFailures": 0,
@@ -152,7 +152,7 @@
             "verifiedFailures": 0,
             "uncheckedRuns": 0,
             "verifiedComponents": 0,
-            "elapsedMs": 23,
+            "elapsedMs": 8,
             "informationGainSum": 2,
             "cacheHits": 0
           },
@@ -178,7 +178,7 @@
           "statedFactsObserved": 5,
           "missingVerifierCount": 1
         },
-        "updatedAt": 1793852877431
+        "updatedAt": 1793870986327
       },
       "logic": {
         "runs": 2,
@@ -227,7 +227,7 @@
           "statedFactsObserved": 1,
           "missingVerifierCount": 0
         },
-        "updatedAt": 1793852877100
+        "updatedAt": 1793870986193
       },
       "conversation": {
         "runs": 1,
@@ -236,12 +236,12 @@
         "unverified": 1,
         "modelCalls": 1,
         "calculatorCalls": 0,
-        "elapsedMs": 6932,
+        "elapsedMs": 6196,
         "repairs": 0,
         "verifiedModelSuccesses": 0,
         "verifiedModelFailures": 0,
         "modelRuns": 1,
-        "modelElapsedMs": 6932,
+        "modelElapsedMs": 6196,
         "schemaVersion": 2,
         "operations": {
           "falcon": {
@@ -250,12 +250,12 @@
             "verifiedFailures": 0,
             "uncheckedRuns": 1,
             "verifiedComponents": 0,
-            "elapsedMs": 6932,
+            "elapsedMs": 6195,
             "informationGainSum": 0,
             "cacheHits": 0
           }
         },
-        "tokens": 9,
+        "tokens": 8,
         "cacheHits": 0,
         "repairResidualResolutions": 0,
         "repairNumericAlignments": 0,
@@ -266,7 +266,7 @@
           "statedFactsObserved": 1,
           "missingVerifierCount": 1
         },
-        "updatedAt": 1793852884454
+        "updatedAt": 1793870992653
       },
       "planning": {
         "runs": 1,
@@ -275,12 +275,12 @@
         "unverified": 1,
         "modelCalls": 1,
         "calculatorCalls": 0,
-        "elapsedMs": 8221,
+        "elapsedMs": 5767,
         "repairs": 0,
         "verifiedModelSuccesses": 0,
         "verifiedModelFailures": 0,
         "modelRuns": 1,
-        "modelElapsedMs": 8221,
+        "modelElapsedMs": 5767,
         "schemaVersion": 2,
         "operations": {
           "falcon": {
@@ -289,12 +289,12 @@
             "verifiedFailures": 0,
             "uncheckedRuns": 1,
             "verifiedComponents": 0,
-            "elapsedMs": 8221,
+            "elapsedMs": 5766,
             "informationGainSum": 0,
             "cacheHits": 0
           }
         },
-        "tokens": 113,
+        "tokens": 85,
         "cacheHits": 0,
         "repairResidualResolutions": 0,
         "repairNumericAlignments": 0,
@@ -305,7 +305,7 @@
           "statedFactsObserved": 0,
           "missingVerifierCount": 1
         },
-        "updatedAt": 1793852892758
+        "updatedAt": 1793870998501
       }
     }
   },

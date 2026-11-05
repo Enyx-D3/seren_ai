@@ -1,0 +1,2555 @@
+{
+  "checkpoint": "CP032_INDEPENDENT_CROSS_DOMAIN_DEV",
+  "status": "COMPLETE_WITH_MEASURED_RESULTS",
+  "runtime": "local Node actual SpiralController, no model supplied and zero generated tokens",
+  "caveat": "Developed separately from CP027 parser tasks, but still locally authored and NOT externally blind broad reasoning acceptance.",
+  "fixtureSha256": "174c6cb7a34066871e6576969288639bbe4d3fcd49e0b721dc902cd1f2c8b0ca",
+  "rows": [
+    {
+      "id": "cd01_freight_manifest",
+      "domain": "logistics",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 15.228926999999999,
+      "error": null
+    },
+    {
+      "id": "cd01_freight_manifest",
+      "domain": "logistics",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 4.387871000000004,
+      "error": null
+    },
+    {
+      "id": "cd02_theater_opening",
+      "domain": "events",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 1.2775650000000098,
+      "error": null
+    },
+    {
+      "id": "cd02_theater_opening",
+      "domain": "events",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.7004250000000098,
+      "error": null
+    },
+    {
+      "id": "cd03_cell_culture",
+      "domain": "laboratory",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 1.9495480000000072,
+      "error": null
+    },
+    {
+      "id": "cd03_cell_culture",
+      "domain": "laboratory",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.38425900000000013,
+      "error": null
+    },
+    {
+      "id": "cd04_security_patch",
+      "domain": "software",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 2.4309630000000055,
+      "error": null
+    },
+    {
+      "id": "cd04_security_patch",
+      "domain": "software",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 1.3367250000000013,
+      "error": null
+    },
+    {
+      "id": "cd05_clinic_shift",
+      "domain": "healthcare_operations",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.42885599999999613,
+      "error": null
+    },
+    {
+      "id": "cd05_clinic_shift",
+      "domain": "healthcare_operations",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.48498100000000477,
+      "error": null
+    },
+    {
+      "id": "cd06_museum_mount",
+      "domain": "museum",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.5469439999999963,
+      "error": null
+    },
+    {
+      "id": "cd06_museum_mount",
+      "domain": "museum",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.20485899999999901,
+      "error": null
+    },
+    {
+      "id": "cd07_court_filing",
+      "domain": "legal",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.8599150000000009,
+      "error": null
+    },
+    {
+      "id": "cd07_court_filing",
+      "domain": "legal",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.17951100000000508,
+      "error": null
+    },
+    {
+      "id": "cd08_city_road",
+      "domain": "public_works",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.2971380000000039,
+      "error": null
+    },
+    {
+      "id": "cd08_city_road",
+      "domain": "public_works",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.20441800000000399,
+      "error": null
+    },
+    {
+      "id": "cd09_container_port",
+      "domain": "shipping",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.5235290000000106,
+      "error": null
+    },
+    {
+      "id": "cd09_container_port",
+      "domain": "shipping",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.36113399999999274,
+      "error": null
+    },
+    {
+      "id": "cd10_ad_campaign",
+      "domain": "marketing",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.2749740000000003,
+      "error": null
+    },
+    {
+      "id": "cd10_ad_campaign",
+      "domain": "marketing",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.2371080000000063,
+      "error": null
+    },
+    {
+      "id": "cd11_community_food",
+      "domain": "nonprofit",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.25866999999999507,
+      "error": null
+    },
+    {
+      "id": "cd11_community_food",
+      "domain": "nonprofit",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.6852169999999944,
+      "error": null
+    },
+    {
+      "id": "cd12_school_lab",
+      "domain": "education",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.6142250000000047,
+      "error": null
+    },
+    {
+      "id": "cd12_school_lab",
+      "domain": "education",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.4050500000000028,
+      "error": null
+    },
+    {
+      "id": "cd13_field_sampling",
+      "domain": "field_science",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.47334299999999985,
+      "error": null
+    },
+    {
+      "id": "cd13_field_sampling",
+      "domain": "field_science",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.24423800000000995,
+      "error": null
+    },
+    {
+      "id": "cd14_fundraiser",
+      "domain": "nonprofit",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.6840409999999935,
+      "error": null
+    },
+    {
+      "id": "cd14_fundraiser",
+      "domain": "nonprofit",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.297867999999994,
+      "error": null
+    },
+    {
+      "id": "cd15_aircraft_check",
+      "domain": "aviation",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 1.0180739999999986,
+      "error": null
+    },
+    {
+      "id": "cd15_aircraft_check",
+      "domain": "aviation",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 1.7016740000000112,
+      "error": null
+    },
+    {
+      "id": "cd16_batch_mixing",
+      "domain": "manufacturing",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "[\"Clean mixer\",\"Weigh powder\",\"Mix batch\",\"Sample batch\"]",
+      "verification": {
+        "status": "verified",
+        "method": "independent_position_inequalities",
+        "scope": "ordering_relative_to_supported_explicit_source_constraints"
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "checked_feasible",
+        "claimedVerified": true,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 1,
+      "elapsedMs": 4.022340999999997,
+      "error": null
+    },
+    {
+      "id": "cd16_batch_mixing",
+      "domain": "manufacturing",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.3468520000000126,
+      "error": null
+    },
+    {
+      "id": "cd17_data_pipeline",
+      "domain": "analytics",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.4429969999999912,
+      "error": null
+    },
+    {
+      "id": "cd17_data_pipeline",
+      "domain": "analytics",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "[\"Import records\",\"Validate schema\",\"Compute report\",\"Publish report\"]",
+      "verification": {
+        "status": "verified",
+        "method": "independent_position_inequalities",
+        "scope": "ordering_relative_to_supported_explicit_source_constraints"
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "checked_feasible",
+        "claimedVerified": true,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 1,
+      "elapsedMs": 1.6417539999999917,
+      "error": null
+    },
+    {
+      "id": "cd18_solar_roof",
+      "domain": "energy",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "[\"Inspect roof\",\"Fit panels\",\"Connect inverter\"]",
+      "verification": {
+        "status": "verified",
+        "method": "independent_position_inequalities",
+        "scope": "ordering_relative_to_supported_explicit_source_constraints"
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "checked_feasible",
+        "claimedVerified": true,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 1,
+      "elapsedMs": 1.6296059999999954,
+      "error": null
+    },
+    {
+      "id": "cd18_solar_roof",
+      "domain": "energy",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.3430670000000049,
+      "error": null
+    },
+    {
+      "id": "cd19_payment_batch",
+      "domain": "finance",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.39683800000000247,
+      "error": null
+    },
+    {
+      "id": "cd19_payment_batch",
+      "domain": "finance",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "[\"Reconcile ledger\",\"Approve payout\",\"Send payout\"]",
+      "verification": {
+        "status": "verified",
+        "method": "independent_position_inequalities",
+        "scope": "ordering_relative_to_supported_explicit_source_constraints"
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "checked_feasible",
+        "claimedVerified": true,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 1,
+      "elapsedMs": 1.2666789999999963,
+      "error": null
+    },
+    {
+      "id": "cd20_news_release",
+      "domain": "publishing",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.8796760000000035,
+      "error": null
+    },
+    {
+      "id": "cd20_news_release",
+      "domain": "publishing",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.7548269999999917,
+      "error": null
+    },
+    {
+      "id": "cd21_tournament",
+      "domain": "sports",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.4108789999999942,
+      "error": null
+    },
+    {
+      "id": "cd21_tournament",
+      "domain": "sports",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "[\"Inspect venue\",\"Brief referees\",\"Start match\"]",
+      "verification": {
+        "status": "verified",
+        "method": "independent_position_inequalities",
+        "scope": "ordering_relative_to_supported_explicit_source_constraints"
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "checked_feasible",
+        "claimedVerified": true,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 1,
+      "elapsedMs": 1.7524000000000086,
+      "error": null
+    },
+    {
+      "id": "cd22_greenhouse",
+      "domain": "agriculture",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.3931830000000076,
+      "error": null
+    },
+    {
+      "id": "cd22_greenhouse",
+      "domain": "agriculture",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.28455900000000156,
+      "error": null
+    },
+    {
+      "id": "cd23_water_treatment",
+      "domain": "utilities",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.529137999999989,
+      "error": null
+    },
+    {
+      "id": "cd23_water_treatment",
+      "domain": "utilities",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.5500989999999888,
+      "error": null
+    },
+    {
+      "id": "cd24_public_hearing",
+      "domain": "government",
+      "gold": "feasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.40601200000000404,
+      "error": null
+    },
+    {
+      "id": "cd24_public_hearing",
+      "domain": "government",
+      "gold": "feasible",
+      "arm": "existing",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "feasible",
+        "outcome": "unsolved_feasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.24427800000000843,
+      "error": null
+    },
+    {
+      "id": "cd25_cycle_factory",
+      "domain": "manufacturing",
+      "gold": "infeasible",
+      "arm": "existing",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "infeasible",
+        "outcome": "unsolved_infeasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.6635699999999929,
+      "error": null
+    },
+    {
+      "id": "cd25_cycle_factory",
+      "domain": "manufacturing",
+      "gold": "infeasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "infeasible",
+        "outcome": "unsolved_infeasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.8999660000000063,
+      "error": null
+    },
+    {
+      "id": "cd26_cycle_airport",
+      "domain": "aviation",
+      "gold": "infeasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "infeasible",
+        "outcome": "unsolved_infeasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.47773999999998296,
+      "error": null
+    },
+    {
+      "id": "cd26_cycle_airport",
+      "domain": "aviation",
+      "gold": "infeasible",
+      "arm": "existing",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "infeasible",
+        "outcome": "unsolved_infeasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.2550839999999823,
+      "error": null
+    },
+    {
+      "id": "cd27_cycle_gallery",
+      "domain": "museum",
+      "gold": "infeasible",
+      "arm": "existing",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "infeasible",
+        "outcome": "unsolved_infeasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.3508680000000197,
+      "error": null
+    },
+    {
+      "id": "cd27_cycle_gallery",
+      "domain": "museum",
+      "gold": "infeasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "No feasible order satisfies all stated prerequisites.",
+      "verification": {
+        "status": "verified",
+        "method": "independent_exhaustive_counterexample_search",
+        "scope": "ordering_relative_to_supported_explicit_source_constraints"
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "infeasible",
+        "outcome": "checked_infeasible",
+        "claimedVerified": true,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 1,
+      "elapsedMs": 1.3459689999999966,
+      "error": null
+    },
+    {
+      "id": "cd28_cycle_release",
+      "domain": "software",
+      "gold": "infeasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "No feasible order satisfies all stated prerequisites.",
+      "verification": {
+        "status": "verified",
+        "method": "independent_exhaustive_counterexample_search",
+        "scope": "ordering_relative_to_supported_explicit_source_constraints"
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "infeasible",
+        "outcome": "checked_infeasible",
+        "claimedVerified": true,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 1,
+      "elapsedMs": 1.6740629999999896,
+      "error": null
+    },
+    {
+      "id": "cd28_cycle_release",
+      "domain": "software",
+      "gold": "infeasible",
+      "arm": "existing",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "infeasible",
+        "outcome": "unsolved_infeasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.5159270000000049,
+      "error": null
+    },
+    {
+      "id": "cd29_cycle_permits",
+      "domain": "legal",
+      "gold": "infeasible",
+      "arm": "existing",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "infeasible",
+        "outcome": "unsolved_infeasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.6507609999999886,
+      "error": null
+    },
+    {
+      "id": "cd29_cycle_permits",
+      "domain": "legal",
+      "gold": "infeasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "infeasible",
+        "outcome": "unsolved_infeasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.3455809999999815,
+      "error": null
+    },
+    {
+      "id": "cd30_cycle_research",
+      "domain": "research",
+      "gold": "infeasible",
+      "arm": "prose_v2",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "No feasible order satisfies all stated prerequisites.",
+      "verification": {
+        "status": "verified",
+        "method": "independent_exhaustive_counterexample_search",
+        "scope": "ordering_relative_to_supported_explicit_source_constraints"
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "infeasible",
+        "outcome": "checked_infeasible",
+        "claimedVerified": true,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 1,
+      "elapsedMs": 1.058183999999983,
+      "error": null
+    },
+    {
+      "id": "cd30_cycle_research",
+      "domain": "research",
+      "gold": "infeasible",
+      "arm": "existing",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": false,
+        "falseVerification": false,
+        "gold": "infeasible",
+        "outcome": "unsolved_infeasible",
+        "claimedVerified": false,
+        "safeAbstention": false
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.25350199999999745,
+      "error": null
+    },
+    {
+      "id": "cd31_external_clearance",
+      "domain": "legal",
+      "gold": "abstain",
+      "arm": "existing",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.28802400000000716,
+      "error": null
+    },
+    {
+      "id": "cd31_external_clearance",
+      "domain": "legal",
+      "gold": "abstain",
+      "arm": "prose_v2",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.19933000000000334,
+      "error": null
+    },
+    {
+      "id": "cd32_weather_condition",
+      "domain": "field_science",
+      "gold": "abstain",
+      "arm": "prose_v2",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.30138399999998455,
+      "error": null
+    },
+    {
+      "id": "cd32_weather_condition",
+      "domain": "field_science",
+      "gold": "abstain",
+      "arm": "existing",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.19310100000001285,
+      "error": null
+    },
+    {
+      "id": "cd33_unless_contract",
+      "domain": "legal",
+      "gold": "abstain",
+      "arm": "existing",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.38229599999999664,
+      "error": null
+    },
+    {
+      "id": "cd33_unless_contract",
+      "domain": "legal",
+      "gold": "abstain",
+      "arm": "prose_v2",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.2044080000000008,
+      "error": null
+    },
+    {
+      "id": "cd34_negated_dependency",
+      "domain": "software",
+      "gold": "abstain",
+      "arm": "prose_v2",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.25409299999998325,
+      "error": null
+    },
+    {
+      "id": "cd34_negated_dependency",
+      "domain": "software",
+      "gold": "abstain",
+      "arm": "existing",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.1716989999999896,
+      "error": null
+    },
+    {
+      "id": "cd35_alternative_path",
+      "domain": "logistics",
+      "gold": "abstain",
+      "arm": "existing",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.3643289999999979,
+      "error": null
+    },
+    {
+      "id": "cd35_alternative_path",
+      "domain": "logistics",
+      "gold": "abstain",
+      "arm": "prose_v2",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.20565899999999715,
+      "error": null
+    },
+    {
+      "id": "cd36_pronoun_ambiguity",
+      "domain": "events",
+      "gold": "abstain",
+      "arm": "prose_v2",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.250267000000008,
+      "error": null
+    },
+    {
+      "id": "cd36_pronoun_ambiguity",
+      "domain": "events",
+      "gold": "abstain",
+      "arm": "existing",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.16319599999999923,
+      "error": null
+    },
+    {
+      "id": "cd37_prompt_injection",
+      "domain": "document_processing",
+      "gold": "abstain",
+      "arm": "existing",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.294353000000001,
+      "error": null
+    },
+    {
+      "id": "cd37_prompt_injection",
+      "domain": "document_processing",
+      "gold": "abstain",
+      "arm": "prose_v2",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.16013199999997596,
+      "error": null
+    },
+    {
+      "id": "cd38_duplicate_goals",
+      "domain": "education",
+      "gold": "abstain",
+      "arm": "prose_v2",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.4804839999999899,
+      "error": null
+    },
+    {
+      "id": "cd38_duplicate_goals",
+      "domain": "education",
+      "gold": "abstain",
+      "arm": "existing",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.4422959999999989,
+      "error": null
+    },
+    {
+      "id": "cd39_duplicate_inventory",
+      "domain": "agriculture",
+      "gold": "abstain",
+      "arm": "existing",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.453203000000002,
+      "error": null
+    },
+    {
+      "id": "cd39_duplicate_inventory",
+      "domain": "agriculture",
+      "gold": "abstain",
+      "arm": "prose_v2",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.4354360000000099,
+      "error": null
+    },
+    {
+      "id": "cd40_uncertain_order",
+      "domain": "manufacturing",
+      "gold": "abstain",
+      "arm": "prose_v2",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.312972000000002,
+      "error": null
+    },
+    {
+      "id": "cd40_uncertain_order",
+      "domain": "manufacturing",
+      "gold": "abstain",
+      "arm": "existing",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.20779300000000944,
+      "error": null
+    },
+    {
+      "id": "cd41_conflicted_sources",
+      "domain": "utilities",
+      "gold": "abstain",
+      "arm": "existing",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.2633769999999913,
+      "error": null
+    },
+    {
+      "id": "cd41_conflicted_sources",
+      "domain": "utilities",
+      "gold": "abstain",
+      "arm": "prose_v2",
+      "armOrder": [
+        "existing",
+        "prose_v2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.20276499999999942,
+      "error": null
+    },
+    {
+      "id": "cd42_missing_document",
+      "domain": "public_works",
+      "gold": "abstain",
+      "arm": "prose_v2",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.32248599999999783,
+      "error": null
+    },
+    {
+      "id": "cd42_missing_document",
+      "domain": "public_works",
+      "gold": "abstain",
+      "arm": "existing",
+      "armOrder": [
+        "prose_v2",
+        "existing"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "score": {
+        "correct": true,
+        "falseVerification": false,
+        "gold": "abstain",
+        "outcome": "safe_abstention",
+        "claimedVerified": false,
+        "safeAbstention": true
+      },
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "elapsedMs": 0.16627099999999473,
+      "error": null
+    }
+  ],
+  "byArm": {
+    "existing": {
+      "cases": 42,
+      "feasibleCorrect": 0,
+      "infeasibleCorrect": 0,
+      "safeAbstentions": 12,
+      "completeCorrect": 12,
+      "falseVerifications": 0,
+      "unverifiedFeasible": 24,
+      "modelCalls": 0,
+      "calculatorCalls": 0,
+      "totalElapsedMs": 33.96040000000001,
+      "p95ElapsedMs": 1.3367250000000013,
+      "runtimeErrors": 0
+    },
+    "prose_v2": {
+      "cases": 42,
+      "feasibleCorrect": 5,
+      "infeasibleCorrect": 3,
+      "safeAbstentions": 12,
+      "completeCorrect": 20,
+      "falseVerifications": 0,
+      "unverifiedFeasible": 19,
+      "modelCalls": 0,
+      "calculatorCalls": 8,
+      "totalElapsedMs": 36.22740399999992,
+      "p95ElapsedMs": 2.4309630000000055,
+      "runtimeErrors": 0
+    }
+  },
+  "strictQualityGate": "NO_FALSE_VERIFICATION_IN_THIS_DEV_SET",
+  "modelFreeOnly": true,
+  "browserExecuted": false,
+  "physicalDeviceExecuted": false,
+  "fixture": {
+    "total": 42,
+    "feasible": 24,
+    "infeasible": 6,
+    "abstain": 12,
+    "domains": 25,
+    "fixtureSha256": "174c6cb7a34066871e6576969288639bbe4d3fcd49e0b721dc902cd1f2c8b0ca"
+  }
+}

@@ -7,7 +7,7 @@
 globalThis.document = { baseURI: self.location.href }; /* wllama resolves relative asset paths via document.baseURI, which only exists in DOM windows — documented adapter shim for worker context */
 import { Wllama } from "../vendor/wllama/index.js";
 import { sha256Blob } from "../js/sha256.mjs";
-import { EXPECTED_SHA256 } from "../js/model-receipts.mjs";
+import { EXPECTED_SHA256, assertExperimentalModelCommand, assertExperimentalCoderCompletion } from "../js/model-receipts.mjs";
 import { boundedGenerationBudget, RUNTIME_CONTEXT_TOKENS } from "../js/runtime-limits.mjs";
 
 const PATHS = {
@@ -37,6 +37,7 @@ function post(msg) {
 
 async function cmdLoad(data) {
   const { reqId, modelId, blob, expectedSha256 } = data;
+  assertExperimentalModelCommand(modelId, data);
   if (!blob || !blob.size) throw new Error("no model bytes received");
   const pinnedSha256 = EXPECTED_SHA256[modelId];
   if (!pinnedSha256 || (expectedSha256 && expectedSha256 !== pinnedSha256)) throw new Error("model is not in the approved hash roster");
@@ -65,6 +66,8 @@ async function cmdLoad(data) {
 
 async function cmdComplete(data) {
   const { reqId, modelId, prompt, stops, maxTokens, temperature, topP, topK, grammar } = data;
+  assertExperimentalModelCommand(modelId, data);
+  assertExperimentalCoderCompletion(data);
   if (!wllama || loadedModelId !== modelId) {
     throw new Error('model "' + modelId + '" is not loaded in the runtime worker');
   }

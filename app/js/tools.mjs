@@ -4,6 +4,7 @@
    model emits is a PROPOSAL: parsed, validated, then only whitelisted local
    functions may run. No network, no shell, no globals. */
 import { exactArithmetic, solveLinear } from './exact-arithmetic.mjs';
+import { multiplySquareIntegerMatrices } from './b2-matrix-tools.mjs';
 
 const FN = {
   sqrt: Math.sqrt, sin: Math.sin, cos: Math.cos, tan: Math.tan,
@@ -262,6 +263,11 @@ export const LOCAL_TOOLS = {
     parameters: { a: { type: "string" }, b: { type: "string" }, c: { type: "string" } },
     execute(args) { return `x = ${solveLinear(args.a, args.b, args.c).text}`; },
   },
+  matrix_multiply_exact: {
+    description: "Multiply two square 2x2, 3x3 or 4x4 integer matrices exactly. Arguments a and b are JSON array strings; output entries are exact decimal strings.",
+    parameters: { a: { type: "string" }, b: { type: "string" } },
+    execute(args) { return multiplySquareIntegerMatrices(args.a, args.b).text; },
+  },
 };
 
 /* JSON tool descriptions for the Tools-family prompt (their template's tojson). */
@@ -291,7 +297,8 @@ export function executeToolCall(call, { allowLocalCompute = true } = {}) {
     }
     const value = tool.execute(args);
     let verification = 'local_observation';
-    if (call.name === 'exact_arithmetic' || call.name === 'solve_linear') verification = 'independently_verified_exact';
+    if (call.name === 'exact_arithmetic' || call.name === 'solve_linear' || call.name === 'matrix_multiply_exact')
+      verification = 'independently_verified_exact';
     else if (call.name === 'calculator') {
       try { verification = exactArithmetic(args.expression).text === value ? 'independently_verified_exact' : 'unverified'; }
       catch { verification = 'approximate'; }

@@ -1,0 +1,37 @@
+{
+  "checkpoint": "CP032_BROWSER_OWNER_GATE",
+  "source": "local source checkout; no external model inference",
+  "mode": "preflight",
+  "port": 9197,
+  "preflight": {
+    "status": "BLOCKED_PREFLIGHT",
+    "issues": [
+      "missing_asset:app/vendor/wllama/wllama-single.wasm",
+      "missing_asset:app/vendor/wllama/wllama-multi.wasm",
+      "missing_pinned_instruct_gguf",
+      "playwright_not_installed"
+    ],
+    "checks": {
+      "app/vendor/wllama/index.js": true,
+      "app/vendor/wllama/wllama-single.wasm": false,
+      "app/vendor/wllama/wllama-multi.wasm": false,
+      "app/index.html": true,
+      "app/workers/runtime-worker.mjs": true,
+      "app/workers/tool-worker.mjs": true,
+      "modelPresent": false,
+      "port": {
+        "ok": true
+      },
+      "gitRevision": "256d8668180056537f88709d1e70444b2c50ebd5",
+      "nodeVersion": "v24.22.1",
+      "platform": "linux/x64"
+    },
+    "notBrowserExecution": true,
+    "notReleaseApproval": true
+  },
+  "phases": [],
+  "finalStatus": "BLOCKED_PREFLIGHT",
+  "browserReleaseAccepted": false,
+  "nativeTinyLinuxProven": false,
+  "physicalDeviceProven": false
+}

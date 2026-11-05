@@ -11,6 +11,9 @@ const MODEL_ROOT = process.argv[2] ? join(ROOT, "models", "parts") : fileURLToPa
 const MODEL_NAMES = new Set([
   "Falcon-H1-Tiny-90M-Instruct-Q4_K_M.gguf",
 ]);
+// Developer-only model provisioning for a separate CP030 FIM experiment.
+// The normal website/hosted build still serves exactly one Instruct model.
+if (process.env.B2_EXPERIMENTAL_CODER === "1") MODEL_NAMES.add("Falcon-H1-Tiny-Coder-Q4_K_M.gguf");
 const PORT = Number(process.env.PORT || 8799);
 const MIME = {
   ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript", ".mjs": "text/javascript",

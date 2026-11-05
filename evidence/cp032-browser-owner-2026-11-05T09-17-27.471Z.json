@@ -1,0 +1,62 @@
+{
+  "checkpoint": "CP032_BROWSER_OWNER_GATE",
+  "source": "local source checkout; no external model inference",
+  "mode": "smoke",
+  "port": 8799,
+  "preflight": {
+    "status": "READY_TO_ATTEMPT",
+    "issues": [],
+    "checks": {
+      "app/vendor/wllama/index.js": true,
+      "app/vendor/wllama/wllama-single.wasm": true,
+      "app/vendor/wllama/wllama-multi.wasm": true,
+      "app/index.html": true,
+      "app/workers/runtime-worker.mjs": true,
+      "app/workers/tool-worker.mjs": true,
+      "modelPresent": true,
+      "modelSha256": "e7d655345a876ecb073ea86f5ce68e412b99090c34a6bde8a2982bc48afb2612",
+      "modelExpectedSha256": "e7d655345a876ecb073ea86f5ce68e412b99090c34a6bde8a2982bc48afb2612",
+      "browserExecutable": "/Users/mac/Library/Caches/ms-playwright/chromium-1248/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+      "browserBinaryPresent": true,
+      "port": {
+        "ok": true
+      },
+      "gitRevision": "b52b63682857c73b1240f451344be2b5eaee5a1b",
+      "nodeVersion": "v22.23.2",
+      "platform": "darwin/arm64"
+    },
+    "notBrowserExecution": true,
+    "notReleaseApproval": true
+  },
+  "phases": [
+    {
+      "script": "tools/browser_b2_tool_capability_smoke.mjs",
+      "status": "PASS_SCOPED",
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 1199,
+      "stdout": "{\n  \"passed\": true,\n  \"browser\": \"Chromium\",\n  \"source\": \"http://127.0.0.1:8799/\",\n  \"allowedResult\": \"323\",\n  \"denialsBeforeAllocation\": true,\n  \"timeoutAbortAndCloseTerminations\": 3,\n  \"nativeTinyLinuxProven\": false\n}\n",
+      "stderr": ""
+    },
+    {
+      "script": "tools/browser_b2_ui_smoke.mjs",
+      "status": "PASS_SCOPED",
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 20720,
+      "stdout": "{\n  \"path\": \"evidence/b2-ui-smoke-2026-11-05.json\",\n  \"baseUrl\": \"http://127.0.0.1:8799/\",\n  \"rows\": 1,\n  \"math\": \"323\",\n  \"logic\": \"Yes. Mira is a cat, and all cats are mammals.\",\n  \"boolean\": \"True\",\n  \"dependency\": \"4\\n12\",\n  \"chat\": \"Hello, how's everyone feeling today?\",\n  \"plan\": \"Morning Backup Plan:\\n\\nCopy Files: Transfer all important files to a secure backup location.\\n\\nRisk: File Access: Ensure you have access to the backup system.\\n\\nSteps: 15\\n\\nRisk: Data Corruption: Regularly check the backup for any errors.\\n\\nBackup: Copies files to a secure location.\\n\\nRisk: Data Loss: Implement a regular backup strategy to minimize data exposure.\",\n  \"evidence\": {\n    \"answers\": [\n      {\n        \"model\": \"falcon_instruct\",\n        \"status\": \"done\",\n        \"policy\": \"b2-controller-6\",\n        \"verification\": {\n          \"status\": \"verified\",\n          \"method\": \"two_parser_exact_v1\"\n        },\n        \"metrics\": {\n          \"modelCalls\": 0,\n          \"calculatorCalls\": 1,\n          \"cacheHits\": 0,\n          \"tokens\": 0,\n          \"firstModelTokenMs\": null,\n          \"verificationMs\": 4,\n          \"elapsedMs\": 7\n        }\n      },\n      {\n        \"model\": \"falcon_instruct\",\n        \"status\": \"done\",\n        \"policy\": \"b2-controller-6\",\n        \"verification\": {\n          \"status\": \"verified\",\n          \"method\": \"bounded_syllogism_v1\"\n        },\n        \"metrics\": {\n          \"modelCalls\": 0,\n          \"calculatorCalls\": 0,\n          \"cacheHits\": 0,\n          \"tokens\": 0,\n          \"firstModelTokenMs\": null,\n          \"verificationMs\": 0,\n          \"elapsedMs\": 0\n        }\n      },\n      {\n        \"model\": \"falcon_instruct\",\n        \"status\": \"done\",\n        \"policy\": \"b2-controller-6\",\n        \"verification\": {\n          \"status\": \"verified\",\n          \"method\": \"dual_boolean_expression_v1\"\n        },\n        \"metrics\": {\n          \"modelCalls\": 0,\n          \"calculatorCalls\": 1,\n          \"cacheHits\": 0,\n          \"tokens\": 0,\n          \"firstModelTokenMs\": null,\n          \"verificationMs\": 0,\n          \"elapsedMs\": 0\n        }\n      },\n      {\n        \"model\": \"falcon_instruct\",\n        \"status\": \"done\",\n        \"policy\": \"b2-controller-6\",\n        \"verification\": {\n          \"status\": \"verified\",\n          \"method\": \"per_part\"\n        },\n        \"metrics\": {\n          \"modelCalls\": 0,\n          \"calculatorCalls\": 2,\n          \"cacheHits\": 0,\n          \"tokens\": 0,\n          \"firstModelTokenMs\": null,\n          \"verificationMs\": 0,\n          \"elapsedMs\": 1\n        }\n      },\n      {\n        \"model\": \"falcon_instruct\",\n        \"status\": \"done\",\n        \"policy\": \"b2-controller-6\",\n        \"verification\": {\n          \"status\": \"unverified\",\n          \"method\": \"none\",\n          \"residual\": {\n            \"unresolved\": [\n              \"Say hello in one short sentence.\"\n            ],\n            \"unprocessed\": 0\n          }\n        },\n        \"metrics\": {\n          \"modelCalls\": 1,\n          \"calculatorCalls\": 0,\n          \"cacheHits\": 0,\n          \"tokens\": 9,\n          \"firstModelTokenMs\": 4033,\n          \"verificationMs\": 1,\n          \"elapsedMs\": 6887\n        }\n      },\n      {\n        \"model\": \"falcon_instruct\",\n        \"status\": \"done\",\n        \"policy\": \"b2-controller-6\",\n        \"verification\": {\n          \"status\": \"unverified\",\n          \"method\": \"none\",\n          \"residual\": {\n            \"unresolved\": [\n              \"Plan a two-step morning backup; then list one risk.\"\n            ],\n            \"unprocessed\": 0\n          }\n        },\n        \"metrics\": {\n          \"modelCalls\": 1,\n          \"calculatorCalls\": 0,\n          \"cacheHits\": 0,\n          \"tokens\": 100,\n          \"firstModelTokenMs\": 4121,\n          \"verificationMs\": 0,\n          \"elapsedMs\": 8305\n        }\n      }\n    ],\n    \"calibration\": {\n      \"arithmetic\": {\n        \"runs\": 2,\n        \"verifiedSuccesses\": 2,\n        \"verifiedFailures\": 0,\n        \"unverified\": 0,\n        \"modelCalls\": 0,\n        \"calculatorCalls\": 3,\n        \"elapsedMs\": 8,\n        \"repairs\": 0,\n        \"verifiedModelSuccesses\": 0,\n        \"verifiedModelFailures\": 0,\n        \"modelRuns\": 0,\n        \"modelElapsedMs\": 0,\n        \"schemaVersion\": 2,\n        \"operations\": {\n          \"exact\": {\n            \"runs\": 2,\n            \"verifiedSuccesses\": 2,\n            \"verifiedFailures\": 0,\n            \"uncheckedRuns\": 0,\n            \"verifiedComponents\": 0,\n            \"elapsedMs\": 5,\n            \"informationGainSum\": 2,\n            \"cacheHits\": 0\n          },\n          \"dependent_exact\": {\n            \"runs\": 1,\n            \"verifiedSuccesses\": 1,\n            \"verifiedFailures\": 0,\n            \"uncheckedRuns\": 0,\n            \"verifiedComponents\": 0,\n            \"elapsedMs\": 0,\n            \"informationGainSum\": 1,\n            \"cacheHits\": 0\n          }\n        },\n        \"tokens\": 0,\n        \"cacheHits\": 0,\n        \"repairResidualResolutions\": 0,\n        \"repairNumericAlignments\": 0,\n        \"repairSurfaceAlignments\": 0,\n        \"repairNoProgress\": 0,\n        \"failurePatterns\": {},\n        \"inputKnowledge\": {\n          \"statedFactsObserved\": 5,\n          \"missingVerifierCount\": 1\n        },\n        \"updatedAt\": 1793870254495\n      },\n      \"logic\": {\n        \"runs\": 2,\n        \"verifiedSuccesses\": 2,\n        \"verifiedFailures\": 0,\n        \"unverified\": 0,\n        \"modelCalls\": 0,\n        \"calculatorCalls\": 1,\n        \"elapsedMs\": 0,\n        \"repairs\": 0,\n        \"verifiedModelSuccesses\": 0,\n        \"verifiedModelFailures\": 0,\n        \"modelRuns\": 0,\n        \"modelElapsedMs\": 0,\n        \"schemaVersion\": 2,\n        \"operations\": {\n          \"structured\": {\n            \"runs\": 1,\n            \"verifiedSuccesses\": 1,\n            \"verifiedFailures\": 0,\n            \"uncheckedRuns\": 0,\n            \"verifiedComponents\": 0,\n            \"elapsedMs\": 0,\n            \"informationGainSum\": 1,\n            \"cacheHits\": 0\n          },\n          \"boolean\": {\n            \"runs\": 1,\n            \"verifiedSuccesses\": 1,\n            \"verifiedFailures\": 0,\n            \"uncheckedRuns\": 0,\n            \"verifiedComponents\": 0,\n            \"elapsedMs\": 0,\n            \"informationGainSum\": 1,\n            \"cacheHits\": 0\n          }\n        },\n        \"tokens\": 0,\n        \"cacheHits\": 0,\n        \"repairResidualResolutions\": 0,\n        \"repairNumericAlignments\": 0,\n        \"repairSurfaceAlignments\": 0,\n        \"repairNoProgress\": 0,\n        \"failurePatterns\": {},\n        \"inputKnowledge\": {\n          \"statedFactsObserved\": 1,\n          \"missingVerifierCount\": 0\n        },\n        \"updatedAt\": 1793870254358\n      },\n      \"conversation\": {\n        \"runs\": 1,\n        \"verifiedSuccesses\": 0,\n        \"verifiedFailures\": 0,\n        \"unverified\": 1,\n        \"modelCalls\": 1,\n        \"calculatorCalls\": 0,\n        \"elapsedMs\": 6887,\n        \"repairs\": 0,\n        \"verifiedModelSuccesses\": 0,\n        \"verifiedModelFailures\": 0,\n        \"modelRuns\": 1,\n        \"modelElapsedMs\": 6887,\n        \"schemaVersion\": 2,\n        \"operations\": {\n          \"falcon\": {\n            \"runs\": 1,\n            \"verifiedSuccesses\": 0,\n            \"verifiedFailures\": 0,\n            \"uncheckedRuns\": 1,\n            \"verifiedComponents\": 0,\n            \"elapsedMs\": 6886,\n            \"informationGainSum\": 0,\n            \"cacheHits\": 0\n          }\n        },\n        \"tokens\": 9,\n        \"cacheHits\": 0,\n        \"repairResidualResolutions\": 0,\n        \"repairNumericAlignments\": 0,\n        \"repairSurfaceAlignments\": 0,\n        \"repairNoProgress\": 0,\n        \"failurePatterns\": {},\n        \"inputKnowledge\": {\n          \"statedFactsObserved\": 1,\n          \"missingVerifierCount\": 1\n        },\n        \"updatedAt\": 1793870261517\n      },\n      \"planning\": {\n        \"runs\": 1,\n        \"verifiedSuccesses\": 0,\n        \"verifiedFailures\": 0,\n        \"unverified\": 1,\n        \"modelCalls\": 1,\n        \"calculatorCalls\": 0,\n        \"elapsedMs\": 8305,\n        \"repairs\": 0,\n        \"verifiedModelSuccesses\": 0,\n        \"verifiedModelFailures\": 0,\n        \"modelRuns\": 1,\n        \"modelElapsedMs\": 8305,\n        \"schemaVersion\": 2,\n        \"operations\": {\n          \"falcon\": {\n            \"runs\": 1,\n            \"verifiedSuccesses\": 0,\n            \"verifiedFailures\": 0,\n            \"uncheckedRuns\": 1,\n            \"verifiedComponents\": 0,\n            \"elapsedMs\": 8305,\n            \"informationGainSum\": 0,\n            \"cacheHits\": 0\n          }\n        },\n        \"tokens\": 100,\n        \"cacheHits\": 0,\n        \"repairResidualResolutions\": 0,\n        \"repairNumericAlignments\": 0,\n        \"repairSurfaceAlignments\": 0,\n        \"repairNoProgress\": 0,\n        \"failurePatterns\": {},\n        \"inputKnowledge\": {\n          \"statedFactsObserved\": 0,\n          \"missingVerifierCount\": 1\n        },\n        \"updatedAt\": 1793870269927\n      }\n    }\n  },\n  \"errors\": [],\n  \"external\": [],\n  \"passed\": true\n}\n",
+      "stderr": ""
+    }
+  ],
+  "finalStatus": "PASS_SCOPED_BROWSER_RUN",
+  "browserReleaseAccepted": false,
+  "nativeTinyLinuxProven": false,
+  "physicalDeviceProven": false,
+  "localServer": {
+    "appGet": 200,
+    "modelHead": 200,
+    "modelSize": 58600064,
+    "coop": true,
+    "coep": true
+  }
+}

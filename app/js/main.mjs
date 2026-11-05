@@ -5,6 +5,7 @@ import { SPECIALISTS, MODEL_META } from './compass.mjs';
 import { buildChatPrompt } from './prompts.mjs';
 import { extractExactArithmetic, reachableToolsJSON } from './tools.mjs';
 import { runToolProposal } from './tool-runner.mjs';
+import { createB2ToolCapabilitySession, B2_BROWSER_TOOL_NAMES, capabilityEnvelopeFromParsedTool } from './b2-tool-capability.mjs';
 import { ExactSpiral, SpiralController, SPIRAL_POLICY, SPIRAL_CALIBRATION_KEY, planSpiral, repairHeartbeat, modelCalibrationOutcome } from './spiral.mjs';
 import { accumulateCheckedDirections } from './b2-calibration-outcomes.mjs';
 import { md } from './md.mjs';
@@ -404,6 +405,10 @@ async function submit(text, { regen = false } = {}) {
   const run = { id: runId, messageId: answer.id, conversationId: state.conversation.id,
     modelId: 'falcon_instruct', startedAt: performance.now(), firstVisibleAt: null,
     abortController: new AbortController(), generation: null, cancelled: false };
+  // Developer-only bounded capability session. The protected default remains
+  // the existing Worker tool path; this opt-in never runs a native Linux guest.
+  const useBoundedToolSession = new URLSearchParams(location.search).get('b2_tools_v2') === '1';
+  let boundedToolSession = null;
   setBusy(run);
   try {
     await events.append(runId, 'route_selected', { model_id: 'falcon_instruct', backend: 'wasm',
@@ -417,10 +422,21 @@ async function submit(text, { regen = false } = {}) {
       signal: run.abortController.signal,
       experimentalChain: new URLSearchParams(location.search).get('b2_chain') === '1',
       experimentalDependency: new URLSearchParams(location.search).get('b2_dependency') === '1',
+      experimentalCortexGuard: new URLSearchParams(location.search).get('b2_cortex') === '1',
       onToken: content => { if (!run.firstVisibleAt) run.firstVisibleAt = performance.now(); answer.content = content; updateStreamMessage(answer); },
       generate: options => generateForSpiral(run, desc, { ...options, tools: plan.category === 'tool' }),
       runTool: async call => {
-        const result = await runToolProposal(call, { signal: run.abortController.signal });
+        if (useBoundedToolSession && !boundedToolSession) boundedToolSession = createB2ToolCapabilitySession({
+          allowLocalCompute: true, allowedTools: B2_BROWSER_TOOL_NAMES,
+          signal: run.abortController.signal, maxCalls: 3, maxTotalMs: 5000, maxPerCallMs: 2000,
+        });
+        // parseToolFabric attaches `raw` for the audit trail. The capability
+        // boundary accepts only the typed tool name and arguments; keep raw
+        // model text out of its executable envelope.
+        const rawResult = boundedToolSession ? await boundedToolSession.run(capabilityEnvelopeFromParsedTool(call)) :
+          await runToolProposal(call, { signal: run.abortController.signal });
+        const result = rawResult.ok === false && !rawResult.error ?
+          { ...rawResult, error: rawResult.reason || 'tool_execution_not_verified' } : rawResult;
         await toolCalls.add({ runId, conversationId: run.conversationId, proposerModelId: 'falcon_instruct', call, result }).catch(() => {});
         return result;
       } });
@@ -483,6 +499,8 @@ async function submit(text, { regen = false } = {}) {
     answer.content ||= run.cancelled ? '' : 'Local runtime error: ' + e.message;
     await msg.update(answer.id, { status: answer.status, content: answer.content });
     setBusy(null); renderConversation(); status(e.message, true);
+  } finally {
+    boundedToolSession?.close();
   }
 }
 

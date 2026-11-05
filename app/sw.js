@@ -2,7 +2,8 @@
    Scope: the whole site. Model weights (/models/*) are NEVER cached here —
    after ingest they live in OPFS/IndexedDB, so the SW keeps only code+fonts,
    letting an offline revisit of the page still boot and chat with cached models. */
-const CACHE = "seren7-shell-v50";
+const CACHE = "seren7-shell-v55";
+const CACHE_PREFIX = "seren7-shell-";
 
 const FONT_FILES = (() => {
   const out = [];
@@ -49,7 +50,14 @@ const SHELL = [
   "./js/b2-cross-domain.mjs",
   "./js/b2-entailment.mjs",
   "./js/b2-dependency-task.mjs",
+  "./js/b2-semantic-extraction.mjs",
+  "./js/b2-semantic-prose-v2.mjs",
+  "./js/b2-semantic-prose-v3.mjs",
   "./js/b2-graphos-browser-shadow.mjs",
+  "./js/b2-graphos-composition.mjs",
+  "./js/b2-tool-capability.mjs",
+  "./js/b2-matrix-tools.mjs",
+  "./js/b2-cortex-guard.mjs",
   "./js/b2-elastic-joint.mjs",
   "./js/compass.mjs",
   "./js/sha256.mjs",
@@ -65,6 +73,10 @@ const SHELL = [
   "./workers/tool-worker.mjs",
 ];
 
+// This worker owns only the enumerated offline shell, never arbitrary
+// same-origin responses (which may contain private dynamic/API content).
+const SHELL_URLS = new Set(SHELL.map(path => new URL(path, self.registration.scope).href));
+
 self.addEventListener("install", (e) => {
   e.waitUntil((async () => {
     const cache = await caches.open(CACHE);
@@ -77,7 +89,7 @@ self.addEventListener("activate", (e) => {
   e.waitUntil((async () => {
     const keep = new Set([CACHE]);
     const names = await caches.keys();
-    await Promise.all(names.filter((n) => !keep.has(n)).map((n) => caches.delete(n)));
+    await Promise.all(names.filter((n) => n.startsWith(CACHE_PREFIX) && !keep.has(n)).map((n) => caches.delete(n)));
     await self.clients.claim();
   })());
 });
@@ -105,6 +117,8 @@ self.addEventListener("fetch", (e) => {
     return;
   }
 
+  if (!SHELL_URLS.has(url.href)) return; /* not a shell asset: no SW caching */
+
   e.respondWith((async () => {
     try {
       const fresh = await fetch(req);
@@ -114,7 +128,10 @@ self.addEventListener("fetch", (e) => {
       }
       return fresh;
     } catch (err) {
-      const hit = await caches.match(req);
+      // Restrict fallback to our current verified shell namespace; another
+      // app's same-origin cache must never supply executable assets.
+      const cache = await caches.open(CACHE);
+      const hit = await cache.match(req);
       if (hit) return hit;
       throw err;
     }

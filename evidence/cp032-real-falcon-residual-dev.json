@@ -1,0 +1,195 @@
+{
+  "checkpoint": "CP032_REAL_FALCON_RESIDUAL_DEV",
+  "status": "DEV_DIAGNOSTIC_NOT_ACCEPTANCE",
+  "startedAt": "2026-11-05T08:52:50.228Z",
+  "modelSha256": "e7d655345a876ecb073ea86f5ce68e412b99090c34a6bde8a2982bc48afb2612",
+  "runtime": "node_cpu_wasm_only",
+  "realModelCalls": 6,
+  "independentlyCorrect": 2,
+  "falseVerifications": 0,
+  "rows": [
+    {
+      "id": "cp032_real_cake",
+      "source": "\"Cool pan\" must finish before \"Plate meal\". \"Plate meal\" must finish before \"Serve meal\". Give a valid order.",
+      "startingOrder": [
+        "Serve meal",
+        "Plate meal",
+        "Cool pan"
+      ],
+      "result": {
+        "policy": "b2-cortex-bounded-residual-cycle-1",
+        "status": "verified",
+        "wholeTaskVerified": true,
+        "modelLedRepairSuccess": true,
+        "modelCalls": 3,
+        "acceptedEdits": 2,
+        "order": [
+          "Cool pan",
+          "Plate meal",
+          "Serve meal"
+        ],
+        "sourceHash": "c92e072571407fdafe44dab1f0543a46e744018d19f8f9682a4c6fadcf96337f",
+        "graphRoot": "555b3fd1c43a17975b464494b0fdf4dce05fa3b2737bbbb3830e516ba51355a3",
+        "trace": [
+          {
+            "step": "bounded_residual_edit",
+            "modelCall": 1,
+            "sourceQuote": "\"Cool pan\" must finish before \"Plate meal\".",
+            "requestedBefore": "Cool pan",
+            "requestedAfter": "Plate meal",
+            "options": [
+              "Plate meal",
+              "Cool pan"
+            ],
+            "rawModelText": "B: \"Cool pan\"",
+            "modelChoice": "Cool pan",
+            "editReason": null,
+            "admission": "checked_partial",
+            "accepted": true,
+            "residualCountBefore": 2,
+            "residualCountAfter": 1,
+            "wholeTaskVerified": false
+          },
+          {
+            "step": "bounded_residual_edit",
+            "modelCall": 2,
+            "sourceQuote": "\"Plate meal\" must finish before \"Serve meal\".",
+            "requestedBefore": "Plate meal",
+            "requestedAfter": "Serve meal",
+            "options": [
+              "Plate meal",
+              "Serve meal"
+            ],
+            "rawModelText": "B: \"Serve meal\"",
+            "modelChoice": "Serve meal",
+            "editReason": "wrong_prerequisite_choice",
+            "admission": "unverified",
+            "accepted": false,
+            "residualCountBefore": 1,
+            "residualCountAfter": 1,
+            "wholeTaskVerified": false
+          },
+          {
+            "step": "bounded_residual_edit",
+            "modelCall": 3,
+            "sourceQuote": "\"Plate meal\" must finish before \"Serve meal\".",
+            "requestedBefore": "Plate meal",
+            "requestedAfter": "Serve meal",
+            "options": [
+              "Serve meal",
+              "Plate meal"
+            ],
+            "rawModelText": "B: \"Plate meal\"",
+            "modelChoice": "Plate meal",
+            "editReason": null,
+            "admission": "verified",
+            "accepted": true,
+            "residualCountBefore": 1,
+            "residualCountAfter": 0,
+            "wholeTaskVerified": true
+          }
+        ],
+        "reason": "independently_verified_full_task"
+      },
+      "actualModelCalls": 3,
+      "actualTokens": 23,
+      "modelElapsedMs": 28442.201448,
+      "elapsedMs": 28459.668342,
+      "independentlyCorrect": true
+    },
+    {
+      "id": "cp032_real_electrical",
+      "source": "\"Install panel\" precede \"Connect wiring\". \"Connect wiring\" precede \"Run diagnostic\". Find an order.",
+      "startingOrder": [
+        "Run diagnostic",
+        "Connect wiring",
+        "Install panel"
+      ],
+      "result": {
+        "policy": "b2-cortex-bounded-residual-cycle-1",
+        "status": "verified",
+        "wholeTaskVerified": true,
+        "modelLedRepairSuccess": true,
+        "modelCalls": 3,
+        "acceptedEdits": 2,
+        "order": [
+          "Install panel",
+          "Connect wiring",
+          "Run diagnostic"
+        ],
+        "sourceHash": "270ba732adbc04fce3d7d9eaf5c2d9d6f970838076cf9e73c067a080b4b08eed",
+        "graphRoot": "621497cdecee89d247d3134ea5369907086c3fdd6757ab0601daf998bc4253ac",
+        "trace": [
+          {
+            "step": "bounded_residual_edit",
+            "modelCall": 1,
+            "sourceQuote": "\"Install panel\" precede \"Connect wiring\".",
+            "requestedBefore": "Install panel",
+            "requestedAfter": "Connect wiring",
+            "options": [
+              "Connect wiring",
+              "Install panel"
+            ],
+            "rawModelText": "B: \"Install panel\"",
+            "modelChoice": "Install panel",
+            "editReason": null,
+            "admission": "checked_partial",
+            "accepted": true,
+            "residualCountBefore": 2,
+            "residualCountAfter": 1,
+            "wholeTaskVerified": false
+          },
+          {
+            "step": "bounded_residual_edit",
+            "modelCall": 2,
+            "sourceQuote": "\"Connect wiring\" precede \"Run diagnostic\".",
+            "requestedBefore": "Connect wiring",
+            "requestedAfter": "Run diagnostic",
+            "options": [
+              "Connect wiring",
+              "Run diagnostic"
+            ],
+            "rawModelText": "B: \"Run diagnostic\"",
+            "modelChoice": "Run diagnostic",
+            "editReason": "wrong_prerequisite_choice",
+            "admission": "unverified",
+            "accepted": false,
+            "residualCountBefore": 1,
+            "residualCountAfter": 1,
+            "wholeTaskVerified": false
+          },
+          {
+            "step": "bounded_residual_edit",
+            "modelCall": 3,
+            "sourceQuote": "\"Connect wiring\" precede \"Run diagnostic\".",
+            "requestedBefore": "Connect wiring",
+            "requestedAfter": "Run diagnostic",
+            "options": [
+              "Run diagnostic",
+              "Connect wiring"
+            ],
+            "rawModelText": "B: \"Connect wiring\"",
+            "modelChoice": "Connect wiring",
+            "editReason": null,
+            "admission": "verified",
+            "accepted": true,
+            "residualCountBefore": 1,
+            "residualCountAfter": 0,
+            "wholeTaskVerified": true
+          }
+        ],
+        "reason": "independently_verified_full_task"
+      },
+      "actualModelCalls": 3,
+      "actualTokens": 22,
+      "modelElapsedMs": 26392.869612,
+      "elapsedMs": 26397.337673,
+      "independentlyCorrect": true
+    }
+  ],
+  "caveats": [
+    "Separately authored developer prompts, not CP026 frozen or external BBH.",
+    "Model choice is not a new fact; it is checked against source prerequisites.",
+    "No browser, physical phone, general reasoning, code execution or speedup claim."
+  ]
+}

@@ -1,6 +1,12 @@
 import { chromium } from 'playwright';
 
-const browser = await chromium.launch({ headless: true });
+// Opt-in system Chromium override for development environments where the
+// Playwright-managed browser is absent. Default behavior is unchanged.
+const executablePath = process.env.SEREN_CHROMIUM_EXECUTABLE;
+const browser = await chromium.launch({
+  headless: true,
+  ...(executablePath ? { executablePath } : {}),
+});
 const page = await browser.newPage();
 page.on('console', m => console.log('console:', m.type(), m.text()));
 page.on('pageerror', e => console.log('pageerror:', e.message));

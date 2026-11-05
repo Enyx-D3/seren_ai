@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 1,
+  "target": "SEREN7_FULL_MRS_APPLICATION",
+  "sourceRevision": "agent/integration-v2 CP032 local integration (commit identified by git log)",
+  "date": "2026-11-05",
+  "policy": "Scope-limited Node/model-asset proofs do not promote browser, device, language-quality or native-compute gates.",
+  "gates": [
+    {
+      "id": "S7_CP027_REAL_NODE_INFERENCE",
+      "status": "PASS_SCOPED",
+      "scope": "approved Instruct GGUF emits real tokens in isolated single-thread Node/WASM, not a browser",
+      "requiredForBrowserMVP": false,
+      "requiredForFullMRS": false,
+      "acceptance": "Exact model/asset hashes match and actual generation completes under bounded CPU Worker lifecycle.",
+      "evidence": ["evidence/cp027-node-real-falcon-wasm-2026-11-05.md"]
+    },
+    {
+      "id": "S7_CP026_MODEL_IDENTITY",
+      "status": "PASS_SCOPED",
+      "scope": "pinned 58,600,064-byte Instruct GGUF byte identity",
+      "requiredForBrowserMVP": true,
+      "requiredForFullMRS": true,
+      "acceptance": "SHA-256 and GGUF metadata match the approved Instruct receipt in a runnable checkout.",
+      "evidence": ["evidence/cp026-runtime-provision-2026-11-05.md"]
+    },
+    {
+      "id": "S7_CP026_WLLAMA_BUNDLE",
+      "status": "PASS_SCOPED",
+      "scope": "Node build integrity and local static asset packaging",
+      "requiredForBrowserMVP": true,
+      "requiredForFullMRS": true,
+      "acceptance": "Pinned Wllama assets pass hashes; Node tests and model-free plus private bundles build.",
+      "evidence": ["evidence/cp026-runtime-provision-2026-11-05.md"]
+    },
+    {
+      "id": "S7_CP026_BROWSER_GENERATION",
+      "status": "BLOCKED",
+      "requiredForBrowserMVP": true,
+      "requiredForFullMRS": true,
+      "acceptance": "Chromium loads the pinned GGUF and emits actual Worker tokens, stop and restart tested.",
+      "evidence": ["evidence/cp026-browser-environment-attempt-2026-11-05.md"]
+    },
+    {
+      "id": "S7_CP026_INDEPENDENT_AB",
+      "status": "PARTIAL",
+      "requiredForBrowserMVP": false,
+      "requiredForFullMRS": true,
+      "acceptance": "Real same-Falcon counterbalanced A/B on frozen holdout with independently scored whole-task outcomes and false-verify rate.",
+      "evidence": ["evidence/b2_cp026_independent_holdout_design_2026_11_05.md", "evidence/cp026-real-falcon-ab-harness-2026-11-05.md", "evidence/b2-cp027-node-real-ab-2026-11-05T06-21-45.078Z.json", "evidence/b2-cp027-node-real-ab-2026-11-05T06-32-32.503Z.json", "evidence/cp027-real-ab-falseverification-2026-11-05.md"]
+    },
+    {
+      "id": "S7_CP027_P1_SEMANTIC",
+      "status": "PARTIAL",
+      "requiredForBrowserMVP": false,
+      "requiredForFullMRS": true,
+      "acceptance": "Unfamiliar non-template source facts produce correctly selected executable operations without omitted clauses or false verification.",
+      "evidence": ["CHECKPOINT_LOG.md", "evidence/b2_cp027_source_prose_development_2026_11_05.md", "evidence/CP032_UNQUOTED_PROSE_DEV.md", "evidence/cp032-independent-cross-domain-verifier-2026-11-05.md"]
+    },
+    {
+      "id": "S7_CP027_P2_REPAIR",
+      "status": "PARTIAL",
+      "requiredForBrowserMVP": false,
+      "requiredForFullMRS": true,
+      "acceptance": "Falcon-led residual-only repair succeeds on independently unseen tasks while preserving all prior checked components.",
+      "evidence": ["CHECKPOINT_LOG.md", "evidence/cp032-cortex-residual-repair-2026-11-05.md", "evidence/cp032-real-falcon-residual-dev.json"]
+    },
+    {
+      "id": "S7_CP028_GRAPHOS_L2",
+      "status": "PASS_SCOPED",
+      "scope": "two-source ordering, version invalidation and <=7 actions",
+      "requiredForBrowserMVP": false,
+      "requiredForFullMRS": true,
+      "acceptance": "Both traversal directions and separate oracle reject stale or forged provenance, and independently checked composition changes real execution.",
+      "evidence": ["CHECKPOINT_LOG.md"]
+    },
+    {
+      "id": "S7_CP028_SHARED_STATE_R1",
+      "status": "PARTIAL",
+      "requiredForBrowserMVP": false,
+      "requiredForFullMRS": true,
+      "acceptance": "Versioned R1/R1D/R1DX shared states replay losslessly, reject stale proofs and show measured reuse savings beyond scheduling overhead.",
+      "evidence": ["docs/SRS.md", "evidence/cp028-r1dx-exact-replay-2026-11-05.md", "evidence/cp032-source-graph-r1dx-local-2026-11-05.md"]
+    },
+    {
+      "id": "S7_CP029_L1_EXACT",
+      "status": "PASS_SCOPED",
+      "scope": "bounded exact arithmetic and Boolean on supported grammars",
+      "requiredForBrowserMVP": false,
+      "requiredForFullMRS": true,
+      "acceptance": "A typed supported request computes with independent exact checking and no model call.",
+      "evidence": ["CHECKPOINT_LOG.md"]
+    },
+    {
+      "id": "S7_CP029_L2_MATRIX",
+      "status": "PARTIAL",
+      "requiredForBrowserMVP": false,
+      "requiredForFullMRS": true,
+      "acceptance": "Full/sparse/DELTA2 matrix paths pass independent numerical oracles and recurrence invalidation at measured crossover sizes.",
+      "evidence": ["docs/SRS.md", "evidence/cp029-bounded-matrix-tool-2026-11-05.md"]
+    },
+    {
+      "id": "S7_CP029_L3_CALIBRATION",
+      "status": "PARTIAL",
+      "requiredForBrowserMVP": false,
+      "requiredForFullMRS": true,
+      "acceptance": "Persisted checked Compass/joint policy changes yield held-out benefit over calibrated conservative baseline at comparable cost.",
+      "evidence": ["docs/SRS.md"]
+    },
+    {
+      "id": "S7_CP029_WORKER_TOOL",
+      "status": "PASS_SCOPED",
+      "scope": "typed browser Worker capability and mocked cancellation/denial",
+      "requiredForBrowserMVP": true,
+      "requiredForFullMRS": true,
+      "acceptance": "Allowed operations execute in a bounded Worker and unsafe model proposals allocate no Worker.",
+      "evidence": ["evidence/cp026-security-node-2026-11-05.md"]
+    },
+    {
+      "id": "S7_CP029_NATIVE_TINYLINUX",
+      "status": "NOT_RUN",
+      "requiredForBrowserMVP": false,
+      "requiredForFullMRS": true,
+      "acceptance": "Optional isolated Linux guest safely executes untrusted bounded workloads with OS-level termination, network/filesystem policies and no default daemon requirement.",
+      "evidence": ["docs/SRS.md"]
+    },
+    {
+      "id": "S7_CP032_FLOW_VFLOPS",
+      "status": "PARTIAL",
+      "scope": "developer-only exact integer DAG scheduling; 381 assertions and no measured physical parallelism",
+      "requiredForBrowserMVP": false,
+      "requiredForFullMRS": true,
+      "acceptance": "Actual browser Workers or isolated TinyLinux tasks implement bounded resource budgets, cancel/abort propagation, independently replayed outputs and measured serial-vs-parallel whole-task benefit, including V-FLOPS and real hardware.",
+      "evidence": ["evidence/cp032-flow-exact-dag-2026-11-05.md"]
+    },
+    {
+      "id": "S7_CP030_DUAL_FALCON",
+      "status": "PARTIAL",
+      "requiredForBrowserMVP": false,
+      "requiredForFullMRS": true,
+      "acceptance": "Official pinned Coder optional path passes its own SHA/runtime/license and same-device sequential/concurrent comparisons without changing V1 default.",
+      "evidence": ["docs/decisions/ADR-004-v2-dual-falcon-experiment.md", "evidence/cp030-optional-coder-provision-2026-11-05.md", "evidence/cp030-coder-node-wasm-actual-2026-11-05.md"]
+    },
+    {
+      "id": "S7_CP030_TRM_RECURSIVE",
+      "status": "PARTIAL",
+      "requiredForBrowserMVP": false,
+      "requiredForFullMRS": true,
+      "acceptance": "Typed TRM worker candidate is proven against exact/Falcon baselines without implicitly adding unapproved active model weights.",
+      "evidence": ["docs/SRS.md", "evidence/CP030_TRM_TYPED_RESIDUAL_RESEARCH.md"]
+    },
+    {
+      "id": "S7_CP030_RETRIEVAL",
+      "status": "PARTIAL",
+      "requiredForBrowserMVP": false,
+      "requiredForFullMRS": true,
+      "acceptance": "Source-linked selective retrieval verifies origin, freshness, content identity, scope, permission and stale-source withdrawal on real documents.",
+      "evidence": ["docs/SRS.md", "evidence/cp030-local-selective-retrieval-2026-11-05.md", "evidence/cp032-source-graph-r1dx-local-2026-11-05.md"]
+    },
+    {
+      "id": "S7_CP031_BROWSER_OFFLINE",
+      "status": "BLOCKED",
+      "requiredForBrowserMVP": true,
+      "requiredForFullMRS": true,
+      "acceptance": "Real browser first-run model load, disconnect/revisit, stop, storage migration, privacy network trace and no model egress all pass.",
+      "evidence": ["evidence/cp026-browser-environment-attempt-2026-11-05.md", "evidence/cp032-browser-acceptance-handoff-2026-11-05.md"]
+    },
+    {
+      "id": "S7_CP031_DEVICE_ACCESS",
+      "status": "NOT_RUN",
+      "requiredForBrowserMVP": true,
+      "requiredForFullMRS": true,
+      "acceptance": "Physical mobile and desktop UX, animated orb, accessibility, RAM/thermal/power and p95 quality gates pass on named hardware.",
+      "evidence": ["docs/PRD.md"]
+    },
+    {
+      "id": "S7_CP031_RELEASE_SIGNOFF",
+      "status": "NOT_RUN",
+      "requiredForBrowserMVP": true,
+      "requiredForFullMRS": true,
+      "acceptance": "Owner/Shafi signs off license/privacy evidence, model quality, rollback rehearsal and tested release candidate.",
+      "evidence": ["docs/SRS.md"]
+    }
+  ]
+}

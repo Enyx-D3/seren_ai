@@ -59,6 +59,15 @@ export function interpretDependencyTask(source) {
       relationEvidence: { left: a, right: b, connector: between, prefix } };
     if (checkSourceRelationship(source, fact)) { facts.push(fact); proseCovered.add(sourceOffset); }
   }
+  // A goal that explicitly names the requested actions must not acquire
+  // extra nodes from dependency premises. Such a prerequisite is unresolved,
+  // not an implicit authorization to expand the requested task inventory.
+  if (goalList) {
+    const requested = goalList[1].split(/,\s*|\s+and\s+/i).map(name => name.trim());
+    if (requested.length >= 2 && requested.every(name => /^[a-z][a-z -]{0,59}$/i.test(name)) &&
+        (names.length !== requested.length || names.some(name => !requested.some(item => item.toLowerCase() === name.toLowerCase()))))
+      unknowns.push({ quote: goalList[0], sourceOffset: goalList.index, reason: 'prerequisite_outside_requested_inventory' });
+  }
   if (!facts.length || names.length > 7 || facts.length > 16) return null;
   // Reject every substantive clause outside the checked relation/goal contracts.
   for (const match of source.matchAll(/[^.!?\n;]+[.!?;]?/g)) {
@@ -107,6 +116,8 @@ export function executeDependencyPath(problem, kind) {
 // Independent oracle: enumerate all permutations and check positional inequalities.
 export function verifyDependencyOrder(problem, candidate) {
   const { names, facts } = problem;
+  if (problem.unknowns?.length) return { ok: false,
+    residuals: ['source_contract_unresolved'], method: 'independent_position_inequalities' };
   const valid = order => Array.isArray(order) && order.length === names.length && new Set(order).size === names.length &&
     names.every(name => order.includes(name)) && facts.every(f => order.indexOf(f.before) < order.indexOf(f.after));
   if (candidate !== null) {

@@ -1,5 +1,6 @@
 import { chromium } from 'playwright';
-const browser = await chromium.launch({ headless: true });
+const executablePath = process.env.B2_CHROMIUM_EXECUTABLE_PATH;
+const browser = await chromium.launch({ headless: true, ...(executablePath ? { executablePath } : {}) });
 try {
   const page = await browser.newPage();
   await page.route('**/js/main.mjs', route => route.fulfill({ status: 200, contentType: 'text/javascript', body: '' }));

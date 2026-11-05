@@ -1,5 +1,10 @@
 import { interpretDependencyTask, executeDependencyPath, verifyDependencyOrder, parseOrderProposal, repairOrderFromChoice } from './b2-dependency-task.mjs';
 import { executeElasticJoint } from './b2-elastic-joint.mjs';
+import { composeDependencySources, executeComposedDependencyPath, verifyComposedDependencyOrder } from './b2-graphos-composition.mjs';
+import { createCortexDependencyGuard } from './b2-cortex-guard.mjs';
+import { interpretSemanticDependencyTask } from './b2-semantic-extraction.mjs';
+import { interpretProseDependencyTask } from './b2-semantic-prose-v2.mjs';
+import { interpretNamedProseDependencyTask } from './b2-semantic-prose-v3.mjs';
 /* CP009 bounded exact-state Spiral. Only verified deterministic arithmetic may
    be reused. Approximate similarity and model prose never enter this cache. */
 import { Sha256 } from './sha256.mjs';
@@ -227,6 +232,8 @@ export class SpiralController {
   }
   async run(text, { scope, turns = [], deeper = false, calibration = null,
     experimentalInterpretation = false, experimentalMagnetic = false, experimentalChain = false, experimentalDependency = false,
+    experimentalProseV2 = false, experimentalProseV3 = false,
+    experimentalComposedSources = null, experimentalCortexGuard = false,
     generate, runTool, signal, onToken } = {}) {
     const start = this.clock();
     const plan = planSpiral(text, { deeper, calibration, experimentalInterpretation, experimentalChain });
@@ -253,13 +260,75 @@ export class SpiralController {
       return { answer, verification, plan, trace, metrics, state, ...extra };
     };
     checkAbort();
+    // Developer-only typed two-source experiment. This is not activated by
+    // ordinary chat text, cannot grant tools, and treats source claims as input
+    // assumptions rather than external truth.
+    if (experimentalComposedSources !== null) {
+      let bundle;
+      try { bundle = composeDependencySources(experimentalComposedSources); }
+      catch (error) {
+        trace.push({ step: 'composed_source_abstention', reason: String(error.message).slice(0, 160) });
+        return finish('I cannot verify a combined order from these two sources.',
+          { status: 'unverified', method: 'composed_source_abstention', residual: [String(error.message).slice(0, 160)] });
+      }
+      state.graph.composed = bundle.snapshot;
+      trace.push({ step: 'composed_graph', graphRoot: bundle.snapshot.root,
+        sourceManifest: bundle.snapshot.metadata.source_manifest, conditional: true });
+      const candidates = Object.fromEntries(bundle.paths.map(kind => [kind, {
+        operations: bundle.actions.length + bundle.sourceFacts.length,
+        verification: 'independent_composed_dependency',
+      }]));
+      const partId = plan.parts[0].id;
+      const firstDirection = choose(partId, bundle.paths, candidates);
+      const joint = await executeElasticJoint({ directions: bundle.paths, initial: firstDirection,
+        chooseNext: remaining => choose(partId, remaining, candidates), signal,
+        execute: kind => {
+          metrics.calculatorCalls++;
+          const result = executeComposedDependencyPath(bundle, kind);
+          trace.push({ step: 'composed_operation', direction: kind, graphRoot: bundle.snapshot.root,
+            candidate: result.candidate, operationCheck: result.ok });
+          return result.candidate;
+        },
+        verify: order => {
+          const began = this.clock();
+          const checked = verifyComposedDependencyOrder(bundle, order);
+          metrics.verificationMs += Math.round(this.clock() - began);
+          if (!checked.ok) throw new Error(JSON.stringify(checked.residuals));
+          return { status: 'verified', method: checked.method, scope: checked.scope };
+        },
+      });
+      trace.push({ step: 'composed_joint', status: joint.status, history: joint.history,
+        graphRoot: bundle.snapshot.root });
+      if (joint.status !== 'verified') return finish('No independently checked combined order was found.',
+        { status: 'unverified', method: 'composed_joint_brake' });
+      const answer = joint.candidate === null ? 'No feasible order satisfies the stated prerequisites.' :
+        JSON.stringify(joint.candidate);
+      mark(partId, joint.direction, answer,
+        { status: 'verified', method: joint.receipt.method }, start);
+      return finish(answer, { status: 'verified', method: joint.receipt.method,
+        scope: 'ordering_relative_to_two_supported_source_documents' },
+        { composedGraphRoot: bundle.snapshot.root });
+    }
     if (experimentalDependency) {
-      const problem = interpretDependencyTask(text);
+      const legacy = interpretDependencyTask(text);
+      // Preserve every accepted old contract. The new semantic extractor is an
+      // additive fallback only when the strict parser cannot cover the whole
+      // source, and independently checks all source clauses before admission.
+      const established = legacy && !legacy.unknowns.length ? legacy : interpretSemanticDependencyTask(text);
+      // Development-only source-replayed extension. Its separate opt-in
+      // leaves all existing default and CP025 admissions unchanged.
+      let problem = established;
+      if (!problem || problem.unknowns.length) {
+        if (experimentalProseV2) problem = interpretProseDependencyTask(text) || problem;
+        if ((!problem || problem.unknowns.length) && experimentalProseV3)
+          problem = interpretNamedProseDependencyTask(text) || problem;
+      }
       if (!problem || problem.unknowns.length) return finish('I cannot verify an order: some dependency language is unsupported or ambiguous.',
         { status: 'unverified', method: 'semantic_abstention', residual: problem?.unknowns || ['no grounded dependency interpretation'] });
       state.graph.graphos = problem.graph;
       trace.push({ step: 'dependency_interpretation', intent: problem.intent, goal: problem.goal,
-        facts: problem.facts, constraints: problem.constraints, unknowns: problem.unknowns, root: problem.graph.root });
+        facts: problem.facts, constraints: problem.constraints, unknowns: problem.unknowns,
+        interpretationPolicy: problem.interpretationPolicy || 'b2-dependency-strict-baseline', root: problem.graph.root });
       const candidates = Object.fromEntries(problem.paths.map(kind => [kind, { kind, operations: problem.names.length + problem.facts.length,
         verification: 'independent_dependency' }]));
       const initial = choose(plan.parts[0].id, problem.paths, candidates);
@@ -279,16 +348,37 @@ export class SpiralController {
             ? proposal.order.filter((name, i, all) => problem.names.includes(name) && all.indexOf(name) === i) : [];
           componentOrder.push(...problem.names.filter(name => !componentOrder.includes(name)));
           trace.push({ step: 'dependency_component_projection', order: componentOrder, status: 'unverified' });
+          let cortex = null;
+          if (experimentalCortexGuard) {
+            try {
+              cortex = createCortexDependencyGuard(text, componentOrder, { allowSemanticFallback: true });
+              trace.push({ step: 'cortex_guard_started', sourceHash: cortex.sourceHash,
+                graphRoot: cortex.graphRoot, policy: cortex.snapshot().policy });
+            } catch (error) {
+              // The original independent dependency checker remains the final
+              // arbiter; a guard initialization failure cannot grant authority.
+              trace.push({ step: 'cortex_guard_unavailable', residual: String(error.message).slice(0, 160) });
+            }
+          }
           while (!verifyDependencyOrder(problem, componentOrder).ok && metrics.modelCalls < 4) {
             const failed = problem.facts.find(f => componentOrder.indexOf(f.before) >= componentOrder.indexOf(f.after));
             if (!failed) break;
             const options = metrics.modelCalls % 2 ? [failed.after, failed.before] : [failed.before, failed.after];
             const response = await request(`Rule: ${failed.quote}\nWhich action happens first: ${options[0]} or ${options[1]}?\nReply only with the action name.`);
             const edit = repairOrderFromChoice(problem, componentOrder, failed.before, failed.after, response.text);
-            repair = { text: response.text, options, order: edit.order, checked: edit.wholeTask || { ok: false, reason: edit.reason },
-              componentChecked: edit.ok, preserved: edit.preserved || 0, residual: failed, mechanism: 'model_identified_prerequisite_then_checked_local_move' };
+            const guarded = edit.ok && cortex ? cortex.attempt(edit.order, {
+              sourceHash: cortex.sourceHash, modelOrigin: 'bounded_falcon_prerequisite_choice' }) : null;
+            if (guarded) trace.push({ step: 'cortex_repair_admission', receipt: guarded.receipt });
+            // Explicit Cortex opt-in must fail closed. A missing or rejecting
+            // guard cannot be bypassed by a locally plausible model edit.
+            const admitted = edit.ok && (!experimentalCortexGuard || guarded?.receipt.accepted === true);
+            repair = { text: response.text, options, order: edit.order,
+              checked: admitted ? (edit.wholeTask || { ok: false, reason: 'not_whole_task_verified' }) :
+                { ok: false, reason: guarded?.receipt.reason || (experimentalCortexGuard ? 'cortex_guard_unavailable_or_rejected' : edit.reason) },
+              componentChecked: admitted, preserved: edit.preserved || 0, residual: failed,
+              cortexGuarded: !!guarded, mechanism: 'model_identified_prerequisite_then_checked_local_move' };
             trace.push({ step: 'dependency_model_repair', repair });
-            if (!edit.ok) break;
+            if (!admitted) break;
             componentOrder = edit.order;
           }
         } catch (error) {
