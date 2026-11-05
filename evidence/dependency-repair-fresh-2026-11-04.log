@@ -1,0 +1,260 @@
+{
+  "out": "evidence/b2-dependency-repair-eval-2026-11-04T08-09-11.775Z.json",
+  "totals": {
+    "falcon_alone": {
+      "objectivePassed": 0,
+      "objectiveTotal": 8,
+      "pendingHumanCode": 0,
+      "pendingHuman": 0,
+      "totalElapsedMs": 80460.71500000358,
+      "modelCalls": 32,
+      "tokens": 1222,
+      "calculatorCalls": 0,
+      "peakProcessTreeRssKiB": 1084928
+    },
+    "b2": {
+      "objectivePassed": 6,
+      "objectiveTotal": 8,
+      "pendingHumanCode": 0,
+      "pendingHuman": 0,
+      "totalElapsedMs": 7330.164999999106,
+      "modelCalls": 5,
+      "tokens": 64,
+      "calculatorCalls": 4,
+      "peakProcessTreeRssKiB": 806304
+    }
+  },
+  "rows": [
+    {
+      "id": "orchard",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 4,
+      "elapsedMs": 9839,
+      "error": null
+    },
+    {
+      "id": "orchard",
+      "arm": "b2",
+      "check": {
+        "status": "passed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 1,
+      "elapsedMs": 1604,
+      "error": null
+    },
+    {
+      "id": "observatory",
+      "arm": "b2",
+      "check": {
+        "status": "passed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 1,
+      "elapsedMs": 1480,
+      "error": null
+    },
+    {
+      "id": "observatory",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 4,
+      "elapsedMs": 10898,
+      "error": null
+    },
+    {
+      "id": "tunnel",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 4,
+      "elapsedMs": 9396,
+      "error": null
+    },
+    {
+      "id": "tunnel",
+      "arm": "b2",
+      "check": {
+        "status": "passed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 1,
+      "elapsedMs": 1647,
+      "error": null
+    },
+    {
+      "id": "conflict-new",
+      "arm": "b2",
+      "check": {
+        "status": "passed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": [
+          {
+            "component": false,
+            "wholeTask": false
+          }
+        ]
+      },
+      "modelCalls": 2,
+      "elapsedMs": 2592,
+      "error": null
+    },
+    {
+      "id": "conflict-new",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 4,
+      "elapsedMs": 8963,
+      "error": null
+    },
+    {
+      "id": "ambiguous-either",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 4,
+      "elapsedMs": 8905,
+      "error": null
+    },
+    {
+      "id": "ambiguous-either",
+      "arm": "b2",
+      "check": {
+        "status": "passed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": true,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 0,
+      "elapsedMs": 3,
+      "error": null
+    },
+    {
+      "id": "negative-never",
+      "arm": "b2",
+      "check": {
+        "status": "passed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": true,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 0,
+      "elapsedMs": 1,
+      "error": null
+    },
+    {
+      "id": "negative-never",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 4,
+      "elapsedMs": 8902,
+      "error": null
+    },
+    {
+      "id": "bbh-131",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "external_published_target",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 4,
+      "elapsedMs": 11919,
+      "error": null
+    },
+    {
+      "id": "bbh-131",
+      "arm": "b2",
+      "check": {
+        "status": "failed",
+        "method": "external_published_target",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 0,
+      "elapsedMs": 2,
+      "error": null
+    },
+    {
+      "id": "bbh-207",
+      "arm": "b2",
+      "check": {
+        "status": "failed",
+        "method": "external_published_target",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 0,
+      "elapsedMs": 1,
+      "error": null
+    },
+    {
+      "id": "bbh-207",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "external_published_target",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 4,
+      "elapsedMs": 11637,
+      "error": null
+    }
+  ],
+  "errors": [],
+  "external": []
+}

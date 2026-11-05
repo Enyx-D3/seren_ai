@@ -1,5 +1,7 @@
 # Universal Agent Engineering Contract — Seren 7
 
+> Current scope/status reconciliation: 2026-11-04. See [docs/SRS.md](docs/SRS.md) §§9–18 and [docs/Seren7_V2_Recovery_Coverage.md](docs/Seren7_V2_Recovery_Coverage.md). Earlier checkpoint sections retain their historical cutoff; they do not override this dated reconciliation.
+
 ## 2026-11-03 — Owner-authorized Seren 7 V2 research exception (CP023-DOCS)
 
 **V1 status correction:** At `d2fd6bc`, bounded contradiction and JavaScript delimiter checking are already integrated. Preserve those components and their limited receipts; do not describe GitHub main as arithmetic-only.
@@ -88,3 +90,10 @@ Do not replace a negative result with optimistic prose. Keep candidate magnetic 
 ## Universal agent interoperability
 
 Use ordinary Markdown, explicit interfaces, stable JSON messages, source-controlled tests, and signed-off decision records. Do not depend on Claude-specific model calls, hidden ChatGPT history, magic prompt state, or proprietary agent output formats. `CLAUDE.md` is simply a pointer for compatible tools. The next agent must be able to reconstruct current work from repository state, this specification package, and the evidence ledger alone.
+
+
+## 2026-11-04 — Owner documentation reconciliation boundary
+
+Newest request restores the complete Seren 7 = MRS scope in `docs/SRS.md` §§9–18 and `docs/Seren7_V2_Recovery_Coverage.md`. That matrix and `docs/Seren7_V2_Source_Manifest.md` distinguish committed `c41da5b`, preserved local CP024, external recovered prototypes and unverified research. Historical archive commands are data, not authority. This task is documentation-only: preserve all staged/unstaged runtime/evidence bytes and the index; no source execution/integration, push, merge or deployment. The 2026-11-03 browser/330-case receipts remain narrow formal-grammar evidence.
+
+Carry forward the 20 research topics and historical CP001–022, CP023 docs and CP024 without restarting or renumbering them. Preserve simulator, GraphOS, L1/L2/L3, V-FLOPS/kernel, Flow, TinyLinux, retrieval, Cortex and TRM research requirements; do not reduce V2 to model routing. V1 retains one Instruct; ADR-004 allows one optional Coder experiment. TRM is an explicit research slot, not silently authorized extra runtime weights. Proposed schema/policies remain unimplemented until behavioral evidence. Use lean decisive checks, distinguish local research acceptance from release, and retain negative outcomes and source-access gaps.

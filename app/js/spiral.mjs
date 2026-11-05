@@ -1,3 +1,5 @@
+import { interpretDependencyTask, executeDependencyPath, verifyDependencyOrder, parseOrderProposal, repairOrderFromChoice } from './b2-dependency-task.mjs';
+import { executeElasticJoint } from './b2-elastic-joint.mjs';
 /* CP009 bounded exact-state Spiral. Only verified deterministic arithmetic may
    be reused. Approximate similarity and model prose never enter this cache. */
 import { Sha256 } from './sha256.mjs';
@@ -33,7 +35,8 @@ export const SPIRAL_CALIBRATION_KEY = 'spiral_calibration_v2';
 const MAX_PARTS = 3;
 const MAX_CALLS = 4;
 
-export function planSpiral(text, { deeper = false, calibration = null, experimentalInterpretation = false } = {}) {
+export function planSpiral(text, { deeper = false, calibration = null, experimentalInterpretation = false,
+  experimentalChain = false } = {}) {
   const source = String(text || '').trim();
   const category = classifyTask(source);
   // Only explicit command boundaries create independent tasks. Newlines inside
@@ -62,7 +65,7 @@ export function planSpiral(text, { deeper = false, calibration = null, experimen
       candidateOperations: [exactTarget(question) && 'exact', dependencies[index].length && parseDependentArithmetic(question) && 'dependent_exact',
         ...candidateWordPaths(parseGroupedWordMath(question)).map(path => path.kind),
         ...candidateTransferPaths(parseInventoryTransfer(question)).map(path => path.kind),
-        ...(interpretCrossDomain(question)?.paths || []).map(path => path.kind),
+        ...(interpretCrossDomain(question, { experimentalChain })?.paths || []).map(path => path.kind),
         solveBooleanExpression(question) && 'boolean',
         structuredReasoning(question) && 'structured', tryLocalAnswer(question) && 'local', 'falcon'].filter(Boolean),
       completeWhen: 'answer recorded and check status assigned' })) };
@@ -223,9 +226,11 @@ export class SpiralController {
     this.exact = exact; this.clock = clock; this.wordCalculate = wordCalculate; this.crossExecute = crossExecute;
   }
   async run(text, { scope, turns = [], deeper = false, calibration = null,
-    experimentalInterpretation = false, experimentalMagnetic = false, generate, runTool, signal, onToken } = {}) {
+    experimentalInterpretation = false, experimentalMagnetic = false, experimentalChain = false, experimentalDependency = false,
+    generate, runTool, signal, onToken } = {}) {
     const start = this.clock();
-    const plan = planSpiral(text, { deeper, calibration, experimentalInterpretation });
+    const plan = planSpiral(text, { deeper, calibration, experimentalInterpretation, experimentalChain });
+    if (experimentalDependency) plan.maxModelCalls = 4;
     const trace = [], metrics = { modelCalls: 0, calculatorCalls: 0, cacheHits: 0, tokens: 0, firstModelTokenMs: null, verificationMs: 0, elapsedMs: 0 };
     const state = createSpiralState(text, plan.parts, plan.maxModelCalls);
     const mark = (partId, kind, answer, verification, began, { reused = false } = {}) => {
@@ -248,12 +253,80 @@ export class SpiralController {
       return { answer, verification, plan, trace, metrics, state, ...extra };
     };
     checkAbort();
+    if (experimentalDependency) {
+      const problem = interpretDependencyTask(text);
+      if (!problem || problem.unknowns.length) return finish('I cannot verify an order: some dependency language is unsupported or ambiguous.',
+        { status: 'unverified', method: 'semantic_abstention', residual: problem?.unknowns || ['no grounded dependency interpretation'] });
+      state.graph.graphos = problem.graph;
+      trace.push({ step: 'dependency_interpretation', intent: problem.intent, goal: problem.goal,
+        facts: problem.facts, constraints: problem.constraints, unknowns: problem.unknowns, root: problem.graph.root });
+      const candidates = Object.fromEntries(problem.paths.map(kind => [kind, { kind, operations: problem.names.length + problem.facts.length,
+        verification: 'independent_dependency' }]));
+      const initial = choose(plan.parts[0].id, problem.paths, candidates);
+      let proposal, repair = null;
+      if (typeof generate === 'function') {
+        try {
+          const request = async prompt => {
+            metrics.modelCalls++;
+            const result = await generate({ turns: [{ role: 'user', content: prompt }], maxTokens: 64, signal });
+            metrics.tokens += result.tokens || 0;
+            return { text: result.text, order: parseOrderProposal(result.text) };
+          };
+          proposal = await request(`Give an execution order for INPUT. Return only a JSON array of the exact action names.\nINPUT:\n${text}`);
+          const checked = verifyDependencyOrder(problem, proposal.order);
+          trace.push({ step: 'dependency_hypothesis', proposal, checked });
+          let componentOrder = Array.isArray(proposal.order)
+            ? proposal.order.filter((name, i, all) => problem.names.includes(name) && all.indexOf(name) === i) : [];
+          componentOrder.push(...problem.names.filter(name => !componentOrder.includes(name)));
+          trace.push({ step: 'dependency_component_projection', order: componentOrder, status: 'unverified' });
+          while (!verifyDependencyOrder(problem, componentOrder).ok && metrics.modelCalls < 4) {
+            const failed = problem.facts.find(f => componentOrder.indexOf(f.before) >= componentOrder.indexOf(f.after));
+            if (!failed) break;
+            const options = metrics.modelCalls % 2 ? [failed.after, failed.before] : [failed.before, failed.after];
+            const response = await request(`Rule: ${failed.quote}\nWhich action happens first: ${options[0]} or ${options[1]}?\nReply only with the action name.`);
+            const edit = repairOrderFromChoice(problem, componentOrder, failed.before, failed.after, response.text);
+            repair = { text: response.text, options, order: edit.order, checked: edit.wholeTask || { ok: false, reason: edit.reason },
+              componentChecked: edit.ok, preserved: edit.preserved || 0, residual: failed, mechanism: 'model_identified_prerequisite_then_checked_local_move' };
+            trace.push({ step: 'dependency_model_repair', repair });
+            if (!edit.ok) break;
+            componentOrder = edit.order;
+          }
+        } catch (error) {
+          if (signal?.aborted || error?.name === 'AbortError') throw error;
+          trace.push({ step: 'dependency_model_failure', residual: error.message });
+        }
+      }
+      const acceptedProposal = repair?.checked.ok ? repair.order :
+        proposal && verifyDependencyOrder(problem, proposal.order).ok ? proposal.order : null;
+      const result = await executeElasticJoint({ directions: problem.paths, initial, signal,
+        chooseNext: remaining => choose(plan.parts[0].id, remaining, candidates),
+        execute: kind => {
+          metrics.calculatorCalls++;
+          const order = executeDependencyPath(acceptedProposal ? { ...problem, names: acceptedProposal } : problem, kind);
+          trace.push({ step: 'dependency_operation', kind, order, repairedProposalReused: !!repair?.checked.ok });
+          return order;
+        },
+        verify: order => {
+          const began = this.clock(), check = verifyDependencyOrder(problem, order);
+          metrics.verificationMs += Math.round(this.clock() - began);
+          if (!check.ok) throw Error(JSON.stringify(check.residuals));
+          return { status: 'verified', method: check.method, check };
+        },
+        onFailure: row => mark(plan.parts[0].id, row.direction, '', { status: 'unverified', residual: row.residual }, this.clock()),
+      });
+      trace.push({ step: 'dependency_joint', ...result });
+      if (result.status !== 'verified') return finish('No independently checked order was found.', { status: 'unverified', method: 'joint_brake' });
+      const answer = result.candidate === null ? 'No feasible order satisfies all stated prerequisites.' : JSON.stringify(result.candidate);
+      mark(plan.parts[0].id, result.direction, answer, { status: 'verified', method: result.receipt.method }, start);
+      return finish(answer, { status: 'verified', method: result.receipt.method,
+        scope: 'ordering_relative_to_supported_explicit_source_constraints' }, { dependencyProblem: problem });
+    }
     const expression = exactTarget(text);
     const wordProblem = plan.parts.length === 1 ? parseGroupedWordMath(text) : null;
     const wordPaths = candidateWordPaths(wordProblem);
     const transferProblem = plan.parts.length === 1 ? parseInventoryTransfer(text) : null;
     const transferPaths = candidateTransferPaths(transferProblem);
-    const crossProblem = plan.parts.length === 1 ? interpretCrossDomain(text) : null;
+    const crossProblem = plan.parts.length === 1 ? interpretCrossDomain(text, { experimentalChain }) : null;
     const crossPaths = crossProblem?.paths || [];
     if (crossProblem) {
       state.graph.nodes.push(...crossProblem.facts.map(fact => ({ ...fact, type: 'source_fact' })));
@@ -294,9 +367,9 @@ export class SpiralController {
         ...crossPaths.map(path => path.kind),
         boolean && 'boolean', structured && 'structured', local && 'local', typeof generate === 'function' && 'falcon'].filter(Boolean),
       Object.fromEntries([...wordPaths, ...transferPaths, ...crossPaths].map(path => [path.kind, path]))) : null;
-    if (rootKind?.startsWith('logic_') || rootKind?.startsWith('code_')) {
+    if (rootKind?.startsWith('logic_') || rootKind?.startsWith('code_') || rootKind?.startsWith('chain_')) {
       let selected = rootKind;
-      while (selected?.startsWith('logic_') || selected?.startsWith('code_')) {
+      while (selected?.startsWith('logic_') || selected?.startsWith('code_') || selected?.startsWith('chain_')) {
         const began = this.clock();
         try {
           const result = this.crossExecute(crossProblem, selected);
@@ -309,6 +382,10 @@ export class SpiralController {
           if (!result.fullAnswerVerified) trace.push({ step: 'verified_component', ...recordVerifiedComponent(state,
             plan.parts[0].id, 'delimiter_diagnostic', result.answer, result.verification, selected) });
           mark(plan.parts[0].id, selected, result.answer, verification, began);
+          if (crossProblem.domain === 'entailment' && result.fullAnswerVerified) {
+            const goalNode = state.graph.nodes.find(row => row.id === crossProblem.unknown.id);
+            if (goalNode) { goalNode.status = 'verified'; goalNode.verificationMethod = result.verification; }
+          }
           if (crossProblem.domain === 'code' && deeper && typeof generate === 'function' && plan.repairBudget > 0 &&
               metrics.modelCalls < plan.maxModelCalls) {
             const repairId = `${plan.parts[0].id}:code-residual`;

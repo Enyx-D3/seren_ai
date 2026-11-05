@@ -415,6 +415,8 @@ async function submit(text, { regen = false } = {}) {
     status('B2 Spiral reasoning locally…');
     const result = await spiral.run(text, { scope: state.conversation.id, turns, deeper: state.think, calibration,
       signal: run.abortController.signal,
+      experimentalChain: new URLSearchParams(location.search).get('b2_chain') === '1',
+      experimentalDependency: new URLSearchParams(location.search).get('b2_dependency') === '1',
       onToken: content => { if (!run.firstVisibleAt) run.firstVisibleAt = performance.now(); answer.content = content; updateStreamMessage(answer); },
       generate: options => generateForSpiral(run, desc, { ...options, tools: plan.category === 'tool' }),
       runTool: async call => {

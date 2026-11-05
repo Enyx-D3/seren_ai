@@ -1,0 +1,219 @@
+{
+  "out": "evidence/b2-dependency-repair-eval-2026-11-04T08-07-04.900Z.json",
+  "totals": {
+    "falcon_alone": {
+      "objectivePassed": 0,
+      "objectiveTotal": 6,
+      "pendingHumanCode": 0,
+      "pendingHuman": 0,
+      "totalElapsedMs": 53109.95000000298,
+      "modelCalls": 24,
+      "tokens": 774,
+      "calculatorCalls": 0,
+      "peakProcessTreeRssKiB": 1103104
+    },
+    "b2": {
+      "objectivePassed": 4,
+      "objectiveTotal": 6,
+      "pendingHumanCode": 0,
+      "pendingHuman": 0,
+      "totalElapsedMs": 11307.345000006258,
+      "modelCalls": 8,
+      "tokens": 63,
+      "calculatorCalls": 4,
+      "peakProcessTreeRssKiB": 1066560
+    }
+  },
+  "rows": [
+    {
+      "id": "archive",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 4,
+      "elapsedMs": 6726,
+      "error": null
+    },
+    {
+      "id": "archive",
+      "arm": "b2",
+      "check": {
+        "status": "passed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": [
+          {
+            "component": true,
+            "wholeTask": true
+          }
+        ]
+      },
+      "modelCalls": 2,
+      "elapsedMs": 1891,
+      "error": null
+    },
+    {
+      "id": "field",
+      "arm": "b2",
+      "check": {
+        "status": "passed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": [
+          {
+            "component": false,
+            "wholeTask": false
+          }
+        ]
+      },
+      "modelCalls": 2,
+      "elapsedMs": 2662,
+      "error": null
+    },
+    {
+      "id": "field",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 4,
+      "elapsedMs": 6940,
+      "error": null
+    },
+    {
+      "id": "cycle",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 4,
+      "elapsedMs": 7906,
+      "error": null
+    },
+    {
+      "id": "cycle",
+      "arm": "b2",
+      "check": {
+        "status": "passed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": [
+          {
+            "component": false,
+            "wholeTask": false
+          }
+        ]
+      },
+      "modelCalls": 2,
+      "elapsedMs": 3774,
+      "error": null
+    },
+    {
+      "id": "branch",
+      "arm": "b2",
+      "check": {
+        "status": "passed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": [
+          {
+            "component": true,
+            "wholeTask": true
+          }
+        ]
+      },
+      "modelCalls": 2,
+      "elapsedMs": 2977,
+      "error": null
+    },
+    {
+      "id": "branch",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 4,
+      "elapsedMs": 11118,
+      "error": null
+    },
+    {
+      "id": "prose-unfamiliar",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 4,
+      "elapsedMs": 10738,
+      "error": null
+    },
+    {
+      "id": "prose-unfamiliar",
+      "arm": "b2",
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 0,
+      "elapsedMs": 4,
+      "error": null
+    },
+    {
+      "id": "cross-document",
+      "arm": "b2",
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "error": null
+    },
+    {
+      "id": "cross-document",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      },
+      "modelCalls": 4,
+      "elapsedMs": 9682,
+      "error": null
+    }
+  ],
+  "errors": [],
+  "external": []
+}

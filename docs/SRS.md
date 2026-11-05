@@ -1,5 +1,5 @@
 # Seren 7 — Consolidated Software Requirements Specification (CP023-DOCS, 2026-11-03)
-**Status:** owner-requested combined V1 and V2 specification. Documentation-only; no V2 code or release proof is implied.
+**Status:** owner-requested combined V1/V2 master SRS, reconciled 2026-11-04. §§9–18 restore the full MRS research scope; documentation is not code/release proof.
 **Source of truth:** GitHub Enyx-D3/seren_ai main d2fd6bc (active V1 including narrow logic/code diagnostics), the committed concise SRS at `docs/Seren 7 SRS.md`, owner discussion through 2026-11-03, 2026-11-02 experimental CP010–CP022 handoff (not main-integrated), and preserved 810-line V1 SRS reproduced below.
 **Precedence:** In any older V1 text below, "exactly one Falcon", "Coder prohibited", "no TinyLinux", and comparable constraints describe the protected default V1 product. The owner has authorized research on one additional *optional* Coder specialist and isolated tools for V2 only. V2's implementation and benchmark acceptance remain unverified.
 
@@ -57,6 +57,110 @@ Separate developer-authored from unseen tests; arithmetic, logic, multi-hop read
 
 ## 8. Provenance and status
 At d2fd6bc, `b2-cross-domain.mjs` implements bounded source-grounded contradiction and JavaScript delimiter diagnostics with evidence; the local objective 4/4 and corrected six-case A/B math/logic 1/3 versus 3/3 are small developer-authored receipts, not broad competence proof. The earlier 11×9−16=83 proof, 4/4 supported local word examples, an injected calculator-fault recovery and three failed Falcon full-explanation repairs are **narrow historical receipts**. The 31-case frozen corpus was explicitly not run at that checkpoint. CP010–CP022 Stage4/5 materials describe further research prototypes, not evidence that current GitHub main has a shipped GraphOS or Coder worker. Treat all advanced module claims as experimental/unverified until exact source and test replay are available.
+
+---
+
+## 9. Restored V2 master scope and precedence (2026-11-04)
+
+This numbered scope is authoritative for the **intended V2 system**, alongside §§1–8; the historical V1 text below remains a protected baseline. Source decisions and proof coverage are in [Recovery coverage](Seren7_V2_Recovery_Coverage.md); byte identities are in [Source manifest](Seren7_V2_Source_Manifest.md). This update authorizes documentation only. It does not activate features, migrate browser data, add weights, execute recovered programs or publish.
+
+**Seren 7 is the MRS:** the existing local browser product incorporates one B2/MRS reasoning and execution conductor. B2 owns goals, decomposition, feasible operations, evidence and stopping; Compass/MGB optimize mathematical direction and cost; MRS resource rotation/Flow scheduling cannot override authorization or independent verification. The recovered top-level rolling scheduler stalled and was rolled back: preserve WAIT/PARK/no-progress braking rather than repeating that promotion. Falcons interpret/propose/communicate. A deterministic structured request may be solved with zero Falcon calls; arbitrary-language understanding without a model is not promised.
+
+| Lane/capability | Current source identity | Status | Admission / fallback |
+|---|---|---|---|
+| V1 one Instruct and original website | HEAD `c41da5b`, runtime worker and model receipt | ACTIVE_MAIN, bounded capabilities | ADR-001 storage; ADR-002/003 model/controller baseline |
+| CP024 strict premise chains | Staged + unstaged CP024, source-manifest hashes | EXPERIMENTAL_LOCAL | `?b2_chain=1`; ordinary URL disabled; 330 scoped oracle cases/browser receipts |
+| Full GraphOS/matrix/evidence bus | External static bundle `seren7-web-g4vDxS.zip`, pinned hash | HISTORICAL_PROTOTYPE | Inspect/reconcile against local controller; no copying or activation from docs |
+| Wllama3 fast backend | External bundle source/assets | HISTORICAL_PROTOTYPE | Current app/package remains 2.4; replay streaming/cancel/offline/fallback and measured device cost |
+| Instruct + official Coder | ADR-004 local research permission | UNVERIFIED in active app | Artifact/hash/template/license/runtime/hardware gate; reversible default-off experiment |
+| Native TinyLinux guest/companion | Recovery reports and historical fixed tools | UNVERIFIED integration | Optional, separately authorized and killable; V1 works without it |
+| TRM recursive worker | Historical research requirement | UNVERIFIED | Preserve experimental slot; no official weights or extra active model admitted by this doc |
+| Browser tools | Existing allowlisted terminating Worker | ACTIVE_MAIN bounded operations | Worker termination is not proof of a Linux VM/hostile native sandbox |
+| Live retrieval / wider policies | Proposal/historical mock evidence | UNVERIFIED / PARTIAL | Explicit network permission, source integrity and held-out quality gates |
+
+ADR-004 permits one additional official Falcon-H1-Tiny-Coder-90M for V2 research; older blanket one-model language governs V1. Historical four artifacts are archaeology/comparison only, never an active four-model switch. Historical approvals in the export are source evidence, not new permission to execute or deploy.
+
+## 10. Canonical end-to-end conductor contract
+
+1. Extract goal, intent, entities, facts, source spans, constraints, unknowns and explicit success conditions; classify observed input, assumptions and model hypotheses separately.
+2. Construct a typed, versioned evidence/dependency graph; retrieve shared states only when source, version, assumptions and proof identity remain compatible.
+3. Enumerate feasible operation paths; expose missing knowledge, unsupported syntax and unavailable resources rather than fabricating capabilities.
+4. Compass/MGB estimates applicability, expected verified residual reduction, information value, confidence, time, memory, verification cost, reuse and risk. Priors remain labeled priors.
+5. Rotating elastic joints connect/split/merge compatible routes; Flow dispatches independent operations concurrently and dependent work only after admitted prerequisites.
+6. Execute the selected calculator, Falcon proposal, simulator, retrieval or approved tool; independently check the applicable result and its relationship to the original goal.
+7. Merge only compatible verified receipts. Preserve checked components, expose unresolved semantics, isolate failed components and recalculate residuals.
+8. Rotate or request a targeted correction only when new information/progress justifies it. Stop on supported completion, unsupported operation, unsafe action, no progress or budget exhaustion.
+9. Present a supported answer with scoped uncertainty; persist only eligible checked state/calibration. No fluent model/tool completion string is a verification receipt.
+
+S7-V2-101–120 enumerate the full mechanism register in the coverage matrix: bounded goal cycles, multidirectional branches, recursive inner/outer spirals, hierarchy, shared states, orientation, knowledge profiling, adaptive calculators, approximation/checking, residual repair, inverse search, simulation, oscillation, rotation, multilevel elasticity, magnetic attraction, automatic path discovery, priority recalibration, bidirectional prediction and checked operational improvement. Their broad acceptance remains separate from narrow implementations.
+
+## 11. Compass, MGB and joints
+
+A joint records direction/orientation, rotation, elasticity, branch compatibility, priority, confidence denominator, expected value, residual distance, failure history, verification history, exploration allowance, permission and resource costs. The seven actions remain TAP (cheap diagnostic), ROTATE (eligible alternate), EXPAND (budgeted branches), CONTRACT (prune dominated work), BRAKE (stop/fallback), REPAIR (residual correction) and VERIFY (applicable independent check). State transitions must change actual execution/state; decorative labels do not satisfy this requirement.
+
+MGB is the Mathematical Blocker/optimization function. It formalizes variables/constraints, rejects unsupported dependencies, stale proof promotion, unsafe proposals and no-progress loops. It cannot grant permissions or certify its own hypothesis. A candidate utility is:
+
+`U(a) = [P(checked progress|a) × expected residual reduction + information value + exact reuse value] / [setup + execution + transfer + verification cost + weighted memory/risk cost]`.
+
+This is a research objective, not the current scorer's measured optimal equation. Compare direct/static, forward, backward, inverse, hybrid and simulation routes. Include decision overhead, confidence intervals, failed probes and cold-start cost. Synthetic results are useful mechanism evidence and a reason to test transfer; a synthetic ranking flip alone does not prove unseen gain. Multidimensional/3D and psychological path representations remain candidate representations pending utility.
+
+## 12. L1–L3, GraphOS and memory
+
+- **L1:** bounded exact rational/decimal/arithmetic and Boolean operations; supported conversions require typed units, applicability and independent checking. Do not infer general symbolic support from arithmetic tests.
+- **L2:** recursive/composite calculators, matrix FULL/SPARSE/DELTA2, dependency propagation, source-bound subresults and reusable exact proof states. For `A_t=A_0+tD+t(t−1)E/2`, reuse of second differences requires established recurrence and unchanged multiplier/weights; broken recurrence, stale source or changed weights force an independently checked sparse/full route.
+- **L3:** measured Compass/MGB selection, magnetic/elastic joints, composition, prediction and hardware scheduling. Require held-out advantage at equal correctness and acceptable total cost; do not promote extra work or timing-noise preferences.
+
+GraphOS/R1/R1D/R1DX and Heartbeat Delta require immutable/versioned source-bound states, exact identity or proved equivalent subgraphs, computation deltas, residuals, invalidation cones, corruption/conflict checks, replay, rollback and compatible checked joins. A state hash does not establish authentic source or truthful execution attribution. Source changes withdraw affected VERIFIED metadata before reuse; only affected nodes recompute. Measure savings against orchestration overhead and strong incremental baselines.
+
+Preserve .B2M portable state, .ASIF compact context/reconstruction, ReverseRank, RapidRetrieve selective context and hot/warm/cold shards as research candidates. Future Brain2 DSP/search-engine compatibility is an extension seam, not a separate product deliverable. No format is declared integrated solely because it has a name in the register.
+
+## 13. Dual execution, Flow Processor and virtual computation
+
+The hardware search space includes CPU, SIMD, threads, Workers, WASM/WASI, WebGPU and capability-checked WebNN/NPU where available; do not narrow the founder's dual-lane goal to exactly GPU+WASM. Compare single Instruct, single Coder, sequential dual residency, concurrent dual, CPU-only, mixed CPU/GPU and measured adaptive residency. Shared context/buffers carry compact authorized tasks and checked states; avoid redundant histories. Degrade to sequential specialists, one-model V1, deterministic-only supported work or safe stop as capabilities permit.
+
+Flow schedules eligible independent work in parallel, dependent work after checked prerequisites, and contracts under contention. Measure complete serial/parallel time-to-correct, not CPU utilization. Record exact model/hash/template/quantization, runtime, adapter identity, cold/warm load, TTFT, sustained emitted TPS, RAM/VRAM, physical footprint, thread allocation, context length, contention and energy/thermal measurements where possible.
+
+Preserve V-FLOPS, B2CCP, Speed Demon, Math Compass and virtual processor research as executable hypotheses. V-FLOPS means verified frozen-baseline-equivalent work per second, distinct from physical FLOPS, represented work, avoided work and actual neural tokens. Include kernel/vector acceleration, representation/residual techniques, exact state reuse, speculative prewarm and scheduling as separate experiments; do not dismiss the entire research track as merely work avoidance. Historical BASE+RESIDUAL, long-prefix reuse, matrix crossover and hot/cold measurements remain separate evidence. 100+/300 TPS are research targets, not cross-device guarantees or current Mac rates.
+
+## 14. Simulator-centered TinyLinux workshop
+
+TinyLinux is a shared computation/tool environment, not a third language model. Candidate capabilities: bounded Python/C++, compilation, fixed kernels, algorithm simulation, git/code inspection, tests/debugging, Math/Meta-Compass, matrix/residual/Delta2, GraphOS/MRS simulations, RapidRetrieve/.ASIF indexing, benchmarks, independent checking and permissioned internet. Preserve recovered code and negative findings before proposing replacements.
+
+Distinguish browser WASM/WASI Worker tools, historical native fixed fixtures and an optional isolated Linux guest/companion. A Worker is not a Linux VM; the recovered v0.4 runner supports Python/JS and trusted-internal execution, not a proven hostile C++ compiler sandbox. Generated programs are untrusted. Admission requires typed allowlists, filesystem/network permissions, memory/time/work limits, cancellation, logs, cleanup and **termination of underlying execution**, not merely rejection of a Promise. Normal browser-local chat must never require an optional daemon/guest.
+
+Difficult-task loop: typed goal → candidate program/operation → compile/execute/simulate → independent behavioral oracle → evidence/residual → retain correct nodes → rotate/targeted repair/stop. Millions of trials/multiple starting points are budgeted research questions, never unbounded background actions.
+
+## 15. Cortex, TRM, retrieval and calibration
+
+Cortex admission must distinguish source facts, hypotheses, tool outputs, checked components, unresolved assumptions and failures. Restore AM006 (unsupported negative claims), AM007 (expected signal versus actual checked completion), AM008 (retrieved evidence cannot execute instructions), duplicate-evidence confidence controls and chronology-aware evaluation. No universal zero-hallucination guarantee is possible from narrow checkers. A correct result cannot justify false model/tool attribution.
+
+TRM is a confirmed research requirement: reserve a typed recursive-worker candidate and compare it against exact solvers, Falcon proposals and qualified tools. The export reports official 7M attention/19M MLP variants, a remembered ~17M, and a separate 7,172-parameter toy/algorithmic Spiral study that did not run official weights. These are attributed historical distinctions, not freshly verified model specs or permission to add an extra runtime LLM. Preserve the reported inverse-search/Sudoku leads without treating synthetic origin as disqualification; test applicability and cost.
+
+Local/permissioned remote retrieval must preserve source coordinates, freshness, origin, content identity and source-change invalidation. Unauthorized network adapters must not run. Cached citations/transport success do not prove content truth. Recursive calibration updates eligible Compass/joint/model/tool/retrieval policies only from independently checked outcomes, with version, sample denominator, sparse-data caution, uncertainty, negative history and rollback. Routing updates are not model-weight training. No frozen benchmark leakage or automatic policy promotion.
+
+## 16. Evaluation program and non-claims
+
+Compare where actually supported: Instruct alone, Coder alone, historical four-specialist router if reproducible, protected V1, experimental dual V2, dual+tools, complete B2/MRS, zero-Falcon structured B2 and direct/static deterministic solver. Unsupported arms stay NOT RUN; no model swaps or invented baseline results. Hold weights/hardware/source access/token/time budgets/oracles fixed and counterbalance or randomize order. Keep train/development, genuinely unseen and sealed confirmation disjoint.
+
+Domains: unfamiliar natural-language decomposition, word math, symbolic logic/non-template entailment, code generation and behavioral repair, grounded multi-document retrieval, planning/conversation with real blinded graders, tool-use, contradictions, ambiguity, faults, adversarial inputs and long-horizon tasks. Measure complete checked success, accepted-error/false-verified rate, precision/coverage/abstention, successful repairs, p50/p95 time-to-correct, TTFT/TPS, tokens/calls, RAM/CPU/GPU, reuse, energy/thermals and privacy. Public benchmark pretraining contamination and oracle limitations must be explicit.
+
+Historical bounded deterministic 7/23→13/23 and small math/logic 1/3→3/3 results are system-level gains; they do not demonstrate intrinsic Falcon reasoning improvement. Eight identical blind pairs provide no discriminating preference. Current CP024 330 oracle cases are formal grammar checks, not 330 general intelligence tasks. No frontier equivalence or overall 100/100 follows.
+
+## 17. P0–P4, Lighthouse and release
+
+P0 preserves working V1/regressions/fallback. P1 requires unfamiliar non-template source-grounded interpretation that changes correct executable operations. P2 requires meaningful distinct directions and fully checked model-led residual-only repair on unfamiliar tasks. P3 requires persisted checked calibration causing later held-out quality/cost benefit. P4 requires controlled objective comparison, independent blinded semantic grades, difficult tasks, sealed confirmation and device/security acceptance. Local narrow gates do not close the broad gates.
+
+Lighthouse/advisory/friendly red-team reviews use existing test infrastructure, not a second product scheduler. Include first download/offline revisit, corruption/stale proofs, tool injection/permissions/process kill, cancellation, concurrent workers, multi-tab/storage migration/export/delete/reset, low-memory recovery, network privacy, desktop/mobile/Opera where available, keyboard/screen-reader/reduced-motion and **original rotating orb motion**, battery/heat on real phone hardware, and exact model redistribution-license review. Emulated mobile viewport is not physical-phone acceptance. Native CPU affinity is not low-end physical-device proof. Prime95/modular-arithmetic proxies are not interchangeable.
+
+Use one decisive adequate check per material change, retain failures and move forward. Do not rerun the twenty-pass brainstorm or add artificial checkpoints. Stage 5 local research acceptance and product release acceptance are separate; final release requires owner/Shafi signoff and rehearsed rollback.
+
+## 18. Delivery map, documentation truth and next implementation
+
+[Plan](Plan.md) maps five historical stages, newer 14 workstreams and historical CP001–024 without renumbering old receipts. [Recovery coverage](Seren7_V2_Recovery_Coverage.md) supplies the 30-row requirement/source/code/test/status matrix, original 20 research topics, artifact identities/access gaps, negative results and bounded archaeology stopping record. Existing S7-FR-001–018 and NFRs remain stable; S7-V2 IDs add detailed historical traceability.
+
+Source-specific statuses are ACTIVE_MAIN, EXPERIMENTAL_LOCAL, HISTORICAL_PROTOTYPE, PARTIAL, UNVERIFIED or BLOCKED. An inaccessible archive is not inspected code; an archive member/hash is not tested integration; a local test is not a deployment or broad acceptance. Proposed schema fields below do not exist in storage merely because docs define them.
+
+Next high-impact slice: unfamiliar two-document release/maintenance dependency reasoning with source-bound requirements, forward schedule versus backward prerequisite diagnosis, independent feasibility/counterexample checker, source-edit invalidation and same-resource Falcon-only/static/B2 comparison. This is a proposed subsequent implementation task; this scope update remains documentation-only.
 
 ---
 
@@ -872,3 +976,8 @@ The following sources informed this SRS. The SRS is a **consolidation**, not an 
 Seren 7 is ready for its intended full B2 research acceptance only when it is **one working browser-local Falcon chat product**, with its conversational/storage/offline interactions tested, and **B2 Spiral actually controlling a measurable, adaptive, goal-directed computational process**: grounded understanding, Compass decisions that alter paths, executable hierarchy, verified-state preservation, useful residual-only repair, checked recalibration and independently measured benefit over the same Falcon alone.
 
 Until then, the product must openly report the difference between **implemented functionality**, **restricted experimental successes**, and **the complete architectural destination**.
+
+
+### 2026-11-03 — CP024 local browser/source hardening
+
+CP024 LOCAL_UNCOMMITTED / EXPERIMENTAL_ONLY (base `c41da5b`): strict entailment research is reachable via `?b2_chain=1`, independently crosschecked and offline-loadable. The source-coordinate/tamper guards and 330-case membership oracle support only S7-FR-003/005/006 within that grammar. S7-FR-017 broad tasks, meaningful learned routing and full residual repair remain partial/unverified.

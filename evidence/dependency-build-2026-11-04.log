@@ -1,0 +1,12 @@
+
+> seren7_local_falcon_blueprint@1.0.0 build:web
+> npm run prepare:runtime && node tools/build_web.mjs
+
+
+> seren7_local_falcon_blueprint@1.0.0 prepare:runtime
+> node tools/prepare_runtime.mjs
+
+app/vendor/wllama/index.js: 08e0fad5c9efdf4414ca2e27d0d8d5bdfa54d91a8054b40d9d9c90c9ce870b9d
+app/vendor/wllama/wllama-single.wasm: aced0c759f668e17d618114b8688bf55b32289dbdbd08b6e3254b0bc75838ad5
+app/vendor/wllama/wllama-multi.wasm: f69f292f06d9c5c63ac447aac768c3d508fe7a56f0a7926bd12cc33370bc627d
+Web bundle: /Users/mac/Downloads/Seren7_Local_Falcon_Blueprint/dist/seren7-web-nlPqOx (69 assets; model weights excluded)

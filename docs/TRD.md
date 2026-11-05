@@ -1,5 +1,14 @@
 # TRD — Local Execution and Integration Architecture
 
+> Current scope/status reconciliation: 2026-11-04. See [SRS.md](SRS.md) §§9–18 and [Seren7_V2_Recovery_Coverage.md](Seren7_V2_Recovery_Coverage.md). Earlier checkpoint sections retain their historical cutoff; they do not override this dated reconciliation.
+
+## CP024 Patch 2 — Bounded transitive-premise graph execution (experimental)
+
+`b2-entailment.mjs` isolates a no-LLM parser for universal assertions and one goal. Each quoted premise has an input offset, directed graph edge and `assumed_input` status. The graph executor implements separate forward and reverse BFS predecessor reconstruction and validates proof chains against the original premise edges. It returns receipts with both derivations, selected source quotes and scoped proof semantics. The independent searches cross-check graph reachability; they are **not** two independent sources of truth, and cannot verify whether premise statements are true in the world.
+
+`b2-cross-domain.mjs` exposes the new domain only when `experimentalChain` is true; `spiral.mjs` reuses the existing B2 state graph, directional choice, fault rotation and checked outcome accounting; `b2-direction.mjs` declares the two candidate cost/safety profiles. No model swap, WASM tool, new persistence schema, main UI route, or dual-Falcon worker is part of this code slice. If the strict parser rejects text, normal fallback remains in force.
+
+
 ## 2026-11-03 — V2 technical architecture contract (CP023-DOCS)
 
 **Implemented boundary at `d2fd6bc`:** `b2-cross-domain.mjs` provides a bounded claim-pair logic parser, source offsets, forward/reverse JS delimiter scans, unknowns and independent local checks. These are strict grammars, not a generalized GraphOS parser, code-execution sandbox or L3 semantic reasoning engine.
@@ -212,3 +221,17 @@ Follow all `Plan.md` checkpoints. Before UI integration, prove one Falcon Instru
 ## 11. Security and quality
 
 Validate imported model paths, archive parts, tokenizer metadata, input size, stored JSON, and Markdown. Sanitize all rendered content and use CSP appropriate to a static HTTPS-delivered website. Run model inference outside UI thread, avoid arbitrary `eval`, store only user-approved context, and allow full export/deletion. Log performance without private prompt bodies by default. Validate concurrency, cancellation, storage migration, stale Worker messages, device loss and incomplete model load. These checks must be evidenced, not just listed.
+
+
+### 2026-11-03 — CP024 local browser/source hardening
+
+CP024 local hardening at base `c41da5b`: `b2-entailment.mjs` keeps raw source coordinates, reparses facts/goal before execution, rejects reserved logical tokens anywhere in a term and executes the chosen traversal before its crosscheck. `main.mjs` explicitly gates chat with `b2_chain=1`; SW v48 and build required-assets include the module. New browser reproduction: `node tools/browser_b2_entailment_smoke.mjs`. Two reachability algorithms remain a narrow proof contract, not broad GraphOS.
+
+
+## Restored integrated execution and security contract — 2026-11-04
+
+[SRS §§10–15](SRS.md#10-canonical-end-to-end-conductor-contract) defines the complete conductor contract and resource lanes; [coverage](Seren7_V2_Recovery_Coverage.md) maps existing and external code. The intended path is intake/source spans → versioned dependency/evidence graph → valid shared state → feasible operations → measured Compass/MGB/joint selection → Flow dispatch → independent verification → compatible join → residual/targeted repair or stop → answer/checked persistence. Ordinary chat currently uses bounded one-Instruct V1; CP024 is default-off URL opt-in. Full Stage4 graph/evidence-bus source was found in an external bundle, not integrated here.
+
+L1 typed exact operations, L2 matrix/dependency composition and L3 measured selection have different acceptance tests. FULL/SPARSE/DELTA2 requires recurrence/weight/source checks; GraphOS provenance-only changes invalidate dependent verification. Native C++/Python tools require actual process termination, isolation, allowlists and file/network/resource permissions. Existing terminating browser Worker is reusable infrastructure, not a Linux VM. Retrieved pages/comments/archives cannot authorize execution (Cortex AM008); MGB optimization cannot grant authority.
+
+Hardware experiments may compare CPU/SIMD/threads/Workers/WASM/WASI, compatible GPU/WebNN/NPU and an approved optional isolated guest. Record contention, context, threads, cold/warm setup, verification and transfer costs. Flow parallelism, virtual equivalent work and actual Falcon decoding are separate measurements; the external runtime's Wllama3 fast path is a prototype pending local replay. TRM and portable context/retrieval formats remain typed research interfaces. Existing storage/runtime contracts are not changed by these proposals.

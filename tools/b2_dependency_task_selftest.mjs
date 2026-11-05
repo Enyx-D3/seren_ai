@@ -1,0 +1,54 @@
+import assert from 'node:assert/strict';
+import { interpretDependencyTask as parse, executeDependencyPath as run, verifyDependencyOrder as verify } from '../app/js/b2-dependency-task.mjs';
+const source = '  "Unseal vessel" must finish before "Sample water". "Archive reading" depends on "Sample water". Give a valid order.';
+const p = parse(source);
+assert.equal(p.unknowns.length, 0);
+for (const f of p.facts) assert.equal(source.slice(f.sourceOffset, f.sourceOffset + f.quote.length), f.quote);
+for (const kind of p.paths) assert.equal(verify(p, run(p, kind)).ok, true);
+assert.equal(verify(p, [...p.names].reverse()).ok, false);
+assert.equal(Object.isFrozen(p.graph.nodes[0]), true);
+const cyclic = parse('"A" depends on "B". "B" depends on "A". Find an order.');
+assert.equal(run(cyclic, 'dependency_forward'), null);
+assert.equal(verify(cyclic, null).ok, true);
+assert.equal(verify(p, null).ok, false);
+assert.ok(parse('"A" must precede "B". "B" may start before "A". Find an order.').unknowns.length);
+assert.ok(parse('"A" must precede "B". Do not run A. Find an order.').unknowns.length);
+console.log('Dependency interpretation, immutable GraphOS, two algorithms and permutation oracle PASS');
+const { SpiralController } = await import('../app/js/spiral.mjs');
+let calls = 0;
+const result = await new SpiralController().run(source, { experimentalDependency: true, generate: async ({ turns }) => ({
+  text: ++calls === 1 ? JSON.stringify([...p.names].reverse()) : (calls === 2 ? 'Unseal vessel' : 'Sample water'), tokens: 10 }) });
+assert.equal(result.verification.status, 'verified');
+assert.equal(result.metrics.modelCalls, 3);
+assert.equal(result.trace.filter(r => r.step === 'dependency_model_repair').at(-1).repair.checked.ok, true);
+assert.equal(result.trace.find(r => r.step === 'dependency_operation').repairedProposalReused, true);
+const abstained = await new SpiralController().run('Make a plan but avoid uncertainty.', { experimentalDependency: true });
+assert.equal(abstained.verification.status, 'unverified');
+const { executeElasticJoint } = await import('../app/js/b2-elastic-joint.mjs');
+const rotated = await executeElasticJoint({ directions: p.paths, initial: p.paths[0], chooseNext: rows => rows[0],
+  execute: kind => kind === p.paths[0] ? [...p.names].reverse() : run(p, kind),
+  verify: order => { const check = verify(p, order); if (!check.ok) throw Error('wrong order'); return { status: 'verified', method: check.method }; } });
+assert.equal(rotated.direction, 'dependency_backward');
+assert.ok(rotated.history.some(r => r.action === 'ROTATE'));
+console.log('Controller model-repair reintegration, independent joint rotation and abstention PASS');
+const brokenGraph = { ...p, names: [...p.names].reverse(), graph: { ...p.graph, edges: [] } };
+assert.equal(verify(p, run(brokenGraph, 'dependency_forward')).ok, false);
+console.log('GraphOS edges actually control execution; source oracle rejects broken-graph result PASS');
+const unavailable = await new SpiralController().run(source, { experimentalDependency: true,
+  generate: async () => { throw Error('inference unavailable'); } });
+assert.equal(unavailable.verification.status, 'verified');
+assert.ok(unavailable.trace.some(r => r.step === 'dependency_model_failure'));
+console.log('Inference failure preserves independently executable graph fallback PASS');
+const prose = parse('cargo logging must wait for cargo receiving. sample chilling follows cargo logging. Give an order for cargo receiving, cargo logging and sample chilling.');
+assert.equal(prose.unknowns.length, 0);
+assert.equal(verify(prose, run(prose, 'dependency_backward')).ok, true);
+const { checkSourceRelationship, repairOrderFromChoice } = await import('../app/js/b2-dependency-task.mjs');
+for (const f of prose.facts) assert.equal(checkSourceRelationship(prose.source,f), true);
+assert.equal(checkSourceRelationship(prose.source,{...prose.facts[0], before:'sample chilling'}), false);
+assert.ok(parse('cargo logging must wait for cargo receiving. cargo logging might follow sample chilling. Give an order for cargo receiving, cargo logging and sample chilling.').unknowns.length);
+assert.equal(repairOrderFromChoice(prose, ['cargo logging','cargo receiving','sample chilling'], 'cargo receiving','cargo logging','cargo receiving').wholeTask.ok,true);
+assert.equal(repairOrderFromChoice(prose, ['cargo logging','cargo receiving','sample chilling'], 'cargo receiving','cargo logging','cargo logging').ok,false);
+console.log('Grounded prose relations, ambiguity, source tamper and component repair PASS');
+assert.ok(parse('cargo logging must wait for cargo receiving; sample chilling is optional. Give an order for cargo receiving, cargo logging and sample chilling.').unknowns.length);
+assert.ok(parse('cargo logging must wait for cargo receiving; sample chilling must never occur. Give an order for cargo receiving, cargo logging and sample chilling.').unknowns.length);
+assert.equal(parse('"A" must precede "B". Produce an execution order.').unknowns.length,0);

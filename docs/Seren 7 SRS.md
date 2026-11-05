@@ -1,5 +1,7 @@
 # Seren 7 — Software Requirements Specification
 
+> Current scope/status reconciliation: 2026-11-04. See [SRS.md](SRS.md) §§9–18 and [Seren7_V2_Recovery_Coverage.md](Seren7_V2_Recovery_Coverage.md). Earlier checkpoint sections retain their historical cutoff; they do not override this dated reconciliation.
+
 ## 2026-11-03 V1 development SRS continuity notice (CP023-DOCS)
 This document accurately describes the bounded V1 development state at GitHub `d2fd6bc`, including narrow cross-domain source-grounded contradiction and JavaScript delimiter diagnosis; it is not the full V2 release specification. New owner-authorized experimental dual-Falcon/GraphOS/TinyLinux requirements and the longer historical SRS are consolidated separately in `docs/SRS.md`. References below to one Instruct and prohibition of Coder are constraints on the active V1 runtime; ADR-004 permits *disabled-by-default V2 research* only. Nothing here promotes the failed real Falcon code repair, small A/B objective results or frozen 31-case set to production acceptance.
 
@@ -69,3 +71,13 @@ The 2026-11-01 six-case browser A/B engineering probe used the same one Falcon W
 ## 8. Reproduction and change control
 
 Run `npm test`, `npm run test:browser`, `node tools/browser_offline_smoke.mjs`, `npm run build:web` and focused scripts listed in `CHECKPOINT_LOG.md`. Advance service-worker cache versions when adding browser modules. Keep private model bytes out of Git. A material spec conflict requires a decision record under `AGENTS.md`; this SRS adopts the existing ADRs and does not create a new architectural decision. No policy is auto-promoted from self-calibration or developer-only shadow trials.
+
+
+### 2026-11-03 — CP024 local browser/source hardening
+
+CP024 local experiment is now browser-invocable (`?b2_chain=1`) with offline shell coverage and source-coordinate verification. Default V1 and one-model runtime remain the baseline. This narrow formal-logic experiment does not close broad semantic understanding, model-led repair, calibration benefit or independent P4 acceptance.
+
+
+## Full V2 scope authority — 2026-11-04
+
+This concise V1/development SRS remains historical and implementation-scoped. [Consolidated master SRS §§9–18](SRS.md#9-restored-v2-master-scope-and-precedence-2026-11-04) restores the complete Seren 7 = MRS research architecture, including simulator workshop, GraphOS/R1, three calculator levels, Compass/MGB/joints, Flow/virtual computation/V-FLOPS, dual hardware, TinyLinux, retrieval, Cortex and TRM. [Coverage matrix](Seren7_V2_Recovery_Coverage.md) distinguishes local `c41da5b` + CP024 from recovered external prototypes and unverified capabilities. Existing narrow receipts are preserved; no broad reasoning acceptance or runtime change is implied.

@@ -1,0 +1,175 @@
+{
+  "out": "evidence/b2-dependency-ab-v3-2026-11-04T07-54-05.108Z.json",
+  "totals": {
+    "falcon_alone": {
+      "objectivePassed": 0,
+      "objectiveTotal": 6,
+      "pendingHumanCode": 0,
+      "pendingHuman": 0,
+      "totalElapsedMs": 34223.365000002086,
+      "modelCalls": 12,
+      "tokens": 463,
+      "calculatorCalls": 0,
+      "peakProcessTreeRssKiB": 1146368
+    },
+    "b2": {
+      "objectivePassed": 3,
+      "objectiveTotal": 6,
+      "pendingHumanCode": 0,
+      "pendingHuman": 0,
+      "totalElapsedMs": 16438.25,
+      "modelCalls": 6,
+      "tokens": 196,
+      "calculatorCalls": 3,
+      "peakProcessTreeRssKiB": 1065408
+    }
+  },
+  "rows": [
+    {
+      "id": "archive",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 2,
+      "elapsedMs": 6392,
+      "error": null
+    },
+    {
+      "id": "archive",
+      "arm": "b2",
+      "check": {
+        "status": "passed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 2,
+      "elapsedMs": 3601,
+      "error": null
+    },
+    {
+      "id": "field",
+      "arm": "b2",
+      "check": {
+        "status": "passed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 2,
+      "elapsedMs": 9533,
+      "error": null
+    },
+    {
+      "id": "field",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 2,
+      "elapsedMs": 4988,
+      "error": null
+    },
+    {
+      "id": "cycle",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 2,
+      "elapsedMs": 4601,
+      "error": null
+    },
+    {
+      "id": "cycle",
+      "arm": "b2",
+      "check": {
+        "status": "passed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 2,
+      "elapsedMs": 3300,
+      "error": null
+    },
+    {
+      "id": "branch",
+      "arm": "b2",
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 0,
+      "elapsedMs": 3,
+      "error": null
+    },
+    {
+      "id": "branch",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 2,
+      "elapsedMs": 6463,
+      "error": null
+    },
+    {
+      "id": "prose-unfamiliar",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 2,
+      "elapsedMs": 5824,
+      "error": null
+    },
+    {
+      "id": "prose-unfamiliar",
+      "arm": "b2",
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "error": null
+    },
+    {
+      "id": "cross-document",
+      "arm": "b2",
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "error": null
+    },
+    {
+      "id": "cross-document",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 2,
+      "elapsedMs": 5955,
+      "error": null
+    }
+  ],
+  "errors": [],
+  "external": []
+}

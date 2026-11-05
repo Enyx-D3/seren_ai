@@ -1,5 +1,7 @@
 # UI_Spec — Preserve Seren 7, Connect Real Local Intelligence
 
+> Current scope/status reconciliation: 2026-11-04. See [SRS.md](SRS.md) §§9–18 and [Seren7_V2_Recovery_Coverage.md](Seren7_V2_Recovery_Coverage.md). Earlier checkpoint sections retain their historical cutoff; they do not override this dated reconciliation.
+
 ## 2026-11-03 — V2 visual/interaction addendum (CP023-DOCS)
 **Preservation rule:** Original uploaded Seren 7 HTML, animated planet/orb, glass visual identity, layout, sidebar/history, chat/composer/streaming/Stop and accessibility remain the acceptance reference. Do not replace the UI or silently remove orbital rotation. Respect reduced-motion and phone power limits.
 
@@ -142,3 +144,15 @@ Orb should respond to **actual** `idle`, `loading`, `generating`, `verifying`, `
 ## 8. Mapping decisions pending user approval
 
 Preserve `Seren 7`, `Swift`, `Muse` as **style presets** or rename selector to actual B2 modes. The existing `Muse` style is **not** the external Muse coding agent and **not** an active Falcon variant. The user should see the one actual model identity in an accessible details panel regardless of preset label.
+
+
+### 2026-11-03 — CP024 local browser/source hardening
+
+No visual controls or layout were added for CP024. Developer-only URL `?b2_chain=1` uses existing chat, verification labels and Run details. A static desktop screenshot was inspected in the browser test; animation motion and physical mobile acceptance were not newly measured.
+
+
+## Restored UI and research-control boundary — 2026-11-04
+
+Keep the original `reference/Seren_7_original.html` appearance, animated rotating Jupiter/orb, responsive desktop/mobile layout, stream/Stop, history/sidebar, Settings, model loading/verification, storage/export/delete/reset, keyboard, screen reader and reduced-motion behavior. An internal intelligence upgrade must not look like a replacement product. Orb motion needs a real visual/motion regression, not merely the presence of a canvas or static screenshot.
+
+Current local CP024 control is developer URL `?b2_chain=1`; no new model/tool/network control is added by this doc. Future controls must truthfully identify active model/resource, permissions, load progress, verified components, unresolved uncertainty and cancellation/failure. Never display a whole-answer verified badge from one checked subresult, fabricate background agents or expose raw internal reasoning as proof. Zero-model structured math is historical prototype behavior; unsupported conversation still requires a language model. Follow [SRS §§9,17](SRS.md#9-restored-v2-master-scope-and-precedence-2026-11-04) for release gates.

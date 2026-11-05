@@ -1,0 +1,1786 @@
+{
+  "fixturePath": "evidence/b2-dependency-fresh-2026-11-04.json",
+  "fixtureSha256": "e78ad24a54f3174daa5c27a6fad7b94cc42658da8ccaa30f90d2671d6fc06e9c",
+  "modelSha256": "e7d655345a876ecb073ea86f5ce68e412b99090c34a6bde8a2982bc48afb2612",
+  "baseUrl": "http://127.0.0.1:8799/",
+  "conditions": "same Falcon weights/runtime/hardware/temperature 0.2; each arm <=4 calls x64 output tokens, AB/BA order; baseline generic reconsideration, B2 source-grounded interpretation/tools and targeted correction; tool intervention charged; no live calibration",
+  "sourceSha256": {
+    "app/js/spiral.mjs": "4d9303881b58622624254e3d861bcded8d49cc0e5daa0941e56aa5f91b174609",
+    "app/js/b2-dependency-task.mjs": "9b50da6389ec7e5a2337917bf888374d17114d506e053e602de7abe2eac566c6",
+    "app/js/b2-graphos-browser-shadow.mjs": "cc2eb922ed8ac761ef5c8523e69c2c07f0ef0a363beccb7a109288aabfa239c4",
+    "app/js/b2-elastic-joint.mjs": "6dc585febbd6846c4899026024e5cc4a4f83755a7b9bc68075e4fe73a80fe4b3",
+    "app/js/b2-direction.mjs": "2c5ed74ed03df2877bda48fdb6c12e1c842f3a632b01d88fce8987b3be8d8808",
+    "app/js/prompts.mjs": "09df9284b19db6daf9d3826093bde84f221ed1322a51a32de44ca2aa9f08c5be",
+    "app/workers/runtime-worker.mjs": "cb0ff247b569ae8832af54579ecc726a575135f57d063c547c66b58319aed3fc"
+  },
+  "rows": [
+    {
+      "id": "orchard",
+      "category": "dependency",
+      "arm": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "```json\n[\n    \"order_by_fruits\",\n    \"fruit_weighing\",\n    \"crate_sealing\"\n]\n```",
+      "metrics": {
+        "modelCalls": 4,
+        "tokens": 175,
+        "calculatorCalls": 0
+      },
+      "verification": null,
+      "trace": [
+        {
+          "step": "baseline_attempts",
+          "attempts": [
+            "1. **Fruit Pickup**: Start by placing the fruit in a crate. Ensure the crate is secure and the fruit is evenly distributed.\n\n2. **Fruit Weighing**: As the fruit is picked, weigh it to determine its weight. Record the weight in the crate.",
+            "```json\n[\n    \"order_by_fruits\",\n    \"fruit_weighing\",\n    \"crate_sealing\"\n]\n```",
+            "```json\n[\n    \"order_by_fruits\",\n    \"fruit_weighing\",\n    \"crate_sealing\"\n]\n```",
+            "```json\n[\n    \"order_by_fruits\",\n    \"fruit_weighing\",\n    \"crate_sealing\"\n]\n```"
+          ]
+        }
+      ],
+      "error": null,
+      "elapsedMs": 9839.445000000298,
+      "peakProcessTreeRssKiB": 1084928,
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "orchard",
+      "category": "dependency",
+      "arm": "b2",
+      "order": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "[\"fruit picking\",\"fruit weighing\",\"crate sealing\"]",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 12,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 1603
+      },
+      "verification": {
+        "status": "verified",
+        "method": "independent_position_inequalities",
+        "scope": "ordering_relative_to_supported_explicit_source_constraints"
+      },
+      "trace": [
+        {
+          "step": "dependency_interpretation",
+          "intent": "dependency_order",
+          "goal": "a feasible total order or a checked infeasibility result",
+          "facts": [
+            {
+              "before": "fruit picking",
+              "after": "fruit weighing",
+              "quote": "fruit weighing follows fruit picking.",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "fruit weighing",
+                  "start": 0,
+                  "end": 14
+                },
+                "right": {
+                  "name": "fruit picking",
+                  "start": 23,
+                  "end": 36
+                },
+                "connector": "follows",
+                "prefix": ""
+              }
+            },
+            {
+              "before": "fruit weighing",
+              "after": "crate sealing",
+              "quote": "crate sealing must wait for fruit weighing.",
+              "sourceOffset": 38,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "crate sealing",
+                  "start": 0,
+                  "end": 13
+                },
+                "right": {
+                  "name": "fruit weighing",
+                  "start": 28,
+                  "end": 42
+                },
+                "connector": "must wait for",
+                "prefix": ""
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "before": "fruit picking",
+              "after": "fruit weighing",
+              "quote": "fruit weighing follows fruit picking.",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "fruit weighing",
+                  "start": 0,
+                  "end": 14
+                },
+                "right": {
+                  "name": "fruit picking",
+                  "start": 23,
+                  "end": 36
+                },
+                "connector": "follows",
+                "prefix": ""
+              }
+            },
+            {
+              "before": "fruit weighing",
+              "after": "crate sealing",
+              "quote": "crate sealing must wait for fruit weighing.",
+              "sourceOffset": 38,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "crate sealing",
+                  "start": 0,
+                  "end": 13
+                },
+                "right": {
+                  "name": "fruit weighing",
+                  "start": 28,
+                  "end": 42
+                },
+                "connector": "must wait for",
+                "prefix": ""
+              }
+            }
+          ],
+          "unknowns": [],
+          "root": "94fb1eac33aab942ce0605c26ffae1ae59c78a17ae60f6d1544055a7e4e85189"
+        },
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "dependency_forward",
+          "candidates": [
+            {
+              "kind": "dependency_forward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 5,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "dependency_backward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 5,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ],
+          "selectionReason": "evidence_rank"
+        },
+        {
+          "step": "dependency_hypothesis",
+          "proposal": {
+            "text": "Input.1. Return:\n1. fruit weighing"
+          },
+          "checked": {
+            "ok": false,
+            "residuals": [
+              "invalid_order_format"
+            ],
+            "method": "independent_position_inequalities"
+          }
+        },
+        {
+          "step": "dependency_component_projection",
+          "order": [
+            "fruit picking",
+            "fruit weighing",
+            "crate sealing"
+          ],
+          "status": "unverified"
+        },
+        {
+          "step": "dependency_operation",
+          "kind": "dependency_forward",
+          "order": [
+            "fruit picking",
+            "fruit weighing",
+            "crate sealing"
+          ],
+          "repairedProposalReused": false
+        },
+        {
+          "step": "dependency_joint",
+          "status": "verified",
+          "direction": "dependency_forward",
+          "candidate": [
+            "fruit picking",
+            "fruit weighing",
+            "crate sealing"
+          ],
+          "receipt": {
+            "status": "verified",
+            "method": "independent_position_inequalities",
+            "check": {
+              "ok": true,
+              "residuals": [],
+              "method": "independent_position_inequalities"
+            }
+          },
+          "visited": [
+            "dependency_forward"
+          ],
+          "history": [
+            {
+              "action": "TAP",
+              "direction": "dependency_forward",
+              "cycle": 1
+            },
+            {
+              "action": "VERIFY",
+              "direction": "dependency_forward",
+              "method": "independent_position_inequalities",
+              "measuredMs": 0.11500000208616257
+            }
+          ],
+          "stopReason": "independently_verified"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "dependency_forward",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "independent_position_inequalities",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 1603,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 1,
+              "unresolved": 0,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 1,
+              "complete": true
+            },
+            "verifiedDelta": 1,
+            "componentDelta": 0,
+            "residualDelta": 0,
+            "outcome": "verified_advance"
+          }
+        }
+      ],
+      "error": null,
+      "elapsedMs": 1604.219999998808,
+      "peakProcessTreeRssKiB": 800416,
+      "check": {
+        "status": "passed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "observatory",
+      "category": "dependency",
+      "arm": "b2",
+      "order": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "[\"mirror cleaning\",\"lens calibration\",\"star imaging\"]",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 11,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 1480
+      },
+      "verification": {
+        "status": "verified",
+        "method": "independent_position_inequalities",
+        "scope": "ordering_relative_to_supported_explicit_source_constraints"
+      },
+      "trace": [
+        {
+          "step": "dependency_interpretation",
+          "intent": "dependency_order",
+          "goal": "a feasible total order or a checked infeasibility result",
+          "facts": [
+            {
+              "before": "mirror cleaning",
+              "after": "lens calibration",
+              "quote": "mirror cleaning must finish before lens calibration;",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "mirror cleaning",
+                  "start": 0,
+                  "end": 15
+                },
+                "right": {
+                  "name": "lens calibration",
+                  "start": 35,
+                  "end": 51
+                },
+                "connector": "must finish before",
+                "prefix": ""
+              }
+            },
+            {
+              "before": "lens calibration",
+              "after": "star imaging",
+              "quote": "star imaging is allowed once lens calibration is done.",
+              "sourceOffset": 53,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "star imaging",
+                  "start": 0,
+                  "end": 12
+                },
+                "right": {
+                  "name": "lens calibration",
+                  "start": 29,
+                  "end": 45
+                },
+                "connector": "is allowed once",
+                "prefix": ""
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "before": "mirror cleaning",
+              "after": "lens calibration",
+              "quote": "mirror cleaning must finish before lens calibration;",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "mirror cleaning",
+                  "start": 0,
+                  "end": 15
+                },
+                "right": {
+                  "name": "lens calibration",
+                  "start": 35,
+                  "end": 51
+                },
+                "connector": "must finish before",
+                "prefix": ""
+              }
+            },
+            {
+              "before": "lens calibration",
+              "after": "star imaging",
+              "quote": "star imaging is allowed once lens calibration is done.",
+              "sourceOffset": 53,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "star imaging",
+                  "start": 0,
+                  "end": 12
+                },
+                "right": {
+                  "name": "lens calibration",
+                  "start": 29,
+                  "end": 45
+                },
+                "connector": "is allowed once",
+                "prefix": ""
+              }
+            }
+          ],
+          "unknowns": [],
+          "root": "aae2ae0eacf332860bfe02ca92bcdebf9d71745f9903314dc5217108bfccb315"
+        },
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "dependency_forward",
+          "candidates": [
+            {
+              "kind": "dependency_forward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 5,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "dependency_backward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 5,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ],
+          "selectionReason": "evidence_rank"
+        },
+        {
+          "step": "dependency_hypothesis",
+          "proposal": {
+            "text": "[\"mirror cleaning\", \"lens calibration\"]",
+            "order": [
+              "mirror cleaning",
+              "lens calibration"
+            ]
+          },
+          "checked": {
+            "ok": false,
+            "residuals": [
+              {
+                "before": "lens calibration",
+                "after": "star imaging",
+                "quote": "star imaging is allowed once lens calibration is done."
+              }
+            ],
+            "method": "independent_position_inequalities"
+          }
+        },
+        {
+          "step": "dependency_component_projection",
+          "order": [
+            "mirror cleaning",
+            "lens calibration",
+            "star imaging"
+          ],
+          "status": "unverified"
+        },
+        {
+          "step": "dependency_operation",
+          "kind": "dependency_forward",
+          "order": [
+            "mirror cleaning",
+            "lens calibration",
+            "star imaging"
+          ],
+          "repairedProposalReused": false
+        },
+        {
+          "step": "dependency_joint",
+          "status": "verified",
+          "direction": "dependency_forward",
+          "candidate": [
+            "mirror cleaning",
+            "lens calibration",
+            "star imaging"
+          ],
+          "receipt": {
+            "status": "verified",
+            "method": "independent_position_inequalities",
+            "check": {
+              "ok": true,
+              "residuals": [],
+              "method": "independent_position_inequalities"
+            }
+          },
+          "visited": [
+            "dependency_forward"
+          ],
+          "history": [
+            {
+              "action": "TAP",
+              "direction": "dependency_forward",
+              "cycle": 1
+            },
+            {
+              "action": "VERIFY",
+              "direction": "dependency_forward",
+              "method": "independent_position_inequalities",
+              "measuredMs": 0.020000003278255463
+            }
+          ],
+          "stopReason": "independently_verified"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "dependency_forward",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "independent_position_inequalities",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 1480,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 1,
+              "unresolved": 0,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 1,
+              "complete": true
+            },
+            "verifiedDelta": 1,
+            "componentDelta": 0,
+            "residualDelta": 0,
+            "outcome": "verified_advance"
+          }
+        }
+      ],
+      "error": null,
+      "elapsedMs": 1480.460000000894,
+      "peakProcessTreeRssKiB": 806304,
+      "check": {
+        "status": "passed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "observatory",
+      "category": "dependency",
+      "arm": "falcon_alone",
+      "order": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "```json\n{\n  \"action_name\": \"check_requirements\",\n  \"action_name\": \"verify_requirements\"\n}\n```",
+      "metrics": {
+        "modelCalls": 4,
+        "tokens": 143,
+        "calculatorCalls": 0
+      },
+      "verification": null,
+      "trace": [
+        {
+          "step": "baseline_attempts",
+          "attempts": [
+            "Mirror cleaning must be completed before lens calibration; star imaging is permitted once calibration is complete. Follow this schedule for mirror cleaning, lens calibration, and star imaging.",
+            "```json\n{\n  \"action_name\": \"check_requirements\",\n  \"action_name\": \"verify_requirements\"\n}\n```",
+            "```json\n{\n  \"action_name\": \"check_requirements\",\n  \"action_name\": \"verify_requirements\"\n}\n```",
+            "```json\n{\n  \"action_name\": \"check_requirements\",\n  \"action_name\": \"verify_requirements\"\n}\n```"
+          ]
+        }
+      ],
+      "error": null,
+      "elapsedMs": 10898.15000000596,
+      "peakProcessTreeRssKiB": 817952,
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "tunnel",
+      "category": "dependency",
+      "arm": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "```json\n[\n    \"check_order_1234\",\n    \"verify_order_1245\"\n]\n```",
+      "metrics": {
+        "modelCalls": 4,
+        "tokens": 173,
+        "calculatorCalls": 0
+      },
+      "verification": null,
+      "trace": [
+        {
+          "step": "baseline_attempts",
+          "attempts": [
+            "**Trench Clearing Order:**\n\n- **Order Number:** TRECK01234\n- **Quantity:** 1000\n- **Duration:** 24 hours\n- **Frequency:** Trench Clearing\n- **Review Process:** Hazard Review,",
+            "```json\n[\n    \"order_confirmation_1234\",\n    \"order_details_1000\",\n    \"review_process_1245\"\n]\n```",
+            "```json\n[\n    \"check_order_1234\",\n    \"verify_order_1245\"\n]\n```",
+            "```json\n[\n    \"check_order_1234\",\n    \"verify_order_1245\"\n]\n```"
+          ]
+        }
+      ],
+      "error": null,
+      "elapsedMs": 9395.864999994636,
+      "peakProcessTreeRssKiB": 825792,
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "tunnel",
+      "category": "dependency",
+      "arm": "b2",
+      "order": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "[\"trench clearing\",\"hazard review\",\"pump fitting\",\"drain testing\"]",
+      "metrics": {
+        "modelCalls": 1,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 26,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 1647
+      },
+      "verification": {
+        "status": "verified",
+        "method": "independent_position_inequalities",
+        "scope": "ordering_relative_to_supported_explicit_source_constraints"
+      },
+      "trace": [
+        {
+          "step": "dependency_interpretation",
+          "intent": "dependency_order",
+          "goal": "a feasible total order or a checked infeasibility result",
+          "facts": [
+            {
+              "before": "pump fitting",
+              "after": "drain testing",
+              "quote": "drain testing depends on pump fitting.",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "drain testing",
+                  "start": 0,
+                  "end": 13
+                },
+                "right": {
+                  "name": "pump fitting",
+                  "start": 25,
+                  "end": 37
+                },
+                "connector": "depends on",
+                "prefix": ""
+              }
+            },
+            {
+              "before": "trench clearing",
+              "after": "pump fitting",
+              "quote": "pump fitting happens after trench clearing.",
+              "sourceOffset": 39,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "pump fitting",
+                  "start": 0,
+                  "end": 12
+                },
+                "right": {
+                  "name": "trench clearing",
+                  "start": 27,
+                  "end": 42
+                },
+                "connector": "happens after",
+                "prefix": ""
+              }
+            },
+            {
+              "before": "hazard review",
+              "after": "pump fitting",
+              "quote": "hazard review must finish before pump fitting.",
+              "sourceOffset": 83,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "hazard review",
+                  "start": 0,
+                  "end": 13
+                },
+                "right": {
+                  "name": "pump fitting",
+                  "start": 33,
+                  "end": 45
+                },
+                "connector": "must finish before",
+                "prefix": ""
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "before": "pump fitting",
+              "after": "drain testing",
+              "quote": "drain testing depends on pump fitting.",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "drain testing",
+                  "start": 0,
+                  "end": 13
+                },
+                "right": {
+                  "name": "pump fitting",
+                  "start": 25,
+                  "end": 37
+                },
+                "connector": "depends on",
+                "prefix": ""
+              }
+            },
+            {
+              "before": "trench clearing",
+              "after": "pump fitting",
+              "quote": "pump fitting happens after trench clearing.",
+              "sourceOffset": 39,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "pump fitting",
+                  "start": 0,
+                  "end": 12
+                },
+                "right": {
+                  "name": "trench clearing",
+                  "start": 27,
+                  "end": 42
+                },
+                "connector": "happens after",
+                "prefix": ""
+              }
+            },
+            {
+              "before": "hazard review",
+              "after": "pump fitting",
+              "quote": "hazard review must finish before pump fitting.",
+              "sourceOffset": 83,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "hazard review",
+                  "start": 0,
+                  "end": 13
+                },
+                "right": {
+                  "name": "pump fitting",
+                  "start": 33,
+                  "end": 45
+                },
+                "connector": "must finish before",
+                "prefix": ""
+              }
+            }
+          ],
+          "unknowns": [],
+          "root": "b6bf0149984ad41c27f23c579d333447d0e9302bf4b27d31a903292b2c8f704d"
+        },
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "dependency_forward",
+          "candidates": [
+            {
+              "kind": "dependency_forward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:7",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 7,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "dependency_backward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:7",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 7,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ],
+          "selectionReason": "evidence_rank"
+        },
+        {
+          "step": "dependency_hypothesis",
+          "proposal": {
+            "text": "[Pump Fitting, [Hazard Review, [Trench Clearing], [Safety Review]]"
+          },
+          "checked": {
+            "ok": false,
+            "residuals": [
+              "invalid_order_format"
+            ],
+            "method": "independent_position_inequalities"
+          }
+        },
+        {
+          "step": "dependency_component_projection",
+          "order": [
+            "trench clearing",
+            "hazard review",
+            "pump fitting",
+            "drain testing"
+          ],
+          "status": "unverified"
+        },
+        {
+          "step": "dependency_operation",
+          "kind": "dependency_forward",
+          "order": [
+            "trench clearing",
+            "hazard review",
+            "pump fitting",
+            "drain testing"
+          ],
+          "repairedProposalReused": false
+        },
+        {
+          "step": "dependency_joint",
+          "status": "verified",
+          "direction": "dependency_forward",
+          "candidate": [
+            "trench clearing",
+            "hazard review",
+            "pump fitting",
+            "drain testing"
+          ],
+          "receipt": {
+            "status": "verified",
+            "method": "independent_position_inequalities",
+            "check": {
+              "ok": true,
+              "residuals": [],
+              "method": "independent_position_inequalities"
+            }
+          },
+          "visited": [
+            "dependency_forward"
+          ],
+          "history": [
+            {
+              "action": "TAP",
+              "direction": "dependency_forward",
+              "cycle": 1
+            },
+            {
+              "action": "VERIFY",
+              "direction": "dependency_forward",
+              "method": "independent_position_inequalities",
+              "measuredMs": 0.030000001192092896
+            }
+          ],
+          "stopReason": "independently_verified"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "dependency_forward",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "independent_position_inequalities",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 1647,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 1,
+              "unresolved": 0,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 1,
+              "complete": true
+            },
+            "verifiedDelta": 1,
+            "componentDelta": 0,
+            "residualDelta": 0,
+            "outcome": "verified_advance"
+          }
+        }
+      ],
+      "error": null,
+      "elapsedMs": 1647.0049999952316,
+      "peakProcessTreeRssKiB": 769952,
+      "check": {
+        "status": "passed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "conflict-new",
+      "category": "dependency",
+      "arm": "b2",
+      "order": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "No feasible order satisfies all stated prerequisites.",
+      "metrics": {
+        "modelCalls": 2,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 15,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 2592
+      },
+      "verification": {
+        "status": "verified",
+        "method": "independent_exhaustive_counterexample_search",
+        "scope": "ordering_relative_to_supported_explicit_source_constraints"
+      },
+      "trace": [
+        {
+          "step": "dependency_interpretation",
+          "intent": "dependency_order",
+          "goal": "a feasible total order or a checked infeasibility result",
+          "facts": [
+            {
+              "before": "site inspection",
+              "after": "permit approval",
+              "quote": "permit approval follows site inspection.",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "permit approval",
+                  "start": 0,
+                  "end": 15
+                },
+                "right": {
+                  "name": "site inspection",
+                  "start": 24,
+                  "end": 39
+                },
+                "connector": "follows",
+                "prefix": ""
+              }
+            },
+            {
+              "before": "permit approval",
+              "after": "site inspection",
+              "quote": "site inspection must wait for permit approval.",
+              "sourceOffset": 41,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "site inspection",
+                  "start": 0,
+                  "end": 15
+                },
+                "right": {
+                  "name": "permit approval",
+                  "start": 30,
+                  "end": 45
+                },
+                "connector": "must wait for",
+                "prefix": ""
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "before": "site inspection",
+              "after": "permit approval",
+              "quote": "permit approval follows site inspection.",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "permit approval",
+                  "start": 0,
+                  "end": 15
+                },
+                "right": {
+                  "name": "site inspection",
+                  "start": 24,
+                  "end": 39
+                },
+                "connector": "follows",
+                "prefix": ""
+              }
+            },
+            {
+              "before": "permit approval",
+              "after": "site inspection",
+              "quote": "site inspection must wait for permit approval.",
+              "sourceOffset": 41,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "site inspection",
+                  "start": 0,
+                  "end": 15
+                },
+                "right": {
+                  "name": "permit approval",
+                  "start": 30,
+                  "end": 45
+                },
+                "connector": "must wait for",
+                "prefix": ""
+              }
+            }
+          ],
+          "unknowns": [],
+          "root": "8cfaa7694416420ce867e4c6b931fb324638cc6536a1ebf9099cc1c4509c0eb4"
+        },
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "dependency_forward",
+          "candidates": [
+            {
+              "kind": "dependency_forward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:4",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 4,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "dependency_backward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:4",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 4,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ],
+          "selectionReason": "evidence_rank"
+        },
+        {
+          "step": "dependency_hypothesis",
+          "proposal": {
+            "text": "```json\n[\"approve\", \"inspect\"]\n```",
+            "order": [
+              "approve",
+              "inspect"
+            ]
+          },
+          "checked": {
+            "ok": false,
+            "residuals": [
+              {
+                "before": "site inspection",
+                "after": "permit approval",
+                "quote": "permit approval follows site inspection."
+              },
+              {
+                "before": "permit approval",
+                "after": "site inspection",
+                "quote": "site inspection must wait for permit approval."
+              }
+            ],
+            "method": "independent_position_inequalities"
+          }
+        },
+        {
+          "step": "dependency_component_projection",
+          "order": [
+            "permit approval",
+            "site inspection"
+          ],
+          "status": "unverified"
+        },
+        {
+          "step": "dependency_model_repair",
+          "repair": {
+            "text": "Site inspection",
+            "checked": {
+              "ok": false,
+              "reason": "edit_would_corrupt_checked_relationship"
+            },
+            "componentChecked": false,
+            "preserved": 0,
+            "residual": {
+              "before": "site inspection",
+              "after": "permit approval",
+              "quote": "permit approval follows site inspection.",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "permit approval",
+                  "start": 0,
+                  "end": 15
+                },
+                "right": {
+                  "name": "site inspection",
+                  "start": 24,
+                  "end": 39
+                },
+                "connector": "follows",
+                "prefix": ""
+              }
+            },
+            "mechanism": "model_identified_prerequisite_then_checked_local_move"
+          }
+        },
+        {
+          "step": "dependency_operation",
+          "kind": "dependency_forward",
+          "order": null,
+          "repairedProposalReused": false
+        },
+        {
+          "step": "dependency_joint",
+          "status": "verified",
+          "direction": "dependency_forward",
+          "candidate": null,
+          "receipt": {
+            "status": "verified",
+            "method": "independent_exhaustive_counterexample_search",
+            "check": {
+              "ok": true,
+              "residuals": [],
+              "witness": null,
+              "method": "independent_exhaustive_counterexample_search"
+            }
+          },
+          "visited": [
+            "dependency_forward"
+          ],
+          "history": [
+            {
+              "action": "TAP",
+              "direction": "dependency_forward",
+              "cycle": 1
+            },
+            {
+              "action": "VERIFY",
+              "direction": "dependency_forward",
+              "method": "independent_exhaustive_counterexample_search",
+              "measuredMs": 0.08500000089406967
+            }
+          ],
+          "stopReason": "independently_verified"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "dependency_forward",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "independent_exhaustive_counterexample_search",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 2592,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 1,
+              "unresolved": 0,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 1,
+              "complete": true
+            },
+            "verifiedDelta": 1,
+            "componentDelta": 0,
+            "residualDelta": 0,
+            "outcome": "verified_advance"
+          }
+        }
+      ],
+      "error": null,
+      "elapsedMs": 2592.384999997914,
+      "peakProcessTreeRssKiB": 774944,
+      "check": {
+        "status": "passed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": [
+          {
+            "component": false,
+            "wholeTask": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "conflict-new",
+      "category": "dependency",
+      "arm": "falcon_alone",
+      "order": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "```json\n{\n  \"action\": \"check_order_item\",\n  \"action_name\": \"check_order_item\"\n}\n```",
+      "metrics": {
+        "modelCalls": 4,
+        "tokens": 163,
+        "calculatorCalls": 0
+      },
+      "verification": null,
+      "trace": [
+        {
+          "step": "baseline_attempts",
+          "attempts": [
+            "Permit Approval: Site Inspection | Permits Faced: Site Inspection | Site Inspection Wait Time: 20 minutes\n\nSite Inspection: Permits Faced | Site Inspection Wait Time: 10 minutes",
+            "```json\n{\n  \"action\": \"check_order_item\",\n  \"action_name\": \"check_order_item\"\n}\n```",
+            "```json\n{\n  \"action\": \"check_order_item\",\n  \"action_name\": \"check_order_item\"\n}\n```",
+            "```json\n{\n  \"action\": \"check_order_item\",\n  \"action_name\": \"check_order_item\"\n}\n```"
+          ]
+        }
+      ],
+      "error": null,
+      "elapsedMs": 8963.185000002384,
+      "peakProcessTreeRssKiB": 776304,
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "ambiguous-either",
+      "category": "dependency",
+      "arm": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "```json\n{\n  \"order_1\": [\"Film Scanning\", \"Image Review\"]\n}",
+      "metrics": {
+        "modelCalls": 4,
+        "tokens": 154,
+        "calculatorCalls": 0
+      },
+      "verification": null,
+      "trace": [
+        {
+          "step": "baseline_attempts",
+          "attempts": [
+            "Order: **Film Scanning & Image Review**\n\n1. **Film Scanning**: Schedule a dedicated time for film scanning, ensuring it's ready for drying. Prioritize this to minimize interruptions.\n\n2. **Film Drying**: Begin with the film dry",
+            "```json\n{\n  \"order_1\": \"Film Scanning & Image Review\",\n  \"order_2\": \"Film Drying\"\n}\n```",
+            "```json\n{\n  \"order_1\": [\"Film Scanning\", \"Image Review\"]\n}",
+            "```json\n{\n  \"order_1\": [\"Film Scanning\", \"Image Review\"]\n}"
+          ]
+        }
+      ],
+      "error": null,
+      "elapsedMs": 8905.439999997616,
+      "peakProcessTreeRssKiB": 780352,
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "ambiguous-either",
+      "category": "dependency",
+      "arm": "b2",
+      "order": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 3
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          {
+            "quote": "either film drying or image review can happen first.",
+            "sourceOffset": 41,
+            "reason": "uninterpreted_clause"
+          }
+        ]
+      },
+      "trace": [],
+      "error": null,
+      "elapsedMs": 2.8549999967217445,
+      "peakProcessTreeRssKiB": 780512,
+      "check": {
+        "status": "passed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": true,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "negative-never",
+      "category": "dependency",
+      "arm": "b2",
+      "order": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 1
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          {
+            "quote": "casing inspection must never occur.",
+            "sourceOffset": 43,
+            "reason": "uninterpreted_clause"
+          }
+        ]
+      },
+      "trace": [],
+      "error": null,
+      "elapsedMs": 1.0200000032782555,
+      "peakProcessTreeRssKiB": 776752,
+      "check": {
+        "status": "passed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": true,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "negative-never",
+      "category": "dependency",
+      "arm": "falcon_alone",
+      "order": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "```json\n[\n    \"check\",\n    \"battery fitting\"\n]\n```",
+      "metrics": {
+        "modelCalls": 4,
+        "tokens": 131,
+        "calculatorCalls": 0
+      },
+      "verification": null,
+      "trace": [
+        {
+          "step": "baseline_attempts",
+          "attempts": [
+            "Battery fitting is crucial for maintaining proper voltage and preventing overcharging. Casing inspection must always be avoided, as it can lead to unexpected voltage fluctuations. Here's a plan to follow:\n\n1. **Conduct Casing Inspection**: Begin by thoroughly inspecting the casing for any",
+            "```json\n[\n    \"check\",\n    \"battery fitting\",\n    \"casing inspection\"\n]\n```",
+            "```json\n[\n    \"check\",\n    \"battery fitting\"\n]\n```",
+            "```json\n[\n    \"check\",\n    \"battery fitting\"\n]\n```"
+          ]
+        }
+      ],
+      "error": null,
+      "elapsedMs": 8901.935000002384,
+      "peakProcessTreeRssKiB": 785312,
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "bbh-131",
+      "category": "dependency",
+      "arm": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "```json\n[\n    \"A\",\n    \"B\"\n]\n```",
+      "metrics": {
+        "modelCalls": 4,
+        "tokens": 131,
+        "calculatorCalls": 0
+      },
+      "verification": null,
+      "trace": [
+        {
+          "step": "baseline_attempts",
+          "attempts": [
+            "(B) The red book is the second from the left.\n\nHere's why: In the first paragraph, the purple book is to the right of the yellow book. The yellow book is to the right of the red book. Therefore, the red book is the second from the left. In the second paragraph",
+            "```json\n[\n    \"order_by_color\",\n    \"order_by_name\"\n]\n```",
+            "```json\n[\n    \"A\",\n    \"B\",\n    \"C\"\n]\n```",
+            "```json\n[\n    \"A\",\n    \"B\"\n]\n```"
+          ]
+        }
+      ],
+      "error": null,
+      "elapsedMs": 11919.484999999404,
+      "peakProcessTreeRssKiB": 784304,
+      "check": {
+        "status": "failed",
+        "method": "external_published_target",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "bbh-131",
+      "category": "dependency",
+      "arm": "b2",
+      "order": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 2
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "trace": [],
+      "error": null,
+      "elapsedMs": 1.7000000029802322,
+      "peakProcessTreeRssKiB": 594512,
+      "check": {
+        "status": "failed",
+        "method": "external_published_target",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "bbh-207",
+      "category": "dependency",
+      "arm": "b2",
+      "order": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 1
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "trace": [],
+      "error": null,
+      "elapsedMs": 0.5200000032782555,
+      "peakProcessTreeRssKiB": 594672,
+      "check": {
+        "status": "failed",
+        "method": "external_published_target",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "bbh-207",
+      "category": "dependency",
+      "arm": "falcon_alone",
+      "order": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "```json\n[\n    \"check\",\n    \"order_by_name\",\n    \"is_old_than_convertible\"\n]\n```",
+      "metrics": {
+        "modelCalls": 4,
+        "tokens": 152,
+        "calculatorCalls": 0
+      },
+      "verification": null,
+      "trace": [
+        {
+          "step": "baseline_attempts",
+          "attempts": [
+            "(A) The sedan is the newest\n\nThe sedan is older than the convertible, and thus, in an antique car show, the truck is the newest. This is logically consistent within each paragraph.",
+            "```json\n[\n    \"order_by_name\",\n    \"is_old_than_convertible\",\n    \"vehicle_type\"\n]\n```",
+            "```json\n[\n    \"check\",\n    \"order_by_name\",\n    \"is_old_than_convertible\"\n]\n```",
+            "```json\n[\n    \"check\",\n    \"order_by_name\",\n    \"is_old_than_convertible\"\n]\n```"
+          ]
+        }
+      ],
+      "error": null,
+      "elapsedMs": 11637.210000000894,
+      "peakProcessTreeRssKiB": 597936,
+      "check": {
+        "status": "failed",
+        "method": "external_published_target",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    }
+  ],
+  "totals": {
+    "falcon_alone": {
+      "objectivePassed": 0,
+      "objectiveTotal": 8,
+      "pendingHumanCode": 0,
+      "pendingHuman": 0,
+      "totalElapsedMs": 80460.71500000358,
+      "modelCalls": 32,
+      "tokens": 1222,
+      "calculatorCalls": 0,
+      "peakProcessTreeRssKiB": 1084928
+    },
+    "b2": {
+      "objectivePassed": 6,
+      "objectiveTotal": 8,
+      "pendingHumanCode": 0,
+      "pendingHuman": 0,
+      "totalElapsedMs": 7330.164999999106,
+      "modelCalls": 5,
+      "tokens": 64,
+      "calculatorCalls": 4,
+      "peakProcessTreeRssKiB": 806304
+    }
+  },
+  "errors": [],
+  "external": [],
+  "caveats": [
+    "Small locally authored fixture; not independent external generalization evidence.",
+    "Ordering check uses separately authored gold action/edge constraints; prose interpretations not admitted remain failures/abstentions.",
+    "The first baseline prompt matches the B2 hypothesis prompt; generic reconsideration uses no fixed negative-answer example.",
+    "RSS includes Node and Chromium harness."
+  ]
+}

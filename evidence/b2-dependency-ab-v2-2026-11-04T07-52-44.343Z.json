@@ -1,0 +1,1124 @@
+{
+  "fixturePath": "evidence/b2-dependency-unseen-2026-11-04.json",
+  "fixtureSha256": "1da0c6bfe2c237ffe93371ee2397fcfe4021b853bf07d22f537b3b0b63ad5495",
+  "modelSha256": "e7d655345a876ecb073ea86f5ce68e412b99090c34a6bde8a2982bc48afb2612",
+  "baseUrl": "http://127.0.0.1:8799/",
+  "conditions": "same Falcon weights/runtime/hardware/temperature 0.2; each arm <=2 calls x128 output tokens, AB/BA order; baseline generic reconsideration, B2 source-grounded interpretation/tools and targeted correction; tool intervention charged; no live calibration",
+  "sourceSha256": {
+    "app/js/spiral.mjs": "d0042b2bf0d13b8744d08003d33a9bcd91f774b5082cccf7d29fc09fcd6b7371",
+    "app/js/b2-cross-domain.mjs": "ba5eee75fa7a6a272b4b7a336122af510361b43c85783307e04569ede2990f71",
+    "app/js/prompts.mjs": "09df9284b19db6daf9d3826093bde84f221ed1322a51a32de44ca2aa9f08c5be",
+    "app/workers/runtime-worker.mjs": "cb0ff247b569ae8832af54579ecc726a575135f57d063c547c66b58319aed3fc"
+  },
+  "rows": [
+    {
+      "id": "archive",
+      "category": "dependency",
+      "arm": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "```json\n[\"consider the original constraints.\", \"return a valid order.\"]\n**Contradiction:** The requirement for \"Seal archive\" to start with \"Inspect pages\" must be fulfilled, and the current implementation of \"Dispatch parcel\" does not guarantee this. The \"Inspect pages\" function is only available after \"Inspect pages\" is complete, creating a logical inconsistency.",
+      "metrics": {
+        "modelCalls": 2,
+        "tokens": 93,
+        "calculatorCalls": 0,
+        "firstModelTokenMs": 1757.445000000298
+      },
+      "verification": null,
+      "trace": [
+        {
+          "step": "baseline_attempts",
+          "first": "[Dispatch parcel]",
+          "second": "```json\n[\"consider the original constraints.\", \"return a valid order.\"]\n**Contradiction:** The requirement for \"Seal archive\" to start with \"Inspect pages\" must be fulfilled, and the current implementation of \"Dispatch parcel\" does not guarantee this. The \"Inspect pages\" function is only available after \"Inspect pages\" is complete, creating a logical inconsistency."
+        }
+      ],
+      "error": null,
+      "elapsedMs": 6129.009999997914,
+      "peakProcessTreeRssKiB": 1115776,
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      }
+    },
+    {
+      "id": "archive",
+      "category": "dependency",
+      "arm": "b2",
+      "order": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "[\"Inspect pages\",\"Seal archive\",\"Dispatch parcel\"]",
+      "metrics": {
+        "modelCalls": 2,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 22,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 5391
+      },
+      "verification": {
+        "status": "verified",
+        "method": "independent_position_inequalities",
+        "scope": "ordering_relative_to_supported_explicit_source_constraints"
+      },
+      "trace": [
+        {
+          "step": "dependency_interpretation",
+          "intent": "dependency_order",
+          "goal": "a feasible total order or a checked infeasibility result",
+          "facts": [
+            {
+              "before": "Seal archive",
+              "after": "Dispatch parcel",
+              "quote": "\"Dispatch parcel\" depends on \"Seal archive\".",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            },
+            {
+              "before": "Inspect pages",
+              "after": "Seal archive",
+              "quote": "\"Seal archive\" cannot start until \"Inspect pages\" is complete.",
+              "sourceOffset": 45,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            }
+          ],
+          "constraints": [
+            {
+              "before": "Seal archive",
+              "after": "Dispatch parcel",
+              "quote": "\"Dispatch parcel\" depends on \"Seal archive\".",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            },
+            {
+              "before": "Inspect pages",
+              "after": "Seal archive",
+              "quote": "\"Seal archive\" cannot start until \"Inspect pages\" is complete.",
+              "sourceOffset": 45,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            }
+          ],
+          "unknowns": [],
+          "root": "fe5af01dd4914815135c4034e855bcab6ff13f5e4dbc81d849a5b34fb328c65e"
+        },
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "dependency_forward",
+          "candidates": [
+            {
+              "kind": "dependency_forward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 5,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "dependency_backward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 5,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ],
+          "selectionReason": "evidence_rank"
+        },
+        {
+          "step": "dependency_hypothesis",
+          "proposal": {
+            "text": "[Dispatch parcel]"
+          },
+          "checked": {
+            "ok": false,
+            "residuals": [
+              "invalid_order_format"
+            ],
+            "method": "independent_position_inequalities"
+          }
+        },
+        {
+          "step": "dependency_model_repair",
+          "repair": {
+            "text": "```json\n[\"Seal archive\",\"Dispatch parcel\",\"Inspect pages\"]\n```",
+            "checked": {
+              "ok": false,
+              "residuals": [
+                "invalid_order_format"
+              ],
+              "method": "independent_position_inequalities"
+            }
+          }
+        },
+        {
+          "step": "dependency_operation",
+          "kind": "dependency_forward",
+          "order": [
+            "Inspect pages",
+            "Seal archive",
+            "Dispatch parcel"
+          ],
+          "repairedProposalReused": false
+        },
+        {
+          "step": "dependency_joint",
+          "status": "verified",
+          "direction": "dependency_forward",
+          "candidate": [
+            "Inspect pages",
+            "Seal archive",
+            "Dispatch parcel"
+          ],
+          "receipt": {
+            "status": "verified",
+            "method": "independent_position_inequalities",
+            "check": {
+              "ok": true,
+              "residuals": [],
+              "method": "independent_position_inequalities"
+            }
+          },
+          "visited": [
+            "dependency_forward"
+          ],
+          "history": [
+            {
+              "action": "TAP",
+              "direction": "dependency_forward",
+              "cycle": 1
+            },
+            {
+              "action": "VERIFY",
+              "direction": "dependency_forward",
+              "method": "independent_position_inequalities",
+              "measuredMs": 0.13499999791383743
+            }
+          ],
+          "stopReason": "independently_verified"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "dependency_forward",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "independent_position_inequalities",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 5391,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 1,
+              "unresolved": 0,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 1,
+              "complete": true
+            },
+            "verifiedDelta": 1,
+            "componentDelta": 0,
+            "residualDelta": 0,
+            "outcome": "verified_advance"
+          }
+        }
+      ],
+      "error": null,
+      "elapsedMs": 5392.410000003874,
+      "peakProcessTreeRssKiB": 865856,
+      "check": {
+        "status": "passed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      }
+    },
+    {
+      "id": "field",
+      "category": "dependency",
+      "arm": "b2",
+      "order": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "[\"Mark utilities\",\"Open trench\",\"Lay conduit\",\"Inspect conduit\",\"Backfill trench\"]",
+      "metrics": {
+        "modelCalls": 2,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 156,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 9529
+      },
+      "verification": {
+        "status": "verified",
+        "method": "independent_position_inequalities",
+        "scope": "ordering_relative_to_supported_explicit_source_constraints"
+      },
+      "trace": [
+        {
+          "step": "dependency_interpretation",
+          "intent": "dependency_order",
+          "goal": "a feasible total order or a checked infeasibility result",
+          "facts": [
+            {
+              "before": "Mark utilities",
+              "after": "Open trench",
+              "quote": "Before \"Open trench\" begins, \"Mark utilities\" must finish.",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            },
+            {
+              "before": "Open trench",
+              "after": "Lay conduit",
+              "quote": "\"Lay conduit\" happens after \"Open trench\".",
+              "sourceOffset": 59,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            },
+            {
+              "before": "Inspect conduit",
+              "after": "Backfill trench",
+              "quote": "\"Inspect conduit\" must precede \"Backfill trench\".",
+              "sourceOffset": 102,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            },
+            {
+              "before": "Lay conduit",
+              "after": "Inspect conduit",
+              "quote": "\"Inspect conduit\" depends on \"Lay conduit\".",
+              "sourceOffset": 152,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            }
+          ],
+          "constraints": [
+            {
+              "before": "Mark utilities",
+              "after": "Open trench",
+              "quote": "Before \"Open trench\" begins, \"Mark utilities\" must finish.",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            },
+            {
+              "before": "Open trench",
+              "after": "Lay conduit",
+              "quote": "\"Lay conduit\" happens after \"Open trench\".",
+              "sourceOffset": 59,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            },
+            {
+              "before": "Inspect conduit",
+              "after": "Backfill trench",
+              "quote": "\"Inspect conduit\" must precede \"Backfill trench\".",
+              "sourceOffset": 102,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            },
+            {
+              "before": "Lay conduit",
+              "after": "Inspect conduit",
+              "quote": "\"Inspect conduit\" depends on \"Lay conduit\".",
+              "sourceOffset": 152,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            }
+          ],
+          "unknowns": [],
+          "root": "3d6542a29bd496a447eecad939f79e4ff481cee3d9ebfe01df231efa05680a7a"
+        },
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "dependency_forward",
+          "candidates": [
+            {
+              "kind": "dependency_forward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:9",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 9,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "dependency_backward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:9",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 9,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ],
+          "selectionReason": "evidence_rank"
+        },
+        {
+          "step": "dependency_hypothesis",
+          "proposal": {
+            "text": "[\"Start\", \"Mark utilities\", \"Lay conduit\", \"Inspect conduit\", \"Find a sequence\"]",
+            "order": [
+              "Start",
+              "Mark utilities",
+              "Lay conduit",
+              "Inspect conduit",
+              "Find a sequence"
+            ]
+          },
+          "checked": {
+            "ok": false,
+            "residuals": [
+              {
+                "before": "Mark utilities",
+                "after": "Open trench",
+                "quote": "Before \"Open trench\" begins, \"Mark utilities\" must finish."
+              },
+              {
+                "before": "Open trench",
+                "after": "Lay conduit",
+                "quote": "\"Lay conduit\" happens after \"Open trench\"."
+              },
+              {
+                "before": "Inspect conduit",
+                "after": "Backfill trench",
+                "quote": "\"Inspect conduit\" must precede \"Backfill trench\"."
+              }
+            ],
+            "method": "independent_position_inequalities"
+          }
+        },
+        {
+          "step": "dependency_model_repair",
+          "repair": {
+            "text": "```json\n[\n    {\"name\":\"Mark utilities\", \"description\":\"Utilizes Mark utilities to start the operation.\", \"constraints\": [\"Before \\\"Mark utilities\\\", finish\"}, \"required\": [\"Open trench\", \"Lay conduit\", \"Inspect conduit\"]\n    },\n    {\"name\":\"Open trench\", \"description\":\"Begins operations by opening a trench.\", \"constraints\": [\"Before \\\"Open trench\\\", start\\\"Mark utilities\\\"\"], \"required\": [\"Mark utilities\", \"Lay conduit\", \"Inspect condu",
+            "checked": {
+              "ok": false,
+              "residuals": [
+                "invalid_order_format"
+              ],
+              "method": "independent_position_inequalities"
+            }
+          }
+        },
+        {
+          "step": "dependency_operation",
+          "kind": "dependency_forward",
+          "order": [
+            "Mark utilities",
+            "Open trench",
+            "Lay conduit",
+            "Inspect conduit",
+            "Backfill trench"
+          ],
+          "repairedProposalReused": false
+        },
+        {
+          "step": "dependency_joint",
+          "status": "verified",
+          "direction": "dependency_forward",
+          "candidate": [
+            "Mark utilities",
+            "Open trench",
+            "Lay conduit",
+            "Inspect conduit",
+            "Backfill trench"
+          ],
+          "receipt": {
+            "status": "verified",
+            "method": "independent_position_inequalities",
+            "check": {
+              "ok": true,
+              "residuals": [],
+              "method": "independent_position_inequalities"
+            }
+          },
+          "visited": [
+            "dependency_forward"
+          ],
+          "history": [
+            {
+              "action": "TAP",
+              "direction": "dependency_forward",
+              "cycle": 1
+            },
+            {
+              "action": "VERIFY",
+              "direction": "dependency_forward",
+              "method": "independent_position_inequalities",
+              "measuredMs": 0.030000001192092896
+            }
+          ],
+          "stopReason": "independently_verified"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "dependency_forward",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "independent_position_inequalities",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 9529,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 1,
+              "unresolved": 0,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 1,
+              "complete": true
+            },
+            "verifiedDelta": 1,
+            "componentDelta": 0,
+            "residualDelta": 0,
+            "outcome": "verified_advance"
+          }
+        }
+      ],
+      "error": null,
+      "elapsedMs": 9529.135000005364,
+      "peakProcessTreeRssKiB": 817520,
+      "check": {
+        "status": "passed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      }
+    },
+    {
+      "id": "field",
+      "category": "dependency",
+      "arm": "falcon_alone",
+      "order": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "[\"Reconsider\"]",
+      "metrics": {
+        "modelCalls": 2,
+        "tokens": 33,
+        "calculatorCalls": 0,
+        "firstModelTokenMs": 1788.1449999958277
+      },
+      "verification": null,
+      "trace": [
+        {
+          "step": "baseline_attempts",
+          "first": "[\"Start\", \"Mark utilities\", \"Lay conduit\", \"Inspect conduit\", \"Find a sequence\"]",
+          "second": "[\"Reconsider\"]"
+        }
+      ],
+      "error": null,
+      "elapsedMs": 4715.75,
+      "peakProcessTreeRssKiB": 760400,
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      }
+    },
+    {
+      "id": "cycle",
+      "category": "dependency",
+      "arm": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "```json\n[\"reconsider\"]\n```\n\nExplanation: The original constraints (`Approve revision`) are not fully met due to a contradiction. The requirement that `Approve revision` must be fully satisfied is impossible because `Approve revision` is a precondition for `Revision revision`. The other constraint (`Publish revision`) is also inherently unsatisfied due to the conflict between `Approve revision` and `Revision revision`.",
+      "metrics": {
+        "modelCalls": 2,
+        "tokens": 101,
+        "calculatorCalls": 0,
+        "firstModelTokenMs": 1364.210000000894
+      },
+      "verification": null,
+      "trace": [
+        {
+          "step": "baseline_attempts",
+          "first": "[Approve revision]",
+          "second": "```json\n[\"reconsider\"]\n```\n\nExplanation: The original constraints (`Approve revision`) are not fully met due to a contradiction. The requirement that `Approve revision` must be fully satisfied is impossible because `Approve revision` is a precondition for `Revision revision`. The other constraint (`Publish revision`) is also inherently unsatisfied due to the conflict between `Approve revision` and `Revision revision`."
+        }
+      ],
+      "error": null,
+      "elapsedMs": 4821.54999999702,
+      "peakProcessTreeRssKiB": 665712,
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      }
+    },
+    {
+      "id": "cycle",
+      "category": "dependency",
+      "arm": "b2",
+      "order": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "No feasible order satisfies all stated prerequisites.",
+      "metrics": {
+        "modelCalls": 2,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 18,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 3111
+      },
+      "verification": {
+        "status": "verified",
+        "method": "independent_exhaustive_counterexample_search",
+        "scope": "ordering_relative_to_supported_explicit_source_constraints"
+      },
+      "trace": [
+        {
+          "step": "dependency_interpretation",
+          "intent": "dependency_order",
+          "goal": "a feasible total order or a checked infeasibility result",
+          "facts": [
+            {
+              "before": "Approve revision",
+              "after": "Publish revision",
+              "quote": "\"Publish revision\" depends on \"Approve revision\".",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            },
+            {
+              "before": "Publish revision",
+              "after": "Approve revision",
+              "quote": "\"Approve revision\" depends on \"Publish revision\".",
+              "sourceOffset": 50,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            }
+          ],
+          "constraints": [
+            {
+              "before": "Approve revision",
+              "after": "Publish revision",
+              "quote": "\"Publish revision\" depends on \"Approve revision\".",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            },
+            {
+              "before": "Publish revision",
+              "after": "Approve revision",
+              "quote": "\"Approve revision\" depends on \"Publish revision\".",
+              "sourceOffset": 50,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            }
+          ],
+          "unknowns": [],
+          "root": "47b85dbc283cdec2b44f53ec0e0c13138ee5d34c3b88e31424b2cf5e12fafa74"
+        },
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "dependency_forward",
+          "candidates": [
+            {
+              "kind": "dependency_forward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:4",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 4,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "dependency_backward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:4",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 4,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ],
+          "selectionReason": "evidence_rank"
+        },
+        {
+          "step": "dependency_hypothesis",
+          "proposal": {
+            "text": "[Approve revision]"
+          },
+          "checked": {
+            "ok": false,
+            "residuals": [
+              "invalid_order_format"
+            ],
+            "method": "independent_position_inequalities"
+          }
+        },
+        {
+          "step": "dependency_model_repair",
+          "repair": {
+            "text": "[Unresolved constraints: \"invalid_order_format\"]",
+            "checked": {
+              "ok": false,
+              "residuals": [
+                "invalid_order_format"
+              ],
+              "method": "independent_position_inequalities"
+            }
+          }
+        },
+        {
+          "step": "dependency_operation",
+          "kind": "dependency_forward",
+          "order": null,
+          "repairedProposalReused": false
+        },
+        {
+          "step": "dependency_joint",
+          "status": "verified",
+          "direction": "dependency_forward",
+          "candidate": null,
+          "receipt": {
+            "status": "verified",
+            "method": "independent_exhaustive_counterexample_search",
+            "check": {
+              "ok": true,
+              "residuals": [],
+              "witness": null,
+              "method": "independent_exhaustive_counterexample_search"
+            }
+          },
+          "visited": [
+            "dependency_forward"
+          ],
+          "history": [
+            {
+              "action": "TAP",
+              "direction": "dependency_forward",
+              "cycle": 1
+            },
+            {
+              "action": "VERIFY",
+              "direction": "dependency_forward",
+              "method": "independent_exhaustive_counterexample_search",
+              "measuredMs": 0.10499999672174454
+            }
+          ],
+          "stopReason": "independently_verified"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "dependency_forward",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "independent_exhaustive_counterexample_search",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 3111,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 1,
+              "unresolved": 0,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 1,
+              "complete": true
+            },
+            "verifiedDelta": 1,
+            "componentDelta": 0,
+            "residualDelta": 0,
+            "outcome": "verified_advance"
+          }
+        }
+      ],
+      "error": null,
+      "elapsedMs": 3110.6450000032783,
+      "peakProcessTreeRssKiB": 640784,
+      "check": {
+        "status": "passed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      }
+    },
+    {
+      "id": "branch",
+      "category": "dependency",
+      "arm": "b2",
+      "order": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 3
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          {
+            "quote": "Produce an execution order.",
+            "sourceOffset": 139,
+            "reason": "uninterpreted_clause"
+          }
+        ]
+      },
+      "trace": [],
+      "error": null,
+      "elapsedMs": 3.0900000035762787,
+      "peakProcessTreeRssKiB": 612672,
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      }
+    },
+    {
+      "id": "branch",
+      "category": "dependency",
+      "arm": "falcon_alone",
+      "order": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "```json\n[\"print permit\", \"ship sample\"]\n```\n\nExplanation: The \"Print permit\" and \"Ship sample\" must be placed before \"Pack sample\" to ensure that the order is logical and follows the given constraints. The \"Print permit\" is a mandatory action, and \"Ship sample\" is optional, as per the original constraints. The contradiction arises from the lack of a clear precedent, as the order would not adhere to the requirement that \"Pack sample\" precede \"Pack sample\".",
+      "metrics": {
+        "modelCalls": 2,
+        "tokens": 122,
+        "calculatorCalls": 0,
+        "firstModelTokenMs": 1324.8650000020862
+      },
+      "verification": null,
+      "trace": [
+        {
+          "step": "baseline_attempts",
+          "first": "[\"Print permit\", \"Ship sample\"]",
+          "second": "```json\n[\"print permit\", \"ship sample\"]\n```\n\nExplanation: The \"Print permit\" and \"Ship sample\" must be placed before \"Pack sample\" to ensure that the order is logical and follows the given constraints. The \"Print permit\" is a mandatory action, and \"Ship sample\" is optional, as per the original constraints. The contradiction arises from the lack of a clear precedent, as the order would not adhere to the requirement that \"Pack sample\" precede \"Pack sample\"."
+        }
+      ],
+      "error": null,
+      "elapsedMs": 6483.019999995828,
+      "peakProcessTreeRssKiB": 618256,
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      }
+    },
+    {
+      "id": "prose-unfamiliar",
+      "category": "dependency",
+      "arm": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "```json\n[\n    \"reconsider_original_constraints\": \"Return a JSON array of the exact action names in valid order.\"\n    \"Explanation of Contradictions\":\n    - The requirement to return a **reconsider** the original constraints is contradicts the existing rules. The **consider** of returning a valid sequence of inspection, packing, photographing, and transport is inherently contradictory because it violates the **all** requirements.",
+      "metrics": {
+        "modelCalls": 2,
+        "tokens": 105,
+        "calculatorCalls": 0,
+        "firstModelTokenMs": 1612.1500000059605
+      },
+      "verification": null,
+      "trace": [
+        {
+          "step": "baseline_attempts",
+          "first": "[RETURN]",
+          "second": "```json\n[\n    \"reconsider_original_constraints\": \"Return a JSON array of the exact action names in valid order.\"\n    \"Explanation of Contradictions\":\n    - The requirement to return a **reconsider** the original constraints is contradicts the existing rules. The **consider** of returning a valid sequence of inspection, packing, photographing, and transport is inherently contradictory because it violates the **all** requirements."
+        }
+      ],
+      "error": null,
+      "elapsedMs": 6050.704999998212,
+      "peakProcessTreeRssKiB": 609072,
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      }
+    },
+    {
+      "id": "prose-unfamiliar",
+      "category": "dependency",
+      "arm": "b2",
+      "order": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 0
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "trace": [],
+      "error": null,
+      "elapsedMs": 0.24000000208616257,
+      "peakProcessTreeRssKiB": 609392,
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      }
+    },
+    {
+      "id": "cross-document",
+      "category": "dependency",
+      "arm": "b2",
+      "order": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 0
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "trace": [],
+      "error": null,
+      "elapsedMs": 0.16500000655651093,
+      "peakProcessTreeRssKiB": 609552,
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      }
+    },
+    {
+      "id": "cross-document",
+      "category": "dependency",
+      "arm": "falcon_alone",
+      "order": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "```json\n[\"reconsider_original_constraints\"]\n```\n\nExplanation: The original constraints are:\n1. The field team may only close the valve after a safety check.\n2. The restore supply must be completed after the valve has been closed and the seal has been replaced.\n\nThe requirements cannot all be satisfied:\n- **Reconsider the original constraints**: The original constraints do not allow for a closure after a safety check, which violates the requirement that the restore supply must be completed after the valve has been closed.\n\n- **Contradiction**: The original constraints do not explicitly state",
+      "metrics": {
+        "modelCalls": 2,
+        "tokens": 151,
+        "calculatorCalls": 0,
+        "firstModelTokenMs": 1818.5450000017881
+      },
+      "verification": null,
+      "trace": [
+        {
+          "step": "baseline_attempts",
+          "first": "[RETURN]\n[INPUT.1]\n[RETURN]\n[INPUT.2]\n[RETURN]",
+          "second": "```json\n[\"reconsider_original_constraints\"]\n```\n\nExplanation: The original constraints are:\n1. The field team may only close the valve after a safety check.\n2. The restore supply must be completed after the valve has been closed and the seal has been replaced.\n\nThe requirements cannot all be satisfied:\n- **Reconsider the original constraints**: The original constraints do not allow for a closure after a safety check, which violates the requirement that the restore supply must be completed after the valve has been closed.\n\n- **Contradiction**: The original constraints do not explicitly state"
+        }
+      ],
+      "error": null,
+      "elapsedMs": 7692.954999998212,
+      "peakProcessTreeRssKiB": 609808,
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      }
+    }
+  ],
+  "totals": {
+    "falcon_alone": {
+      "objectivePassed": 0,
+      "objectiveTotal": 6,
+      "pendingHumanCode": 0,
+      "pendingHuman": 0,
+      "totalElapsedMs": 35892.989999987185,
+      "modelCalls": 12,
+      "tokens": 605,
+      "calculatorCalls": 0,
+      "peakProcessTreeRssKiB": 1115776
+    },
+    "b2": {
+      "objectivePassed": 3,
+      "objectiveTotal": 6,
+      "pendingHumanCode": 0,
+      "pendingHuman": 0,
+      "totalElapsedMs": 18035.685000024736,
+      "modelCalls": 6,
+      "tokens": 196,
+      "calculatorCalls": 3,
+      "peakProcessTreeRssKiB": 865856
+    }
+  },
+  "errors": [],
+  "external": [],
+  "caveats": [
+    "Small locally authored fixture; not independent external generalization evidence.",
+    "Ordering check uses separately authored gold action/edge constraints; prose interpretations not admitted remain failures/abstentions.",
+    "The first baseline prompt matches the B2 hypothesis prompt; generic reconsideration uses no fixed negative-answer example.",
+    "RSS includes Node and Chromium harness."
+  ]
+}

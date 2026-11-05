@@ -1,5 +1,18 @@
 # B2 Spiral architecture traceability — 2026-11-01
 
+> Current scope/status reconciliation: 2026-11-04. See [SRS.md](SRS.md) §§9–18 and [Seren7_V2_Recovery_Coverage.md](Seren7_V2_Recovery_Coverage.md). Earlier checkpoint sections retain their historical cutoff; they do not override this dated reconciliation.
+
+## CP024 Patch 2 — source → operation → test mapping (prepared, not merged)
+
+| Requirement | Code slice | Executable test | State/limitation |
+| --- | --- | --- | --- |
+| Source-grounded multi-hop semantics | `app/js/b2-entailment.mjs:parseEntailmentProblem` | `tools/b2_entailment_selftest.mjs` premise spans/negative grammar | Opt-in strict `All A are B` only |
+| Forward and reverse independent traversal | `executeEntailmentPath` | both proof arrays and backward agreement | Checked inference, not premise truth |
+| B2 multi-path Compass and fallback | `b2-direction.mjs`, `spiral.mjs` | first-path injected fault/rotation, checked profile ranking | No general reasoning gain established |
+| Default-off V1 compatibility | `b2-cross-domain.mjs`, `spiral.mjs` | `interpretCrossDomain` and `planSpiral` off-path assertions | Existing Falcon route untouched |
+| Regression and deployment gate | `package.json` test script | `npm test`, browser test manual on host | CI/physical phone/release not yet evidenced |
+
+
 ## CP023-DOCS — 2026-11-03 V1-main versus V2 handoff traceability overlay
 
 **Source revision correction:** `d2fd6bc` contains `app/js/b2-cross-domain.mjs`, the existing concise `docs/Seren 7 SRS.md`, browser/unseen/A-B evidence and more. Logic and syntax diagnostics are narrow working contracts; independent JS behavioral checking and successful Falcon-led whole repair remain missing.
@@ -53,3 +66,15 @@ This audit compares the user's B2 master mission and earlier Bengali B2 descript
 ## Deviation and dependency order
 
 The current system often follows a direct calculation or Falcon answer and check. The original destination-directed, multidirectional architecture is a research target, not an established capability. Its most consequential gaps are semantic interpretation, a measured goal-relative objective, executable alternative paths, and independently verified model-led repair. Implement these as bounded vertical slices: (1) progress receipts and strict acceptance, (2) grounded operation-changing semantic state, (3) candidate path comparison, (4) residual-only verified repair, (5) persisted calibration with unseen quality gains, (6) independent confirmation. Keep the direct path as the comparator and retain all failures.
+
+
+### 2026-11-03 — CP024 local browser/source hardening
+
+CP024 LOCAL_UNCOMMITTED / EXPERIMENTAL_ONLY at base `c41da5b`: `b2-entailment.mjs` → `b2_entailment_selftest.mjs` (330 independent graph/query checks, both routes; coordinates/tampering/rotation/default-off) → `browser_b2_entailment_smoke.mjs` (opt-in real chat, zero model calls, offline reload). Receipts: `evidence/cp024-browser-2026-11-03T16-49-47.994Z.json`, `evidence/cp024-source-span-regression-2026-11-03.json`. First harness-label timeout retained separately. General GraphOS and P1–P4 gates remain open.
+
+
+## Complete restored requirement/source/code/test overlay — 2026-11-04
+
+The [recovery coverage matrix](Seren7_V2_Recovery_Coverage.md) is the detailed current overlay: 20 mechanism rows, 10 cross-cutting decisions, all 20 original research topics, source line coordinates, artifact hashes, scoped status, code/tests, acceptance gaps and SRS sections. [Source manifest](Seren7_V2_Source_Manifest.md) pins local source and inspected ZIP members. This updates older “source unavailable” statements only for the exact locally found artifacts; final TinyLinux, official TRM, full CP022 repository and other originals remain unverified/unavailable.
+
+Current source base is `c41da5b` plus preserved staged/unstaged CP024. Bounded contradiction/code diagnostics are ACTIVE_MAIN; CP024 is EXPERIMENTAL_LOCAL. External GraphOS/evidence-bus/Wllama3 bundle source is HISTORICAL_PROTOTYPE, not active main or newly tested integration. Broader semantic understanding, successful full Falcon-led repair and held-out calibration benefit remain partial/unverified. No historical failure or prior acceptance record below is superseded by a blanket completion claim.

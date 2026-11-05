@@ -1,0 +1,175 @@
+{
+  "out": "evidence/b2-dependency-ab-v2-2026-11-04T07-52-44.343Z.json",
+  "totals": {
+    "falcon_alone": {
+      "objectivePassed": 0,
+      "objectiveTotal": 6,
+      "pendingHumanCode": 0,
+      "pendingHuman": 0,
+      "totalElapsedMs": 35892.989999987185,
+      "modelCalls": 12,
+      "tokens": 605,
+      "calculatorCalls": 0,
+      "peakProcessTreeRssKiB": 1115776
+    },
+    "b2": {
+      "objectivePassed": 3,
+      "objectiveTotal": 6,
+      "pendingHumanCode": 0,
+      "pendingHuman": 0,
+      "totalElapsedMs": 18035.685000024736,
+      "modelCalls": 6,
+      "tokens": 196,
+      "calculatorCalls": 3,
+      "peakProcessTreeRssKiB": 865856
+    }
+  },
+  "rows": [
+    {
+      "id": "archive",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 2,
+      "elapsedMs": 6129,
+      "error": null
+    },
+    {
+      "id": "archive",
+      "arm": "b2",
+      "check": {
+        "status": "passed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 2,
+      "elapsedMs": 5392,
+      "error": null
+    },
+    {
+      "id": "field",
+      "arm": "b2",
+      "check": {
+        "status": "passed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 2,
+      "elapsedMs": 9529,
+      "error": null
+    },
+    {
+      "id": "field",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 2,
+      "elapsedMs": 4716,
+      "error": null
+    },
+    {
+      "id": "cycle",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 2,
+      "elapsedMs": 4822,
+      "error": null
+    },
+    {
+      "id": "cycle",
+      "arm": "b2",
+      "check": {
+        "status": "passed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 2,
+      "elapsedMs": 3111,
+      "error": null
+    },
+    {
+      "id": "branch",
+      "arm": "b2",
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 0,
+      "elapsedMs": 3,
+      "error": null
+    },
+    {
+      "id": "branch",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 2,
+      "elapsedMs": 6483,
+      "error": null
+    },
+    {
+      "id": "prose-unfamiliar",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 2,
+      "elapsedMs": 6051,
+      "error": null
+    },
+    {
+      "id": "prose-unfamiliar",
+      "arm": "b2",
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "error": null
+    },
+    {
+      "id": "cross-document",
+      "arm": "b2",
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 0,
+      "elapsedMs": 0,
+      "error": null
+    },
+    {
+      "id": "cross-document",
+      "arm": "falcon_alone",
+      "check": {
+        "status": "failed",
+        "method": "fixture_gold_positional_constraints",
+        "falseVerification": false
+      },
+      "modelCalls": 2,
+      "elapsedMs": 7693,
+      "error": null
+    }
+  ],
+  "errors": [],
+  "external": []
+}

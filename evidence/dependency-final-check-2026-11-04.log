@@ -1,0 +1,163 @@
+
+> seren7_local_falcon_blueprint@1.0.0 test
+> node tools/module_selftest.mjs && node tools/b2_selftest.mjs && node tools/b2_direction_selftest.mjs && node tools/b2_boolean_selftest.mjs && node tools/b2_cross_domain_selftest.mjs && node tools/b2_entailment_selftest.mjs && node tools/b2_dependency_task_selftest.mjs && node tools/b2_graph_selftest.mjs && node tools/b2_semantic_selftest.mjs && node tools/b2_interpretation_selftest.mjs && node tools/b2_dependent_selftest.mjs && node tools/b2_word_math_selftest.mjs && node tools/b2_transfer_selftest.mjs && node tools/b2_calibration_evidence_selftest.mjs
+
+PASS runtime generation budget caps at 1024
+PASS runtime generation budget reserves context
+PASS runtime generation budget rounds fractional tokens down
+PASS runtime rejects overlong prompts
+PASS joint has seven bounded actions
+PASS joint paired gain is order independent
+PASS joint rejects paired correctness regression
+PASS joint rejects missing paired case
+PASS joint failed independent block brakes promotion
+PASS joint retains brake evidence
+PASS joint denies unknown action
+PASS joint retains failed candidate memory
+PASS joint repair needs a correction
+PASS joint repair preserves failure memory
+PASS joint expand stays bounded
+PASS joint contract keeps one branch
+PASS joint rotate validates model
+PASS joint verify needs two independent passes
+PASS joint exact tool accepts bounded explicit request
+PASS joint exact tool accepts natural calculator wording
+PASS joint exact tool accepts escaped multiplication
+PASS joint exact tool rejects trailing instructions in natural wording
+PASS joint exact tool does not intercept manual model
+PASS joint exact tool denies arbitrary syntax
+PASS joint exact tool denies division by zero
+PASS joint exact tool denies trailing instruction
+PASS sha256(abc)
+PASS sha256(empty)
+PASS sha256(1e6 a) RFC vector
+PASS sha256(1MiB GGUF) == shasum
+PASS arch falcon-h1
+PASS name 90m Instruct
+PASS blocks 24
+PASS ctx 262144
+PASS vocab 32768
+PASS eosId 11
+PASS bosId 17
+PASS marker im_end=228
+PASS marker begin_of_text=17
+PASS chat template present
+PASS fileType 15 (Q4_K_M)
+PASS missing tokenizer marker rejected
+PASS truncated GGUF header rejected
+PASS unbounded GGUF metadata count rejected
+PASS eval 2+2*3 = 8
+PASS eval paren precedence (2+2)*3 = 12
+PASS eval round(3.6) = 4
+PASS eval sqrt pi approx
+PASS eval unary -2^2 = -4
+PASS eval comma thousands 1,234+1 = 1235
+PASS eval rejects half-call
+PASS eval rejects unknown ident
+PASS exact decimals avoid IEEE rounding
+PASS exact fraction reduced
+PASS exact large integer
+PASS exact division by zero rejected
+PASS exact arbitrary syntax rejected
+PASS direct 1/3 returns an exact fraction
+PASS direct large integer stays exact
+PASS direct division by zero stays deterministic
+PASS percent intercept 9.6
+PASS convert kg->lb ~2.2
+PASS convert c->f 212
+PASS convert m->cm 100
+PASS convert gb->mb 1000
+PASS convert mismatch null
+      date/time intercept: CAPTURED ("local clock")
+PASS fabric parses 2
+PASS fabric first calculator
+PASS fabric args object
+PASS fabric second object
+PASS fabric ignores junk outside
+PASS archive tool tags parse
+PASS execute calculator 42
+PASS wrong tool argument type refused
+PASS extra tool argument refused
+PASS unknown tool refused
+PASS inherited tool name refused
+PASS inherited argument name refused
+PASS whitelist has 5 tools
+PASS exact tool independently verified result
+PASS linear integer solution verified
+PASS linear rational solution verified
+PASS linear negative solution verified
+PASS linear zero slope refused
+PASS linear injection refused
+PASS linear extra argument refused
+PASS null proposal refused
+PASS local compute permission denial
+PASS exact calculator carries verification
+PASS approximate calculator is labelled
+PASS stalled tool worker times out and terminates
+PASS cancelled tool worker terminates without execution
+PASS result block renders
+PASS instruct prompt opens with system
+PASS instruct prompt ends with assistant turn
+PASS instruct has user turn framed
+PASS instruct stops [228,11,16]
+PASS instruct mode chat
+PASS reason model rejected by active prompt builder
+PASS coder model rejected by active prompt builder
+PASS stopsFor rejects coder
+PASS stopsFor chat [228,16,11]
+PASS Instruct tool prompt carries local allowlist
+PASS auto code stays on evidenced fallback
+PASS auto reasoning stays on evidenced fallback
+PASS route default -> instruct
+PASS auto refuses unavailable model
+PASS manual route allows Instruct only
+PASS other model selection rejected
+PASS route explains B2 category and policy
+PASS think stays bounded
+PASS route stays bounded
+PASS commutative canonical form is explicit
+PASS subtraction never commutatively merges
+PASS one-off state is cached before persistence
+PASS proven equivalent state reused
+PASS reuse is what marks a state for persistence
+PASS equivalence edge has explicit proof
+PASS heartbeat replay round-trip
+PASS heartbeat detects wrong decoded result
+PASS heartbeat repair recomputes and replays
+PASS reuse gate limits expensive shape
+PASS dependency plan stays bounded to independent factors
+PASS adversarial subtraction has no false reuse
+PASS shared state remains conversation scoped
+PASS cheap expression falls back to baseline
+PASS one-off state stays out of persistent storage
+PASS first reuse persists the exact state once
+PASS later reuse stays batched off the answer path
+PASS visibility flush records accumulated reuse
+PASS reused state is flushed with its reuse receipt
+PASS conversation warm-up loads persisted exact state
+PASS corrupted stored result is recomputed
+PASS corrupted state records a repair delta
+PASS corrupted stored state is repaired in storage
+PASS OPFS quota error reported for new and existing model
+PASS OPFS quota error cleans new partial file
+PASS OPFS quota error keeps existing file
+PASS OPFS quota error aborts both writes
+ALL PASS
+B2 controller selftest PASS
+B2 direction selftest PASS
+B2 Boolean dual-evaluator selftest PASS
+cross-domain B2 selftest PASS
+B2 CP024 experimental multi-hop entailment selftest PASS
+CP024 source coordinates, evidence tampering, reserved terms and route order PASS
+CP024 independent membership oracle PASS: 330 graph/query cases, both routes
+Dependency interpretation, immutable GraphOS, two algorithms and permutation oracle PASS
+Controller model-repair reintegration, independent joint rotation and abstention PASS
+GraphOS edges actually control execution; source oracle rejects broken-graph result PASS
+Inference failure preserves independently executable graph fallback PASS
+B2 graph selftest PASS
+B2 grounded semantic selftest PASS
+B2 structured interpretation selftest PASS
+B2 dependent arithmetic selftest PASS
+B2 word math selftest PASS
+B2 transfer + experimental magnetic route selftest PASS
+B2 independent outcome accounting + real arithmetic shadow profiles PASS

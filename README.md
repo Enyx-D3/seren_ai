@@ -1,5 +1,14 @@
 # Seren 7 — Browser-Only Falcon Instruct + B2 Spiral (Web V1)
 
+> Current scope/status reconciliation: 2026-11-04. See [docs/SRS.md](docs/SRS.md) §§9–18 and [docs/Seren7_V2_Recovery_Coverage.md](docs/Seren7_V2_Recovery_Coverage.md). Earlier checkpoint sections retain their historical cutoff; they do not override this dated reconciliation.
+
+## CP024 — Experimental premise-chain reasoning (Patch 2; developer opt-in)
+
+The proposed code slice adds `app/js/b2-entailment.mjs` and `tools/b2_entailment_selftest.mjs` with a **disabled-by-default** `experimentalChain` option to `planSpiral` / `SpiralController.run`. A strict grammar accepts 2–6 explicit `All A are B.` premises followed by `Are all A B?`, builds source-offset graph facts and checks both forward and backward reachability. It proves only what follows from the provided premises, never world knowledge or the converse. Unknown claims produce a scoped non-derivability answer; malformed statements remain outside the contract. Standard chat/one-Falcon behavior is unchanged.
+
+Developer exercise: `node tools/b2_entailment_selftest.mjs` or `npm test`. Programmatic opt-in: `await new SpiralController().run('All sparrows are birds. All birds are animals. Are all sparrows animals?', { scope: 'local-cp024', experimentalChain: true })`. This is not a UI toggle, L3 general reasoning, TinyLinux or dual-Falcon rollout. Merge and `npm test` on the target repository are required before counting this checkpoint as integrated.
+
+
 ## 2026-11-03 Seren 7 V2 documentation checkpoint (CP023-DOCS)
 
 **Current-main correction:** Commit `d2fd6bc` already includes narrow cross-domain B2 logic/JavaScript diagnostics, the existing development SRS `docs/Seren 7 SRS.md`, and limited browser/A-B evidence. The new `docs/SRS.md` is the consolidated V2 requirements master. This does not establish successful full Falcon-led repair.
@@ -17,7 +26,7 @@ Never send chat content to a cloud inference service, secretly enable native cod
 
 **Additional bounded B2 development (2026-11-01):** A strict named-person inventory-transfer grammar now selects between direct-update and conservation paths, verifies all arithmetic and preserves failure receipts. `tools/b2_transfer_selftest.mjs` tests fault rotation plus an opt-in experimental magnetic policy; `tools/b2_transfer_eval.mjs` records small locally authored development cases and direct-path costs. The general Level 3 architecture remains research, real magnetic quality advantage is unproved, and the frozen independent confirmation set is untouched. Local browser and offline regression passed after applying the patch; see `CHECKPOINT_LOG.md`.
 
-**Architecture update (2026-10-30):** [ADR-002](docs/decisions/ADR-002-single-instruct-b2-spiral.md) supersedes the four-specialist runtime described in historical sections below. The current source build admits only Falcon Instruct and routes every request through B2 Spiral. Older bundles and the current Vercel deployment still contain the former four-model build. New paired benchmark and browser regression results are in `CHECKPOINT_LOG.md`.
+**Architecture update (2026-10-30):** [ADR-002](docs/decisions/ADR-002-single-instruct-b2-spiral.md) supersedes the four-specialist runtime described in historical sections below. The current source build admits only Falcon Instruct and routes every request through B2 Spiral. At that 2026-10-30 cutoff, older bundles/deployments retained the former four-model build; later deployment identities and model-included results are recorded in CHECKPOINT_LOG.md. New paired benchmark and browser regression results are in `CHECKPOINT_LOG.md`.
 
 **Directional B2 contract (2026-10-31):** [ADR-003](docs/decisions/ADR-003-directional-spiral.md) defines the intended loop: problem state → evidence-backed Compass direction → selected local operation/Falcon hypothesis → independent verification → residual-only next direction or stop. Falcon remains the single language engine. The current controller implements only a subset of this loop; matrix, Level 3 psychological/magnetic, virtual and B2CCP processors are research candidates, not shipped tools. “Magnetic” means software operation scoring, not physical magnetism.
 
@@ -71,3 +80,15 @@ docs/Schema.md
 docs/Plan.md
 reference/Seren_7_original.html
 ```
+
+
+### 2026-11-03 — CP024 local browser/source hardening
+
+Developer browser opt-in: open `http://127.0.0.1:8799/?b2_chain=1`. The normal URL keeps premise-chain reasoning disabled. Local CP024 hardening preserves original-input offsets, rejects conditional/negative/connective category tokens and changed evidence, executes the selected traversal first, and caches the module for offline startup. `node tools/browser_b2_entailment_smoke.mjs` exercises actual chat plus offline reload. Status: LOCAL_UNCOMMITTED / EXPERIMENTAL_ONLY at base `c41da5b`; bounded grammar, not general semantic reasoning.
+
+
+## Full V2 scope and proof map — reconciled 2026-11-04
+
+**Seren 7 is the MRS:** B2/MRS conducts the existing browser product's reasoning and execution; Falcons are interpretation/proposal/presentation resources. The restored scope includes GraphOS/R1 shared state, L1–L3 calculators, Compass/MGB/elastic joints, simulator-centered Python/C++ workshop, Flow/virtual processors/V-FLOPS, hardware lanes, Cortex, retrieval/context and TRM research. These are requirements with separate proof obligations, not a list of shipped features.
+
+Read [master SRS §§9–18](docs/SRS.md#9-restored-v2-master-scope-and-precedence-2026-11-04), [historical coverage/status matrix](docs/Seren7_V2_Recovery_Coverage.md), [source identities](docs/Seren7_V2_Source_Manifest.md), and [five-stage/workstream map](docs/Plan.md#restored-five-stage-and-historical-checkpoint-map-2026-11-04). Local HEAD remains `c41da5b` with owner-staged CP024 and unstaged browser/source repairs. `?b2_chain=1` is a narrow local opt-in, not complete V2. The recovered `seren7-web-g4vDxS.zip` is an external static prototype bundle, not current main. No new build, test execution or deployment follows from this documentation change.

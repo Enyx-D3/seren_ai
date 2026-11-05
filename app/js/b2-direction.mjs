@@ -14,6 +14,10 @@ export const OPERATION_CAPABILITIES = Object.freeze({
   boolean: 'verified_narrow',
   logic_direct: 'verified_narrow',
   logic_enumerate: 'verified_narrow',
+  dependency_forward: 'verified_narrow',
+  dependency_backward: 'verified_narrow',
+  chain_forward: 'verified_narrow',
+  chain_backward: 'verified_narrow',
   code_forward_scan: 'verified_partial',
   code_reverse_scan: 'verified_partial',
   structured: 'verified_narrow',
@@ -40,6 +44,10 @@ const PRIOR = Object.freeze({
   boolean: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.05, errorRisk: 0.02, memoryReuse: 0 },
   logic_direct: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.1, errorRisk: 0.03, memoryReuse: 0 },
   logic_enumerate: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.3, errorRisk: 0.03, memoryReuse: 0 },
+  dependency_forward: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.1, errorRisk: 0.04, memoryReuse: 0 },
+  dependency_backward: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.1, errorRisk: 0.04, memoryReuse: 0 },
+  chain_forward: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.1, errorRisk: 0.04, memoryReuse: 0 },
+  chain_backward: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.3, errorRisk: 0.04, memoryReuse: 0 },
   code_forward_scan: { goalAttraction: 0.7, expectedProgress: 0.4, informationGain: 0.7, computationalCost: 0.1, errorRisk: 0.15, memoryReuse: 0 },
   code_reverse_scan: { goalAttraction: 0.7, expectedProgress: 0.4, informationGain: 0.7, computationalCost: 0.3, errorRisk: 0.15, memoryReuse: 0 },
   structured: { goalAttraction: 1, expectedProgress: 0.95, informationGain: 0.95, computationalCost: 0.05, errorRisk: 0.04, memoryReuse: 0 },
@@ -51,7 +59,7 @@ const PRIOR = Object.freeze({
   falcon_repair: { goalAttraction: 0.6, expectedProgress: 0.35, informationGain: 0.45, computationalCost: 0.8, errorRisk: 0.75, memoryReuse: 0 },
   brake_partial: { goalAttraction: 0.1, expectedProgress: 0, informationGain: 0, computationalCost: 0, errorRisk: 0, memoryReuse: 0 },
 });
-const ORDER = ['exact', 'dependent_exact', 'word_multiply', 'word_repeated', 'transfer_direct', 'transfer_conserve', 'boolean', 'logic_direct', 'logic_enumerate', 'code_forward_scan', 'code_reverse_scan', 'structured', 'calculator_component', 'approved_tool', 'local', 'structured_interpretation', 'falcon', 'falcon_repair', 'brake_partial'];
+const ORDER = ['exact', 'dependent_exact', 'word_multiply', 'word_repeated', 'transfer_direct', 'transfer_conserve', 'boolean', 'logic_direct', 'logic_enumerate', 'dependency_forward', 'dependency_backward', 'chain_forward', 'chain_backward', 'code_forward_scan', 'code_reverse_scan', 'structured', 'calculator_component', 'approved_tool', 'local', 'structured_interpretation', 'falcon', 'falcon_repair', 'brake_partial'];
 const clamp = value => Math.max(0, Math.min(1, value));
 
 export function createSpiralState(goal, parts, maxModelCalls) {

@@ -1,0 +1,10 @@
+{
+  "first": "Hello! How can I help you today?",
+  "second": "Goodbye! How can I assist you today?",
+  "firstStatus": "done",
+  "secondStatus": "done",
+  "persistedMessages": 2,
+  "offline": true,
+  "errors": [],
+  "external": []
+}

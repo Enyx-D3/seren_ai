@@ -1,5 +1,15 @@
 # Plan — Seren 7 Browser-Only B2 Spiral Execution Train
 
+> Current scope/status reconciliation: 2026-11-04. See [SRS.md](SRS.md) §§9–18 and [Seren7_V2_Recovery_Coverage.md](Seren7_V2_Recovery_Coverage.md). Earlier checkpoint sections retain their historical cutoff; they do not override this dated reconciliation.
+
+## CP024 — Patch 2 executable slice and acceptance (proposed, unmerged)
+
+- **P1/P2 bounded slice:** parse 2–6 source-quoted universal-premise edges, record the unknown/dependency graph, execute both forward and backward traversals, and abstain from converse or world-knowledge conclusions. Entrypoint `experimentalChain: true` is opt-in only. Neither full P1 nor P2 is accepted from this narrow grammar.
+- **Compass/rotation:** expose `chain_forward` and `chain_backward` as verified-narrow candidates, carry operation receipts and graph states, and rotate on an injected failure; separate checked-outcome profiles can change later selection. This does **not** demonstrate cross-category self-calibration.
+- **CP024 gate:** after applying Patch 2, run `npm test` and inspect assertions for default-off, both independent paths, provenance, negative entailment, malformed input, fault rotation and calibration, then `npm run test:browser` on a capable local environment. Audit exact diff, UI parity, no GPU/model loading in deterministic path. Do not promote until these runs and independent unseen trials are recorded.
+- **Next:** CP025 non-template semantic interpretation + source-linked multi-hop tasks with real browser interaction; CP026 sealed held-out A/B vs same Falcon and memory/RAM/latency baseline; preserve 14-checkpoint V2 train and release gates.
+
+
 ## 2026-11-03 — Combined P0–P4 and Seren V2 14-checkpoint execution plan (CP023-DOCS)
 
 **Evidence at `d2fd6bc`:** locally authored unseen 4/4 objective outcomes across math/logic/partial code diagnosis and matching browser smoke; separate six-case same-Falcon A/B after corrected scoring showed objective math/logic Falcon-alone 1/3 vs B2 3/3, while code needs human review and planning/conversation outputs were identical. This does not satisfy P4. Frozen 31-case set remains unrun.
@@ -239,3 +249,51 @@ The next agent first reads these receipts, the actual repository and the six spe
 ## 9. First actionable assignment
 
 **Continue the active B2 gate and CP011, preserving CP001–CP010 as historical receipts.** CP008 demonstrated bounded local tool safety, CP009 exact arithmetic state reuse and CP010 a narrow verified calculator policy in the former design. The current controller records explicit state and measured operation profiles; the third direction set shows the Boolean route works on its strict grammar, while natural mathematics, coding, formal fallacies and repair remain unproved. The next work is safe semantic-to-operation routing on fresh tasks, blind human grades and physical mobile/power acceptance. See `CHECKPOINT_LOG.md` for reproducible commands and failures. The deliverable remains the **working web application**, not an APK.
+
+
+### 2026-11-03 — CP024 local browser/source hardening
+
+CP024 local browser gate now has actual UI opt-in and offline evidence; source-coordinate regression, tampering rejection and 330 independent membership-oracle cases pass. CP025 source-grounded non-template tasks and CP026 fresh same-Falcon comparison remain NOT RUN in this checkpoint. All 14 checkpoint statuses above remain bounded by their own evidence; no dual-model or full P1–P4 promotion follows.
+
+## Restored five-stage and historical checkpoint map — 2026-11-04
+
+Historical CP identifiers belong to multiple ledgers. Original V1 browser CP001–CP011 (including four-model archaeology) and later MRS research CP001–CP022 must retain their original namespaces/receipts; their repeated numbers do not mean the same checkpoint. CP023 is the documentation reconciliation; CP024 is the local strict premise-chain experiment. Earlier nine-/seven-stage summaries and later shifted “Stage 3” labels are historical planning revisions, not reasons to renumber completed work. The following five-stage scope is the owner's current organizing map.
+
+| Stage | Restored scope | Historical evidence anchors | New V2 workstreams | Current acceptance boundary |
+|---|---|---|---|---|
+| 1 | Archaeology, simulator/source lineage | MRS CP001–005 recovery; CP013 V-FLOPS recovery | 01–03 | Selected sources/archives present; complete private source recovery unproved |
+| 2 | Spiral/GraphOS foundation and recursive reuse | MRS CP006–009, graph bridge and invalidation | 07,08,10 | External prototype + bounded active exact reuse; full integration missing |
+| 3 | Browser/hardware, matrices and model experiments | MRS CP010–019; CP020 frozen browser receipts | 04–09 | Historical real inference and matrix checks; current Mac replay and broad quality gate open |
+| 4 | Coordinated graph/simulator/tool/retrieval/Cortex | MRS CP020–022, external proof bus | 08–12 | Fixed native tools/mock-source research, not safe live native/internet integration |
+| 5 | Independent hard-task, safety/device/release | MRS CP020–022 council/red-team/checklists; CP023/024 preserve handoff | 13–14 | Scoped local research acceptance differs from product release; owner/Shafi gate open |
+
+| Historical MRS checkpoint | Preserved finding / artifact | Present status; no new acceptance |
+|---|---|---|
+| CP001 | Recovery ledger, MGB/MRS meaning and source map | Local recovery text; source hashes in coverage |
+| CP002 | Planner/readiness/WAIT-PARK and recovered C++ | Historical shadow tests; no new dual inference proof |
+| CP003 | Intermediate simulation/capability studies | Export-reported; exact standalone checkpoint manifest unresolved |
+| CP004 | Seven native experiments and false-verification counterexample | Preserve 2,000/8,000 incorrect claims before repair |
+| CP005 | GraphOS/TinyLinux/Delta2 recovery, wave and verifier repair | Recovery doc local; native results historical |
+| CP006 | Recursive L2 composed graphs | Historical 100 cases / 1,400→700 calls |
+| CP007 | Cross-language GraphOS bridge | Historical dependency blast-radius/stale-state proof |
+| CP008 | Selective recompute and backtrack plan | Historical 200 changed states; scoped reuse |
+| CP009 | Browser-safe GraphOS source seam | Local handoff doc; prototype source in external bundle |
+| CP010 | Early foundation/council/runtime experiments | Preserve export chronology; exact individual manifest unresolved |
+| CP011 | Dual throughput council and verifier reports | Export-linked reports; no current app dual-model implementation |
+| CP012 | Intermediate browser throughput work | Export chronology only; exact checkpoint boundary unresolved |
+| CP013 | V-FLOPS archaeology/replay, GraphOS repair | Local numeric receipt and receipt-check source; not rerun |
+| CP014 | Wllama3 fast path, fallback and import-race repair | External bundle source; current main runtime remains older |
+| CP015 | Elastic matrix Stage 3 experiments | Historical 10,000 exact cases / 90 paired browser checks |
+| CP016 | Zero-Falcon structured UI and council | Historical 339 scoped assertions; no arbitrary chat without model |
+| CP017 | Council/red-team hardening/readiness | Source-provenance, double-submit and corrupted-state controls reported |
+| CP018 | Browser/native compute, Prime95-requested study | Modular-arithmetic proxy, not actual Prime95/Linux guest |
+| CP019 | Final TPS/context/thread experiments | Historical ~63–75 TPS on specified Linux host; no universal rate |
+| CP020 | Frozen browser/offline and fixed tool evidence | Historical scoped receipt, not final native sandbox |
+| CP021 | Stage4/5 integration and red-team package | Partial research acceptance, full package not inspected here |
+| CP022 | Retrieval prefilter/evidence bus and known timeout flaw | g4vDxS static bundle inspected; full dev repo not recovered |
+| CP023 | V1/V2 docs/ADR-004 | Committed `c41da5b`; not runtime integration |
+| CP024 | Strict all-A-are-B chain, browser/cache/source fixes | LOCAL staged/unstaged; 330 oracle checks and browser receipts; no general semantic proof |
+
+The newer **14 workstreams** retain the table above: 01 V1 preservation; 02 source recovery; 03 independent simulator replay; 04 real browser backend/fallback; 05 dual workers; 06 measured hardware scheduler; 07 L1 contracts; 08 L2 matrix/GraphOS; 09 L3/joints; 10 R1 versions; 11 isolated tools; 12 Cortex/repair/calibration; 13 Lighthouse/P4/devices; 14 product/release. See [coverage](Seren7_V2_Recovery_Coverage.md) for requirement IDs, source evidence and missing behavior. Do not infer fourteen accepted workstreams from historical CP labels.
+
+**Next single implementation slice:** unfamiliar two-document release/dependency reasoning as specified in [coverage](Seren7_V2_Recovery_Coverage.md#next-implementation-slice-proposal-only): grounded extraction, forward scheduling/backward diagnosis, independent feasibility oracle, stale-source invalidation, same-resource Falcon-only/static/B2 controls. No more calculator-only demonstrations or re-running the twenty-pass research mission. Current authorization remains docs-only.

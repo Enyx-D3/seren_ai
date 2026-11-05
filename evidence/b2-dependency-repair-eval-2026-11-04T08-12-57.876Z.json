@@ -1,0 +1,1776 @@
+{
+  "fixturePath": "evidence/b2-dependency-balanced-confirm-2026-11-04.json",
+  "fixtureSha256": "634046539854d5d40ba6b083c677391c3c8f71e2e55a42938a42edbb970311e2",
+  "modelSha256": "e7d655345a876ecb073ea86f5ce68e412b99090c34a6bde8a2982bc48afb2612",
+  "baseUrl": "http://127.0.0.1:8799/",
+  "conditions": "same Falcon weights/runtime/hardware/temperature 0.2; each arm <=4 calls x64 output tokens, AB/BA order; baseline generic reconsideration, B2 source-grounded interpretation/tools and targeted correction; tool intervention charged; no live calibration",
+  "sourceSha256": {
+    "app/js/spiral.mjs": "af59040f550f51586e75b9aa19d040cbcf878114554edf8208560ae252f0f8aa",
+    "app/js/b2-dependency-task.mjs": "9b50da6389ec7e5a2337917bf888374d17114d506e053e602de7abe2eac566c6",
+    "app/js/b2-graphos-browser-shadow.mjs": "cc2eb922ed8ac761ef5c8523e69c2c07f0ef0a363beccb7a109288aabfa239c4",
+    "app/js/b2-elastic-joint.mjs": "6dc585febbd6846c4899026024e5cc4a4f83755a7b9bc68075e4fe73a80fe4b3",
+    "app/js/b2-direction.mjs": "2c5ed74ed03df2877bda48fdb6c12e1c842f3a632b01d88fce8987b3be8d8808",
+    "app/js/prompts.mjs": "09df9284b19db6daf9d3826093bde84f221ed1322a51a32de44ca2aa9f08c5be",
+    "app/workers/runtime-worker.mjs": "cb0ff247b569ae8832af54579ecc726a575135f57d063c547c66b58319aed3fc"
+  },
+  "rows": [
+    {
+      "id": "dispatch-new",
+      "category": "dependency",
+      "arm": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "```json\n[\n    \"order_by_date\",\n    \"is_valid\"\n]\n```",
+      "metrics": {
+        "modelCalls": 4,
+        "tokens": 117,
+        "calculatorCalls": 0
+      },
+      "verification": null,
+      "trace": [
+        {
+          "step": "baseline_attempts",
+          "attempts": [
+            "\"Mail packet\" depends on \"Stamp packet\". \"Stamp packet\" cannot start until \"Audit packet\" is complete. Therefore, the order should be executed immediately after \"Audit packet\" has been completed.",
+            "```json\n[\n    \"order_by_date\"\n    \"is_valid\"\n]\n```",
+            "```json\n[\n    \"order_by_date\",\n    \"is_valid\"\n]\n```",
+            "```json\n[\n    \"order_by_date\",\n    \"is_valid\"\n]\n```"
+          ]
+        }
+      ],
+      "error": null,
+      "elapsedMs": 7948.740000002086,
+      "peakProcessTreeRssKiB": 1156304,
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "dispatch-new",
+      "category": "dependency",
+      "arm": "b2",
+      "order": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "[\"Audit packet\",\"Stamp packet\",\"Mail packet\"]",
+      "metrics": {
+        "modelCalls": 2,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 33,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 3217
+      },
+      "verification": {
+        "status": "verified",
+        "method": "independent_position_inequalities",
+        "scope": "ordering_relative_to_supported_explicit_source_constraints"
+      },
+      "trace": [
+        {
+          "step": "dependency_interpretation",
+          "intent": "dependency_order",
+          "goal": "a feasible total order or a checked infeasibility result",
+          "facts": [
+            {
+              "before": "Stamp packet",
+              "after": "Mail packet",
+              "quote": "\"Mail packet\" depends on \"Stamp packet\".",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            },
+            {
+              "before": "Audit packet",
+              "after": "Stamp packet",
+              "quote": "\"Stamp packet\" cannot start until \"Audit packet\" is complete.",
+              "sourceOffset": 41,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            }
+          ],
+          "constraints": [
+            {
+              "before": "Stamp packet",
+              "after": "Mail packet",
+              "quote": "\"Mail packet\" depends on \"Stamp packet\".",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            },
+            {
+              "before": "Audit packet",
+              "after": "Stamp packet",
+              "quote": "\"Stamp packet\" cannot start until \"Audit packet\" is complete.",
+              "sourceOffset": 41,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            }
+          ],
+          "unknowns": [],
+          "root": "497955a1891d145a055d5d1934560ac6444d8a3ed61b807724ce57c128000d2d"
+        },
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "dependency_forward",
+          "candidates": [
+            {
+              "kind": "dependency_forward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 5,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "dependency_backward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 5,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ],
+          "selectionReason": "evidence_rank"
+        },
+        {
+          "step": "dependency_hypothesis",
+          "proposal": {
+            "text": "[RETURN]\nInput: Mail packet depends on \"Stamp packet\". \"Stamp packet\" cannot start until \"Audit packet\" is complete."
+          },
+          "checked": {
+            "ok": false,
+            "residuals": [
+              "invalid_order_format"
+            ],
+            "method": "independent_position_inequalities"
+          }
+        },
+        {
+          "step": "dependency_component_projection",
+          "order": [
+            "Stamp packet",
+            "Mail packet",
+            "Audit packet"
+          ],
+          "status": "unverified"
+        },
+        {
+          "step": "dependency_model_repair",
+          "repair": {
+            "text": "Audit packet",
+            "order": [
+              "Audit packet",
+              "Stamp packet",
+              "Mail packet"
+            ],
+            "checked": {
+              "ok": true,
+              "residuals": [],
+              "method": "independent_position_inequalities"
+            },
+            "componentChecked": true,
+            "preserved": 1,
+            "residual": {
+              "before": "Audit packet",
+              "after": "Stamp packet",
+              "quote": "\"Stamp packet\" cannot start until \"Audit packet\" is complete.",
+              "sourceOffset": 41,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            },
+            "mechanism": "model_identified_prerequisite_then_checked_local_move"
+          }
+        },
+        {
+          "step": "dependency_operation",
+          "kind": "dependency_forward",
+          "order": [
+            "Audit packet",
+            "Stamp packet",
+            "Mail packet"
+          ],
+          "repairedProposalReused": true
+        },
+        {
+          "step": "dependency_joint",
+          "status": "verified",
+          "direction": "dependency_forward",
+          "candidate": [
+            "Audit packet",
+            "Stamp packet",
+            "Mail packet"
+          ],
+          "receipt": {
+            "status": "verified",
+            "method": "independent_position_inequalities",
+            "check": {
+              "ok": true,
+              "residuals": [],
+              "method": "independent_position_inequalities"
+            }
+          },
+          "visited": [
+            "dependency_forward"
+          ],
+          "history": [
+            {
+              "action": "TAP",
+              "direction": "dependency_forward",
+              "cycle": 1
+            },
+            {
+              "action": "VERIFY",
+              "direction": "dependency_forward",
+              "method": "independent_position_inequalities",
+              "measuredMs": 0.13000000268220901
+            }
+          ],
+          "stopReason": "independently_verified"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "dependency_forward",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "independent_position_inequalities",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 3217,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 1,
+              "unresolved": 0,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 1,
+              "complete": true
+            },
+            "verifiedDelta": 1,
+            "componentDelta": 0,
+            "residualDelta": 0,
+            "outcome": "verified_advance"
+          }
+        }
+      ],
+      "error": null,
+      "elapsedMs": 3218.0149999931455,
+      "peakProcessTreeRssKiB": 1119632,
+      "check": {
+        "status": "passed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": [
+          {
+            "component": true,
+            "wholeTask": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "reef-new",
+      "category": "dependency",
+      "arm": "b2",
+      "order": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "[\"Fit sensor\",\"Test buoy\",\"Launch buoy\"]",
+      "metrics": {
+        "modelCalls": 2,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 8,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 2392
+      },
+      "verification": {
+        "status": "verified",
+        "method": "independent_position_inequalities",
+        "scope": "ordering_relative_to_supported_explicit_source_constraints"
+      },
+      "trace": [
+        {
+          "step": "dependency_interpretation",
+          "intent": "dependency_order",
+          "goal": "a feasible total order or a checked infeasibility result",
+          "facts": [
+            {
+              "before": "Test buoy",
+              "after": "Launch buoy",
+              "quote": "\"Launch buoy\" happens after \"Test buoy\".",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            },
+            {
+              "before": "Fit sensor",
+              "after": "Test buoy",
+              "quote": "\"Test buoy\" depends on \"Fit sensor\".",
+              "sourceOffset": 41,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            }
+          ],
+          "constraints": [
+            {
+              "before": "Test buoy",
+              "after": "Launch buoy",
+              "quote": "\"Launch buoy\" happens after \"Test buoy\".",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            },
+            {
+              "before": "Fit sensor",
+              "after": "Test buoy",
+              "quote": "\"Test buoy\" depends on \"Fit sensor\".",
+              "sourceOffset": 41,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            }
+          ],
+          "unknowns": [],
+          "root": "d5c5a659f907a68e1084f337872eaef0383349f94c258384c09cc293559f76f9"
+        },
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "dependency_forward",
+          "candidates": [
+            {
+              "kind": "dependency_forward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 5,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "dependency_backward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 5,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ],
+          "selectionReason": "evidence_rank"
+        },
+        {
+          "step": "dependency_hypothesis",
+          "proposal": {
+            "text": "[\"Test\", \"Fit\"]",
+            "order": [
+              "Test",
+              "Fit"
+            ]
+          },
+          "checked": {
+            "ok": false,
+            "residuals": [
+              {
+                "before": "Test buoy",
+                "after": "Launch buoy",
+                "quote": "\"Launch buoy\" happens after \"Test buoy\"."
+              },
+              {
+                "before": "Fit sensor",
+                "after": "Test buoy",
+                "quote": "\"Test buoy\" depends on \"Fit sensor\"."
+              }
+            ],
+            "method": "independent_position_inequalities"
+          }
+        },
+        {
+          "step": "dependency_component_projection",
+          "order": [
+            "Test buoy",
+            "Launch buoy",
+            "Fit sensor"
+          ],
+          "status": "unverified"
+        },
+        {
+          "step": "dependency_model_repair",
+          "repair": {
+            "text": "Test",
+            "checked": {
+              "ok": false,
+              "reason": "model_did_not_identify_prerequisite"
+            },
+            "componentChecked": false,
+            "preserved": 0,
+            "residual": {
+              "before": "Fit sensor",
+              "after": "Test buoy",
+              "quote": "\"Test buoy\" depends on \"Fit sensor\".",
+              "sourceOffset": 41,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            },
+            "mechanism": "model_identified_prerequisite_then_checked_local_move"
+          }
+        },
+        {
+          "step": "dependency_operation",
+          "kind": "dependency_forward",
+          "order": [
+            "Fit sensor",
+            "Test buoy",
+            "Launch buoy"
+          ],
+          "repairedProposalReused": false
+        },
+        {
+          "step": "dependency_joint",
+          "status": "verified",
+          "direction": "dependency_forward",
+          "candidate": [
+            "Fit sensor",
+            "Test buoy",
+            "Launch buoy"
+          ],
+          "receipt": {
+            "status": "verified",
+            "method": "independent_position_inequalities",
+            "check": {
+              "ok": true,
+              "residuals": [],
+              "method": "independent_position_inequalities"
+            }
+          },
+          "visited": [
+            "dependency_forward"
+          ],
+          "history": [
+            {
+              "action": "TAP",
+              "direction": "dependency_forward",
+              "cycle": 1
+            },
+            {
+              "action": "VERIFY",
+              "direction": "dependency_forward",
+              "method": "independent_position_inequalities",
+              "measuredMs": 0.03500000387430191
+            }
+          ],
+          "stopReason": "independently_verified"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "dependency_forward",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "independent_position_inequalities",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 2392,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 1,
+              "unresolved": 0,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 1,
+              "complete": true
+            },
+            "verifiedDelta": 1,
+            "componentDelta": 0,
+            "residualDelta": 0,
+            "outcome": "verified_advance"
+          }
+        }
+      ],
+      "error": null,
+      "elapsedMs": 2391.664999999106,
+      "peakProcessTreeRssKiB": 1118832,
+      "check": {
+        "status": "passed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": [
+          {
+            "component": false,
+            "wholeTask": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "reef-new",
+      "category": "dependency",
+      "arm": "falcon_alone",
+      "order": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "```json\n[\n    \"launch\",\n    \"test_buoy\"\n]\n```",
+      "metrics": {
+        "modelCalls": 4,
+        "tokens": 127,
+        "calculatorCalls": 0
+      },
+      "verification": null,
+      "trace": [
+        {
+          "step": "baseline_attempts",
+          "attempts": [
+            "\"Launch buoy\" occurs after \"Test buoy\" because \"Test buoy\" relies on \"Fit sensor\" to determine its buoyancy. Here's an execution sequence:\n\n1. **Launch**: The \"Launch buoy\" button is activated, and \"Test bu",
+            "```json\n[\n    \"launch\",\n    \"test_buoy\"\n]\n```",
+            "```json\n[\n    \"launch\",\n    \"test_buoy\"\n]\n```",
+            "```json\n[\n    \"launch\",\n    \"test_buoy\"\n]\n```"
+          ]
+        }
+      ],
+      "error": null,
+      "elapsedMs": 8167.070000000298,
+      "peakProcessTreeRssKiB": 1093504,
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "forge-new",
+      "category": "dependency",
+      "arm": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "```json\n[\n    \"check\",\n    \"order\"\n]\n```",
+      "metrics": {
+        "modelCalls": 4,
+        "tokens": 122,
+        "calculatorCalls": 0
+      },
+      "verification": null,
+      "trace": [
+        {
+          "step": "baseline_attempts",
+          "attempts": [
+            "**Plan for Metal Polishing, Metal Cooling, and Metal Casting:**\n\n1. **Clean and Pre-Clean the Surface:** Begin by thoroughly cleaning the surface with a soft brush or cloth to remove any dirt or debris.\n\n2. **Apply a Silicone-Free Surface",
+            "```json\n[\n    \"cleaning\",\n    \"pre-cleaning\"\n]\n```",
+            "```json\n[\n    \"check\",\n    \"order\"\n]\n```",
+            "```json\n[\n    \"check\",\n    \"order\"\n]\n```"
+          ]
+        }
+      ],
+      "error": null,
+      "elapsedMs": 9626.544999994338,
+      "peakProcessTreeRssKiB": 1002800,
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "forge-new",
+      "category": "dependency",
+      "arm": "b2",
+      "order": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "[\"metal casting\",\"metal cooling\",\"metal polishing\"]",
+      "metrics": {
+        "modelCalls": 3,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 44,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 4034
+      },
+      "verification": {
+        "status": "verified",
+        "method": "independent_position_inequalities",
+        "scope": "ordering_relative_to_supported_explicit_source_constraints"
+      },
+      "trace": [
+        {
+          "step": "dependency_interpretation",
+          "intent": "dependency_order",
+          "goal": "a feasible total order or a checked infeasibility result",
+          "facts": [
+            {
+              "before": "metal cooling",
+              "after": "metal polishing",
+              "quote": "metal polishing follows metal cooling;",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "metal polishing",
+                  "start": 0,
+                  "end": 15
+                },
+                "right": {
+                  "name": "metal cooling",
+                  "start": 24,
+                  "end": 37
+                },
+                "connector": "follows",
+                "prefix": ""
+              }
+            },
+            {
+              "before": "metal casting",
+              "after": "metal cooling",
+              "quote": "metal cooling must wait for metal casting.",
+              "sourceOffset": 39,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "metal cooling",
+                  "start": 0,
+                  "end": 13
+                },
+                "right": {
+                  "name": "metal casting",
+                  "start": 28,
+                  "end": 41
+                },
+                "connector": "must wait for",
+                "prefix": ""
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "before": "metal cooling",
+              "after": "metal polishing",
+              "quote": "metal polishing follows metal cooling;",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "metal polishing",
+                  "start": 0,
+                  "end": 15
+                },
+                "right": {
+                  "name": "metal cooling",
+                  "start": 24,
+                  "end": 37
+                },
+                "connector": "follows",
+                "prefix": ""
+              }
+            },
+            {
+              "before": "metal casting",
+              "after": "metal cooling",
+              "quote": "metal cooling must wait for metal casting.",
+              "sourceOffset": 39,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "metal cooling",
+                  "start": 0,
+                  "end": 13
+                },
+                "right": {
+                  "name": "metal casting",
+                  "start": 28,
+                  "end": 41
+                },
+                "connector": "must wait for",
+                "prefix": ""
+              }
+            }
+          ],
+          "unknowns": [],
+          "root": "98f375209263a0942c64437746d6de20179b42c3025e7b8f93afc5b0455d5b3b"
+        },
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "dependency_forward",
+          "candidates": [
+            {
+              "kind": "dependency_forward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 5,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "dependency_backward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 5,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ],
+          "selectionReason": "evidence_rank"
+        },
+        {
+          "step": "dependency_hypothesis",
+          "proposal": {
+            "text": "{\"metal_polishing\": \"Follow\"}.\n{\"metal_cooling\": \"Wait_for_metal_cooling_to_be_actively_held_for\"}."
+          },
+          "checked": {
+            "ok": false,
+            "residuals": [
+              "invalid_order_format"
+            ],
+            "method": "independent_position_inequalities"
+          }
+        },
+        {
+          "step": "dependency_component_projection",
+          "order": [
+            "metal polishing",
+            "metal cooling",
+            "metal casting"
+          ],
+          "status": "unverified"
+        },
+        {
+          "step": "dependency_model_repair",
+          "repair": {
+            "text": "Metal cooling",
+            "order": [
+              "metal cooling",
+              "metal polishing",
+              "metal casting"
+            ],
+            "checked": {
+              "ok": false,
+              "residuals": [
+                {
+                  "before": "metal casting",
+                  "after": "metal cooling",
+                  "quote": "metal cooling must wait for metal casting."
+                }
+              ],
+              "method": "independent_position_inequalities"
+            },
+            "componentChecked": true,
+            "preserved": 0,
+            "residual": {
+              "before": "metal cooling",
+              "after": "metal polishing",
+              "quote": "metal polishing follows metal cooling;",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "metal polishing",
+                  "start": 0,
+                  "end": 15
+                },
+                "right": {
+                  "name": "metal cooling",
+                  "start": 24,
+                  "end": 37
+                },
+                "connector": "follows",
+                "prefix": ""
+              }
+            },
+            "mechanism": "model_identified_prerequisite_then_checked_local_move"
+          }
+        },
+        {
+          "step": "dependency_model_repair",
+          "repair": {
+            "text": "metal cooling",
+            "checked": {
+              "ok": false,
+              "reason": "model_did_not_identify_prerequisite"
+            },
+            "componentChecked": false,
+            "preserved": 0,
+            "residual": {
+              "before": "metal casting",
+              "after": "metal cooling",
+              "quote": "metal cooling must wait for metal casting.",
+              "sourceOffset": 39,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "metal cooling",
+                  "start": 0,
+                  "end": 13
+                },
+                "right": {
+                  "name": "metal casting",
+                  "start": 28,
+                  "end": 41
+                },
+                "connector": "must wait for",
+                "prefix": ""
+              }
+            },
+            "mechanism": "model_identified_prerequisite_then_checked_local_move"
+          }
+        },
+        {
+          "step": "dependency_operation",
+          "kind": "dependency_forward",
+          "order": [
+            "metal casting",
+            "metal cooling",
+            "metal polishing"
+          ],
+          "repairedProposalReused": false
+        },
+        {
+          "step": "dependency_joint",
+          "status": "verified",
+          "direction": "dependency_forward",
+          "candidate": [
+            "metal casting",
+            "metal cooling",
+            "metal polishing"
+          ],
+          "receipt": {
+            "status": "verified",
+            "method": "independent_position_inequalities",
+            "check": {
+              "ok": true,
+              "residuals": [],
+              "method": "independent_position_inequalities"
+            }
+          },
+          "visited": [
+            "dependency_forward"
+          ],
+          "history": [
+            {
+              "action": "TAP",
+              "direction": "dependency_forward",
+              "cycle": 1
+            },
+            {
+              "action": "VERIFY",
+              "direction": "dependency_forward",
+              "method": "independent_position_inequalities",
+              "measuredMs": 0.02499999850988388
+            }
+          ],
+          "stopReason": "independently_verified"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "dependency_forward",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "independent_position_inequalities",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 4034,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 1,
+              "unresolved": 0,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 1,
+              "complete": true
+            },
+            "verifiedDelta": 1,
+            "componentDelta": 0,
+            "residualDelta": 0,
+            "outcome": "verified_advance"
+          }
+        }
+      ],
+      "error": null,
+      "elapsedMs": 4034.219999998808,
+      "peakProcessTreeRssKiB": 798144,
+      "check": {
+        "status": "passed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": [
+          {
+            "component": true,
+            "wholeTask": false
+          },
+          {
+            "component": false,
+            "wholeTask": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "seed-new",
+      "category": "dependency",
+      "arm": "b2",
+      "order": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "[\"tray washing\",\"tray filling\",\"seed planting\"]",
+      "metrics": {
+        "modelCalls": 2,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 17,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 3191
+      },
+      "verification": {
+        "status": "verified",
+        "method": "independent_position_inequalities",
+        "scope": "ordering_relative_to_supported_explicit_source_constraints"
+      },
+      "trace": [
+        {
+          "step": "dependency_interpretation",
+          "intent": "dependency_order",
+          "goal": "a feasible total order or a checked infeasibility result",
+          "facts": [
+            {
+              "before": "tray filling",
+              "after": "seed planting",
+              "quote": "seed planting is allowed once tray filling is done.",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "seed planting",
+                  "start": 0,
+                  "end": 13
+                },
+                "right": {
+                  "name": "tray filling",
+                  "start": 30,
+                  "end": 42
+                },
+                "connector": "is allowed once",
+                "prefix": ""
+              }
+            },
+            {
+              "before": "tray washing",
+              "after": "tray filling",
+              "quote": "tray filling depends on tray washing.",
+              "sourceOffset": 52,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "tray filling",
+                  "start": 0,
+                  "end": 12
+                },
+                "right": {
+                  "name": "tray washing",
+                  "start": 24,
+                  "end": 36
+                },
+                "connector": "depends on",
+                "prefix": ""
+              }
+            }
+          ],
+          "constraints": [
+            {
+              "before": "tray filling",
+              "after": "seed planting",
+              "quote": "seed planting is allowed once tray filling is done.",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "seed planting",
+                  "start": 0,
+                  "end": 13
+                },
+                "right": {
+                  "name": "tray filling",
+                  "start": 30,
+                  "end": 42
+                },
+                "connector": "is allowed once",
+                "prefix": ""
+              }
+            },
+            {
+              "before": "tray washing",
+              "after": "tray filling",
+              "quote": "tray filling depends on tray washing.",
+              "sourceOffset": 52,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "tray filling",
+                  "start": 0,
+                  "end": 12
+                },
+                "right": {
+                  "name": "tray washing",
+                  "start": 24,
+                  "end": 36
+                },
+                "connector": "depends on",
+                "prefix": ""
+              }
+            }
+          ],
+          "unknowns": [],
+          "root": "2840810a4b9b186edbc243791329ed1356d8b89c841be028b3a987b7481adfd7"
+        },
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "dependency_forward",
+          "candidates": [
+            {
+              "kind": "dependency_forward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 5,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "dependency_backward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 5,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ],
+          "selectionReason": "evidence_rank"
+        },
+        {
+          "step": "dependency_hypothesis",
+          "proposal": {
+            "text": "[Seed Planting, Tray Washing, Tray Filling]"
+          },
+          "checked": {
+            "ok": false,
+            "residuals": [
+              "invalid_order_format"
+            ],
+            "method": "independent_position_inequalities"
+          }
+        },
+        {
+          "step": "dependency_component_projection",
+          "order": [
+            "seed planting",
+            "tray washing",
+            "tray filling"
+          ],
+          "status": "unverified"
+        },
+        {
+          "step": "dependency_model_repair",
+          "repair": {
+            "text": "Seed planting",
+            "checked": {
+              "ok": false,
+              "reason": "model_did_not_identify_prerequisite"
+            },
+            "componentChecked": false,
+            "preserved": 0,
+            "residual": {
+              "before": "tray filling",
+              "after": "seed planting",
+              "quote": "seed planting is allowed once tray filling is done.",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input",
+              "relationEvidence": {
+                "left": {
+                  "name": "seed planting",
+                  "start": 0,
+                  "end": 13
+                },
+                "right": {
+                  "name": "tray filling",
+                  "start": 30,
+                  "end": 42
+                },
+                "connector": "is allowed once",
+                "prefix": ""
+              }
+            },
+            "mechanism": "model_identified_prerequisite_then_checked_local_move"
+          }
+        },
+        {
+          "step": "dependency_operation",
+          "kind": "dependency_forward",
+          "order": [
+            "tray washing",
+            "tray filling",
+            "seed planting"
+          ],
+          "repairedProposalReused": false
+        },
+        {
+          "step": "dependency_joint",
+          "status": "verified",
+          "direction": "dependency_forward",
+          "candidate": [
+            "tray washing",
+            "tray filling",
+            "seed planting"
+          ],
+          "receipt": {
+            "status": "verified",
+            "method": "independent_position_inequalities",
+            "check": {
+              "ok": true,
+              "residuals": [],
+              "method": "independent_position_inequalities"
+            }
+          },
+          "visited": [
+            "dependency_forward"
+          ],
+          "history": [
+            {
+              "action": "TAP",
+              "direction": "dependency_forward",
+              "cycle": 1
+            },
+            {
+              "action": "VERIFY",
+              "direction": "dependency_forward",
+              "method": "independent_position_inequalities",
+              "measuredMs": 0.040000006556510925
+            }
+          ],
+          "stopReason": "independently_verified"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "dependency_forward",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "independent_position_inequalities",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 3191,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 1,
+              "unresolved": 0,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 1,
+              "complete": true
+            },
+            "verifiedDelta": 1,
+            "componentDelta": 0,
+            "residualDelta": 0,
+            "outcome": "verified_advance"
+          }
+        }
+      ],
+      "error": null,
+      "elapsedMs": 3191.0449999943376,
+      "peakProcessTreeRssKiB": 802416,
+      "check": {
+        "status": "passed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": [
+          {
+            "component": false,
+            "wholeTask": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "seed-new",
+      "category": "dependency",
+      "arm": "falcon_alone",
+      "order": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "```json\n[\n    \"prepare_tray\",\n    \"wash_tray\"\n]\n```",
+      "metrics": {
+        "modelCalls": 4,
+        "tokens": 146,
+        "calculatorCalls": 0
+      },
+      "verification": null,
+      "trace": [
+        {
+          "step": "baseline_attempts",
+          "attempts": [
+            "**Seed Planting Sequence:**\n\n1. **Prepare the Tray:** Ensure tray is clean and ready for seeding.\n\n2. **Wash the Tray:** Use a gentle, non-abrasive washing method to remove dirt and debris.\n\n3. **Prepare the Soil:**",
+            "```json\n[\n    \"prepare_tray\",\n    \"wash_tray\",\n    \"prepare_soil\"\n]\n```",
+            "```json\n[\n    \"prepare_tray\",\n    \"wash_tray\"\n]\n```",
+            "```json\n[\n    \"prepare_tray\",\n    \"wash_tray\"\n]\n```"
+          ]
+        }
+      ],
+      "error": null,
+      "elapsedMs": 9701.265000000596,
+      "peakProcessTreeRssKiB": 809104,
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "ambiguous-new",
+      "category": "dependency",
+      "arm": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "```json\n[\n    \"check\",\n    \"verify\",\n    \"identity verification\"\n]\n```",
+      "metrics": {
+        "modelCalls": 4,
+        "tokens": 136,
+        "calculatorCalls": 0
+      },
+      "verification": null,
+      "trace": [
+        {
+          "step": "baseline_attempts",
+          "attempts": [
+            "**Plan for Badge Printing and Identity Checking:**\n\n1. **Identity Verification:** Implement identity verification mechanisms to confirm that the badge has been issued by the designated entity. This can be done using a password verification system or a unique identity card.\n\n2. **Badge Printing:**",
+            "```json\n[\n    \"check\",\n    \"verify\",\n    \"identity verification\"\n]\n```",
+            "```json\n[\n    \"check\",\n    \"verify\",\n    \"identity verification\"\n]\n```",
+            "```json\n[\n    \"check\",\n    \"verify\",\n    \"identity verification\"\n]\n```"
+          ]
+        }
+      ],
+      "error": null,
+      "elapsedMs": 8766.829999998212,
+      "peakProcessTreeRssKiB": 785008,
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "ambiguous-new",
+      "category": "dependency",
+      "arm": "b2",
+      "order": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 3
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          {
+            "quote": "identity checking might follow badge printing.",
+            "sourceOffset": 42,
+            "reason": "uninterpreted_clause"
+          }
+        ]
+      },
+      "trace": [],
+      "error": null,
+      "elapsedMs": 2.7899999991059303,
+      "peakProcessTreeRssKiB": 778160,
+      "check": {
+        "status": "passed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": true,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "negative-new",
+      "category": "dependency",
+      "arm": "b2",
+      "order": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 1
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          {
+            "quote": "vat filling is optional.",
+            "sourceOffset": 36,
+            "reason": "uninterpreted_clause"
+          }
+        ]
+      },
+      "trace": [],
+      "error": null,
+      "elapsedMs": 1.0200000032782555,
+      "peakProcessTreeRssKiB": 778656,
+      "check": {
+        "status": "passed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": true,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "negative-new",
+      "category": "dependency",
+      "arm": "falcon_alone",
+      "order": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "```json\n{\n  \"action_list\": [\"vat filling\", \"filling time\", \"dye heating\"]\n}",
+      "metrics": {
+        "modelCalls": 4,
+        "tokens": 153,
+        "calculatorCalls": 0
+      },
+      "verification": null,
+      "trace": [
+        {
+          "step": "baseline_attempts",
+          "attempts": [
+            "For dye heating, follow this schedule:\n\n1. **Day 1:**\n   - **Vat Filling:** Use a vat with a capacity of 10 gallons.\n   - **Filling Time:** 1 hour.\n\n2. **Day 2:**\n",
+            "```json\n{\n  \"action_list\": [\"vat filling\", \"filling time\"]\n}\n```",
+            "```json\n{\n  \"action_list\": [\"vat filling\", \"filling time\", \"dye heating\"]\n}",
+            "```json\n{\n  \"action_list\": [\"vat filling\", \"filling time\", \"dye heating\"]\n}"
+          ]
+        }
+      ],
+      "error": null,
+      "elapsedMs": 8367.185000002384,
+      "peakProcessTreeRssKiB": 794656,
+      "check": {
+        "status": "failed",
+        "method": "separate_gold_constraints",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "bbh-177",
+      "category": "dependency",
+      "arm": "falcon_alone",
+      "order": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "```json\n[\n    \"A\",\n    \"B\"\n]\n```",
+      "metrics": {
+        "modelCalls": 4,
+        "tokens": 140,
+        "calculatorCalls": 0
+      },
+      "verification": null,
+      "trace": [
+        {
+          "step": "baseline_attempts",
+          "attempts": [
+            "(A) The convertible is the second-newest\n\nIn the first paragraph, we have three objects arranged in a fixed order: the convertible, the limousine, and the bus. The limousine is older than the bus, and the bus is older than the convertible. Therefore, the",
+            "```json\n[\n    \"order_by_size\",\n    \"order_by_price\",\n    \"order_by_date\"\n]\n```",
+            "```json\n[\n    \"A\",\n    \"B\",\n    \"C\"\n]\n```",
+            "```json\n[\n    \"A\",\n    \"B\"\n]\n```"
+          ]
+        }
+      ],
+      "error": null,
+      "elapsedMs": 10541.14999999851,
+      "peakProcessTreeRssKiB": 801600,
+      "check": {
+        "status": "failed",
+        "method": "external_published_target",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "bbh-177",
+      "category": "dependency",
+      "arm": "b2",
+      "order": [
+        "falcon_alone",
+        "b2"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 1
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "trace": [],
+      "error": null,
+      "elapsedMs": 1.339999996125698,
+      "peakProcessTreeRssKiB": 801888,
+      "check": {
+        "status": "failed",
+        "method": "external_published_target",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "bbh-241",
+      "category": "dependency",
+      "arm": "b2",
+      "order": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "I cannot verify an order: some dependency language is unsupported or ambiguous.",
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 0,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 0
+      },
+      "verification": {
+        "status": "unverified",
+        "method": "semantic_abstention",
+        "residual": [
+          "no grounded dependency interpretation"
+        ]
+      },
+      "trace": [],
+      "error": null,
+      "elapsedMs": 0.26999999582767487,
+      "peakProcessTreeRssKiB": 801920,
+      "check": {
+        "status": "failed",
+        "method": "external_published_target",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    },
+    {
+      "id": "bbh-241",
+      "category": "dependency",
+      "arm": "falcon_alone",
+      "order": [
+        "b2",
+        "falcon_alone"
+      ],
+      "answer": "```json\n[\n    \"check\",\n    \"color_book\",\n    \"purple_book\"\n]\n```",
+      "metrics": {
+        "modelCalls": 4,
+        "tokens": 141,
+        "calculatorCalls": 0
+      },
+      "verification": null,
+      "trace": [
+        {
+          "step": "baseline_attempts",
+          "attempts": [
+            "(B) The purple book is the second from the left.\n\nThis is logically consistent within each paragraph. Here's the reasoning:\n\n- The gray book is to the left of the purple book.\n- The purple book is to the left of the gray book.\n- The red book is to",
+            "```json\n[\n    \"check\",\n    \"order\",\n    \"return\"\n]\n```",
+            "```json\n[\n    \"order\",\n    \"color_book\",\n    \"color_book\"\n]\n```",
+            "```json\n[\n    \"check\",\n    \"color_book\",\n    \"purple_book\"\n]\n```"
+          ]
+        }
+      ],
+      "error": null,
+      "elapsedMs": 10448.80000000447,
+      "peakProcessTreeRssKiB": 804592,
+      "check": {
+        "status": "failed",
+        "method": "external_published_target",
+        "correctAbstention": false,
+        "falseVerification": false,
+        "repairs": []
+      }
+    }
+  ],
+  "totals": {
+    "falcon_alone": {
+      "objectivePassed": 0,
+      "objectiveTotal": 8,
+      "pendingHumanCode": 0,
+      "pendingHuman": 0,
+      "totalElapsedMs": 73567.5850000009,
+      "modelCalls": 32,
+      "tokens": 1082,
+      "calculatorCalls": 0,
+      "peakProcessTreeRssKiB": 1156304
+    },
+    "b2": {
+      "objectivePassed": 6,
+      "objectiveTotal": 8,
+      "pendingHumanCode": 0,
+      "pendingHuman": 0,
+      "totalElapsedMs": 12840.364999979734,
+      "modelCalls": 9,
+      "tokens": 102,
+      "calculatorCalls": 4,
+      "peakProcessTreeRssKiB": 1119632
+    }
+  },
+  "errors": [],
+  "external": [],
+  "caveats": [
+    "Small locally authored fixture; not independent external generalization evidence.",
+    "Ordering check uses separately authored gold action/edge constraints; prose interpretations not admitted remain failures/abstentions.",
+    "The first baseline prompt matches the B2 hypothesis prompt; generic reconsideration uses no fixed negative-answer example.",
+    "RSS includes Node and Chromium harness."
+  ]
+}

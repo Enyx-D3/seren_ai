@@ -1,0 +1,42 @@
+{
+  "original": "evidence/b2-dependency-repair-eval-2026-11-04T08-12-57.876Z.json",
+  "fixtureSha256": "634046539854d5d40ba6b083c677391c3c8f71e2e55a42938a42edbb970311e2",
+  "comparableCompletedCases": [],
+  "summary": {
+    "falcon_alone": {
+      "completeCorrect": 0,
+      "answerable": 6,
+      "correctAbstentions": 0,
+      "ambiguousOrNegative": 2,
+      "falseVerification": 0,
+      "fullFalconLedRepairs": 0,
+      "partialRepairs": 0,
+      "rejectedRepairs": 0,
+      "totalLatencyMs": 73567.5850000009,
+      "comparableCompletedTaskLatencyMs": null,
+      "modelCalls": 32,
+      "simulatorCalls": 0,
+      "peakProcessTreeRssKiB": 1156304
+    },
+    "b2": {
+      "completeCorrect": 4,
+      "answerable": 6,
+      "correctAbstentions": 2,
+      "ambiguousOrNegative": 2,
+      "falseVerification": 0,
+      "fullFalconLedRepairs": 1,
+      "partialRepairs": 1,
+      "rejectedRepairs": 3,
+      "totalLatencyMs": 12840.364999979734,
+      "comparableCompletedTaskLatencyMs": null,
+      "modelCalls": 9,
+      "simulatorCalls": 4,
+      "peakProcessTreeRssKiB": 1119632
+    }
+  },
+  "caveats": [
+    "Local scheduling cases are developer-authored; BBH cases are externally authored and unsupported.",
+    "A full model-led repair means model selected the prerequisite, a constrained local edit preserved checked relationships, and the whole task passed. It is not unrestricted generated-code repair.",
+    "Total latency includes abstentions; no co-completed tasks means no supported comparative time-to-correct claim."
+  ]
+}

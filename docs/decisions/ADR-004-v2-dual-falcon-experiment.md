@@ -27,3 +27,8 @@ New functionality must be opt-in/reversible with a documented last-known-good so
 
 ## Required follow-through
 Synchronize AGENTS, PRD, AppFlow, UI_Spec, TRD, Schema, Plan, SRS, B2_Architecture_Traceability, README and CHECKPOINT_LOG in one documentation-only patch, then implement behind feature flags in a later code patch. Documentation is not implementation. No Git push or deployment follows from this ADR.
+
+
+## 2026-11-04 scope clarification (documentation only)
+
+The owner-restored [master SRS §§9–18](../SRS.md#9-restored-v2-master-scope-and-precedence-2026-11-04) and [coverage](../Seren7_V2_Recovery_Coverage.md) preserve Seren 7 = MRS and all simulator, hardware, virtual-computation, GraphOS/calculator, Cortex/retrieval and TRM research tracks. Dual hardware is not restricted to exactly WebGPU+WASM; all candidate backends remain capability- and evidence-gated. TRM is a research requirement with unknown local runtime compatibility and no official weights executed here; this clarification does not authorize silently adding another active language model. V1 one-Instruct, V2 optional official Coder, browser privacy and release permission boundaries remain as decided above.

@@ -1,0 +1,13 @@
+{
+  "source": "  All auditors are reviewers. All reviewers are staff. Are all auditors staff?",
+  "before": {
+    "offset": 0,
+    "quote": "All auditors are reviewers.",
+    "spanMatches": false
+  },
+  "after": {
+    "offset": 2,
+    "quote": "All auditors are reviewers.",
+    "spanMatches": true
+  }
+}

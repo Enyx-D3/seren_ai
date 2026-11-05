@@ -1,0 +1,1579 @@
+{
+  "base": "http://127.0.0.1:8799/",
+  "prompt": "\"Package crate\" depends on \"Inspect cargo\". \"Release crate\" comes after \"Package crate\". Give a valid order.",
+  "stored": {
+    "id": "648629ec-11c2-47a5-a90b-c2ce5005923c",
+    "conversation_id": "9d534c96-5ef3-43f8-ac96-88a1e1761c87",
+    "schema_version": 3,
+    "sequence": 1,
+    "created_at": 1793852854022,
+    "role": "assistant",
+    "content": "[\"Inspect cargo\",\"Package crate\",\"Release crate\"]",
+    "status": "done",
+    "model_id": "falcon_instruct",
+    "meta": {
+      "backend": "wasm",
+      "route_mode": "b2_spiral",
+      "route_category": "conversation",
+      "route_reason": "simple path · 1 part(s)",
+      "policy_version": "b2-controller-6",
+      "via": "Verified local result",
+      "run_id": "2f8d6024-b911-4117-bf0e-4a13e8e257f7",
+      "tokens": 17,
+      "ttft_ms": 11106,
+      "elapsed_ms": 11106,
+      "spiral_plan": {
+        "complexity": "simple",
+        "parts": 1,
+        "omittedParts": 0
+      },
+      "spiral_metrics": {
+        "modelCalls": 2,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 17,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 11066
+      },
+      "spiral_trace": [
+        {
+          "step": "dependency_interpretation",
+          "intent": "dependency_order",
+          "goal": "a feasible total order or a checked infeasibility result",
+          "facts": [
+            {
+              "before": "Inspect cargo",
+              "after": "Package crate",
+              "quote": "\"Package crate\" depends on \"Inspect cargo\".",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            },
+            {
+              "before": "Package crate",
+              "after": "Release crate",
+              "quote": "\"Release crate\" comes after \"Package crate\".",
+              "sourceOffset": 44,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            }
+          ],
+          "constraints": [
+            {
+              "before": "Inspect cargo",
+              "after": "Package crate",
+              "quote": "\"Package crate\" depends on \"Inspect cargo\".",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            },
+            {
+              "before": "Package crate",
+              "after": "Release crate",
+              "quote": "\"Release crate\" comes after \"Package crate\".",
+              "sourceOffset": 44,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            }
+          ],
+          "unknowns": [],
+          "root": "40215f95049c4288f5b4905c21018689ca0c0c7eae8c0a4fe90fb48bcc96eea4"
+        },
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "dependency_forward",
+          "candidates": [
+            {
+              "kind": "dependency_forward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 5,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "dependency_backward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 5,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ],
+          "selectionReason": "evidence_rank"
+        },
+        {
+          "step": "dependency_hypothesis",
+          "proposal": {
+            "text": "[\"Release crate\", \"Inspect cargo\", \"Release crate\"]",
+            "order": [
+              "Release crate",
+              "Inspect cargo",
+              "Release crate"
+            ]
+          },
+          "checked": {
+            "ok": false,
+            "residuals": [
+              {
+                "before": "Inspect cargo",
+                "after": "Package crate",
+                "quote": "\"Package crate\" depends on \"Inspect cargo\"."
+              },
+              {
+                "before": "Package crate",
+                "after": "Release crate",
+                "quote": "\"Release crate\" comes after \"Package crate\"."
+              }
+            ],
+            "method": "independent_position_inequalities"
+          }
+        },
+        {
+          "step": "dependency_component_projection",
+          "order": [
+            "Release crate",
+            "Inspect cargo",
+            "Package crate"
+          ],
+          "status": "unverified"
+        },
+        {
+          "step": "dependency_model_repair",
+          "repair": {
+            "text": "Release",
+            "options": [
+              "Release crate",
+              "Package crate"
+            ],
+            "checked": {
+              "ok": false,
+              "reason": "model_did_not_identify_prerequisite"
+            },
+            "componentChecked": false,
+            "preserved": 0,
+            "residual": {
+              "before": "Package crate",
+              "after": "Release crate",
+              "quote": "\"Release crate\" comes after \"Package crate\".",
+              "sourceOffset": 44,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            },
+            "mechanism": "model_identified_prerequisite_then_checked_local_move"
+          }
+        },
+        {
+          "step": "dependency_operation",
+          "kind": "dependency_forward",
+          "order": [
+            "Inspect cargo",
+            "Package crate",
+            "Release crate"
+          ],
+          "repairedProposalReused": false
+        },
+        {
+          "step": "dependency_joint",
+          "status": "verified",
+          "direction": "dependency_forward",
+          "candidate": [
+            "Inspect cargo",
+            "Package crate",
+            "Release crate"
+          ],
+          "receipt": {
+            "status": "verified",
+            "method": "independent_position_inequalities",
+            "check": {
+              "ok": true,
+              "residuals": [],
+              "method": "independent_position_inequalities"
+            }
+          },
+          "visited": [
+            "dependency_forward"
+          ],
+          "history": [
+            {
+              "action": "TAP",
+              "direction": "dependency_forward",
+              "cycle": 1
+            },
+            {
+              "action": "VERIFY",
+              "direction": "dependency_forward",
+              "method": "independent_position_inequalities",
+              "measuredMs": 0.48499999940395355
+            }
+          ],
+          "stopReason": "independently_verified"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "dependency_forward",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "independent_position_inequalities",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 11066,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 1,
+              "unresolved": 0,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 1,
+              "complete": true
+            },
+            "verifiedDelta": 1,
+            "componentDelta": 0,
+            "residualDelta": 0,
+            "outcome": "verified_advance"
+          }
+        }
+      ],
+      "spiral_verification": {
+        "status": "verified",
+        "method": "independent_position_inequalities",
+        "scope": "ordering_relative_to_supported_explicit_source_constraints"
+      },
+      "spiral_state": {
+        "schemaVersion": 2,
+        "givens": [
+          {
+            "id": "given-statement-1",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "\"Package crate\" depends on \"Inspect cargo\".",
+            "sourceOffset": 0,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-statement-2",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "\"Release crate\" comes after \"Package crate\".",
+            "sourceOffset": 44,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          }
+        ],
+        "graph": {
+          "schemaVersion": 2,
+          "truncated": false,
+          "nodes": [
+            {
+              "id": "given-statement-1",
+              "type": "given",
+              "kind": "source_statement",
+              "value": "\"Package crate\" depends on \"Inspect cargo\".",
+              "sourceOffset": 0,
+              "provenance": "user_input",
+              "status": "assumed_input",
+              "trust": "user_provided_unverified"
+            },
+            {
+              "id": "given-statement-2",
+              "type": "given",
+              "kind": "source_statement",
+              "value": "\"Release crate\" comes after \"Package crate\".",
+              "sourceOffset": 44,
+              "provenance": "user_input",
+              "status": "assumed_input",
+              "trust": "user_provided_unverified"
+            },
+            {
+              "id": "semantic-relation-2",
+              "type": "source_relation",
+              "kind": "temporal",
+              "cue": "after",
+              "cueOffset": 66,
+              "quote": "\"Release crate\" comes after \"Package crate\"",
+              "sourceOffset": 44,
+              "operationHint": "order",
+              "status": "proposed_from_wording",
+              "provenance": "source_span",
+              "verification": "requires_independent_operation_check"
+            },
+            {
+              "id": "semantic-relation-1",
+              "type": "source_relation",
+              "kind": "decrease",
+              "cue": "Give",
+              "cueOffset": 89,
+              "quote": "Give a valid order",
+              "sourceOffset": 89,
+              "operationHint": "subtract",
+              "status": "proposed_from_wording",
+              "provenance": "source_span",
+              "verification": "requires_independent_operation_check"
+            },
+            {
+              "id": "part-1",
+              "type": "task",
+              "status": "verified",
+              "question": "\"Package crate\" depends on \"Inspect cargo\". \"Release crate\" comes after \"Package crate\". Give a valid order.",
+              "intent": {
+                "category": "conversation",
+                "action": "respond",
+                "source": "\"Package crate\" depends on \"Inspect cargo\". \"Release crate\" comes after \"Package crate\". Give a valid order."
+              },
+              "verification": {
+                "needed": "blinded_semantic_assessment",
+                "scope": "response_quality"
+              },
+              "dependsOn": [],
+              "orderAfter": [],
+              "verifiedBy": "derivation-1"
+            },
+            {
+              "id": "part-1:unknown",
+              "type": "required_unknown",
+              "status": "verified",
+              "value": "\"Package crate\" depends on \"Inspect cargo\". \"Release crate\" comes after \"Package crate\". Give a valid order.",
+              "verification": {
+                "needed": "blinded_semantic_assessment",
+                "scope": "response_quality"
+              },
+              "verifiedBy": "derivation-1"
+            },
+            {
+              "id": "part-1:operation-falcon",
+              "type": "candidate_operation",
+              "kind": "falcon",
+              "status": "eligible_unselected"
+            },
+            {
+              "id": "part-1:operation-dependency_forward",
+              "type": "candidate_operation",
+              "kind": "dependency_forward",
+              "status": "selected",
+              "score": 4.92,
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "selections": 1
+            },
+            {
+              "id": "part-1:operation-dependency_backward",
+              "type": "candidate_operation",
+              "kind": "dependency_backward",
+              "status": "eligible_unselected",
+              "score": 4.92,
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              }
+            },
+            {
+              "id": "derivation-1",
+              "type": "derivation",
+              "partId": "part-1",
+              "operation": "dependency_forward",
+              "status": "verified",
+              "verificationMethod": "independent_position_inequalities"
+            }
+          ],
+          "edges": [
+            {
+              "from": "part-1",
+              "to": "part-1:unknown",
+              "relation": "requires_result"
+            },
+            {
+              "from": "given-statement-1",
+              "to": "part-1",
+              "relation": "stated_input"
+            },
+            {
+              "from": "given-statement-2",
+              "to": "part-1",
+              "relation": "stated_input"
+            },
+            {
+              "from": "semantic-relation-2",
+              "to": "part-1",
+              "relation": "proposes_operation_hint"
+            },
+            {
+              "from": "semantic-relation-1",
+              "to": "part-1",
+              "relation": "proposes_operation_hint"
+            },
+            {
+              "from": "part-1",
+              "to": "part-1:operation-falcon",
+              "relation": "may_execute"
+            },
+            {
+              "from": "part-1",
+              "to": "part-1:operation-dependency_forward",
+              "relation": "may_execute"
+            },
+            {
+              "from": "part-1",
+              "to": "part-1:operation-dependency_backward",
+              "relation": "may_execute"
+            },
+            {
+              "from": "derivation-1",
+              "to": "part-1:unknown",
+              "relation": "verifies"
+            }
+          ],
+          "knownFacts": [
+            {
+              "id": "given-statement-1",
+              "type": "given",
+              "kind": "source_statement",
+              "value": "\"Package crate\" depends on \"Inspect cargo\".",
+              "sourceOffset": 0,
+              "provenance": "user_input",
+              "status": "assumed_input",
+              "trust": "user_provided_unverified"
+            },
+            {
+              "id": "given-statement-2",
+              "type": "given",
+              "kind": "source_statement",
+              "value": "\"Release crate\" comes after \"Package crate\".",
+              "sourceOffset": 44,
+              "provenance": "user_input",
+              "status": "assumed_input",
+              "trust": "user_provided_unverified"
+            }
+          ],
+          "semantic": {
+            "schemaVersion": 1,
+            "quantities": [],
+            "signatures": [],
+            "relations": [
+              {
+                "id": "semantic-relation-2",
+                "type": "source_relation",
+                "kind": "temporal",
+                "cue": "after",
+                "cueOffset": 66,
+                "quote": "\"Release crate\" comes after \"Package crate\"",
+                "sourceOffset": 44,
+                "operationHint": "order",
+                "status": "proposed_from_wording",
+                "provenance": "source_span",
+                "verification": "requires_independent_operation_check"
+              },
+              {
+                "id": "semantic-relation-1",
+                "type": "source_relation",
+                "kind": "decrease",
+                "cue": "Give",
+                "cueOffset": 89,
+                "quote": "Give a valid order",
+                "sourceOffset": 89,
+                "operationHint": "subtract",
+                "status": "proposed_from_wording",
+                "provenance": "source_span",
+                "verification": "requires_independent_operation_check"
+              }
+            ],
+            "unknown": null,
+            "limitation": "lexical source hints; operation roles and causal dependencies remain unverified"
+          },
+          "requiredUnknowns": [
+            {
+              "id": "part-1:unknown",
+              "type": "required_unknown",
+              "status": "verified",
+              "value": "\"Package crate\" depends on \"Inspect cargo\". \"Release crate\" comes after \"Package crate\". Give a valid order.",
+              "verification": {
+                "needed": "blinded_semantic_assessment",
+                "scope": "response_quality"
+              },
+              "verifiedBy": "derivation-1"
+            }
+          ],
+          "constraints": [],
+          "candidateOperations": [
+            {
+              "id": "part-1:operation-falcon",
+              "type": "candidate_operation",
+              "kind": "falcon",
+              "status": "eligible_unselected"
+            },
+            {
+              "id": "part-1:operation-dependency_forward",
+              "type": "candidate_operation",
+              "kind": "dependency_forward",
+              "status": "selected",
+              "score": 4.92,
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "selections": 1
+            },
+            {
+              "id": "part-1:operation-dependency_backward",
+              "type": "candidate_operation",
+              "kind": "dependency_backward",
+              "status": "eligible_unselected",
+              "score": 4.92,
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              }
+            }
+          ],
+          "availableKnowledge": [
+            {
+              "kind": "user_stated_inputs",
+              "nodeIds": [
+                "given-statement-1",
+                "given-statement-2"
+              ],
+              "verification": "assumed_input"
+            },
+            {
+              "kind": "local_operations",
+              "nodeIds": [],
+              "verification": "operation_specific"
+            }
+          ],
+          "missingKnowledge": [
+            {
+              "partId": "part-1",
+              "requirement": "blinded_semantic_assessment",
+              "status": "not_available_in_browser_turn"
+            }
+          ],
+          "graphos": {
+            "frame_id": "dependency-task",
+            "coordinate": {
+              "superfamily": "REASONING",
+              "function": "VERIFY",
+              "lens": "LITERAL",
+              "canonical_id": null
+            },
+            "nodes": [
+              {
+                "id": "task-0",
+                "label": "Inspect cargo",
+                "kind": "action",
+                "attrs": {},
+                "evidence_class": "OBSERVED",
+                "source_refs": []
+              },
+              {
+                "id": "task-1",
+                "label": "Package crate",
+                "kind": "action",
+                "attrs": {},
+                "evidence_class": "OBSERVED",
+                "source_refs": []
+              },
+              {
+                "id": "task-2",
+                "label": "Release crate",
+                "kind": "action",
+                "attrs": {},
+                "evidence_class": "OBSERVED",
+                "source_refs": []
+              }
+            ],
+            "edges": [
+              {
+                "id": "edge-0",
+                "src": "task-0",
+                "dst": "task-1",
+                "relation": "requires",
+                "attrs": {
+                  "before": "Inspect cargo",
+                  "after": "Package crate",
+                  "quote": "\"Package crate\" depends on \"Inspect cargo\".",
+                  "sourceOffset": 0,
+                  "provenance": "observed_source",
+                  "status": "assumed_input"
+                },
+                "evidence_class": "UNKNOWN",
+                "source_refs": [
+                  "input:0"
+                ]
+              },
+              {
+                "id": "edge-1",
+                "src": "task-1",
+                "dst": "task-2",
+                "relation": "requires",
+                "attrs": {
+                  "before": "Package crate",
+                  "after": "Release crate",
+                  "quote": "\"Release crate\" comes after \"Package crate\".",
+                  "sourceOffset": 44,
+                  "provenance": "observed_source",
+                  "status": "assumed_input"
+                },
+                "evidence_class": "UNKNOWN",
+                "source_refs": [
+                  "input:44"
+                ]
+              }
+            ],
+            "parent_root": null,
+            "metadata": {
+              "source": "\"Package crate\" depends on \"Inspect cargo\". \"Release crate\" comes after \"Package crate\". Give a valid order.",
+              "goal": "find a total order satisfying all stated prerequisites"
+            },
+            "root": "40215f95049c4288f5b4905c21018689ca0c0c7eae8c0a4fe90fb48bcc96eea4",
+            "policy": "mrs-graphos-cp004-browser-shadow-1"
+          }
+        },
+        "dependencies": [],
+        "derivations": [
+          {
+            "id": "derivation-1",
+            "partId": "part-1",
+            "operation": "dependency_forward",
+            "dependsOn": [],
+            "output": "[\"Inspect cargo\",\"Package crate\",\"Release crate\"]",
+            "status": "verified",
+            "method": "independent_position_inequalities"
+          }
+        ],
+        "verifiedFacts": [
+          {
+            "partId": "part-1",
+            "answer": "[\"Inspect cargo\",\"Package crate\",\"Release crate\"]",
+            "method": "independent_position_inequalities",
+            "operation": "dependency_forward"
+          }
+        ],
+        "unresolved": [],
+        "residuals": [],
+        "visitedDirections": [
+          {
+            "partId": "part-1",
+            "kind": "dependency_forward",
+            "policy": "b2-direction-3-calibrated-repair"
+          }
+        ]
+      }
+    },
+    "updated_at": 1793852865157
+  },
+  "offline": {
+    "result": {
+      "answer": "[\"Inspect cargo\",\"Package crate\",\"Release crate\"]",
+      "verification": {
+        "status": "verified",
+        "method": "independent_position_inequalities",
+        "scope": "ordering_relative_to_supported_explicit_source_constraints"
+      },
+      "plan": {
+        "policy": "b2-controller-6",
+        "category": "conversation",
+        "complexity": "simple",
+        "maxModelCalls": 4,
+        "repairBudget": 0,
+        "interpretationBudget": 0,
+        "omittedParts": 0,
+        "parts": [
+          {
+            "id": "part-1",
+            "question": "\"Package crate\" depends on \"Inspect cargo\". \"Release crate\" comes after \"Package crate\". Give a valid order.",
+            "category": "conversation",
+            "dependsOn": [],
+            "orderAfter": [],
+            "candidateOperations": [
+              "falcon"
+            ],
+            "completeWhen": "answer recorded and check status assigned"
+          }
+        ]
+      },
+      "trace": [
+        {
+          "step": "dependency_interpretation",
+          "intent": "dependency_order",
+          "goal": "a feasible total order or a checked infeasibility result",
+          "facts": [
+            {
+              "before": "Inspect cargo",
+              "after": "Package crate",
+              "quote": "\"Package crate\" depends on \"Inspect cargo\".",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            },
+            {
+              "before": "Package crate",
+              "after": "Release crate",
+              "quote": "\"Release crate\" comes after \"Package crate\".",
+              "sourceOffset": 44,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            }
+          ],
+          "constraints": [
+            {
+              "before": "Inspect cargo",
+              "after": "Package crate",
+              "quote": "\"Package crate\" depends on \"Inspect cargo\".",
+              "sourceOffset": 0,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            },
+            {
+              "before": "Package crate",
+              "after": "Release crate",
+              "quote": "\"Release crate\" comes after \"Package crate\".",
+              "sourceOffset": 44,
+              "provenance": "observed_source",
+              "status": "assumed_input"
+            }
+          ],
+          "unknowns": [],
+          "root": "40215f95049c4288f5b4905c21018689ca0c0c7eae8c0a4fe90fb48bcc96eea4"
+        },
+        {
+          "step": "direction",
+          "part": "part-1",
+          "chosen": "dependency_forward",
+          "candidates": [
+            {
+              "kind": "dependency_forward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 5,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            },
+            {
+              "kind": "dependency_backward",
+              "status": "verified_narrow",
+              "scores": {
+                "goalAttraction": 1,
+                "expectedProgress": 1,
+                "informationGain": 1,
+                "computationalCost": 1,
+                "errorRisk": 0.04,
+                "memoryReuse": 0
+              },
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "pathOperations": 5,
+              "score": 4.92,
+              "safetyTier": 1,
+              "policy": "b2-direction-3-calibrated-repair"
+            }
+          ],
+          "selectionReason": "evidence_rank"
+        },
+        {
+          "step": "dependency_operation",
+          "kind": "dependency_forward",
+          "order": [
+            "Inspect cargo",
+            "Package crate",
+            "Release crate"
+          ],
+          "repairedProposalReused": false
+        },
+        {
+          "step": "dependency_joint",
+          "status": "verified",
+          "direction": "dependency_forward",
+          "candidate": [
+            "Inspect cargo",
+            "Package crate",
+            "Release crate"
+          ],
+          "receipt": {
+            "status": "verified",
+            "method": "independent_position_inequalities",
+            "check": {
+              "ok": true,
+              "residuals": [],
+              "method": "independent_position_inequalities"
+            }
+          },
+          "visited": [
+            "dependency_forward"
+          ],
+          "history": [
+            {
+              "action": "TAP",
+              "direction": "dependency_forward",
+              "cycle": 1
+            },
+            {
+              "action": "VERIFY",
+              "direction": "dependency_forward",
+              "method": "independent_position_inequalities",
+              "measuredMs": 0.03999999910593033
+            }
+          ],
+          "stopReason": "independently_verified"
+        },
+        {
+          "step": "direction_result",
+          "partId": "part-1",
+          "operation": "dependency_forward",
+          "status": "verified",
+          "verificationStatus": "verified",
+          "verifiedProgress": true,
+          "verificationMethod": "independent_position_inequalities",
+          "derivationId": "derivation-1",
+          "residual": null,
+          "informationGainProxy": 1,
+          "checkedOutcome": true,
+          "reused": false,
+          "elapsedMs": 7,
+          "goalProgress": {
+            "before": {
+              "required": 1,
+              "verified": 0,
+              "unresolved": 1,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 0,
+              "complete": false
+            },
+            "after": {
+              "required": 1,
+              "verified": 1,
+              "unresolved": 0,
+              "verifiedComponents": 0,
+              "openResiduals": 0,
+              "completion": 1,
+              "complete": true
+            },
+            "verifiedDelta": 1,
+            "componentDelta": 0,
+            "residualDelta": 0,
+            "outcome": "verified_advance"
+          }
+        }
+      ],
+      "metrics": {
+        "modelCalls": 0,
+        "calculatorCalls": 1,
+        "cacheHits": 0,
+        "tokens": 0,
+        "firstModelTokenMs": null,
+        "verificationMs": 0,
+        "elapsedMs": 7
+      },
+      "state": {
+        "schemaVersion": 2,
+        "goal": "\"Package crate\" depends on \"Inspect cargo\". \"Release crate\" comes after \"Package crate\". Give a valid order.",
+        "graph": {
+          "schemaVersion": 2,
+          "truncated": false,
+          "nodes": [
+            {
+              "id": "given-statement-1",
+              "type": "given",
+              "kind": "source_statement",
+              "value": "\"Package crate\" depends on \"Inspect cargo\".",
+              "sourceOffset": 0,
+              "provenance": "user_input",
+              "status": "assumed_input",
+              "trust": "user_provided_unverified"
+            },
+            {
+              "id": "given-statement-2",
+              "type": "given",
+              "kind": "source_statement",
+              "value": "\"Release crate\" comes after \"Package crate\".",
+              "sourceOffset": 44,
+              "provenance": "user_input",
+              "status": "assumed_input",
+              "trust": "user_provided_unverified"
+            },
+            {
+              "id": "semantic-relation-2",
+              "type": "source_relation",
+              "kind": "temporal",
+              "cue": "after",
+              "cueOffset": 66,
+              "quote": "\"Release crate\" comes after \"Package crate\"",
+              "sourceOffset": 44,
+              "operationHint": "order",
+              "status": "proposed_from_wording",
+              "provenance": "source_span",
+              "verification": "requires_independent_operation_check"
+            },
+            {
+              "id": "semantic-relation-1",
+              "type": "source_relation",
+              "kind": "decrease",
+              "cue": "Give",
+              "cueOffset": 89,
+              "quote": "Give a valid order",
+              "sourceOffset": 89,
+              "operationHint": "subtract",
+              "status": "proposed_from_wording",
+              "provenance": "source_span",
+              "verification": "requires_independent_operation_check"
+            },
+            {
+              "id": "part-1",
+              "type": "task",
+              "status": "verified",
+              "question": "\"Package crate\" depends on \"Inspect cargo\". \"Release crate\" comes after \"Package crate\". Give a valid order.",
+              "intent": {
+                "category": "conversation",
+                "action": "respond",
+                "source": "\"Package crate\" depends on \"Inspect cargo\". \"Release crate\" comes after \"Package crate\". Give a valid order."
+              },
+              "verification": {
+                "needed": "blinded_semantic_assessment",
+                "scope": "response_quality"
+              },
+              "dependsOn": [],
+              "orderAfter": [],
+              "verifiedBy": "derivation-1"
+            },
+            {
+              "id": "part-1:unknown",
+              "type": "required_unknown",
+              "status": "verified",
+              "value": "\"Package crate\" depends on \"Inspect cargo\". \"Release crate\" comes after \"Package crate\". Give a valid order.",
+              "verification": {
+                "needed": "blinded_semantic_assessment",
+                "scope": "response_quality"
+              },
+              "verifiedBy": "derivation-1"
+            },
+            {
+              "id": "part-1:operation-falcon",
+              "type": "candidate_operation",
+              "kind": "falcon",
+              "status": "eligible_unselected"
+            },
+            {
+              "id": "part-1:operation-dependency_forward",
+              "type": "candidate_operation",
+              "kind": "dependency_forward",
+              "status": "selected",
+              "score": 4.92,
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "selections": 1
+            },
+            {
+              "id": "part-1:operation-dependency_backward",
+              "type": "candidate_operation",
+              "kind": "dependency_backward",
+              "status": "eligible_unselected",
+              "score": 4.92,
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              }
+            },
+            {
+              "id": "derivation-1",
+              "type": "derivation",
+              "partId": "part-1",
+              "operation": "dependency_forward",
+              "status": "verified",
+              "verificationMethod": "independent_position_inequalities"
+            }
+          ],
+          "edges": [
+            {
+              "from": "part-1",
+              "to": "part-1:unknown",
+              "relation": "requires_result"
+            },
+            {
+              "from": "given-statement-1",
+              "to": "part-1",
+              "relation": "stated_input"
+            },
+            {
+              "from": "given-statement-2",
+              "to": "part-1",
+              "relation": "stated_input"
+            },
+            {
+              "from": "semantic-relation-2",
+              "to": "part-1",
+              "relation": "proposes_operation_hint"
+            },
+            {
+              "from": "semantic-relation-1",
+              "to": "part-1",
+              "relation": "proposes_operation_hint"
+            },
+            {
+              "from": "part-1",
+              "to": "part-1:operation-falcon",
+              "relation": "may_execute"
+            },
+            {
+              "from": "part-1",
+              "to": "part-1:operation-dependency_forward",
+              "relation": "may_execute"
+            },
+            {
+              "from": "part-1",
+              "to": "part-1:operation-dependency_backward",
+              "relation": "may_execute"
+            },
+            {
+              "from": "derivation-1",
+              "to": "part-1:unknown",
+              "relation": "verifies"
+            }
+          ],
+          "knownFacts": [
+            {
+              "id": "given-statement-1",
+              "type": "given",
+              "kind": "source_statement",
+              "value": "\"Package crate\" depends on \"Inspect cargo\".",
+              "sourceOffset": 0,
+              "provenance": "user_input",
+              "status": "assumed_input",
+              "trust": "user_provided_unverified"
+            },
+            {
+              "id": "given-statement-2",
+              "type": "given",
+              "kind": "source_statement",
+              "value": "\"Release crate\" comes after \"Package crate\".",
+              "sourceOffset": 44,
+              "provenance": "user_input",
+              "status": "assumed_input",
+              "trust": "user_provided_unverified"
+            }
+          ],
+          "semantic": {
+            "schemaVersion": 1,
+            "quantities": [],
+            "signatures": [],
+            "relations": [
+              {
+                "id": "semantic-relation-2",
+                "type": "source_relation",
+                "kind": "temporal",
+                "cue": "after",
+                "cueOffset": 66,
+                "quote": "\"Release crate\" comes after \"Package crate\"",
+                "sourceOffset": 44,
+                "operationHint": "order",
+                "status": "proposed_from_wording",
+                "provenance": "source_span",
+                "verification": "requires_independent_operation_check"
+              },
+              {
+                "id": "semantic-relation-1",
+                "type": "source_relation",
+                "kind": "decrease",
+                "cue": "Give",
+                "cueOffset": 89,
+                "quote": "Give a valid order",
+                "sourceOffset": 89,
+                "operationHint": "subtract",
+                "status": "proposed_from_wording",
+                "provenance": "source_span",
+                "verification": "requires_independent_operation_check"
+              }
+            ],
+            "unknown": null,
+            "limitation": "lexical source hints; operation roles and causal dependencies remain unverified"
+          },
+          "requiredUnknowns": [
+            {
+              "id": "part-1:unknown",
+              "type": "required_unknown",
+              "status": "verified",
+              "value": "\"Package crate\" depends on \"Inspect cargo\". \"Release crate\" comes after \"Package crate\". Give a valid order.",
+              "verification": {
+                "needed": "blinded_semantic_assessment",
+                "scope": "response_quality"
+              },
+              "verifiedBy": "derivation-1"
+            }
+          ],
+          "constraints": [],
+          "candidateOperations": [
+            {
+              "id": "part-1:operation-falcon",
+              "type": "candidate_operation",
+              "kind": "falcon",
+              "status": "eligible_unselected"
+            },
+            {
+              "id": "part-1:operation-dependency_forward",
+              "type": "candidate_operation",
+              "kind": "dependency_forward",
+              "status": "selected",
+              "score": 4.92,
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              },
+              "selections": 1
+            },
+            {
+              "id": "part-1:operation-dependency_backward",
+              "type": "candidate_operation",
+              "kind": "dependency_backward",
+              "status": "eligible_unselected",
+              "score": 4.92,
+              "scoreEvidence": {
+                "expectedProgress": "eligible_path_checked_contract",
+                "informationGain": "engineering_prior",
+                "computationalCost": "predicted_operations:5",
+                "errorRisk": "engineering_prior",
+                "memoryReuse": "engineering_prior"
+              }
+            }
+          ],
+          "availableKnowledge": [
+            {
+              "kind": "user_stated_inputs",
+              "nodeIds": [
+                "given-statement-1",
+                "given-statement-2"
+              ],
+              "verification": "assumed_input"
+            },
+            {
+              "kind": "local_operations",
+              "nodeIds": [],
+              "verification": "operation_specific"
+            }
+          ],
+          "missingKnowledge": [
+            {
+              "partId": "part-1",
+              "requirement": "blinded_semantic_assessment",
+              "status": "not_available_in_browser_turn"
+            }
+          ],
+          "graphos": {
+            "frame_id": "dependency-task",
+            "coordinate": {
+              "superfamily": "REASONING",
+              "function": "VERIFY",
+              "lens": "LITERAL",
+              "canonical_id": null
+            },
+            "nodes": [
+              {
+                "id": "task-0",
+                "label": "Inspect cargo",
+                "kind": "action",
+                "attrs": {},
+                "evidence_class": "OBSERVED",
+                "source_refs": []
+              },
+              {
+                "id": "task-1",
+                "label": "Package crate",
+                "kind": "action",
+                "attrs": {},
+                "evidence_class": "OBSERVED",
+                "source_refs": []
+              },
+              {
+                "id": "task-2",
+                "label": "Release crate",
+                "kind": "action",
+                "attrs": {},
+                "evidence_class": "OBSERVED",
+                "source_refs": []
+              }
+            ],
+            "edges": [
+              {
+                "id": "edge-0",
+                "src": "task-0",
+                "dst": "task-1",
+                "relation": "requires",
+                "attrs": {
+                  "before": "Inspect cargo",
+                  "after": "Package crate",
+                  "quote": "\"Package crate\" depends on \"Inspect cargo\".",
+                  "sourceOffset": 0,
+                  "provenance": "observed_source",
+                  "status": "assumed_input"
+                },
+                "evidence_class": "UNKNOWN",
+                "source_refs": [
+                  "input:0"
+                ]
+              },
+              {
+                "id": "edge-1",
+                "src": "task-1",
+                "dst": "task-2",
+                "relation": "requires",
+                "attrs": {
+                  "before": "Package crate",
+                  "after": "Release crate",
+                  "quote": "\"Release crate\" comes after \"Package crate\".",
+                  "sourceOffset": 44,
+                  "provenance": "observed_source",
+                  "status": "assumed_input"
+                },
+                "evidence_class": "UNKNOWN",
+                "source_refs": [
+                  "input:44"
+                ]
+              }
+            ],
+            "parent_root": null,
+            "metadata": {
+              "source": "\"Package crate\" depends on \"Inspect cargo\". \"Release crate\" comes after \"Package crate\". Give a valid order.",
+              "goal": "find a total order satisfying all stated prerequisites"
+            },
+            "root": "40215f95049c4288f5b4905c21018689ca0c0c7eae8c0a4fe90fb48bcc96eea4",
+            "policy": "mrs-graphos-cp004-browser-shadow-1"
+          }
+        },
+        "intent": [
+          {
+            "category": "conversation",
+            "action": "respond",
+            "source": "\"Package crate\" depends on \"Inspect cargo\". \"Release crate\" comes after \"Package crate\". Give a valid order."
+          }
+        ],
+        "givens": [
+          {
+            "id": "given-statement-1",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "\"Package crate\" depends on \"Inspect cargo\".",
+            "sourceOffset": 0,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          },
+          {
+            "id": "given-statement-2",
+            "type": "given",
+            "kind": "source_statement",
+            "value": "\"Release crate\" comes after \"Package crate\".",
+            "sourceOffset": 44,
+            "provenance": "user_input",
+            "status": "assumed_input",
+            "trust": "user_provided_unverified"
+          }
+        ],
+        "parts": [
+          {
+            "id": "part-1",
+            "question": "\"Package crate\" depends on \"Inspect cargo\". \"Release crate\" comes after \"Package crate\". Give a valid order.",
+            "dependsOn": [],
+            "status": "verified"
+          }
+        ],
+        "dependencies": [],
+        "requiredUnknowns": [
+          {
+            "id": "part-1:unknown",
+            "type": "required_unknown",
+            "status": "verified",
+            "value": "\"Package crate\" depends on \"Inspect cargo\". \"Release crate\" comes after \"Package crate\". Give a valid order.",
+            "verification": {
+              "needed": "blinded_semantic_assessment",
+              "scope": "response_quality"
+            },
+            "verifiedBy": "derivation-1"
+          }
+        ],
+        "constraints": [],
+        "availableKnowledge": [
+          {
+            "kind": "user_stated_inputs",
+            "nodeIds": [
+              "given-statement-1",
+              "given-statement-2"
+            ],
+            "verification": "assumed_input"
+          },
+          {
+            "kind": "local_operations",
+            "nodeIds": [],
+            "verification": "operation_specific"
+          }
+        ],
+        "missingKnowledge": [
+          {
+            "partId": "part-1",
+            "requirement": "blinded_semantic_assessment",
+            "status": "not_available_in_browser_turn"
+          }
+        ],
+        "derivations": [
+          {
+            "id": "derivation-1",
+            "partId": "part-1",
+            "operation": "dependency_forward",
+            "dependsOn": [],
+            "output": "[\"Inspect cargo\",\"Package crate\",\"Release crate\"]",
+            "status": "verified",
+            "method": "independent_position_inequalities"
+          }
+        ],
+        "verifiedFacts": [
+          {
+            "partId": "part-1",
+            "answer": "[\"Inspect cargo\",\"Package crate\",\"Release crate\"]",
+            "method": "independent_position_inequalities",
+            "operation": "dependency_forward"
+          }
+        ],
+        "unresolved": [],
+        "residuals": [],
+        "visitedDirections": [
+          {
+            "partId": "part-1",
+            "kind": "dependency_forward",
+            "policy": "b2-direction-3-calibrated-repair"
+          }
+        ],
+        "budget": {
+          "maxModelCalls": 4,
+          "usedModelCalls": 0
+        }
+      },
+      "dependencyProblem": {
+        "intent": "dependency_order",
+        "source": "\"Package crate\" depends on \"Inspect cargo\". \"Release crate\" comes after \"Package crate\". Give a valid order.",
+        "names": [
+          "Inspect cargo",
+          "Package crate",
+          "Release crate"
+        ],
+        "facts": [
+          {
+            "before": "Inspect cargo",
+            "after": "Package crate",
+            "quote": "\"Package crate\" depends on \"Inspect cargo\".",
+            "sourceOffset": 0,
+            "provenance": "observed_source",
+            "status": "assumed_input"
+          },
+          {
+            "before": "Package crate",
+            "after": "Release crate",
+            "quote": "\"Release crate\" comes after \"Package crate\".",
+            "sourceOffset": 44,
+            "provenance": "observed_source",
+            "status": "assumed_input"
+          }
+        ],
+        "constraints": [
+          {
+            "before": "Inspect cargo",
+            "after": "Package crate",
+            "quote": "\"Package crate\" depends on \"Inspect cargo\".",
+            "sourceOffset": 0,
+            "provenance": "observed_source",
+            "status": "assumed_input"
+          },
+          {
+            "before": "Package crate",
+            "after": "Release crate",
+            "quote": "\"Release crate\" comes after \"Package crate\".",
+            "sourceOffset": 44,
+            "provenance": "observed_source",
+            "status": "assumed_input"
+          }
+        ],
+        "unknowns": [],
+        "graph": {
+          "frame_id": "dependency-task",
+          "coordinate": {
+            "superfamily": "REASONING",
+            "function": "VERIFY",
+            "lens": "LITERAL",
+            "canonical_id": null
+          },
+          "nodes": [
+            {
+              "id": "task-0",
+              "label": "Inspect cargo",
+              "kind": "action",
+              "attrs": {},
+              "evidence_class": "OBSERVED",
+              "source_refs": []
+            },
+            {
+              "id": "task-1",
+              "label": "Package crate",
+              "kind": "action",
+              "attrs": {},
+              "evidence_class": "OBSERVED",
+              "source_refs": []
+            },
+            {
+              "id": "task-2",
+              "label": "Release crate",
+              "kind": "action",
+              "attrs": {},
+              "evidence_class": "OBSERVED",
+              "source_refs": []
+            }
+          ],
+          "edges": [
+            {
+              "id": "edge-0",
+              "src": "task-0",
+              "dst": "task-1",
+              "relation": "requires",
+              "attrs": {
+                "before": "Inspect cargo",
+                "after": "Package crate",
+                "quote": "\"Package crate\" depends on \"Inspect cargo\".",
+                "sourceOffset": 0,
+                "provenance": "observed_source",
+                "status": "assumed_input"
+              },
+              "evidence_class": "UNKNOWN",
+              "source_refs": [
+                "input:0"
+              ]
+            },
+            {
+              "id": "edge-1",
+              "src": "task-1",
+              "dst": "task-2",
+              "relation": "requires",
+              "attrs": {
+                "before": "Package crate",
+                "after": "Release crate",
+                "quote": "\"Release crate\" comes after \"Package crate\".",
+                "sourceOffset": 44,
+                "provenance": "observed_source",
+                "status": "assumed_input"
+              },
+              "evidence_class": "UNKNOWN",
+              "source_refs": [
+                "input:44"
+              ]
+            }
+          ],
+          "parent_root": null,
+          "metadata": {
+            "source": "\"Package crate\" depends on \"Inspect cargo\". \"Release crate\" comes after \"Package crate\". Give a valid order.",
+            "goal": "find a total order satisfying all stated prerequisites"
+          },
+          "root": "40215f95049c4288f5b4905c21018689ca0c0c7eae8c0a4fe90fb48bcc96eea4",
+          "policy": "mrs-graphos-cp004-browser-shadow-1"
+        },
+        "goal": "a feasible total order or a checked infeasibility result",
+        "paths": [
+          "dependency_forward",
+          "dependency_backward"
+        ]
+      }
+    },
+    "defaultOperations": [
+      "falcon"
+    ]
+  },
+  "errors": [],
+  "passed": true
+}

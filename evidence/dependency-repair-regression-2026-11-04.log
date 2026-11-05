@@ -1,0 +1,582 @@
+
+> seren7_local_falcon_blueprint@1.0.0 test:browser
+> npm test && node tools/browser_b2_ui_smoke.mjs && node tools/browser_tool_safety_smoke.mjs && node tools/browser_store_smoke.mjs && node tools/browser_schema_migration.mjs && node tools/browser_data_controls_smoke.mjs && node tools/browser_stop_smoke.mjs && node tools/browser_import_negative.mjs
+
+
+> seren7_local_falcon_blueprint@1.0.0 test
+> node tools/module_selftest.mjs && node tools/b2_selftest.mjs && node tools/b2_direction_selftest.mjs && node tools/b2_boolean_selftest.mjs && node tools/b2_cross_domain_selftest.mjs && node tools/b2_entailment_selftest.mjs && node tools/b2_dependency_task_selftest.mjs && node tools/b2_graph_selftest.mjs && node tools/b2_semantic_selftest.mjs && node tools/b2_interpretation_selftest.mjs && node tools/b2_dependent_selftest.mjs && node tools/b2_word_math_selftest.mjs && node tools/b2_transfer_selftest.mjs && node tools/b2_calibration_evidence_selftest.mjs
+
+PASS runtime generation budget caps at 1024
+PASS runtime generation budget reserves context
+PASS runtime generation budget rounds fractional tokens down
+PASS runtime rejects overlong prompts
+PASS joint has seven bounded actions
+PASS joint paired gain is order independent
+PASS joint rejects paired correctness regression
+PASS joint rejects missing paired case
+PASS joint failed independent block brakes promotion
+PASS joint retains brake evidence
+PASS joint denies unknown action
+PASS joint retains failed candidate memory
+PASS joint repair needs a correction
+PASS joint repair preserves failure memory
+PASS joint expand stays bounded
+PASS joint contract keeps one branch
+PASS joint rotate validates model
+PASS joint verify needs two independent passes
+PASS joint exact tool accepts bounded explicit request
+PASS joint exact tool accepts natural calculator wording
+PASS joint exact tool accepts escaped multiplication
+PASS joint exact tool rejects trailing instructions in natural wording
+PASS joint exact tool does not intercept manual model
+PASS joint exact tool denies arbitrary syntax
+PASS joint exact tool denies division by zero
+PASS joint exact tool denies trailing instruction
+PASS sha256(abc)
+PASS sha256(empty)
+PASS sha256(1e6 a) RFC vector
+PASS sha256(1MiB GGUF) == shasum
+PASS arch falcon-h1
+PASS name 90m Instruct
+PASS blocks 24
+PASS ctx 262144
+PASS vocab 32768
+PASS eosId 11
+PASS bosId 17
+PASS marker im_end=228
+PASS marker begin_of_text=17
+PASS chat template present
+PASS fileType 15 (Q4_K_M)
+PASS missing tokenizer marker rejected
+PASS truncated GGUF header rejected
+PASS unbounded GGUF metadata count rejected
+PASS eval 2+2*3 = 8
+PASS eval paren precedence (2+2)*3 = 12
+PASS eval round(3.6) = 4
+PASS eval sqrt pi approx
+PASS eval unary -2^2 = -4
+PASS eval comma thousands 1,234+1 = 1235
+PASS eval rejects half-call
+PASS eval rejects unknown ident
+PASS exact decimals avoid IEEE rounding
+PASS exact fraction reduced
+PASS exact large integer
+PASS exact division by zero rejected
+PASS exact arbitrary syntax rejected
+PASS direct 1/3 returns an exact fraction
+PASS direct large integer stays exact
+PASS direct division by zero stays deterministic
+PASS percent intercept 9.6
+PASS convert kg->lb ~2.2
+PASS convert c->f 212
+PASS convert m->cm 100
+PASS convert gb->mb 1000
+PASS convert mismatch null
+      date/time intercept: CAPTURED ("local clock")
+PASS fabric parses 2
+PASS fabric first calculator
+PASS fabric args object
+PASS fabric second object
+PASS fabric ignores junk outside
+PASS archive tool tags parse
+PASS execute calculator 42
+PASS wrong tool argument type refused
+PASS extra tool argument refused
+PASS unknown tool refused
+PASS inherited tool name refused
+PASS inherited argument name refused
+PASS whitelist has 5 tools
+PASS exact tool independently verified result
+PASS linear integer solution verified
+PASS linear rational solution verified
+PASS linear negative solution verified
+PASS linear zero slope refused
+PASS linear injection refused
+PASS linear extra argument refused
+PASS null proposal refused
+PASS local compute permission denial
+PASS exact calculator carries verification
+PASS approximate calculator is labelled
+PASS stalled tool worker times out and terminates
+PASS cancelled tool worker terminates without execution
+PASS result block renders
+PASS instruct prompt opens with system
+PASS instruct prompt ends with assistant turn
+PASS instruct has user turn framed
+PASS instruct stops [228,11,16]
+PASS instruct mode chat
+PASS reason model rejected by active prompt builder
+PASS coder model rejected by active prompt builder
+PASS stopsFor rejects coder
+PASS stopsFor chat [228,16,11]
+PASS Instruct tool prompt carries local allowlist
+PASS auto code stays on evidenced fallback
+PASS auto reasoning stays on evidenced fallback
+PASS route default -> instruct
+PASS auto refuses unavailable model
+PASS manual route allows Instruct only
+PASS other model selection rejected
+PASS route explains B2 category and policy
+PASS think stays bounded
+PASS route stays bounded
+PASS commutative canonical form is explicit
+PASS subtraction never commutatively merges
+PASS one-off state is cached before persistence
+PASS proven equivalent state reused
+PASS reuse is what marks a state for persistence
+PASS equivalence edge has explicit proof
+PASS heartbeat replay round-trip
+PASS heartbeat detects wrong decoded result
+PASS heartbeat repair recomputes and replays
+PASS reuse gate limits expensive shape
+PASS dependency plan stays bounded to independent factors
+PASS adversarial subtraction has no false reuse
+PASS shared state remains conversation scoped
+PASS cheap expression falls back to baseline
+PASS one-off state stays out of persistent storage
+PASS first reuse persists the exact state once
+PASS later reuse stays batched off the answer path
+PASS visibility flush records accumulated reuse
+PASS reused state is flushed with its reuse receipt
+PASS conversation warm-up loads persisted exact state
+PASS corrupted stored result is recomputed
+PASS corrupted state records a repair delta
+PASS corrupted stored state is repaired in storage
+PASS OPFS quota error reported for new and existing model
+PASS OPFS quota error cleans new partial file
+PASS OPFS quota error keeps existing file
+PASS OPFS quota error aborts both writes
+ALL PASS
+B2 controller selftest PASS
+B2 direction selftest PASS
+B2 Boolean dual-evaluator selftest PASS
+cross-domain B2 selftest PASS
+B2 CP024 experimental multi-hop entailment selftest PASS
+CP024 source coordinates, evidence tampering, reserved terms and route order PASS
+CP024 independent membership oracle PASS: 330 graph/query cases, both routes
+Dependency interpretation, immutable GraphOS, two algorithms and permutation oracle PASS
+Controller model-repair reintegration, independent joint rotation and abstention PASS
+GraphOS edges actually control execution; source oracle rejects broken-graph result PASS
+Inference failure preserves independently executable graph fallback PASS
+Grounded prose relations, ambiguity, source tamper and component repair PASS
+B2 graph selftest PASS
+B2 grounded semantic selftest PASS
+B2 structured interpretation selftest PASS
+B2 dependent arithmetic selftest PASS
+B2 word math selftest PASS
+B2 transfer + experimental magnetic route selftest PASS
+B2 independent outcome accounting + real arithmetic shadow profiles PASS
+{
+  "path": "evidence/b2-ui-smoke-2026-11-04.json",
+  "baseUrl": "http://127.0.0.1:8799/",
+  "rows": 1,
+  "math": "323",
+  "logic": "Yes. Mira is a cat, and all cats are mammals.",
+  "boolean": "True",
+  "dependency": "4\n12",
+  "chat": "Hello, how's it going?",
+  "plan": "Two-Step Morning Backup:\n\nBackup files or data to another location.\nFollow the number of steps: 2.\n\nRisk: File access is a risk.",
+  "evidence": {
+    "answers": [
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-6",
+        "verification": {
+          "status": "verified",
+          "method": "two_parser_exact_v1"
+        },
+        "metrics": {
+          "modelCalls": 0,
+          "calculatorCalls": 1,
+          "cacheHits": 0,
+          "tokens": 0,
+          "firstModelTokenMs": null,
+          "verificationMs": 10,
+          "elapsedMs": 12
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-6",
+        "verification": {
+          "status": "verified",
+          "method": "bounded_syllogism_v1"
+        },
+        "metrics": {
+          "modelCalls": 0,
+          "calculatorCalls": 0,
+          "cacheHits": 0,
+          "tokens": 0,
+          "firstModelTokenMs": null,
+          "verificationMs": 0,
+          "elapsedMs": 0
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-6",
+        "verification": {
+          "status": "verified",
+          "method": "dual_boolean_expression_v1"
+        },
+        "metrics": {
+          "modelCalls": 0,
+          "calculatorCalls": 1,
+          "cacheHits": 0,
+          "tokens": 0,
+          "firstModelTokenMs": null,
+          "verificationMs": 0,
+          "elapsedMs": 0
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-6",
+        "verification": {
+          "status": "verified",
+          "method": "per_part"
+        },
+        "metrics": {
+          "modelCalls": 0,
+          "calculatorCalls": 2,
+          "cacheHits": 0,
+          "tokens": 0,
+          "firstModelTokenMs": null,
+          "verificationMs": 0,
+          "elapsedMs": 1
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-6",
+        "verification": {
+          "status": "unverified",
+          "method": "none",
+          "residual": {
+            "unresolved": [
+              "Say hello in one short sentence."
+            ],
+            "unprocessed": 0
+          }
+        },
+        "metrics": {
+          "modelCalls": 1,
+          "calculatorCalls": 0,
+          "cacheHits": 0,
+          "tokens": 8,
+          "firstModelTokenMs": 1765,
+          "verificationMs": 0,
+          "elapsedMs": 3334
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-6",
+        "verification": {
+          "status": "unverified",
+          "method": "none",
+          "residual": {
+            "unresolved": [
+              "Plan a two-step morning backup; then list one risk."
+            ],
+            "unprocessed": 0
+          }
+        },
+        "metrics": {
+          "modelCalls": 1,
+          "calculatorCalls": 0,
+          "cacheHits": 0,
+          "tokens": 41,
+          "firstModelTokenMs": 1600,
+          "verificationMs": 0,
+          "elapsedMs": 2476
+        }
+      }
+    ],
+    "calibration": {
+      "arithmetic": {
+        "runs": 2,
+        "verifiedSuccesses": 2,
+        "verifiedFailures": 0,
+        "unverified": 0,
+        "modelCalls": 0,
+        "calculatorCalls": 3,
+        "elapsedMs": 13,
+        "repairs": 0,
+        "verifiedModelSuccesses": 0,
+        "verifiedModelFailures": 0,
+        "modelRuns": 0,
+        "modelElapsedMs": 0,
+        "schemaVersion": 2,
+        "operations": {
+          "exact": {
+            "runs": 2,
+            "verifiedSuccesses": 2,
+            "verifiedFailures": 0,
+            "uncheckedRuns": 0,
+            "verifiedComponents": 0,
+            "elapsedMs": 10,
+            "informationGainSum": 2,
+            "cacheHits": 0
+          },
+          "dependent_exact": {
+            "runs": 1,
+            "verifiedSuccesses": 1,
+            "verifiedFailures": 0,
+            "uncheckedRuns": 0,
+            "verifiedComponents": 0,
+            "elapsedMs": 0,
+            "informationGainSum": 1,
+            "cacheHits": 0
+          }
+        },
+        "tokens": 0,
+        "cacheHits": 0,
+        "repairResidualResolutions": 0,
+        "repairNumericAlignments": 0,
+        "repairSurfaceAlignments": 0,
+        "repairNoProgress": 0,
+        "failurePatterns": {},
+        "inputKnowledge": {
+          "statedFactsObserved": 5,
+          "missingVerifierCount": 1
+        },
+        "updatedAt": 1793780040320
+      },
+      "logic": {
+        "runs": 2,
+        "verifiedSuccesses": 2,
+        "verifiedFailures": 0,
+        "unverified": 0,
+        "modelCalls": 0,
+        "calculatorCalls": 1,
+        "elapsedMs": 0,
+        "repairs": 0,
+        "verifiedModelSuccesses": 0,
+        "verifiedModelFailures": 0,
+        "modelRuns": 0,
+        "modelElapsedMs": 0,
+        "schemaVersion": 2,
+        "operations": {
+          "structured": {
+            "runs": 1,
+            "verifiedSuccesses": 1,
+            "verifiedFailures": 0,
+            "uncheckedRuns": 0,
+            "verifiedComponents": 0,
+            "elapsedMs": 0,
+            "informationGainSum": 1,
+            "cacheHits": 0
+          },
+          "boolean": {
+            "runs": 1,
+            "verifiedSuccesses": 1,
+            "verifiedFailures": 0,
+            "uncheckedRuns": 0,
+            "verifiedComponents": 0,
+            "elapsedMs": 0,
+            "informationGainSum": 1,
+            "cacheHits": 0
+          }
+        },
+        "tokens": 0,
+        "cacheHits": 0,
+        "repairResidualResolutions": 0,
+        "repairNumericAlignments": 0,
+        "repairSurfaceAlignments": 0,
+        "repairNoProgress": 0,
+        "failurePatterns": {},
+        "inputKnowledge": {
+          "statedFactsObserved": 1,
+          "missingVerifierCount": 0
+        },
+        "updatedAt": 1793780040036
+      },
+      "conversation": {
+        "runs": 1,
+        "verifiedSuccesses": 0,
+        "verifiedFailures": 0,
+        "unverified": 1,
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "elapsedMs": 3334,
+        "repairs": 0,
+        "verifiedModelSuccesses": 0,
+        "verifiedModelFailures": 0,
+        "modelRuns": 1,
+        "modelElapsedMs": 3334,
+        "schemaVersion": 2,
+        "operations": {
+          "falcon": {
+            "runs": 1,
+            "verifiedSuccesses": 0,
+            "verifiedFailures": 0,
+            "uncheckedRuns": 1,
+            "verifiedComponents": 0,
+            "elapsedMs": 3334,
+            "informationGainSum": 0,
+            "cacheHits": 0
+          }
+        },
+        "tokens": 8,
+        "cacheHits": 0,
+        "repairResidualResolutions": 0,
+        "repairNumericAlignments": 0,
+        "repairSurfaceAlignments": 0,
+        "repairNoProgress": 0,
+        "failurePatterns": {},
+        "inputKnowledge": {
+          "statedFactsObserved": 1,
+          "missingVerifierCount": 1
+        },
+        "updatedAt": 1793780043719
+      },
+      "planning": {
+        "runs": 1,
+        "verifiedSuccesses": 0,
+        "verifiedFailures": 0,
+        "unverified": 1,
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "elapsedMs": 2476,
+        "repairs": 0,
+        "verifiedModelSuccesses": 0,
+        "verifiedModelFailures": 0,
+        "modelRuns": 1,
+        "modelElapsedMs": 2476,
+        "schemaVersion": 2,
+        "operations": {
+          "falcon": {
+            "runs": 1,
+            "verifiedSuccesses": 0,
+            "verifiedFailures": 0,
+            "uncheckedRuns": 1,
+            "verifiedComponents": 0,
+            "elapsedMs": 2476,
+            "informationGainSum": 0,
+            "cacheHits": 0
+          }
+        },
+        "tokens": 41,
+        "cacheHits": 0,
+        "repairResidualResolutions": 0,
+        "repairNumericAlignments": 0,
+        "repairSurfaceAlignments": 0,
+        "repairNoProgress": 0,
+        "failurePatterns": {},
+        "inputKnowledge": {
+          "statedFactsObserved": 0,
+          "missingVerifierCount": 1
+        },
+        "updatedAt": 1793780046261
+      }
+    }
+  },
+  "errors": [],
+  "external": [],
+  "passed": true
+}
+{
+  "passed": true,
+  "results": {
+    "exact": {
+      "ok": true,
+      "value": "3/10",
+      "verification": "independently_verified_exact",
+      "status": "succeeded",
+      "elapsed_ms": 16
+    },
+    "linear": {
+      "ok": true,
+      "value": "x = 1/2",
+      "verification": "independently_verified_exact",
+      "status": "succeeded",
+      "elapsed_ms": 19
+    },
+    "unknown": {
+      "ok": false,
+      "error": "unknown tool 'shell' - not whitelisted",
+      "status": "denied",
+      "elapsed_ms": 13
+    },
+    "inherited": {
+      "ok": false,
+      "error": "unknown tool 'constructor' - not whitelisted",
+      "status": "denied",
+      "elapsed_ms": 33
+    },
+    "malformed": {
+      "ok": false,
+      "error": "expression must be string",
+      "status": "denied",
+      "elapsed_ms": 22
+    },
+    "extra": {
+      "ok": false,
+      "error": "unknown argument",
+      "status": "denied",
+      "elapsed_ms": 44
+    },
+    "injected": {
+      "ok": false,
+      "error": "coefficient must be a bounded decimal or fraction",
+      "status": "denied",
+      "elapsed_ms": 20
+    },
+    "nullCall": {
+      "ok": false,
+      "error": "tool name required",
+      "status": "denied",
+      "elapsed_ms": 14
+    },
+    "bypassAttempt": {
+      "ok": true,
+      "value": "2",
+      "verification": "independently_verified_exact",
+      "status": "succeeded",
+      "elapsed_ms": 10
+    },
+    "timeout": {
+      "ok": false,
+      "error": "tool execution timed out",
+      "status": "timeout",
+      "elapsed_ms": 21
+    },
+    "terminated": true
+  },
+  "errors": [],
+  "externalRequests": []
+}
+{
+  "before": {
+    "messages": 60,
+    "eventRows": 2
+  },
+  "after": {
+    "messages": 60,
+    "deleted": true,
+    "remainingEvents": 0
+  }
+}
+{"migrated":{"before":{"version":3,"available":true,"messages":60,"events":2,"modelBytes":3,"abortedWriteGone":true},"after":{"conversationGone":true,"messagesGone":true,"eventsGone":true,"privateRecordsGone":true,"globalModelPreserved":true}},"reopened":{"version":3,"modelPreserved":true},"futureVersion":"VersionError"}
+{
+  "exported": true,
+  "deleted": true,
+  "restored": true,
+  "invalidRejected": true
+}
+{
+  "status": "Stopped · partial answer",
+  "stable": true,
+  "persisted": true
+}
+{
+  "rejected": true,
+  "message": "GGUF SHA-256 does not match the CP001 receipt for falcon_instruct"
+}

@@ -1,0 +1,126 @@
+{
+  "original": "evidence/b2-dependency-ab-v3-2026-11-04T07-54-05.108Z.json",
+  "rows": [
+    {
+      "id": "archive",
+      "arm": "falcon_alone",
+      "strictPassed": false,
+      "conclusionPassed": false,
+      "wholeAnswer": "failed_or_abstained"
+    },
+    {
+      "id": "archive",
+      "arm": "b2",
+      "strictPassed": true,
+      "conclusionPassed": true,
+      "wholeAnswer": "checked_order_or_infeasibility"
+    },
+    {
+      "id": "field",
+      "arm": "b2",
+      "strictPassed": true,
+      "conclusionPassed": true,
+      "wholeAnswer": "checked_order_or_infeasibility"
+    },
+    {
+      "id": "field",
+      "arm": "falcon_alone",
+      "strictPassed": false,
+      "conclusionPassed": false,
+      "wholeAnswer": "failed_or_abstained"
+    },
+    {
+      "id": "cycle",
+      "arm": "falcon_alone",
+      "strictPassed": false,
+      "conclusionPassed": true,
+      "wholeAnswer": "pending_semantic_explanation_review"
+    },
+    {
+      "id": "cycle",
+      "arm": "b2",
+      "strictPassed": true,
+      "conclusionPassed": true,
+      "wholeAnswer": "checked_order_or_infeasibility"
+    },
+    {
+      "id": "branch",
+      "arm": "b2",
+      "strictPassed": false,
+      "conclusionPassed": false,
+      "wholeAnswer": "failed_or_abstained"
+    },
+    {
+      "id": "branch",
+      "arm": "falcon_alone",
+      "strictPassed": false,
+      "conclusionPassed": false,
+      "wholeAnswer": "failed_or_abstained"
+    },
+    {
+      "id": "prose-unfamiliar",
+      "arm": "falcon_alone",
+      "strictPassed": false,
+      "conclusionPassed": false,
+      "wholeAnswer": "failed_or_abstained"
+    },
+    {
+      "id": "prose-unfamiliar",
+      "arm": "b2",
+      "strictPassed": false,
+      "conclusionPassed": false,
+      "wholeAnswer": "failed_or_abstained"
+    },
+    {
+      "id": "cross-document",
+      "arm": "b2",
+      "strictPassed": false,
+      "conclusionPassed": false,
+      "wholeAnswer": "failed_or_abstained"
+    },
+    {
+      "id": "cross-document",
+      "arm": "falcon_alone",
+      "strictPassed": false,
+      "conclusionPassed": false,
+      "wholeAnswer": "failed_or_abstained"
+    }
+  ],
+  "summary": {
+    "falcon_alone": {
+      "objectivePassed": 0,
+      "objectiveTotal": 6,
+      "pendingHumanCode": 0,
+      "pendingHuman": 0,
+      "totalElapsedMs": 34223.365000002086,
+      "modelCalls": 12,
+      "tokens": 463,
+      "calculatorCalls": 0,
+      "peakProcessTreeRssKiB": 1146368,
+      "strictPassed": 0,
+      "conclusionPassed": 1,
+      "semanticReviewRequired": 1,
+      "modelRepairAttempts": 0,
+      "modelRepairsPassed": 0,
+      "falseVerification": 0
+    },
+    "b2": {
+      "objectivePassed": 3,
+      "objectiveTotal": 6,
+      "pendingHumanCode": 0,
+      "pendingHuman": 0,
+      "totalElapsedMs": 16438.25,
+      "modelCalls": 6,
+      "tokens": 196,
+      "calculatorCalls": 3,
+      "peakProcessTreeRssKiB": 1065408,
+      "strictPassed": 3,
+      "conclusionPassed": 3,
+      "semanticReviewRequired": 0,
+      "modelRepairAttempts": 3,
+      "modelRepairsPassed": 0,
+      "falseVerification": 0
+    }
+  },
+  "caveat": "Cycle feasibility conclusion recognized independent of fixed wording; explanatory correctness remains ungraded. All data are developer-authored, repeated local tests, not external validation."
+}

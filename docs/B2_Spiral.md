@@ -1,5 +1,7 @@
 # B2 Spiral controller and directional target
 
+> Current scope/status reconciliation: 2026-11-04. See [SRS.md](SRS.md) §§9–18 and [Seren7_V2_Recovery_Coverage.md](Seren7_V2_Recovery_Coverage.md). Earlier checkpoint sections retain their historical cutoff; they do not override this dated reconciliation.
+
 **Decision:** ADR-002 + ADR-003 · **Controller:** `b2-controller-5` · **Direction policy:** `b2-direction-3-calibrated-repair` · **Runtime:** one pinned Falcon-H1-Tiny 90M Instruct Q4_K_M GGUF in one browser Worker. These version names identify code paths; they are not evidence of a reasoning gain.
 
 ## Directional state contract
@@ -67,3 +69,8 @@ A simpler four-case, one-word operation probe also failed: the pinned Falcon cho
 The same Falcon was also asked to repair three new wrong arithmetic claims with Think deeper. The expected value was withheld from the targeted repair request, but all three second model outputs remained wrong. B2 kept the checked number separate and left the full explanation unverified. The raw failures, source hashes, test commands and a prior plural-normalization failure are retained in `CHECKPOINT_LOG.md`. Full model-led residual repair and general reasoning improvement remain open.
 
 On three new arithmetic explanation prompts, the initial Falcon output failed the independently checked numeric component three times. A targeted same-Falcon repair aligned one numeric component while the explanation stayed unverified; two repairs failed. One of those appeared numerically aligned only because an earlier checker accepted a final mention of the correct number despite contradictory arithmetic. The checker now rejects conflicting result claims and explicit negation; the false success remains in raw evidence and is not counted. No full model-led reasoning repair or general accuracy gain is established.
+
+
+## Full conductor destination and current boundary — 2026-11-04
+
+[SRS §§10–15](SRS.md#10-canonical-end-to-end-conductor-contract) restores the full B2/MRS operation cycle, twenty mechanisms, Compass/MGB/joint/Flow responsibilities and simulator/GraphOS/virtual/TinyLinux/TRM resource tracks. They extend the intended architecture beyond the bounded current controller; they do not activate it. The seven joint actions require real state/execution transitions. MRS rotation cannot repeat the historical top-level scheduler stall; no-progress brakes and authority separation remain mandatory. Current CP024 forward/backward reachability is a narrow explicit-premise proof, not general semantic interpretation or automatic path discovery. See [coverage](Seren7_V2_Recovery_Coverage.md) for exact status and failed paths.

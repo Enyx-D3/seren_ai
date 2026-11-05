@@ -1,0 +1,465 @@
+
+> seren7_local_falcon_blueprint@1.0.0 test:stress
+> node tools/browser_b2_benchmark.mjs && node tools/browser_b2_ui_smoke.mjs
+
+RUN arithmetic_1/falcon_alone
+RUN arithmetic_1/falcon_plus_b2
+RUN multi_step_math_2/falcon_alone
+RUN multi_step_math_2/falcon_plus_b2
+RUN logic_3/falcon_alone
+RUN logic_3/falcon_plus_b2
+RUN coding_4/falcon_alone
+RUN coding_4/falcon_plus_b2
+RUN planning_5/falcon_alone
+RUN planning_5/falcon_plus_b2
+RUN contradiction_6/falcon_alone
+RUN contradiction_6/falcon_plus_b2
+RUN incomplete_information_7/falcon_alone
+RUN incomplete_information_7/falcon_plus_b2
+RUN related_original/falcon_alone
+RUN related_original/falcon_plus_b2
+RUN related_commuted/falcon_alone
+RUN related_commuted/falcon_plus_b2
+RUN adversarial_10/falcon_alone
+RUN adversarial_10/falcon_plus_b2
+RUN ordinary_conversation_11/falcon_alone
+RUN ordinary_conversation_11/falcon_plus_b2
+{
+  "path": "evidence/b2-reasoning-benchmark-2026-11-03T16-53-41-644Z.json",
+  "summary": {
+    "falcon_alone": {
+      "passed": 5,
+      "total": 11,
+      "byCategory": {
+        "arithmetic": {
+          "passed": 0,
+          "total": 1
+        },
+        "multi_step_math": {
+          "passed": 0,
+          "total": 1
+        },
+        "logic": {
+          "passed": 0,
+          "total": 1
+        },
+        "coding": {
+          "passed": 1,
+          "total": 1
+        },
+        "planning": {
+          "passed": 1,
+          "total": 1
+        },
+        "contradiction": {
+          "passed": 0,
+          "total": 1
+        },
+        "incomplete_information": {
+          "passed": 0,
+          "total": 1
+        },
+        "repeated_related": {
+          "passed": 2,
+          "total": 2
+        },
+        "adversarial": {
+          "passed": 0,
+          "total": 1
+        },
+        "ordinary_conversation": {
+          "passed": 1,
+          "total": 1
+        }
+      },
+      "verified": 0,
+      "unverified": 0,
+      "repairAttempts": 0,
+      "repairSuccesses": 0,
+      "elapsedMs": 79867,
+      "p50ElapsedMs": 6093,
+      "p95ElapsedMs": 9777,
+      "tokens": 339,
+      "modelCalls": 11,
+      "calculatorCalls": 0,
+      "cacheHits": 0,
+      "peakProcessTreeRssKiB": 928272
+    },
+    "falcon_plus_b2": {
+      "passed": 11,
+      "total": 11,
+      "byCategory": {
+        "arithmetic": {
+          "passed": 1,
+          "total": 1
+        },
+        "multi_step_math": {
+          "passed": 1,
+          "total": 1
+        },
+        "logic": {
+          "passed": 1,
+          "total": 1
+        },
+        "coding": {
+          "passed": 1,
+          "total": 1
+        },
+        "planning": {
+          "passed": 1,
+          "total": 1
+        },
+        "contradiction": {
+          "passed": 1,
+          "total": 1
+        },
+        "incomplete_information": {
+          "passed": 1,
+          "total": 1
+        },
+        "repeated_related": {
+          "passed": 2,
+          "total": 2
+        },
+        "adversarial": {
+          "passed": 1,
+          "total": 1
+        },
+        "ordinary_conversation": {
+          "passed": 1,
+          "total": 1
+        }
+      },
+      "verified": 8,
+      "unverified": 3,
+      "repairAttempts": 0,
+      "repairSuccesses": 0,
+      "elapsedMs": 31557,
+      "p50ElapsedMs": 4,
+      "p95ElapsedMs": 9022,
+      "tokens": 122,
+      "modelCalls": 3,
+      "calculatorCalls": 3,
+      "cacheHits": 2,
+      "peakProcessTreeRssKiB": 804944
+    }
+  },
+  "errors": [],
+  "external": []
+}
+{
+  "path": "evidence/b2-ui-smoke-2026-11-03.json",
+  "baseUrl": "http://127.0.0.1:8799/",
+  "rows": 1,
+  "math": "323",
+  "logic": "Yes. Mira is a cat, and all cats are mammals.",
+  "boolean": "True",
+  "dependency": "4\n12",
+  "chat": "Hello, how's it going?",
+  "plan": "Morning Backup Plan:\n\nBackup Files: Copy all necessary files to a secure location.\nSteps: 150 KB in size.\n\nRisk: File System Recovery Risk (High)\n\n(150 KB * 150 KB / 1000) = 22.5 MB = 0.225 GB > 100",
+  "evidence": {
+    "answers": [
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-6",
+        "verification": {
+          "status": "verified",
+          "method": "two_parser_exact_v1"
+        },
+        "metrics": {
+          "modelCalls": 0,
+          "calculatorCalls": 1,
+          "cacheHits": 0,
+          "tokens": 0,
+          "firstModelTokenMs": null,
+          "verificationMs": 13,
+          "elapsedMs": 16
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-6",
+        "verification": {
+          "status": "verified",
+          "method": "bounded_syllogism_v1"
+        },
+        "metrics": {
+          "modelCalls": 0,
+          "calculatorCalls": 0,
+          "cacheHits": 0,
+          "tokens": 0,
+          "firstModelTokenMs": null,
+          "verificationMs": 0,
+          "elapsedMs": 0
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-6",
+        "verification": {
+          "status": "verified",
+          "method": "dual_boolean_expression_v1"
+        },
+        "metrics": {
+          "modelCalls": 0,
+          "calculatorCalls": 1,
+          "cacheHits": 0,
+          "tokens": 0,
+          "firstModelTokenMs": null,
+          "verificationMs": 0,
+          "elapsedMs": 0
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-6",
+        "verification": {
+          "status": "verified",
+          "method": "per_part"
+        },
+        "metrics": {
+          "modelCalls": 0,
+          "calculatorCalls": 2,
+          "cacheHits": 0,
+          "tokens": 0,
+          "firstModelTokenMs": null,
+          "verificationMs": 0,
+          "elapsedMs": 2
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-6",
+        "verification": {
+          "status": "unverified",
+          "method": "none",
+          "residual": {
+            "unresolved": [
+              "Say hello in one short sentence."
+            ],
+            "unprocessed": 0
+          }
+        },
+        "metrics": {
+          "modelCalls": 1,
+          "calculatorCalls": 0,
+          "cacheHits": 0,
+          "tokens": 8,
+          "firstModelTokenMs": 6018,
+          "verificationMs": 1,
+          "elapsedMs": 9075
+        }
+      },
+      {
+        "model": "falcon_instruct",
+        "status": "done",
+        "policy": "b2-controller-6",
+        "verification": {
+          "status": "unverified",
+          "method": "none",
+          "residual": {
+            "unresolved": [
+              "Plan a two-step morning backup; then list one risk."
+            ],
+            "unprocessed": 0
+          }
+        },
+        "metrics": {
+          "modelCalls": 1,
+          "calculatorCalls": 0,
+          "cacheHits": 0,
+          "tokens": 91,
+          "firstModelTokenMs": 5118,
+          "verificationMs": 0,
+          "elapsedMs": 9979
+        }
+      }
+    ],
+    "calibration": {
+      "arithmetic": {
+        "runs": 2,
+        "verifiedSuccesses": 2,
+        "verifiedFailures": 0,
+        "unverified": 0,
+        "modelCalls": 0,
+        "calculatorCalls": 3,
+        "elapsedMs": 18,
+        "repairs": 0,
+        "verifiedModelSuccesses": 0,
+        "verifiedModelFailures": 0,
+        "modelRuns": 0,
+        "modelElapsedMs": 0,
+        "schemaVersion": 2,
+        "operations": {
+          "exact": {
+            "runs": 2,
+            "verifiedSuccesses": 2,
+            "verifiedFailures": 0,
+            "uncheckedRuns": 0,
+            "verifiedComponents": 0,
+            "elapsedMs": 14,
+            "informationGainSum": 2,
+            "cacheHits": 0
+          },
+          "dependent_exact": {
+            "runs": 1,
+            "verifiedSuccesses": 1,
+            "verifiedFailures": 0,
+            "uncheckedRuns": 0,
+            "verifiedComponents": 0,
+            "elapsedMs": 0,
+            "informationGainSum": 1,
+            "cacheHits": 0
+          }
+        },
+        "tokens": 0,
+        "cacheHits": 0,
+        "repairResidualResolutions": 0,
+        "repairNumericAlignments": 0,
+        "repairSurfaceAlignments": 0,
+        "repairNoProgress": 0,
+        "failurePatterns": {},
+        "inputKnowledge": {
+          "statedFactsObserved": 5,
+          "missingVerifierCount": 1
+        },
+        "updatedAt": 1793724827974
+      },
+      "logic": {
+        "runs": 2,
+        "verifiedSuccesses": 2,
+        "verifiedFailures": 0,
+        "unverified": 0,
+        "modelCalls": 0,
+        "calculatorCalls": 1,
+        "elapsedMs": 0,
+        "repairs": 0,
+        "verifiedModelSuccesses": 0,
+        "verifiedModelFailures": 0,
+        "modelRuns": 0,
+        "modelElapsedMs": 0,
+        "schemaVersion": 2,
+        "operations": {
+          "structured": {
+            "runs": 1,
+            "verifiedSuccesses": 1,
+            "verifiedFailures": 0,
+            "uncheckedRuns": 0,
+            "verifiedComponents": 0,
+            "elapsedMs": 0,
+            "informationGainSum": 1,
+            "cacheHits": 0
+          },
+          "boolean": {
+            "runs": 1,
+            "verifiedSuccesses": 1,
+            "verifiedFailures": 0,
+            "uncheckedRuns": 0,
+            "verifiedComponents": 0,
+            "elapsedMs": 0,
+            "informationGainSum": 1,
+            "cacheHits": 0
+          }
+        },
+        "tokens": 0,
+        "cacheHits": 0,
+        "repairResidualResolutions": 0,
+        "repairNumericAlignments": 0,
+        "repairSurfaceAlignments": 0,
+        "repairNoProgress": 0,
+        "failurePatterns": {},
+        "inputKnowledge": {
+          "statedFactsObserved": 1,
+          "missingVerifierCount": 0
+        },
+        "updatedAt": 1793724827854
+      },
+      "conversation": {
+        "runs": 1,
+        "verifiedSuccesses": 0,
+        "verifiedFailures": 0,
+        "unverified": 1,
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "elapsedMs": 9075,
+        "repairs": 0,
+        "verifiedModelSuccesses": 0,
+        "verifiedModelFailures": 0,
+        "modelRuns": 1,
+        "modelElapsedMs": 9075,
+        "schemaVersion": 2,
+        "operations": {
+          "falcon": {
+            "runs": 1,
+            "verifiedSuccesses": 0,
+            "verifiedFailures": 0,
+            "uncheckedRuns": 1,
+            "verifiedComponents": 0,
+            "elapsedMs": 9074,
+            "informationGainSum": 0,
+            "cacheHits": 0
+          }
+        },
+        "tokens": 8,
+        "cacheHits": 0,
+        "repairResidualResolutions": 0,
+        "repairNumericAlignments": 0,
+        "repairSurfaceAlignments": 0,
+        "repairNoProgress": 0,
+        "failurePatterns": {},
+        "inputKnowledge": {
+          "statedFactsObserved": 1,
+          "missingVerifierCount": 1
+        },
+        "updatedAt": 1793724837216
+      },
+      "planning": {
+        "runs": 1,
+        "verifiedSuccesses": 0,
+        "verifiedFailures": 0,
+        "unverified": 1,
+        "modelCalls": 1,
+        "calculatorCalls": 0,
+        "elapsedMs": 9979,
+        "repairs": 0,
+        "verifiedModelSuccesses": 0,
+        "verifiedModelFailures": 0,
+        "modelRuns": 1,
+        "modelElapsedMs": 9979,
+        "schemaVersion": 2,
+        "operations": {
+          "falcon": {
+            "runs": 1,
+            "verifiedSuccesses": 0,
+            "verifiedFailures": 0,
+            "uncheckedRuns": 1,
+            "verifiedComponents": 0,
+            "elapsedMs": 9978,
+            "informationGainSum": 0,
+            "cacheHits": 0
+          }
+        },
+        "tokens": 91,
+        "cacheHits": 0,
+        "repairResidualResolutions": 0,
+        "repairNumericAlignments": 0,
+        "repairSurfaceAlignments": 0,
+        "repairNoProgress": 0,
+        "failurePatterns": {},
+        "inputKnowledge": {
+          "statedFactsObserved": 0,
+          "missingVerifierCount": 1
+        },
+        "updatedAt": 1793724847365
+      }
+    }
+  },
+  "errors": [],
+  "external": [],
+  "passed": true
+}

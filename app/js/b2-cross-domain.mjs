@@ -1,5 +1,6 @@
 /* Source-grounded, bounded operations shared by the B2 controller. These
    contracts check only what their parsers establish; no model text is a fact. */
+import { parseEntailmentProblem, executeEntailmentPath } from './b2-entailment.mjs';
 const word = '[A-Za-z][A-Za-z0-9_-]*(?: [A-Za-z][A-Za-z0-9_-]*){0,2}';
 const statement = new RegExp(`(${word}) is (not )?(${word})[.!]`, 'gi');
 
@@ -40,9 +41,9 @@ function codeProblem(source) {
   };
 }
 
-export function interpretCrossDomain(source) {
+export function interpretCrossDomain(source, { experimentalChain = false } = {}) {
   const text = String(source || '').trim();
-  return logicProblem(text) || codeProblem(text);
+  return logicProblem(text) || codeProblem(text) || (experimentalChain ? parseEntailmentProblem(String(source || '')) : null);
 }
 
 // Strip string/comment contents while preserving every source offset. Template
@@ -95,6 +96,7 @@ function scanReverse(masked) {
 
 export function executeCrossDomainPath(problem, kind) {
   if (!problem?.paths.some(path => path.kind === kind)) throw new Error('ineligible cross-domain path');
+  if (problem.domain === 'entailment') return executeEntailmentPath(problem, kind);
   if (problem.domain === 'logic') {
     const [a, b] = problem.facts;
     const same = a.subject === b.subject && a.predicate === b.predicate;

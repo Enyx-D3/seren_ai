@@ -1,0 +1,122 @@
+{
+  "source": "New locally authored cases after positional-bias fix; external BBH indices 177/241; not exposed to parser tuning",
+  "externalSha256": "e590fae72e3a6041fbd23bd8ff6b74baf44ca563f6ba40a041c55e7b867c1681",
+  "cases": [
+    {
+      "id": "dispatch-new",
+      "category": "dependency",
+      "prompt": "\"Mail packet\" depends on \"Stamp packet\". \"Stamp packet\" cannot start until \"Audit packet\" is complete. Give a valid order.",
+      "names": [
+        "Mail packet",
+        "Stamp packet",
+        "Audit packet"
+      ],
+      "edges": [
+        [
+          "Stamp packet",
+          "Mail packet"
+        ],
+        [
+          "Audit packet",
+          "Stamp packet"
+        ]
+      ]
+    },
+    {
+      "id": "reef-new",
+      "category": "dependency",
+      "prompt": "\"Launch buoy\" happens after \"Test buoy\". \"Test buoy\" depends on \"Fit sensor\". Give an execution sequence.",
+      "names": [
+        "Launch buoy",
+        "Test buoy",
+        "Fit sensor"
+      ],
+      "edges": [
+        [
+          "Test buoy",
+          "Launch buoy"
+        ],
+        [
+          "Fit sensor",
+          "Test buoy"
+        ]
+      ]
+    },
+    {
+      "id": "forge-new",
+      "category": "dependency",
+      "prompt": "metal polishing follows metal cooling; metal cooling must wait for metal casting. Give a plan for metal polishing, metal cooling and metal casting.",
+      "names": [
+        "metal polishing",
+        "metal cooling",
+        "metal casting"
+      ],
+      "edges": [
+        [
+          "metal cooling",
+          "metal polishing"
+        ],
+        [
+          "metal casting",
+          "metal cooling"
+        ]
+      ]
+    },
+    {
+      "id": "seed-new",
+      "category": "dependency",
+      "prompt": "seed planting is allowed once tray filling is done. tray filling depends on tray washing. Produce a sequence for seed planting, tray washing and tray filling.",
+      "names": [
+        "seed planting",
+        "tray washing",
+        "tray filling"
+      ],
+      "edges": [
+        [
+          "tray filling",
+          "seed planting"
+        ],
+        [
+          "tray washing",
+          "tray filling"
+        ]
+      ]
+    },
+    {
+      "id": "ambiguous-new",
+      "category": "dependency",
+      "prompt": "badge printing follows identity checking; identity checking might follow badge printing. Give a plan for badge printing and identity checking.",
+      "names": [
+        "badge printing",
+        "identity checking"
+      ],
+      "edges": [],
+      "expectedAbstain": true
+    },
+    {
+      "id": "negative-new",
+      "category": "dependency",
+      "prompt": "dye heating depends on vat filling; vat filling is optional. Give a schedule for dye heating and vat filling.",
+      "names": [
+        "dye heating",
+        "vat filling"
+      ],
+      "edges": [],
+      "expectedAbstain": true
+    },
+    {
+      "id": "bbh-177",
+      "category": "dependency",
+      "prompt": "The following paragraphs each describe a set of three objects arranged in a fixed order. The statements are logically consistent within each paragraph. In an antique car show, there are three vehicles: a convertible, a limousine, and a bus. The limousine is older than the bus. The bus is older than the convertible.\nOptions:\n(A) The convertible is the second-newest\n(B) The limousine is the second-newest\n(C) The bus is the second-newest",
+      "target": "C",
+      "sourceIndex": 177
+    },
+    {
+      "id": "bbh-241",
+      "category": "dependency",
+      "prompt": "The following paragraphs each describe a set of three objects arranged in a fixed order. The statements are logically consistent within each paragraph. On a shelf, there are three books: a gray book, a purple book, and a red book. The purple book is to the left of the red book. The gray book is to the left of the purple book.\nOptions:\n(A) The gray book is the second from the left\n(B) The purple book is the second from the left\n(C) The red book is the second from the left",
+      "target": "B",
+      "sourceIndex": 241
+    }
+  ]
+}

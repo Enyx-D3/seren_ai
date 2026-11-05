@@ -1,5 +1,12 @@
 # AppFlow — Seren 7 Local AI Journeys
 
+> Current scope/status reconciliation: 2026-11-04. See [SRS.md](SRS.md) §§9–18 and [Seren7_V2_Recovery_Coverage.md](Seren7_V2_Recovery_Coverage.md). Earlier checkpoint sections retain their historical cutoff; they do not override this dated reconciliation.
+
+## CP024 Patch 2 — Developer-only premise-chain flow (default off)
+
+With `experimentalChain: true` a single bounded request containing explicit universal premises enters `parseEntailmentProblem`, is represented as source-fact nodes plus an unknown and dependency edges, and offers `chain_forward`/`chain_backward` to Compass. The selected route runs both reachability searches, compares independently reconstructed proof chains and returns a narrowly scoped verified answer with source-quote receipts. If the first route fails, B2 records the residual and rotates to the other checked route. Rejected/ambiguous grammar follows the pre-existing fallback; a missing derivation is never presented as proof of the converse. This path is not wired into the normal chat UI, not a new user setting, and not evidence of general P1–P4 completion.
+
+
 ## 2026-11-03 — B2-owned V2 request and recovery flow (CP023-DOCS)
 
 **Now implemented narrowly in main:** source-quoted two-claim contradiction and fenced JavaScript delimiter diagnostics use `b2-cross-domain.mjs`, direct/enumerated or forward/reverse operations, independent component checks and fault rotation. Code location checking is not whole-program verification; the real Falcon repair failed a strict one-edit check.
@@ -137,3 +144,15 @@ Open the website via HTTPS/localhost, provision the verified Instruct/runtime as
 `EMPTY` -> `READY` -> `ROUTING` -> `LOADING` (if needed) -> `GENERATING` -> `VERIFYING` -> `COMPLETE`; interruptions: `STOPPED`, `ERROR`, `ABSTAINED`, `OFFLINE_ASSET_MISSING`, `INCOMPATIBLE`. Every transition carries request ID, monotonic sequence, and timestamp, so stale Worker chunks cannot corrupt an active thread.
 
 Acceptance: test every transition under mobile navigation, route switches, browser refresh and model unload/reload.
+
+
+### 2026-11-03 — CP024 local browser/source hardening
+
+For local developer testing, `?b2_chain=1` passes the default-off opt-in into the existing chat controller. Send still waits for verified Instruct provisioning. A checked entailment appears through the existing verified-result UI and trace; ordinary URLs keep V1 routing. Offline shell v48 includes the new imported entailment module.
+
+
+## Complete intended reasoning and failure flow — 2026-11-04
+
+[SRS §10](SRS.md#10-canonical-end-to-end-conductor-contract) is the full target flow. A request establishes goal/success conditions and source evidence, retrieves valid GraphOS state, builds feasible branches, selects an operation through Compass/MGB and joints, dispatches approved resources, independently verifies outputs and joins only compatible receipts. Each iteration preserves checked nodes and updates the unresolved residual. Targeted repair changes only failed components; stale sources withdraw affected verification. Unsupported syntax, missing permission, insufficient resources, no progress or exhausted budget yields partial/uncertain output or safe stop.
+
+Independent work may run concurrently; dependency edges still serialize work. Hardware/model failure contracts to a proven available route, one-Instruct V1, supported deterministic-only work or stop. Tool timeout must terminate actual execution before a resource is reused. Local/remote retrieval requires the appropriate permission and freshness/source checks. Proposed complete flow is not the current normal-chat capability: use the [status matrix](Seren7_V2_Recovery_Coverage.md) and CP024 `?b2_chain=1` receipt for what is executable today.

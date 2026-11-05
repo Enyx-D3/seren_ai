@@ -1,5 +1,7 @@
 # PRD — Seren 7 Local Falcon Instruct + B2 Spiral
 
+> Current scope/status reconciliation: 2026-11-04. See [SRS.md](SRS.md) §§9–18 and [Seren7_V2_Recovery_Coverage.md](Seren7_V2_Recovery_Coverage.md). Earlier checkpoint sections retain their historical cutoff; they do not override this dated reconciliation.
+
 ## 2026-11-03 — Seren 7 V2 product-scope reconciliation (CP023-DOCS; normative)
 
 **Latest-main evidence update:** At `d2fd6bc`, `b2-cross-domain.mjs` adds narrow two-claim contradiction checking and JavaScript delimiter diagnosis; real one-edit Falcon repair still failed independent verification. A corrected six-case engineering A/B scored objective math/logic 1/3 Falcon-alone versus 3/3 B2; code/human judgments and broader domains are not settled.
@@ -136,3 +138,15 @@ No APK, native Android/iOS or desktop application, mandatory PWA installation, n
 5. Are the originally intended Seren presentation labels preserved or renamed? UI product decision, not model identity.
 
 Document owner: project engineering team. Any scope expansion requires explicit user/boss direction and updated acceptance tests.
+
+
+### 2026-11-03 — CP024 local browser/source hardening
+
+CP024 remains EXPERIMENTAL_ONLY in local changes based on `c41da5b`. The explicit browser research URL `?b2_chain=1` enables only scoped entailment from 2–6 stated universal premises. Independent truth-assignment checks cover 330 graph/query cases; this does not establish general P1/P2 or a model quality gain.
+
+
+## Restored outcomes and non-goals — 2026-11-04
+
+Authoritative detailed scope: [SRS §§9–18](SRS.md#9-restored-v2-master-scope-and-precedence-2026-11-04); [proof matrix](Seren7_V2_Recovery_Coverage.md). Seren 7 is the existing MRS product, with B2 choosing computational work, verified shared states, tools and bounded stopping. User outcomes include unfamiliar document-grounded reasoning, coding/debugging via independently tested candidate programs, planning/conversation and selective retrieval, with truthful partial answers and privacy. Simulator-driven reasoning, L1/L2/L3 composition, GraphOS/R1, Compass/MGB/joints, Flow and virtual-compute research are first-class internal tracks, not optional omissions from the scope summary.
+
+Two specialist/hardware lanes, TRM research, Linux tools and context formats are proof-gated resources; none is a shipped promise from this document. Deterministic structured work should eventually run without Falcon, while unsupported free-form language stays provisional. Preserve the familiar UI/orb, data, offline fallback and accessibility. No new search-engine/DSP product, four-model rollout, mandatory daemon, cloud LLM, arbitrary code execution, universal no-hallucination or frontier-equivalence claim is in release scope. P1–P4 require outcome evidence, not feature/checklist totals.

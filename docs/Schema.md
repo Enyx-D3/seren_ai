@@ -1,5 +1,14 @@
 # Schema — Local Seren 7 Data and Event Contracts
 
+> Current scope/status reconciliation: 2026-11-04. See [SRS.md](SRS.md) §§9–18 and [Seren7_V2_Recovery_Coverage.md](Seren7_V2_Recovery_Coverage.md). Earlier checkpoint sections retain their historical cutoff; they do not override this dated reconciliation.
+
+## CP024 Patch 2 — Experimental graph-premise receipts (no migration)
+
+A parsed `entailment` object has `facts: [{ id, from, to, quote, sourceOffset, provenance: 'user_input', status: 'assumed_input' }]`, `goal: { from, to }`, `unknown`, `dependencies`, and `paths` (`chain_forward`/`chain_backward`). A verified execution receipt carries `forward` and `backward` fact-ID chains, `derived`, `sourceFacts: [{ id, quote, sourceOffset }]` and `scope: 'derivability_from_explicit_all_are_premises_only'`.
+
+`verifiedValue: false` with `fullAnswerVerified: true` means **only that no derivation exists within the supplied graph**; it never means the opposite proposition is true. Only checked results may join the existing B2 derivation/receipt model. No additional IndexedDB/OPFS migration is proposed.
+
+
 ## 2026-11-03 — Proposed V2 extension schema (CP023-DOCS; NOT migrated)
 
 **Committed V1 extension:** `meta.spiral_state.graph` schema-v2 may contain `source_fact`, `assumed_input`, `requires_source`, `requires_stated_fact` and `verified_component` for narrow logic/code inspections. Verified diagnostic components do not promote the whole answer; no new IndexedDB migration is approved here.
@@ -235,3 +244,32 @@ An **in-browser .ASIF/WASM** backend may implement this interface after verified
 ## 8. Schema acceptance
 
 Run migration round-trips; >50-message conversation persistence; simultaneous stream/stop sequence tests; interrupted transaction rollback; stale event rejection; state equivalence false-positive fixtures; tool-permission denial; export/import; and user data erase. Verify local data never leaves device during these tests.
+
+
+### 2026-11-03 — CP024 local browser/source hardening
+
+The experimental entailment problem now retains `source` unchanged; fact coordinates are UTF-16 offsets into that string. Execution rejects facts/goal that differ from source reparse. Receipt `executionOrder` lists selected traversal then crosscheck, alongside source-linked proof IDs. Existing IndexedDB schema/version is unchanged. Facts remain assumed input; verified conclusions are conditional on those premises.
+
+## Full V2 typed evidence contracts — 2026-11-04 (PROPOSED, no migration)
+
+These contracts restore the [SRS §§10–15](SRS.md#10-canonical-end-to-end-conductor-contract) scope. They do not add stores, fields or permissions to the current `seren7` database. Persisted V1 records remain readable under ADR-001. Status and provenance must be scoped per entity/claim rather than inherited from an answer's fluent text.
+
+| Entity | Required proposed identity / fields | Invariant / proof obligation |
+|---|---|---|
+| Goal | id, intent, sourceRefs, successConditions, unknownIds, budgetId | Completion requires all required conditions, not one subresult |
+| Fact | id, value/type, origin, sourceSpanIds, assumptions, status, receiptIds | Observed statement, model hypothesis and verified result are distinct |
+| SourceSpan | sourceId, version/contentHash, UTF-16 start/end, exactQuote, acquisition permission/time | Quote matches admitted source; authenticity is a separate check |
+| Constraint | id, predicate/type, operandRefs, scope, origin, uncertainty | Parser ambiguity stays unresolved |
+| Unknown | id, goalId, requiredInputs, missingKnowledge, verifierRequirement | Cannot become fact from model confidence |
+| Branch | id, parentId, direction, nodeRefs, prerequisites, assumptions, status, budget | Split/merge preserves compatible provenance; finite expansion |
+| Joint | id, connectedBranches, orientation, elasticity, action, priority, confidence/sampleCount, cost/risk, history | TAP/ROTATE/EXPAND/CONTRACT/BRAKE/REPAIR/VERIFY must change execution |
+| Worker | id, capability/version/hash, backend, permission, residency, resource limits, terminationReceipt | Browser/native capabilities distinct; timed-out job actually stops |
+| Operation | id, kind, inputRefs, applicability, permission, verifier, budget, expected/measuredCost | Generated tool command is only a proposal |
+| GraphState | id, version, immutableRoot, sourceVersions, node/edgeRefs, assumptions, priorStateId | Checked-base deltas; stale proofs invalidate dependency cone |
+| Receipt | id, claimScope, input/output hashes, sourceRefs, operation/model/checker versions, checks, measured costs, provenance | Result correctness does not authenticate source or historical timing |
+| Residual | id, nodeId, expected/observed, mismatch, unresolvedSemantics, affectedNodes, attemptedFixes | Mismatch observation is separate from causal explanation |
+| Calibration | version, category/operation, checked successes/failures, unchecked count, confidence denominator, measured cost, lineage, policy status | No leakage, injected-fault promotion or automatic policy/weight update |
+| ResourceBudget | deadline, model/tool/work calls, recursion/branch caps, RAM/VRAM/thread limits, network/file scope | Scheduling score cannot override a hard cap/permission |
+| Failure | id, stage, classification, evidence, affectedRefs, terminationState, recovery/rollback | Runtime exception is not independently confirmed wrong answer |
+
+Proposed graph events: admitted, branch_selected, operation_started/completed, verifier_result, source_changed, dependency_invalidated, residual_identified, repair_attempted, state_joined/reused, policy_candidate/rejected and braked. Include pre/post version and receipt reference. An event name is not evidence the transition occurred. .B2M/.ASIF/shards/ReverseRank remain research formats; no implicit import/export migration. Historical GraphOS nested mutation/provenance bugs and native timeout counterexamples in [coverage](Seren7_V2_Recovery_Coverage.md) are acceptance tests for these contracts.

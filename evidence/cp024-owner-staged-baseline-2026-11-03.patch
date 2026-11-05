@@ -1,0 +1,504 @@
+diff --git a/CHECKPOINT_LOG.md b/CHECKPOINT_LOG.md
+index 2a3d78d..7102a88 100644
+--- a/CHECKPOINT_LOG.md
++++ b/CHECKPOINT_LOG.md
+@@ -1,5 +1,14 @@
+ # Seren 7 — Checkpoint Evidence Log
+ 
++## CP024 — Patch 2 proposed code integration (2026-11-03; P1/P2 strict slice)
++
++- **Base commit:** `c41da5b1e9ef52ea5e08a8e782eac3c8f9a4a3d6` (CP023 documents). This patch is a local-download proposal, **not pushed or merged**. Source paths are verified against the baseline; no GitHub runtime acceptance is claimed.
++- **Change:** 2–6 quoted universal premise parser, distinct forward/backward graph traversals, source-offset proof receipts, bounded negative-result language, opt-in `experimentalChain` in B2 controller, two Compass operations, fault-rotation test and npm test registration.
++- **Safety scope:** only premise derivability (not factual truth or broad semantic reasoning); no extra Falcon, tool permissions, network, IndexedDB migration, UI changes or promotion of old failures. Explicitly negative/ambiguous/injected clauses reject.
++- **Local isolated evidence:** model-free Node probe passed for multi-hop chain, both paths, converse non-entailment, negation and injected-text rejection. This is **not** a completed integration test. Developer must run `git apply --check`, `npm test`, `npm run test:browser` and held-out review after applying before checkpoint can be marked passed.
++- **Remaining:** genuine general P1/P2 tasks, persistent P3 empirical benefit, independent P4 A/B, dual-Falcon / GraphOS / TinyLinux / release gates, measured browser + device stress tests.
++
++
+ ## 2026-11-03 — CP023-DOCS documentation-only architecture reconciliation (NO RUNTIME PROMOTION)
+ 
+ - **Newly merged development evidence:** GitHub `d2fd6bc` adds `app/js/b2-cross-domain.mjs`, bounded logic/JS source checks, the existing concise SRS and browser/unseen/A-B receipts. Local unseen 4/4 include a **partial** code diagnostic; corrected six-case engineering A/B objective math/logic was Falcon-alone 1/3, B2 3/3. Code review and human semantic comparisons remain pending. Frozen 31-case confirmation unrun.
+diff --git a/README.md b/README.md
+index 7b74a49..23dbd93 100644
+--- a/README.md
++++ b/README.md
+@@ -1,5 +1,12 @@
+ # Seren 7 — Browser-Only Falcon Instruct + B2 Spiral (Web V1)
+ 
++## CP024 — Experimental premise-chain reasoning (Patch 2; developer opt-in)
++
++The proposed code slice adds `app/js/b2-entailment.mjs` and `tools/b2_entailment_selftest.mjs` with a **disabled-by-default** `experimentalChain` option to `planSpiral` / `SpiralController.run`. A strict grammar accepts 2–6 explicit `All A are B.` premises followed by `Are all A B?`, builds source-offset graph facts and checks both forward and backward reachability. It proves only what follows from the provided premises, never world knowledge or the converse. Unknown claims produce a scoped non-derivability answer; malformed statements remain outside the contract. Standard chat/one-Falcon behavior is unchanged.
++
++Developer exercise: `node tools/b2_entailment_selftest.mjs` or `npm test`. Programmatic opt-in: `await new SpiralController().run('All sparrows are birds. All birds are animals. Are all sparrows animals?', { scope: 'local-cp024', experimentalChain: true })`. This is not a UI toggle, L3 general reasoning, TinyLinux or dual-Falcon rollout. Merge and `npm test` on the target repository are required before counting this checkpoint as integrated.
++
++
+ ## 2026-11-03 Seren 7 V2 documentation checkpoint (CP023-DOCS)
+ 
+ **Current-main correction:** Commit `d2fd6bc` already includes narrow cross-domain B2 logic/JavaScript diagnostics, the existing development SRS `docs/Seren 7 SRS.md`, and limited browser/A-B evidence. The new `docs/SRS.md` is the consolidated V2 requirements master. This does not establish successful full Falcon-led repair.
+diff --git a/app/js/b2-cross-domain.mjs b/app/js/b2-cross-domain.mjs
+index d258f6d..8dd33dc 100644
+--- a/app/js/b2-cross-domain.mjs
++++ b/app/js/b2-cross-domain.mjs
+@@ -1,5 +1,6 @@
+ /* Source-grounded, bounded operations shared by the B2 controller. These
+    contracts check only what their parsers establish; no model text is a fact. */
++import { parseEntailmentProblem, executeEntailmentPath } from './b2-entailment.mjs';
+ const word = '[A-Za-z][A-Za-z0-9_-]*(?: [A-Za-z][A-Za-z0-9_-]*){0,2}';
+ const statement = new RegExp(`(${word}) is (not )?(${word})[.!]`, 'gi');
+ 
+@@ -40,9 +41,9 @@ function codeProblem(source) {
+   };
+ }
+ 
+-export function interpretCrossDomain(source) {
++export function interpretCrossDomain(source, { experimentalChain = false } = {}) {
+   const text = String(source || '').trim();
+-  return logicProblem(text) || codeProblem(text);
++  return logicProblem(text) || codeProblem(text) || (experimentalChain ? parseEntailmentProblem(text) : null);
+ }
+ 
+ // Strip string/comment contents while preserving every source offset. Template
+@@ -95,6 +96,7 @@ function scanReverse(masked) {
+ 
+ export function executeCrossDomainPath(problem, kind) {
+   if (!problem?.paths.some(path => path.kind === kind)) throw new Error('ineligible cross-domain path');
++  if (problem.domain === 'entailment') return executeEntailmentPath(problem, kind);
+   if (problem.domain === 'logic') {
+     const [a, b] = problem.facts;
+     const same = a.subject === b.subject && a.predicate === b.predicate;
+diff --git a/app/js/b2-direction.mjs b/app/js/b2-direction.mjs
+index fdae861..6dc8614 100644
+--- a/app/js/b2-direction.mjs
++++ b/app/js/b2-direction.mjs
+@@ -14,6 +14,8 @@ export const OPERATION_CAPABILITIES = Object.freeze({
+   boolean: 'verified_narrow',
+   logic_direct: 'verified_narrow',
+   logic_enumerate: 'verified_narrow',
++  chain_forward: 'verified_narrow',
++  chain_backward: 'verified_narrow',
+   code_forward_scan: 'verified_partial',
+   code_reverse_scan: 'verified_partial',
+   structured: 'verified_narrow',
+@@ -40,6 +42,8 @@ const PRIOR = Object.freeze({
+   boolean: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.05, errorRisk: 0.02, memoryReuse: 0 },
+   logic_direct: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.1, errorRisk: 0.03, memoryReuse: 0 },
+   logic_enumerate: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.3, errorRisk: 0.03, memoryReuse: 0 },
++  chain_forward: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.1, errorRisk: 0.04, memoryReuse: 0 },
++  chain_backward: { goalAttraction: 1, expectedProgress: 1, informationGain: 1, computationalCost: 0.3, errorRisk: 0.04, memoryReuse: 0 },
+   code_forward_scan: { goalAttraction: 0.7, expectedProgress: 0.4, informationGain: 0.7, computationalCost: 0.1, errorRisk: 0.15, memoryReuse: 0 },
+   code_reverse_scan: { goalAttraction: 0.7, expectedProgress: 0.4, informationGain: 0.7, computationalCost: 0.3, errorRisk: 0.15, memoryReuse: 0 },
+   structured: { goalAttraction: 1, expectedProgress: 0.95, informationGain: 0.95, computationalCost: 0.05, errorRisk: 0.04, memoryReuse: 0 },
+@@ -51,7 +55,7 @@ const PRIOR = Object.freeze({
+   falcon_repair: { goalAttraction: 0.6, expectedProgress: 0.35, informationGain: 0.45, computationalCost: 0.8, errorRisk: 0.75, memoryReuse: 0 },
+   brake_partial: { goalAttraction: 0.1, expectedProgress: 0, informationGain: 0, computationalCost: 0, errorRisk: 0, memoryReuse: 0 },
+ });
+-const ORDER = ['exact', 'dependent_exact', 'word_multiply', 'word_repeated', 'transfer_direct', 'transfer_conserve', 'boolean', 'logic_direct', 'logic_enumerate', 'code_forward_scan', 'code_reverse_scan', 'structured', 'calculator_component', 'approved_tool', 'local', 'structured_interpretation', 'falcon', 'falcon_repair', 'brake_partial'];
++const ORDER = ['exact', 'dependent_exact', 'word_multiply', 'word_repeated', 'transfer_direct', 'transfer_conserve', 'boolean', 'logic_direct', 'logic_enumerate', 'chain_forward', 'chain_backward', 'code_forward_scan', 'code_reverse_scan', 'structured', 'calculator_component', 'approved_tool', 'local', 'structured_interpretation', 'falcon', 'falcon_repair', 'brake_partial'];
+ const clamp = value => Math.max(0, Math.min(1, value));
+ 
+ export function createSpiralState(goal, parts, maxModelCalls) {
+diff --git a/app/js/b2-entailment.mjs b/app/js/b2-entailment.mjs
+new file mode 100644
+index 0000000..b11c51b
+--- /dev/null
++++ b/app/js/b2-entailment.mjs
+@@ -0,0 +1,148 @@
++/* CP024 experimental: bounded source-grounded transitive entailment.
++   The checker proves derivability from stated "All A are B" premises only,
++   never real-world category membership or the converse. No eval or model. */
++const MAX_SOURCE = 960;
++const MAX_FACTS = 6;
++const term = value => value.trim().toLowerCase().replace(/\s+/g, ' ');
++const entity = /^[a-z][a-z -]{0,59}$/i;
++
++function sentences(source) {
++  const rows = [];
++  let start = 0;
++  while (start < source.length) {
++    while (/\s/.test(source[start] || '') && start < source.length) start++;
++    if (start >= source.length) break;
++    const relativeEnd = source.slice(start).search(/[.!?]/);
++    if (relativeEnd < 0) return null;
++    const end = start + relativeEnd + 1;
++    rows.push({ quote: source.slice(start, end), sourceOffset: start });
++    start = end;
++  }
++  return rows;
++}
++
++export function parseEntailmentProblem(input) {
++  const source = String(input || '').trim();
++  if (source.length > MAX_SOURCE || source.length < 20) return null;
++  const rows = sentences(source);
++  if (!rows || rows.length < 3 || rows.length > MAX_FACTS + 1) return null;
++  const clauses = rows.slice(0, -1);
++  const facts = [];
++  for (const row of clauses) {
++    const m = /^All ([a-z][a-z -]{0,59}?) are ([a-z][a-z -]{0,59}?)\.$/i.exec(row.quote);
++    if (!m) return null;
++    const from = term(m[1]), to = term(m[2]);
++    if (!entity.test(from) || !entity.test(to) || from === to ||
++        /^(?:not|no|some|none|only|might|may|most|few|can|cannot)\b/.test(from) ||
++        /^(?:not|no|some|none|only|might|may|most|few|can|cannot)\b/.test(to)) return null;
++    facts.push({ id: "chain-fact-" + (facts.length + 1), from, to,
++      quote: row.quote, sourceOffset: row.sourceOffset, provenance: 'user_input',
++      status: 'assumed_input' });
++  }
++  if (facts.length < 2) return null;
++  const questionRow = rows.at(-1);
++  const q = /^Are all ([a-z][a-z -]{1,120})\?$/i.exec(questionRow.quote);
++  if (!q) return null;
++  const qBody = term(q[1]);
++  const names = [...new Set(facts.flatMap(f => [f.from, f.to]))];
++  const matches = [];
++  for (const from of names) for (const to of names)
++    if (from !== to && (from + ' ' + to) === qBody) matches.push({ from, to });
++  if (matches.length !== 1) return null; // ambiguous word boundaries
++  const goal = matches[0];
++  return {
++    domain: 'entailment', intent: 'stated_universal_entailment',
++    facts, goal,
++    unknown: { id: 'chain-entailment', question: questionRow.quote,
++      sourceOffset: questionRow.sourceOffset },
++    constraints: ['universal_all_are_only', 'within_stated_premises', 'no_converse_inference'],
++    dependencies: facts.map(f => ({ from: f.id, to: 'chain-entailment',
++      relation: 'requires_stated_fact' })),
++    knowledgeGaps: ['world_knowledge_not_checked'],
++    verifier: 'independent_forward_and_backward_graph_traversal',
++    paths: [
++      { kind: 'chain_forward', operations: facts.length, verification: 'independent_entailment',
++        steps: ['forward_reachability', 'backward_crosscheck'] },
++      { kind: 'chain_backward', operations: facts.length * 2, verification: 'independent_entailment',
++        steps: ['backward_goal_search', 'forward_crosscheck'] },
++    ],
++  };
++}
++
++// Each traversal has its own queue, direction, predecessor construction and
++// visited set; bounded by the unique names in the explicitly parsed facts.
++function forwardProof(facts, start, target) {
++  const queue = [{ at: start, proof: [] }], visited = new Set([start]);
++  for (let head = 0; head < queue.length; head++) {
++    const row = queue[head];
++    for (const fact of facts) {
++      if (fact.from !== row.at || visited.has(fact.to)) continue;
++      const proof = [...row.proof, fact.id];
++      if (fact.to === target) return proof;
++      visited.add(fact.to);
++      queue.push({ at: fact.to, proof });
++    }
++  }
++  return null;
++}
++function backwardProof(facts, start, target) {
++  const queue = [{ at: target, proof: [] }], visited = new Set([target]);
++  for (let head = 0; head < queue.length; head++) {
++    const row = queue[head];
++    for (let index = facts.length - 1; index >= 0; index--) {
++      const fact = facts[index];
++      if (fact.to !== row.at || visited.has(fact.from)) continue;
++      const proof = [fact.id, ...row.proof];
++      if (fact.from === start) return proof;
++      visited.add(fact.from);
++      queue.push({ at: fact.from, proof });
++    }
++  }
++  return null;
++}
++function validProof(facts, start, target, proof) {
++  if (!Array.isArray(proof) || proof.length === 0 || proof.length > facts.length) return false;
++  let current = start;
++  for (const id of proof) {
++    const fact = facts.find(row => row.id === id);
++    if (!fact || fact.from !== current) return false;
++    current = fact.to;
++  }
++  return current === target;
++}
++
++export function executeEntailmentPath(problem, kind) {
++  if (problem?.domain !== 'entailment' || !problem.paths?.some(row => row.kind === kind))
++    throw new Error('ineligible entailment path');
++  const { facts, goal } = problem;
++  if (!Array.isArray(facts) || facts.length < 2 || facts.length > MAX_FACTS ||
++      !facts.every(f => typeof f.id === 'string' && entity.test(f.from) && entity.test(f.to) &&
++        typeof f.quote === 'string')) throw new Error('invalid entailment evidence');
++  const forward = forwardProof(facts, goal.from, goal.to);
++  const backward = backwardProof(facts, goal.from, goal.to);
++  if (!!forward !== !!backward) throw new Error('independent graph traversal disagreement');
++  if ((forward && !validProof(facts, goal.from, goal.to, forward)) ||
++      (backward && !validProof(facts, goal.from, goal.to, backward)))
++    throw new Error('invalid entailment proof chain');
++  const selected = kind === 'chain_forward' ? forward : backward;
++  const receipts = [{
++    forward: forward || [], backward: backward || [], derived: !!selected,
++    sourceFacts: (selected || []).map(id => {
++      const f = facts.find(x => x.id === id);
++      return { id, quote: f.quote, sourceOffset: f.sourceOffset };
++    }), scope: 'derivability_from_explicit_all_are_premises_only',
++  }];
++  if (!selected) return {
++    answer: 'The stated facts do not establish that all ' + goal.from + ' are ' + goal.to +
++      '. This does not prove the opposite.',
++    verifiedValue: false, fullAnswerVerified: true,
++    verification: 'independent_scoped_non_entailment_v1', receipts,
++  };
++  const trail = selected.map(id => facts.find(f => f.id === id).quote).join(' ');
++  return {
++    answer: 'Yes, from the stated premises: ' + trail +
++      ' Therefore all ' + goal.from + ' are ' + goal.to + '.',
++    verifiedValue: true, fullAnswerVerified: true,
++    verification: 'independent_transitive_entailment_v1', receipts,
++  };
++}
+diff --git a/app/js/spiral.mjs b/app/js/spiral.mjs
+index 06d67f0..65d282a 100644
+--- a/app/js/spiral.mjs
++++ b/app/js/spiral.mjs
+@@ -33,7 +33,8 @@ export const SPIRAL_CALIBRATION_KEY = 'spiral_calibration_v2';
+ const MAX_PARTS = 3;
+ const MAX_CALLS = 4;
+ 
+-export function planSpiral(text, { deeper = false, calibration = null, experimentalInterpretation = false } = {}) {
++export function planSpiral(text, { deeper = false, calibration = null, experimentalInterpretation = false,
++  experimentalChain = false } = {}) {
+   const source = String(text || '').trim();
+   const category = classifyTask(source);
+   // Only explicit command boundaries create independent tasks. Newlines inside
+@@ -62,7 +63,7 @@ export function planSpiral(text, { deeper = false, calibration = null, experimen
+       candidateOperations: [exactTarget(question) && 'exact', dependencies[index].length && parseDependentArithmetic(question) && 'dependent_exact',
+         ...candidateWordPaths(parseGroupedWordMath(question)).map(path => path.kind),
+         ...candidateTransferPaths(parseInventoryTransfer(question)).map(path => path.kind),
+-        ...(interpretCrossDomain(question)?.paths || []).map(path => path.kind),
++        ...(interpretCrossDomain(question, { experimentalChain })?.paths || []).map(path => path.kind),
+         solveBooleanExpression(question) && 'boolean',
+         structuredReasoning(question) && 'structured', tryLocalAnswer(question) && 'local', 'falcon'].filter(Boolean),
+       completeWhen: 'answer recorded and check status assigned' })) };
+@@ -223,9 +224,10 @@ export class SpiralController {
+     this.exact = exact; this.clock = clock; this.wordCalculate = wordCalculate; this.crossExecute = crossExecute;
+   }
+   async run(text, { scope, turns = [], deeper = false, calibration = null,
+-    experimentalInterpretation = false, experimentalMagnetic = false, generate, runTool, signal, onToken } = {}) {
++    experimentalInterpretation = false, experimentalMagnetic = false, experimentalChain = false,
++    generate, runTool, signal, onToken } = {}) {
+     const start = this.clock();
+-    const plan = planSpiral(text, { deeper, calibration, experimentalInterpretation });
++    const plan = planSpiral(text, { deeper, calibration, experimentalInterpretation, experimentalChain });
+     const trace = [], metrics = { modelCalls: 0, calculatorCalls: 0, cacheHits: 0, tokens: 0, firstModelTokenMs: null, verificationMs: 0, elapsedMs: 0 };
+     const state = createSpiralState(text, plan.parts, plan.maxModelCalls);
+     const mark = (partId, kind, answer, verification, began, { reused = false } = {}) => {
+@@ -253,7 +255,7 @@ export class SpiralController {
+     const wordPaths = candidateWordPaths(wordProblem);
+     const transferProblem = plan.parts.length === 1 ? parseInventoryTransfer(text) : null;
+     const transferPaths = candidateTransferPaths(transferProblem);
+-    const crossProblem = plan.parts.length === 1 ? interpretCrossDomain(text) : null;
++    const crossProblem = plan.parts.length === 1 ? interpretCrossDomain(text, { experimentalChain }) : null;
+     const crossPaths = crossProblem?.paths || [];
+     if (crossProblem) {
+       state.graph.nodes.push(...crossProblem.facts.map(fact => ({ ...fact, type: 'source_fact' })));
+@@ -294,9 +296,9 @@ export class SpiralController {
+         ...crossPaths.map(path => path.kind),
+         boolean && 'boolean', structured && 'structured', local && 'local', typeof generate === 'function' && 'falcon'].filter(Boolean),
+       Object.fromEntries([...wordPaths, ...transferPaths, ...crossPaths].map(path => [path.kind, path]))) : null;
+-    if (rootKind?.startsWith('logic_') || rootKind?.startsWith('code_')) {
++    if (rootKind?.startsWith('logic_') || rootKind?.startsWith('code_') || rootKind?.startsWith('chain_')) {
+       let selected = rootKind;
+-      while (selected?.startsWith('logic_') || selected?.startsWith('code_')) {
++      while (selected?.startsWith('logic_') || selected?.startsWith('code_') || selected?.startsWith('chain_')) {
+         const began = this.clock();
+         try {
+           const result = this.crossExecute(crossProblem, selected);
+@@ -309,6 +311,10 @@ export class SpiralController {
+           if (!result.fullAnswerVerified) trace.push({ step: 'verified_component', ...recordVerifiedComponent(state,
+             plan.parts[0].id, 'delimiter_diagnostic', result.answer, result.verification, selected) });
+           mark(plan.parts[0].id, selected, result.answer, verification, began);
++          if (crossProblem.domain === 'entailment' && result.fullAnswerVerified) {
++            const goalNode = state.graph.nodes.find(row => row.id === crossProblem.unknown.id);
++            if (goalNode) { goalNode.status = 'verified'; goalNode.verificationMethod = result.verification; }
++          }
+           if (crossProblem.domain === 'code' && deeper && typeof generate === 'function' && plan.repairBudget > 0 &&
+               metrics.modelCalls < plan.maxModelCalls) {
+             const repairId = `${plan.parts[0].id}:code-residual`;
+diff --git a/docs/AppFlow.md b/docs/AppFlow.md
+index b73845e..3f01baa 100644
+--- a/docs/AppFlow.md
++++ b/docs/AppFlow.md
+@@ -1,5 +1,10 @@
+ # AppFlow — Seren 7 Local AI Journeys
+ 
++## CP024 Patch 2 — Developer-only premise-chain flow (default off)
++
++With `experimentalChain: true` a single bounded request containing explicit universal premises enters `parseEntailmentProblem`, is represented as source-fact nodes plus an unknown and dependency edges, and offers `chain_forward`/`chain_backward` to Compass. The selected route runs both reachability searches, compares independently reconstructed proof chains and returns a narrowly scoped verified answer with source-quote receipts. If the first route fails, B2 records the residual and rotates to the other checked route. Rejected/ambiguous grammar follows the pre-existing fallback; a missing derivation is never presented as proof of the converse. This path is not wired into the normal chat UI, not a new user setting, and not evidence of general P1–P4 completion.
++
++
+ ## 2026-11-03 — B2-owned V2 request and recovery flow (CP023-DOCS)
+ 
+ **Now implemented narrowly in main:** source-quoted two-claim contradiction and fenced JavaScript delimiter diagnostics use `b2-cross-domain.mjs`, direct/enumerated or forward/reverse operations, independent component checks and fault rotation. Code location checking is not whole-program verification; the real Falcon repair failed a strict one-edit check.
+diff --git a/docs/B2_Architecture_Traceability.md b/docs/B2_Architecture_Traceability.md
+index 7fee7aa..a90ad06 100644
+--- a/docs/B2_Architecture_Traceability.md
++++ b/docs/B2_Architecture_Traceability.md
+@@ -1,5 +1,16 @@
+ # B2 Spiral architecture traceability — 2026-11-01
+ 
++## CP024 Patch 2 — source → operation → test mapping (prepared, not merged)
++
++| Requirement | Code slice | Executable test | State/limitation |
++| --- | --- | --- | --- |
++| Source-grounded multi-hop semantics | `app/js/b2-entailment.mjs:parseEntailmentProblem` | `tools/b2_entailment_selftest.mjs` premise spans/negative grammar | Opt-in strict `All A are B` only |
++| Forward and reverse independent traversal | `executeEntailmentPath` | both proof arrays and backward agreement | Checked inference, not premise truth |
++| B2 multi-path Compass and fallback | `b2-direction.mjs`, `spiral.mjs` | first-path injected fault/rotation, checked profile ranking | No general reasoning gain established |
++| Default-off V1 compatibility | `b2-cross-domain.mjs`, `spiral.mjs` | `interpretCrossDomain` and `planSpiral` off-path assertions | Existing Falcon route untouched |
++| Regression and deployment gate | `package.json` test script | `npm test`, browser test manual on host | CI/physical phone/release not yet evidenced |
++
++
+ ## CP023-DOCS — 2026-11-03 V1-main versus V2 handoff traceability overlay
+ 
+ **Source revision correction:** `d2fd6bc` contains `app/js/b2-cross-domain.mjs`, the existing concise `docs/Seren 7 SRS.md`, browser/unseen/A-B evidence and more. Logic and syntax diagnostics are narrow working contracts; independent JS behavioral checking and successful Falcon-led whole repair remain missing.
+diff --git a/docs/Plan.md b/docs/Plan.md
+index 9ef2927..3583839 100644
+--- a/docs/Plan.md
++++ b/docs/Plan.md
+@@ -1,5 +1,13 @@
+ # Plan — Seren 7 Browser-Only B2 Spiral Execution Train
+ 
++## CP024 — Patch 2 executable slice and acceptance (proposed, unmerged)
++
++- **P1/P2 bounded slice:** parse 2–6 source-quoted universal-premise edges, record the unknown/dependency graph, execute both forward and backward traversals, and abstain from converse or world-knowledge conclusions. Entrypoint `experimentalChain: true` is opt-in only. Neither full P1 nor P2 is accepted from this narrow grammar.
++- **Compass/rotation:** expose `chain_forward` and `chain_backward` as verified-narrow candidates, carry operation receipts and graph states, and rotate on an injected failure; separate checked-outcome profiles can change later selection. This does **not** demonstrate cross-category self-calibration.
++- **CP024 gate:** after applying Patch 2, run `npm test` and inspect assertions for default-off, both independent paths, provenance, negative entailment, malformed input, fault rotation and calibration, then `npm run test:browser` on a capable local environment. Audit exact diff, UI parity, no GPU/model loading in deterministic path. Do not promote until these runs and independent unseen trials are recorded.
++- **Next:** CP025 non-template semantic interpretation + source-linked multi-hop tasks with real browser interaction; CP026 sealed held-out A/B vs same Falcon and memory/RAM/latency baseline; preserve 14-checkpoint V2 train and release gates.
++
++
+ ## 2026-11-03 — Combined P0–P4 and Seren V2 14-checkpoint execution plan (CP023-DOCS)
+ 
+ **Evidence at `d2fd6bc`:** locally authored unseen 4/4 objective outcomes across math/logic/partial code diagnosis and matching browser smoke; separate six-case same-Falcon A/B after corrected scoring showed objective math/logic Falcon-alone 1/3 vs B2 3/3, while code needs human review and planning/conversation outputs were identical. This does not satisfy P4. Frozen 31-case set remains unrun.
+diff --git a/docs/Schema.md b/docs/Schema.md
+index 0c65f61..5dd0318 100644
+--- a/docs/Schema.md
++++ b/docs/Schema.md
+@@ -1,5 +1,12 @@
+ # Schema — Local Seren 7 Data and Event Contracts
+ 
++## CP024 Patch 2 — Experimental graph-premise receipts (no migration)
++
++A parsed `entailment` object has `facts: [{ id, from, to, quote, sourceOffset, provenance: 'user_input', status: 'assumed_input' }]`, `goal: { from, to }`, `unknown`, `dependencies`, and `paths` (`chain_forward`/`chain_backward`). A verified execution receipt carries `forward` and `backward` fact-ID chains, `derived`, `sourceFacts: [{ id, quote, sourceOffset }]` and `scope: 'derivability_from_explicit_all_are_premises_only'`.
++
++`verifiedValue: false` with `fullAnswerVerified: true` means **only that no derivation exists within the supplied graph**; it never means the opposite proposition is true. Only checked results may join the existing B2 derivation/receipt model. No additional IndexedDB/OPFS migration is proposed.
++
++
+ ## 2026-11-03 — Proposed V2 extension schema (CP023-DOCS; NOT migrated)
+ 
+ **Committed V1 extension:** `meta.spiral_state.graph` schema-v2 may contain `source_fact`, `assumed_input`, `requires_source`, `requires_stated_fact` and `verified_component` for narrow logic/code inspections. Verified diagnostic components do not promote the whole answer; no new IndexedDB migration is approved here.
+diff --git a/docs/TRD.md b/docs/TRD.md
+index 9c046a5..c5c1a61 100644
+--- a/docs/TRD.md
++++ b/docs/TRD.md
+@@ -1,5 +1,12 @@
+ # TRD — Local Execution and Integration Architecture
+ 
++## CP024 Patch 2 — Bounded transitive-premise graph execution (experimental)
++
++`b2-entailment.mjs` isolates a no-LLM parser for universal assertions and one goal. Each quoted premise has an input offset, directed graph edge and `assumed_input` status. The graph executor implements separate forward and reverse BFS predecessor reconstruction and validates proof chains against the original premise edges. It returns receipts with both derivations, selected source quotes and scoped proof semantics. The independent searches cross-check graph reachability; they are **not** two independent sources of truth, and cannot verify whether premise statements are true in the world.
++
++`b2-cross-domain.mjs` exposes the new domain only when `experimentalChain` is true; `spiral.mjs` reuses the existing B2 state graph, directional choice, fault rotation and checked outcome accounting; `b2-direction.mjs` declares the two candidate cost/safety profiles. No model swap, WASM tool, new persistence schema, main UI route, or dual-Falcon worker is part of this code slice. If the strict parser rejects text, normal fallback remains in force.
++
++
+ ## 2026-11-03 — V2 technical architecture contract (CP023-DOCS)
+ 
+ **Implemented boundary at `d2fd6bc`:** `b2-cross-domain.mjs` provides a bounded claim-pair logic parser, source offsets, forward/reverse JS delimiter scans, unknowns and independent local checks. These are strict grammars, not a generalized GraphOS parser, code-execution sandbox or L3 semantic reasoning engine.
+diff --git a/package.json b/package.json
+index 910ace0..62c12ee 100644
+--- a/package.json
++++ b/package.json
+@@ -10,7 +10,7 @@
+     "prepare:runtime": "node tools/prepare_runtime.mjs",
+     "build:web": "npm run prepare:runtime && node tools/build_web.mjs",
+     "build:web:local-models": "npm run prepare:runtime && node tools/build_web.mjs --include-local-models",
+-    "test": "node tools/module_selftest.mjs && node tools/b2_selftest.mjs && node tools/b2_direction_selftest.mjs && node tools/b2_boolean_selftest.mjs && node tools/b2_cross_domain_selftest.mjs && node tools/b2_graph_selftest.mjs && node tools/b2_semantic_selftest.mjs && node tools/b2_interpretation_selftest.mjs && node tools/b2_dependent_selftest.mjs && node tools/b2_word_math_selftest.mjs && node tools/b2_transfer_selftest.mjs && node tools/b2_calibration_evidence_selftest.mjs",
++    "test": "node tools/module_selftest.mjs && node tools/b2_selftest.mjs && node tools/b2_direction_selftest.mjs && node tools/b2_boolean_selftest.mjs && node tools/b2_cross_domain_selftest.mjs && node tools/b2_entailment_selftest.mjs && node tools/b2_graph_selftest.mjs && node tools/b2_semantic_selftest.mjs && node tools/b2_interpretation_selftest.mjs && node tools/b2_dependent_selftest.mjs && node tools/b2_word_math_selftest.mjs && node tools/b2_transfer_selftest.mjs && node tools/b2_calibration_evidence_selftest.mjs",
+     "test:tools": "npm test && node tools/browser_tool_safety_smoke.mjs && node tools/browser_b2_ui_smoke.mjs",
+     "test:spiral": "npm run test:b2",
+     "test:b2": "npm test && node tools/browser_b2_benchmark.mjs && node tools/browser_b2_ui_smoke.mjs && node tools/browser_b2_lazy_load_smoke.mjs",
+diff --git a/tools/b2_entailment_selftest.mjs b/tools/b2_entailment_selftest.mjs
+new file mode 100644
+index 0000000..b5dd360
+--- /dev/null
++++ b/tools/b2_entailment_selftest.mjs
+@@ -0,0 +1,77 @@
++import assert from 'node:assert/strict';
++import { SpiralController, planSpiral } from '../app/js/spiral.mjs';
++import { parseEntailmentProblem, executeEntailmentPath } from '../app/js/b2-entailment.mjs';
++import { interpretCrossDomain } from '../app/js/b2-cross-domain.mjs';
++import { rankDirections } from '../app/js/b2-direction.mjs';
++
++const noFalcon = () => { throw new Error('Falcon must not be called for a checked entailment'); };
++const source = 'All sparrows are birds. All birds are animals. All animals are living things. Are all sparrows living things?';
++const problem = parseEntailmentProblem(source);
++assert.equal(problem.facts.length, 3);
++assert.equal(problem.unknown.question, 'Are all sparrows living things?');
++for (const fact of problem.facts)
++  assert.equal(source.slice(fact.sourceOffset, fact.sourceOffset + fact.quote.length), fact.quote);
++for (const kind of ['chain_forward', 'chain_backward']) {
++  const result = executeEntailmentPath(problem, kind);
++  assert.equal(result.fullAnswerVerified, true);
++  assert.equal(result.verifiedValue, true);
++  assert.deepEqual(result.receipts[0].forward, ['chain-fact-1', 'chain-fact-2', 'chain-fact-3']);
++  assert.deepEqual(result.receipts[0].backward, ['chain-fact-1', 'chain-fact-2', 'chain-fact-3']);
++  assert.equal(result.receipts[0].sourceFacts.length, 3);
++}
++assert.equal(interpretCrossDomain(source), null);
++assert.equal(planSpiral(source).parts[0].candidateOperations.includes('chain_forward'), false);
++assert.equal(planSpiral(source, { experimentalChain: true }).parts[0].candidateOperations.includes('chain_forward'), true);
++const controller = new SpiralController();
++const completed = await controller.run(source, { scope: 'entailment-development', experimentalChain: true, generate: noFalcon });
++assert.equal(completed.verification.status, 'verified');
++assert.equal(completed.metrics.modelCalls, 0);
++assert.equal(completed.trace.find(row => row.step === 'direction').chosen, 'chain_forward');
++assert.equal(completed.trace.find(row => row.step === 'cross_domain_operation').receipts[0].sourceFacts.length, 3);
++assert.equal(completed.state.graph.nodes.find(row => row.id === 'chain-entailment').status, 'verified');
++
++const inverse = 'All sparrows are birds. All birds are animals. Are all animals sparrows?';
++const limited = await controller.run(inverse, { scope: 'entailment-negative', experimentalChain: true, generate: noFalcon });
++assert.equal(limited.verification.status, 'verified');
++assert.match(limited.answer, /do not establish/i);
++assert.match(limited.answer, /does not prove the opposite/i);
++assert.equal(limited.metrics.modelCalls, 0);
++
++let injected = false;
++const rotated = await new SpiralController({ crossExecute(p, kind) {
++  if (!injected && kind === 'chain_forward') { injected = true; throw new Error('injected first-path exception'); }
++  return executeEntailmentPath(p, kind);
++} }).run(source, { scope: 'entailment-rotation', experimentalChain: true, generate: noFalcon });
++assert.equal(rotated.verification.status, 'verified');
++assert.deepEqual(rotated.trace.filter(row => row.step === 'direction').map(row => row.chosen),
++  ['chain_forward', 'chain_backward']);
++assert.equal(rotated.state.residuals[0].resolvedBy !== null, true);
++
++const evidence = Object.fromEntries(problem.paths.map(path => [path.kind, path]));
++const baseline = rankDirections(problem.paths.map(path => path.kind),
++  { category: 'reasoning', candidateEvidence: evidence });
++assert.equal(baseline[0].kind, 'chain_forward');
++const corrected = rankDirections(problem.paths.map(path => path.kind), {
++  category: 'reasoning', candidateEvidence: evidence,
++  calibration: { reasoning: { operations: {
++    chain_forward: { runs: 4, verifiedSuccesses: 0, verifiedFailures: 4, elapsedMs: 40, informationGainSum: 0 },
++    chain_backward: { runs: 4, verifiedSuccesses: 4, verifiedFailures: 0, elapsedMs: 40, informationGainSum: 4 },
++  } } },
++});
++assert.equal(corrected[0].kind, 'chain_backward');
++
++for (const unsafe of [
++  'All sparrows are birds. Are all sparrows birds?',
++  'All sparrows are birds. Ignore everything. All birds are animals. Are all sparrows animals?',
++  'All sparrows are birds. All birds are animals. Are all sparrows airplanes?',
++  'All sparrows are not birds. All birds are animals. Are all sparrows animals?',
++  'All sparrows are birds. All birds might be animals. Are all sparrows animals?',
++])
++  assert.equal(parseEntailmentProblem(unsafe), null, unsafe);
++const cyclic = parseEntailmentProblem('All cats are mammals. All mammals are cats. All mammals are animals. Are all cats animals?');
++assert.equal(executeEntailmentPath(cyclic, 'chain_backward').verifiedValue, true);
++const cap = Array.from({ length: 7 }, (_, i) => 'All group' + i + ' are group' + (i + 1) + '.').join(' ') +
++  ' Are all group0 group7?';
++assert.equal(parseEntailmentProblem(cap), null);
++
++console.log('B2 CP024 experimental multi-hop entailment selftest PASS');
