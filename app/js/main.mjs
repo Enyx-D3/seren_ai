@@ -6,6 +6,7 @@ import { buildChatPrompt } from './prompts.mjs';
 import { extractExactArithmetic, reachableToolsJSON } from './tools.mjs';
 import { runToolProposal } from './tool-runner.mjs';
 import { createB2ToolCapabilitySession, B2_BROWSER_TOOL_NAMES, capabilityEnvelopeFromParsedTool } from './b2-tool-capability.mjs';
+import { readB2DeveloperFlags } from './b2-developer-flags.mjs';
 import { ExactSpiral, SpiralController, SPIRAL_POLICY, SPIRAL_CALIBRATION_KEY, planSpiral, repairHeartbeat, modelCalibrationOutcome } from './spiral.mjs';
 import { accumulateCheckedDirections } from './b2-calibration-outcomes.mjs';
 import { md } from './md.mjs';
@@ -418,11 +419,10 @@ async function submit(text, { regen = false } = {}) {
     const turns = state.messages.filter(m => (m.role === 'user' || m.role === 'assistant') && m.id !== answer.id && m.content)
       .slice(-12).map(m => ({ role: m.role, content: m.content }));
     status('B2 Spiral reasoning locally…');
+    const devFlags = readB2DeveloperFlags(location.search);
     const result = await spiral.run(text, { scope: state.conversation.id, turns, deeper: state.think, calibration,
       signal: run.abortController.signal,
-      experimentalChain: new URLSearchParams(location.search).get('b2_chain') === '1',
-      experimentalDependency: new URLSearchParams(location.search).get('b2_dependency') === '1',
-      experimentalCortexGuard: new URLSearchParams(location.search).get('b2_cortex') === '1',
+      ...devFlags,
       onToken: content => { if (!run.firstVisibleAt) run.firstVisibleAt = performance.now(); answer.content = content; updateStreamMessage(answer); },
       generate: options => generateForSpiral(run, desc, { ...options, tools: plan.category === 'tool' }),
       runTool: async call => {

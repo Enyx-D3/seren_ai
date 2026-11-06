@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "target": "SEREN7_FULL_MRS_APPLICATION",
-  "sourceRevision": "agent/integration-v2 CP032 local integration (commit identified by git log)",
+  "sourceRevision": "ac763ad (GitHub main CP033 integration; preceding Mac browser report recorded pre-commit Git HEAD b52b636, with 8/8 reported source hashes matching the committed files)",
   "date": "2026-11-05",
-  "policy": "Scope-limited Node/model-asset proofs do not promote browser, device, language-quality or native-compute gates.",
+  "policy": "Scope-limited tests never automatically promote product release. Mac CP032 real-browser and real-model receipts now substantiate specific browser scopes, but untested OS-level offline, physical-device, semantic-quality, native-compute and owner signoff gates remain open.",
   "gates": [
     {
       "id": "S7_CP027_REAL_NODE_INFERENCE",
@@ -34,11 +34,12 @@
     },
     {
       "id": "S7_CP026_BROWSER_GENERATION",
-      "status": "BLOCKED",
+      "status": "PASS_SCOPED",
+      "scope": "Mac arm64 Chromium/Playwright with pinned Instruct Q4_K_M; real local Worker generation, lazy load and Stop observed in the 2026-11-05 nine-phase run; other devices and release untested",
       "requiredForBrowserMVP": true,
       "requiredForFullMRS": true,
       "acceptance": "Chromium loads the pinned GGUF and emits actual Worker tokens, stop and restart tested.",
-      "evidence": ["evidence/cp026-browser-environment-attempt-2026-11-05.md"]
+      "evidence": ["evidence/cp026-browser-environment-attempt-2026-11-05.md", "evidence/cp032-browser-acceptance-handoff-2026-11-05.md", "evidence/cp032-browser-owner-2026-11-05T09-29-40.308Z.json", "evidence/cp034-release-reconciliation-2026-11-05.md"]
     },
     {
       "id": "S7_CP026_INDEPENDENT_AB",
@@ -46,7 +47,7 @@
       "requiredForBrowserMVP": false,
       "requiredForFullMRS": true,
       "acceptance": "Real same-Falcon counterbalanced A/B on frozen holdout with independently scored whole-task outcomes and false-verify rate.",
-      "evidence": ["evidence/b2_cp026_independent_holdout_design_2026_11_05.md", "evidence/cp026-real-falcon-ab-harness-2026-11-05.md", "evidence/b2-cp027-node-real-ab-2026-11-05T06-21-45.078Z.json", "evidence/b2-cp027-node-real-ab-2026-11-05T06-32-32.503Z.json", "evidence/cp027-real-ab-falseverification-2026-11-05.md"]
+      "evidence": ["evidence/b2_cp026_independent_holdout_design_2026_11_05.md", "evidence/cp026-real-falcon-ab-harness-2026-11-05.md", "evidence/b2-cp027-node-real-ab-2026-11-05T06-21-45.078Z.json", "evidence/b2-cp027-node-real-ab-2026-11-05T06-32-32.503Z.json", "evidence/cp027-real-ab-falseverification-2026-11-05.md", "evidence/b2-cp026-real-ab-2026-11-05T09-30-28.752Z.json", "evidence/cp034-release-reconciliation-2026-11-05.md"]
     },
     {
       "id": "S7_CP027_P1_SEMANTIC",
@@ -158,11 +159,12 @@
     },
     {
       "id": "S7_CP031_BROWSER_OFFLINE",
-      "status": "BLOCKED",
+      "status": "PARTIAL",
+      "scope": "Mac Chromium 9/9 scoped browser phases including UI, lazy load, data controls, migration, Stop, rejected corrupted GGUF and zero observed external requests; explicit OS-network-disconnected full revisit and broad device privacy release acceptance not established by this receipt",
       "requiredForBrowserMVP": true,
       "requiredForFullMRS": true,
       "acceptance": "Real browser first-run model load, disconnect/revisit, stop, storage migration, privacy network trace and no model egress all pass.",
-      "evidence": ["evidence/cp026-browser-environment-attempt-2026-11-05.md", "evidence/cp032-browser-acceptance-handoff-2026-11-05.md"]
+      "evidence": ["evidence/cp026-browser-environment-attempt-2026-11-05.md", "evidence/cp032-browser-acceptance-handoff-2026-11-05.md", "evidence/cp032-browser-owner-2026-11-05T09-29-40.308Z.json", "evidence/cp034-release-reconciliation-2026-11-05.md"]
     },
     {
       "id": "S7_CP031_DEVICE_ACCESS",

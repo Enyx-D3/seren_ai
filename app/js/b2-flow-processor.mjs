@@ -105,18 +105,42 @@ export async function runB2FlowPlan(raw, { maxConcurrent = 2, executor = null,
       maxScheduledTogether = Math.max(maxScheduledTogether, ready.length);
       const batch = ready.map(task => task.id);
       batches.push(batch);
-      const completed = await Promise.all(ready.map(async task => {
-        const independent = exactForTask(task, results);
+      // A failed task invalidates its entire batch. Forward cancellation to
+      // sibling adapters and await their terminal acknowledgments before
+      // returning an unverified receipt: no late result may be published.
+      // A trusted adapter must itself terminate its underlying Worker/process;
+      // aborting a Promise alone cannot hard-kill arbitrary external work.
+      const batchAbort = new AbortController();
+      const cancelBatch = () => batchAbort.abort();
+      if (signal?.aborted) cancelBatch();
+      signal?.addEventListener('abort', cancelBatch, { once: true });
+      let completed;
+      try {
+        const attempts = ready.map(async task => {
+          try {
+            const independent = exactForTask(task, results);
+            checkAbort();
+            const result = executor ? await executor(freeze({ id: task.id,
+              expression: independent.expanded, policy: B2_FLOW_POLICY }), { signal: batchAbort.signal }) :
+              exactArithmetic(independent.expanded).text;
+            checkAbort();
+            const value = typeof result === 'string' ? result : result?.text;
+            if (value !== independent.answer) throw Error(`flow_independent_mismatch:${task.id}`);
+            return freeze({ id: task.id, value, refs: task.dependsOn,
+              method: 'independent_exact_arithmetic_recalculation' });
+          } catch (error) {
+            cancelBatch();
+            throw error;
+          }
+        });
+        const settled = await Promise.allSettled(attempts);
         checkAbort();
-        const result = executor ? await executor(freeze({ id: task.id,
-          expression: independent.expanded, policy: B2_FLOW_POLICY }), { signal }) :
-          exactArithmetic(independent.expanded).text;
-        checkAbort();
-        const value = typeof result === 'string' ? result : result?.text;
-        if (value !== independent.answer) throw Error(`flow_independent_mismatch:${task.id}`);
-        return freeze({ id: task.id, value, refs: task.dependsOn,
-          method: 'independent_exact_arithmetic_recalculation' });
-      }));
+        const failure = settled.find(entry => entry.status === 'rejected');
+        if (failure) throw failure.reason;
+        completed = settled.map(entry => entry.value);
+      } finally {
+        signal?.removeEventListener('abort', cancelBatch);
+      }
       // Publish no partial batch before every member has passed verification.
       for (const checked of completed) {
         results.set(checked.id, checked.value);

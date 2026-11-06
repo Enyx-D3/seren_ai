@@ -38,6 +38,20 @@ const RULES = [
   ['subsequent', /^@1 (?:is|must be) (?:scheduled )?(?:subsequent to|after) @2$/i, 'reverse'],
   ['first_then', /^@1 (?:goes|comes|happens) first,? then @2 (?:starts|begins|follows)$/i, 'forward'],
   ['arrow', /^@1\s*->\s*@2$/i, 'forward'],
+  // CP034: additional *literal* dependency phrasings. Each still requires
+  // exactly two closed-inventory action names, a whole-clause match, and a
+  // separate source-coordinate replay before granting GraphOS authority.
+  ['before_passive', /^@1 (?:must|has to|needs to) be (?:completed|finished|done) before @2(?: (?:starts|begins|can start|can begin))?$/i, 'forward'],
+  ['cannot_before', /^@1 (?:cannot|can not|must not|may not|should not) (?:start|begin|proceed) before @2 (?:is complete|is finished|is done|finishes)$/i, 'reverse'],
+  ['only_after_passive', /^@1 (?:may|can|must) only (?:start|begin|proceed) after @2 (?:finishes|is finished|is done|is complete)$/i, 'reverse'],
+  ['before_can', /^before @1 (?:can|may|must) (?:start|begin|proceed),? @2 (?:must|has to|needs to) (?:finish|be finished|be completed)$/i, 'reverse'],
+  ['required_before', /^@1 (?:is|remains) required before @2$/i, 'forward'],
+  ['blocked_by', /^@1 (?:is|remains) blocked by @2$/i, 'reverse'],
+  ['happens_after', /^@1 (?:happens|starts|begins|proceeds) after @2$/i, 'reverse'],
+  ['needs_precede', /^@1 (?:needs to|has to) (?:precede|come before) @2$/i, 'forward'],
+  ['starts_once', /^@1 (?:starts|begins|can start|can begin) once @2 (?:finishes|is finished|is done|is complete)$/i, 'reverse'],
+  ['needed_for', /^@1 (?:is|remains) (?:needed|required) for @2$/i, 'forward'],
+  ['first_then_done', /^@1 (?:needs to|must|has to) be done first,? then @2(?: (?:starts|begins))?$/i, 'forward'],
 ];
 
 function normalized(value) {
@@ -103,6 +117,9 @@ function sourceMentions(quote, names) {
 }
 
 function relationOf(clause, names) {
+  // A user asking whether a prerequisite holds has not asserted that fact.
+  // The goal parser may accept interrogative prompts, but source facts may not.
+  if (/\?\s*$/.test(clause.quote)) return null;
   const rows = sourceMentions(clause.quote, names);
   if (rows.length !== 2 || rows[0].name === rows[1].name) return null;
   const template = normalized(clause.quote.slice(0, rows[0].start) + '@1' +
@@ -152,8 +169,10 @@ export function extractNamedProseConstraints(source) {
 // The replay checker does not trust the extractor's edges, direction, coverage
 // or inventory. It replays each original source clause and checks a separate
 // hard-coded polarity table against exact character coordinates.
-const REPLAY_FORWARD = new Set(['precedes','before','prerequisite','once','unlock','after','prior','first_then','arrow']);
-const REPLAY_REVERSE = new Set(['follows','depends','only_after','no_before','wait_for','until','subsequent']);
+const REPLAY_FORWARD = new Set(['precedes','before','prerequisite','once','unlock','after','prior','first_then','arrow',
+  'before_passive','required_before','needs_precede','needed_for','first_then_done']);
+const REPLAY_REVERSE = new Set(['follows','depends','only_after','no_before','wait_for','until','subsequent',
+  'cannot_before','only_after_passive','before_can','blocked_by','happens_after','starts_once']);
 
 export function replayNamedProseConstraints(source, extraction) {
   const residuals = [];
@@ -177,6 +196,7 @@ export function replayNamedProseConstraints(source, extraction) {
       span.sourceEnd === clause.sourceEnd && span.quote === clause.quote && span.kind === kind) || [];
     if (spans.length !== 1) residuals.push('provenance_partition_mismatch');
     if (kind !== 'relation') continue;
+    if (/\?\s*$/.test(clause.quote)) residuals.push('interrogative_is_not_an_asserted_fact');
     const facts = extraction.facts?.filter(fact => fact.quote === clause.quote &&
       fact.sourceOffset === clause.sourceOffset && fact.sourceEnd === clause.sourceEnd) || [];
     if (facts.length !== 1) { residuals.push('source_fact_omitted_or_duplicated'); continue; }

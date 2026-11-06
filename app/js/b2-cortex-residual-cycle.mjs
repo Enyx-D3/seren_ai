@@ -60,18 +60,33 @@ function modelQuestion(fact, options) {
 export async function runCortexResidualCycle(source, {
   initialOrder, generate, maxModelCalls = 3, maxNoProgress = 2,
   allowSemanticFallback = false, allowProseV2 = false,
-  currentSource = source, signal,
+  currentSource = source, readCurrentSource = null, signal,
 } = {}) {
   if (typeof source !== 'string' || source.length > 4000 ||
       typeof generate !== 'function' || !Number.isInteger(maxModelCalls) ||
       maxModelCalls < 1 || maxModelCalls > 4 ||
       !Number.isInteger(maxNoProgress) || maxNoProgress < 1 || maxNoProgress > maxModelCalls ||
-      typeof allowSemanticFallback !== 'boolean' || typeof allowProseV2 !== 'boolean')
+      typeof allowSemanticFallback !== 'boolean' || typeof allowProseV2 !== 'boolean' ||
+      (readCurrentSource !== null && typeof readCurrentSource !== 'function'))
     throw Error('invalid_cortex_residual_cycle_contract');
   const fail = (reason, extra = {}) => ({ policy: CORTEX_RESIDUAL_CYCLE_POLICY,
     status: 'unverified', wholeTaskVerified: false, modelLedRepairSuccess: false,
     modelCalls: 0, acceptedEdits: 0, trace: [], reason, ...extra });
-  if (currentSource !== source) return fail('stale_source_version');
+  // A source may change while the model is still generating. A static
+  // `currentSource` snapshot only checks admission time; callers that allow
+  // live edits must pass a synchronous readCurrentSource callback. A failed
+  // read cannot authorize a stale proposal.
+  const freshnessFailure = () => {
+    try {
+      const observed = readCurrentSource ? readCurrentSource() : currentSource;
+      if (typeof observed !== 'string') return 'source_freshness_unavailable';
+      return observed === source ? null : 'stale_source_version';
+    } catch { return 'source_freshness_unavailable'; }
+  };
+  if (signal?.aborted) return fail('aborted_before_model_call');
+  const admissionFailure = freshnessFailure();
+  if (signal?.aborted) return fail('aborted_before_model_call');
+  if (admissionFailure) return fail(admissionFailure);
   const problem = sourceProblem(source, { allowSemanticFallback, allowProseV2 });
   if (!problem || problem.unknowns.length || !Array.isArray(problem.facts) ||
       !problem.facts.length) return fail('unsupported_or_untrusted_source');
@@ -84,6 +99,10 @@ export async function runCortexResidualCycle(source, {
     return fail(String(error?.message || error).slice(0, 120));
   }
   const initialVerified = verifyDependencyOrder(problem, initialOrder).ok;
+  if (signal?.aborted) return fail('aborted_before_model_call');
+  const initialFreshnessFailure = freshnessFailure();
+  if (signal?.aborted) return fail('aborted_before_model_call');
+  if (initialFreshnessFailure) return fail(initialFreshnessFailure);
   if (initialVerified) return { policy: CORTEX_RESIDUAL_CYCLE_POLICY,
     status: 'verified', wholeTaskVerified: true, modelLedRepairSuccess: false,
     modelCalls: 0, acceptedEdits: 0, order: [...initialOrder],
@@ -95,19 +114,41 @@ export async function runCortexResidualCycle(source, {
   while (modelCalls < maxModelCalls && !guard.snapshot().braked) {
     if (signal?.aborted) return fail('aborted_before_model_call', {
       modelCalls, acceptedEdits, trace });
+    const beforeCallFreshnessFailure = freshnessFailure();
+    if (signal?.aborted) return fail('aborted_before_model_call', {
+      modelCalls, acceptedEdits, trace });
+    if (beforeCallFreshnessFailure) return fail(beforeCallFreshnessFailure, {
+      modelCalls, acceptedEdits, trace });
     const before = guard.snapshot();
     const failed = before.residuals[0];
     if (!failed) break;
     const options = choiceOptions(source, failed, modelCalls);
     let answer;
+    // Count attempted model calls, including throws and cancellations.
+    modelCalls++;
     try {
       const reply = await generate({ turns: [{ role: 'user', content: modelQuestion(failed, options) }],
         maxTokens: 8, maxGenerateMs: 12000, signal });
-      modelCalls++;
       answer = typeof reply === 'string' ? reply : reply?.text;
     } catch (error) {
       trace.push({ step: 'falcon_model_error', reason: String(error?.message || error).slice(0, 120) });
+      if (signal?.aborted) return fail('aborted_after_model_call', { modelCalls, acceptedEdits, trace });
       return fail('model_generation_failed', { modelCalls, acceptedEdits, trace });
+    }
+    // Stop/source edits occurring during awaited inference invalidate even a
+    // perfectly formatted answer. Discard it before calling guard.attempt().
+    if (signal?.aborted) {
+      trace.push({ step: 'stale_model_answer_discarded', reason: 'cancelled_generation' });
+      return fail('aborted_after_model_call', { modelCalls, acceptedEdits, trace });
+    }
+    const afterCallFreshnessFailure = freshnessFailure();
+    if (signal?.aborted) {
+      trace.push({ step: 'stale_model_answer_discarded', reason: 'cancelled_during_source_check' });
+      return fail('aborted_after_model_call', { modelCalls, acceptedEdits, trace });
+    }
+    if (afterCallFreshnessFailure) {
+      trace.push({ step: 'stale_model_answer_discarded', reason: afterCallFreshnessFailure });
+      return fail(afterCallFreshnessFailure, { modelCalls, acceptedEdits, trace });
     }
     const chosen = exactChoice(answer, ...options);
     const edit = chosen === failed.before ? repairOrderFromChoice(problem,

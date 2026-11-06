@@ -255,6 +255,7 @@ export class SpiralController {
     };
     const checkAbort = () => { if (signal?.aborted) throw new DOMException('Stopped', 'AbortError'); };
     const finish = (answer, verification, extra = {}) => {
+      checkAbort();
       metrics.elapsedMs = Math.round(this.clock() - start);
       state.budget.usedModelCalls = metrics.modelCalls;
       return { answer, verification, plan, trace, metrics, state, ...extra };
@@ -338,6 +339,7 @@ export class SpiralController {
           const request = async prompt => {
             metrics.modelCalls++;
             const result = await generate({ turns: [{ role: 'user', content: prompt }], maxTokens: 64, signal });
+            checkAbort();
             metrics.tokens += result.tokens || 0;
             return { text: result.text, order: parseOrderProposal(result.text) };
           };
@@ -486,7 +488,9 @@ export class SpiralController {
               let proposal;
               try {
                 proposal = await generate({ turns: [{ role: 'user', content: prompt }], maxTokens: 128, signal });
+                checkAbort();
               } catch (repairError) {
+                if (signal?.aborted || repairError?.name === 'AbortError') throw repairError;
                 trace.push({ step: 'falcon_code_repair', residual: result.residual,
                   preservedComponent: 'delimiter_diagnostic', checkedRepair: { ok: false, reason: repairError.message },
                   elapsedMs: Math.round(this.clock() - repairBegan) });
@@ -763,6 +767,7 @@ export class SpiralController {
       const proposal = await generate({ turns: [...turns.slice(0, -1), { role: 'user', content: task }],
         maxTokens: plan.category === 'planning' ? 128 : plan.complexity === 'simple' ? 256 : 192,
         onToken: plan.complexity === 'simple' && plan.category !== 'tool' ? onToken : null, signal });
+      checkAbort();
       metrics.modelCalls++; metrics.tokens += proposal.tokens || 0;
       if (metrics.firstModelTokenMs === null) metrics.firstModelTokenMs = proposal.ttftMs ?? null;
       let answer = String(proposal.text || '').trim();
@@ -780,6 +785,7 @@ export class SpiralController {
           checkAbort();
           const toolBegan = this.clock();
           const result = await runTool(call, { signal });
+          checkAbort();
           metrics.calculatorCalls++;
           receipts.push({ call: { name: call.name, arguments: call.arguments }, result });
           const checked = result.ok && result.verification === 'independently_verified_exact';
@@ -796,13 +802,14 @@ export class SpiralController {
           choose(`${part.id}:tool-residual`, ['falcon_repair']);
           const retry = await generate({ turns: [{ role: 'user', content: `${part.question}\nPrior local tool proposal failed: ${residual}. Propose one corrected allowed local tool call, or state that it cannot be done.` }],
             maxTokens: 128, signal });
+          checkAbort();
           metrics.modelCalls++; metrics.tokens += retry.tokens || 0;
           const retryCalls = parseToolFabric(retry.text).calls.slice(0, 1);
           for (const call of retryCalls) {
             checkAbort();
             choose(`${part.id}:tool-retry`, ['approved_tool']);
             const toolBegan = this.clock();
-            const result = await runTool(call, { signal }); metrics.calculatorCalls++;
+            const result = await runTool(call, { signal }); checkAbort(); metrics.calculatorCalls++;
             receipts.push({ call: { name: call.name, arguments: call.arguments }, result });
             const checked = result.ok && result.verification === 'independently_verified_exact';
             if (checked) trace.push({ step: 'verified_component', ...recordVerifiedComponent(state, part.id, `tool-${receipts.length}`, result.value, 'approved_exact_tool') });
@@ -898,6 +905,7 @@ export class SpiralController {
         const repairBegan = this.clock();
         const corrected = await generate({ turns: [{ role: 'user', content: repairRequest }],
           maxTokens: appendStepNumber ? 64 : 128, signal });
+        checkAbort();
         metrics.modelCalls++; metrics.tokens += corrected.tokens || 0;
         repairs++;
         const rawRepair = String(corrected.text || '').trim();
@@ -973,6 +981,7 @@ export class SpiralController {
           const alternative = await generate({ turns: [{ role: 'user', content:
             `${part.question}\nCreate an alternative plan. Address these missing structural constraints: ${first.unmet.join(', ')}. Do not claim that the plan is verified.` }],
           maxTokens: 128, signal });
+          checkAbort();
           metrics.modelCalls++; metrics.tokens += alternative.tokens || 0;
           const nextAnswer = String(alternative.text || '').trim();
           const second = planningCoverage(part.question, nextAnswer);
