@@ -11,11 +11,18 @@ import { ExactSpiral, SpiralController, SPIRAL_POLICY, SPIRAL_CALIBRATION_KEY, p
 import { accumulateCheckedDirections } from './b2-calibration-outcomes.mjs';
 import { md } from './md.mjs';
 import { initOrb } from './orb.mjs';
+import { produceDeterministicV1 } from './deterministic-v1.mjs';
+import { researchWeb } from './web-research.mjs';
+
+// New user-approved V1: three source-grounded features, no AI model loads.
+// The historical Falcon implementation remains below for source archaeology.
+const DETERMINISTIC_V1 = true;
+const V1_MODES = { summary: 'Perfect Summaries', report: 'Professional Reports', research: 'Smart Research' };
 
 const $ = id => document.getElementById(id);
-const state = { conversation: null, messages: [], selected: 'auto', think: false,
+const state = { conversation: null, messages: [], selected: DETERMINISTIC_V1 ? 'summary' : 'auto', think: false,
   available: new Map(), failedModels: new Set(), autoPreparing: false, busy: null, worker: null, loadedModelId: null, ingest: null, orb: null, theme: 'system' };
-const names = { falcon_instruct: 'Falcon Instruct' };
+const names = { falcon_instruct: 'Falcon Instruct', deterministic_v1: 'Seren 7 · deterministic' };
 const localModelFiles = [
   'Falcon-H1-Tiny-90M-Instruct-Q4_K_M.gguf',
 ];
@@ -33,9 +40,13 @@ const spiral = new SpiralController({ exact: exactSpiral });
 let localSpeechVoice = null;
 const selectedModel = () => state.selected === 'auto' ? 'falcon_instruct' : state.selected;
 function updateSend() {
-  $('sendBtn').disabled = !state.busy && (!state.available.has(selectedModel()) || !$('prompt').value.trim());
+  $('sendBtn').disabled = !state.busy && (!DETERMINISTIC_V1 && !state.available.has(selectedModel()) || !$('prompt').value.trim());
 }
 function updateModelLoadStatus(message = '') {
+  if (DETERMINISTIC_V1) {
+    $('modelLoadStatus').textContent = 'Deterministic V1 · no AI model required';
+    updateSend(); return;
+  }
   const id = selectedModel();
   $('modelLoadStatus').textContent = message || (state.available.has(id) ? `${names[id]} ready in this browser` :
     `Waiting for ${names[id]} · open Settings to import a GGUF`);
@@ -98,6 +109,23 @@ function closeDrawer() { $('app').classList.remove('nav-open'); }
 
 function renderModels() {
   $('modelRows').replaceChildren(); $('modelMenu').replaceChildren();
+  if (DETERMINISTIC_V1) {
+    for (const [id, title] of Object.entries(V1_MODES)) {
+      const item = document.createElement('button'); item.type = 'button'; item.className = 'menu-item';
+      item.setAttribute('role', 'menuitemradio'); item.setAttribute('aria-checked', String(state.selected === id));
+      item.innerHTML = '<b></b><span></span>';
+      item.querySelector('b').textContent = title;
+      item.querySelector('span').textContent = id === 'research' ? 'Live sources · no AI' : 'Source-grounded · no AI';
+      item.onclick = () => { state.selected = id; $('modelName').textContent = title;
+        $('modelMenu').hidden = true; $('modelBtn').setAttribute('aria-expanded', 'false');
+        $('prompt').placeholder = id === 'research' ? 'Enter a research question…' : 'Paste source text here…';
+        renderModels(); $('modelBtn').focus(); };
+      $('modelMenu').append(item);
+    }
+    $('modelName').textContent = V1_MODES[state.selected];
+    $('heroStatus').textContent = 'Research · Summaries · Reports — deterministic V1';
+    updateModelLoadStatus(); return;
+  }
   for (const id of SPECIALISTS) {
     const d = state.available.get(id);
     const row = document.createElement('div'); row.className = 'model-row'; row.dataset.modelId = id;
@@ -126,6 +154,12 @@ function renderModels() {
 }
 
 async function refreshModels() {
+  if (DETERMINISTIC_V1) {
+    renderModels();
+    const estimate = await storageEstimate();
+    $('storageNote').textContent = estimate ? `Browser storage: ${Math.round(estimate.usage / 1048576)} MiB used.` : 'Browser storage quota unavailable.';
+    return;
+  }
   state.available = new Map();
   for (const d of await models.all()) {
     const file = await modelFile(d);
@@ -391,6 +425,7 @@ async function generateForSpiral(run, desc, { turns, maxTokens, onToken, signal,
 }
 
 async function submit(text, { regen = false } = {}) {
+  if (DETERMINISTIC_V1) return submitDeterministicV1(text, { regen });
   text = text.trim(); if (!text || state.busy || !state.available.has(selectedModel())) return;
   await ensureConversation(text);
   if (!regen) { const user = await msg.add(state.conversation.id, { role: 'user', content: text }); state.messages.push(user); }
@@ -504,6 +539,52 @@ async function submit(text, { regen = false } = {}) {
   }
 }
 
+async function submitDeterministicV1(text, { regen = false } = {}) {
+  text = text.trim();
+  if (!text || state.busy) return;
+  await ensureConversation(text);
+  if (!regen) {
+    const user = await msg.add(state.conversation.id, { role: 'user', content: text });
+    state.messages.push(user);
+  }
+  $('prompt').value = ''; updateSend();
+  const mode = state.selected;
+  const answer = await msg.add(state.conversation.id, { role: 'assistant', content: '', status: 'streaming',
+    model_id: 'deterministic_v1', meta: { backend: 'browser-javascript', route_mode: mode } });
+  state.messages.push(answer); renderConversation();
+  const runId = newId(), started = performance.now();
+  const run = { id: runId, messageId: answer.id, conversationId: state.conversation.id,
+    abortController: new AbortController(), cancelled: false, generation: null };
+  setBusy(run);
+  try {
+    await events.append(runId, 'route_selected', { mode, model_calls: 0, source: 'user_supplied' }, run.conversationId);
+    // Yield to the browser so Stop can be observed before a large source is processed.
+    await new Promise(resolve => setTimeout(resolve, 0));
+    if (run.abortController.signal.aborted) throw new Error('Stopped');
+    const result = mode === 'research'
+      ? await researchWeb(text)
+      : produceDeterministicV1(mode, text, { detailed: state.think });
+    if (run.abortController.signal.aborted) throw new Error('Stopped');
+    answer.content = result.text; answer.status = 'done';
+    answer.meta = { ...answer.meta, via: result.via, run_id: runId,
+      elapsed_ms: Math.round(performance.now() - started), tokens: 0,
+      spiral_metrics: { modelCalls: 0, calculatorCalls: 0, cacheHits: 0 },
+      spiral_verification: { status: result.status === 'source_bounded' ? 'source-bounded (not fact-checked)' : result.status },
+      route_reason: mode === 'research' ? 'Live provider excerpts with linked sources' : 'Direct source extraction',
+      source_count: result.sourceCount, citations: result.evidence };
+    await msg.update(answer.id, { content: answer.content, status: answer.status, meta: answer.meta });
+    await events.append(runId, 'complete', { mode, result_status: result.status, model_calls: 0 }, run.conversationId);
+    setBusy(null); renderConversation({ animate: false });
+    status(result.status === 'unavailable' ? 'Web research unavailable · no answer claimed' :
+      'Deterministic output complete · no AI calls', result.status === 'unavailable');
+  } catch (error) {
+    answer.status = run.cancelled ? 'stopped' : 'error';
+    answer.content = run.cancelled ? '' : 'Deterministic V1 error: ' + error.message;
+    await msg.update(answer.id, { status: answer.status, content: answer.content });
+    setBusy(null); renderConversation(); status(error.message, true);
+  }
+}
+
 async function regenerate(answer) {
   if (state.busy) return;
   const index = state.messages.findIndex(m => m.id === answer.id);
@@ -593,10 +674,34 @@ async function prepareAllHostedModels() {
 async function boot() {
   state.orb = initOrb($('orbCanvas'));
   window.addEventListener('resize', () => placeOrb(false));
-  $('kickerText').textContent = 'Private, on this device';
-  $('headline').innerHTML = '<span>The quiet hours</span><em>are for wondering.</em>';
+  $('kickerText').textContent = DETERMINISTIC_V1 ? 'Deterministic · no AI model' : 'Private, on this device';
+  $('headline').innerHTML = DETERMINISTIC_V1 ? '<span>Research. Summarize.</span><em>Report with evidence.</em>' : '<span>The quiet hours</span><em>are for wondering.</em>';
   $('agentList').innerHTML = '<div class="agents-empty">No local tasks running</div>';
   await init(); await refreshModels(); renderThreads();
+  if (DETERMINISTIC_V1) {
+    $('setupTitle').textContent = 'Seren-7 V1 · deterministic';
+    $('setupDialog').querySelector('.dlg-note').textContent = 'No AI model is downloaded or loaded. Summary and report drafts use supplied text. Research retrieves live source excerpts from Brave Search when configured or Wikipedia as a limited fallback.';
+    $('computePref').closest('label').hidden = true;
+    $('importBtn').hidden = $('removeModelsBtn').hidden = $('importLocalBtn').hidden = true;
+    $('thinkBtn').lastChild.textContent = 'More detail';
+    $('prompt').placeholder = 'Paste source text here…';
+    Object.assign(suggestions, {
+      kyoto: 'Our team met on Tuesday to review launch plans. The website needs document upload, deterministic extraction, and the report view. Shafi will check the release workflow. Next Tuesday the team will test the UI and record remaining issues.',
+      dark: 'The research notes contain three measurements. January throughput was 120 documents per hour. February throughput increased to 155 documents per hour. March testing recorded 147 documents per hour. The report must preserve the individual figures and explain that March performance fell below February.',
+      landlord: 'The project needs source citation support. Every selected statement must retain the original document line number. Unsupported claims should be flagged, and duplicate statements should be removed before report generation. The user should be able to inspect evidence.',
+      bakery: 'What is the James Webb Space Telescope, and what does it observe?',
+    });
+    const labels = [
+      ['Summarize meeting notes', 'Source-grounded key points'],
+      ['Summarize research notes', 'Preserve figures and dates'],
+      ['Create a cited draft', 'Expand supplied evidence'],
+      ['Explore Smart Research', 'Find live sources and citations'],
+    ];
+    document.querySelectorAll('[data-sugg]').forEach((button, index) => {
+      button.querySelector('b').textContent = labels[index][0];
+      button.querySelector('span:last-child').textContent = labels[index][1];
+    });
+  }
   requestAnimationFrame(() => placeOrb(false));
   const last = await kv.get('active_conversation'); if (last && await conv.get(last)) await openConversation(last);
   state.theme = localStorage.getItem('seren-theme') || 'system'; applyTheme();
@@ -605,9 +710,33 @@ async function boot() {
     speechSynthesis.addEventListener?.('voiceschanged', refreshLocalSpeechVoice);
   }
   $('composer').onsubmit = e => { e.preventDefault(); state.busy ? stopGeneration() : submit($('prompt').value); };
+  $('attachTextBtn').hidden = !DETERMINISTIC_V1;
+  $('attachTextBtn').onclick = () => $('documentFileInput').click();
+  $('documentFileInput').onchange = async e => {
+    try {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      if (file.size > 500_000) throw new Error('Text file is too large for this V1 prototype (500 KB maximum)');
+      const allowed = /\.(txt|md|markdown|csv|json|html)$/i.test(file.name);
+      if (!allowed) throw new Error('Only TXT, Markdown, CSV, JSON, and HTML text files are supported so far');
+      let content = await file.text();
+      if (/\.html$/i.test(file.name)) content = new DOMParser().parseFromString(content, 'text/html').body.textContent || '';
+      if (content.length > 500_000) throw new Error('Extracted text exceeds the V1 limit');
+      $('prompt').value = content;
+      $('prompt').focus(); updateSend();
+      status(`Loaded ${file.name} locally · ${content.length} characters`, true);
+    } catch (error) { status('Text import failed: ' + error.message, true); }
+    finally { e.target.value = ''; }
+  };
   $('prompt').oninput = updateSend;
   $('prompt').onkeydown = e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); $('composer').requestSubmit(); } };
-  for (const b of document.querySelectorAll('[data-sugg]')) b.onclick = () => { $('prompt').value = suggestions[b.dataset.sugg]; $('prompt').focus(); updateSend(); };
+  for (const b of document.querySelectorAll('[data-sugg]')) b.onclick = () => {
+    if (DETERMINISTIC_V1) {
+      state.selected = b.dataset.sugg === 'bakery' ? 'research' : b.dataset.sugg === 'landlord' ? 'report' : 'summary';
+      renderModels();
+    }
+    $('prompt').value = suggestions[b.dataset.sugg]; $('prompt').focus(); updateSend();
+  };
   $('thinkBtn').onclick = () => { state.think = !state.think; $('thinkBtn').setAttribute('aria-pressed', String(state.think)); };
   $('newBtn').onclick = $('newBtnTop').onclick = () => { if (state.busy) stopGeneration(); state.conversation = null; state.messages = []; kv.del('active_conversation'); renderConversation(); closeDrawer(); $('prompt').focus(); };
   $('searchInput').oninput = e => renderThreads(e.target.value);
@@ -627,7 +756,7 @@ async function boot() {
   $('settingsBtn').onclick = $('settingsBtnTop').onclick = () => $('setupDialog').showModal();
   $('setupClose').onclick = $('setupDone').onclick = () => $('setupDialog').close();
   $('importBtn').onclick = () => $('modelFileInput').click();
-  if (location.hostname === '127.0.0.1' || location.hostname === 'localhost') {
+  if (!DETERMINISTIC_V1 && (location.hostname === '127.0.0.1' || location.hostname === 'localhost')) {
     try {
       const probe = await fetch('/models/parts/' + encodeURIComponent(localModelFiles[0]), { method: 'HEAD', cache: 'no-store' });
       $('importLocalBtn').hidden = !probe.ok;
@@ -680,7 +809,7 @@ async function boot() {
     try {
       await exactSpiral.flush().catch(() => {}); const receipt = await factoryReset(); exactSpiral.clear();
       localStorage.setItem('seren-auto-provision-suppressed', '1');
-      state.conversation = null; state.messages = []; state.selected = 'auto';
+      state.conversation = null; state.messages = []; state.selected = DETERMINISTIC_V1 ? 'summary' : 'auto';
       localStorage.removeItem('seren-theme'); state.theme = 'system'; applyTheme();
       await refreshModels(); renderThreads(); renderConversation();
       toast(`${receipt.conversations} conversations and ${receipt.models} models erased`);
@@ -699,8 +828,8 @@ async function boot() {
   $('collapseBtn').onclick = () => { $('app').classList.add('nav-collapsed'); $('expandBtn').hidden = false; };
   $('expandBtn').onclick = () => { $('app').classList.remove('nav-collapsed'); $('expandBtn').hidden = true; };
   if ('serviceWorker' in navigator) navigator.serviceWorker.register(new URL('../sw.js', import.meta.url)).catch(e => status('Offline shell unavailable: ' + e.message));
-  if (location.protocol === 'file:') updateModelLoadStatus('Open this app through localhost or the public HTTPS URL to prepare models');
-  else if (!state.available.has('falcon_instruct') && localStorage.getItem('seren-auto-provision-suppressed') !== '1') void prepareAllHostedModels();
+  if (!DETERMINISTIC_V1 && location.protocol === 'file:') updateModelLoadStatus('Open this app through localhost or the public HTTPS URL to prepare models');
+  else if (!DETERMINISTIC_V1 && !state.available.has('falcon_instruct') && localStorage.getItem('seren-auto-provision-suppressed') !== '1') void prepareAllHostedModels();
 }
 function applyTheme() {
   document.documentElement.dataset.theme = state.theme;

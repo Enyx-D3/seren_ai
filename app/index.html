@@ -116,6 +116,7 @@
           <label for="prompt" class="sr-hidden">Message Seren</label>
           <textarea id="prompt" rows="1" placeholder="Ask Seren anything…" aria-label="Message Seren"></textarea>
           <div class="composer-row">
+            <button type="button" class="chip" id="attachTextBtn" aria-label="Attach text document">Attach text</button>
             <button type="button" class="chip" id="thinkBtn" aria-pressed="false"><svg width="17" height="17"><use href="#i-orbit"/></svg>Think deeper</button>
             <button type="submit" class="send" id="sendBtn" aria-label="Send" disabled>
               <svg class="i-up" width="18" height="18"><use href="#i-up"/></svg>
@@ -183,5 +184,6 @@
 
 <input type="file" id="modelFileInput" accept=".gguf,application/octet-stream" multiple hidden>
 <input type="file" id="chatFileInput" accept=".json,application/json" hidden>
+<input type="file" id="documentFileInput" accept=".txt,.md,.markdown,.csv,.json,.html,text/plain,text/markdown,text/csv,application/json,text/html" hidden>
 </body>
 </html>

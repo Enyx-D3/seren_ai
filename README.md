@@ -1,4 +1,8 @@
-# Seren 7 — Browser-Only Falcon Instruct + B2 Spiral (Web V1)
+# Seren 7 — Deterministic Research, Summaries & Reports (V1)
+
+> **New V1 direction, 2026-11-17:** The current default UI has three features: **Smart Research**, **Perfect Summaries**, and **Professional Reports**. It calls **no AI model**. Summaries/reports are initial extractive drafts; general web search needs a server-side provider key, with a limited Wikipedia fallback. This is a development checkpoint, **not final quality certification**. See [V1 scope, tests, milestones and setup](docs/V1_DETERMINISTIC_PRODUCT.md).
+
+The material below documents the historical Falcon/B2 implementation preserved for archaeology and rollback, not the new V1 runtime behavior.
 
 > Current scope/status reconciliation: 2026-11-04. See [docs/SRS.md](docs/SRS.md) §§9–18 and [docs/Seren7_V2_Recovery_Coverage.md](docs/Seren7_V2_Recovery_Coverage.md). Earlier checkpoint sections retain their historical cutoff; they do not override this dated reconciliation.
 
