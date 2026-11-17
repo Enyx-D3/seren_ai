@@ -5,6 +5,7 @@ import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import { extname, join, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
+import { searchBrave } from "../app/server/search-provider.mjs";
 
 const ROOT = resolve(process.argv[2] || fileURLToPath(new URL("../app/", import.meta.url)));
 const MODEL_ROOT = process.argv[2] ? join(ROOT, "models", "parts") : fileURLToPath(new URL("../workspace/parts/", import.meta.url));
@@ -24,8 +25,17 @@ const MIME = {
 const server = createServer(async (req, res) => {
   res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
   res.setHeader("Cross-Origin-Embedder-Policy", "credentialless");
+  res.setHeader("Cache-Control", "no-store");
   try {
     if (req.method !== "GET" && req.method !== "HEAD") { res.writeHead(405).end(); return; }
+    if ((req.url || '').split('?')[0] === '/api/research') {
+      const question = new URL(req.url, 'http://localhost').searchParams.get('q');
+      const result = await searchBrave(question);
+      const body = JSON.stringify(result.body);
+      res.writeHead(result.status, { 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': Buffer.byteLength(body) });
+      res.end(req.method === 'HEAD' ? undefined : body);
+      return;
+    }
     const url = decodeURIComponent((req.url || "/").split("?")[0]);
     if (url.startsWith("/models/")) {
       const name = url.slice("/models/parts/".length);
